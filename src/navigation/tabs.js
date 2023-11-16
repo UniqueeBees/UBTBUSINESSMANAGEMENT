@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet ,View,Text,Image} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign'
-
+import PushNotification from "react-native-push-notification";
 import Home from '../pages/home';
 import Dashboard from '../pages/dashboard';
  
@@ -20,13 +20,38 @@ const styles=StyleSheet.create({
         elevation:5
     }
 })
-const Tabs=()=>{
+const createChannels=()=>{
+  PushNotification.channelExists(
+    "push-channel",
+    exists => {
+    if (exists) {
+    console.log(
+    `createChannel already exists`,
+    );
+    } else {
+    PushNotification.createChannel(
+      {
+        channelId: "push-channel", // (required)
+        channelName: "Special messasge", // (required)
+        channelDescription: "Notification for special message", // (optional) default: undefined.
+        importance: 4, // (optional) default: 4. Int value of the Android notification importance
+        vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+      },
+      (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
+    );
+    }
+  })}
+ 
+function Tabs() {
+  useEffect(()=>{
+    createChannels();
+  },[]);
     return ( 
       <NavigationContainer>
         <Tab.Navigator
         screenOptions={{
             tabBarShowLabel:false,
-            headerShown:false,
+            headerShown:true,
             tabBarStyle: {  
               position:'absolute',
                 bottom:25,
