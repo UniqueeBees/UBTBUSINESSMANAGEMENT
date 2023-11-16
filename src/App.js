@@ -1,18 +1,18 @@
 
 import React from 'react';
-import {Text, View,StatusBar} from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
  
-import Tabs from './navigation/tabs';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NativeBaseProvider } from "native-base";
+import Splash from './pages/splash';
+import BusinessEdit from './pages/businessEdit'
 
 function App (){
     return (
       <SafeAreaProvider> 
-       <NavigationContainer>
-       <Tabs/>
-       </NavigationContainer>
-        </SafeAreaProvider>
+        <NativeBaseProvider>
+        <BusinessEdit></BusinessEdit>
+       </NativeBaseProvider> 
+      </SafeAreaProvider>
     )
 }
 export default App;
