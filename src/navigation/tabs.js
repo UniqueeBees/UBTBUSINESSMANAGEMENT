@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet ,View,Text,Image} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
