@@ -20,32 +20,10 @@ const styles=StyleSheet.create({
         elevation:5
     }
 })
-const createChannels=()=>{
-  PushNotification.channelExists(
-    "push-channel",
-    exists => {
-    if (exists) {
-    console.log(
-    `createChannel already exists`,
-    );
-    } else {
-    PushNotification.createChannel(
-      {
-        channelId: "push-channel", // (required)
-        channelName: "Special messasge", // (required)
-        channelDescription: "Notification for special message", // (optional) default: undefined.
-        importance: 4, // (optional) default: 4. Int value of the Android notification importance
-        vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
-      },
-      (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
-    );
-    }
-  })}
+
  
 function Tabs() {
-  useEffect(()=>{
-    createChannels();
-  },[]);
+ 
     return ( 
       <NavigationContainer>
         <Tab.Navigator

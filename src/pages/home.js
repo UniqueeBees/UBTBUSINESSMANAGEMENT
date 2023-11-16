@@ -6,27 +6,8 @@ import {Text, View,StatusBar,Alert} from 'react-native';
 import PushNotification from "react-native-push-notification";
 
 function Home (){ 
-      const checkApplicationPermission = async () => { 
-        if (Platform.OS === 'android') { 
-          try {
-            await PermissionsAndroid.request(
-              PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
-            );
-          } catch (error) {
-            console.log(error)
-          }
-        }
-      };
-      const NotificationPermission = () => {
-       
-        checkApplicationPermission();
-        
-      }
-
-    const handleNotification=(tabName)=>{ 
-
-        checkApplicationPermission();
-
+      
+    const handleNotification=(tabName)=>{  
         PushNotification.getChannels(function (channel_ids) {
          
             console.log(`createChannel returned '${channel_ids}'`)
@@ -48,7 +29,7 @@ function Home (){
      <View style={{backgroundColor:"#33FFE3", height:'100%'}}>
     <Text>Home1</Text>  
     <TouchableOpacity onPress={()=>handleNotification("Home")}>
-        <Text>Sent Notification</Text>
+        <Text>Sent Notification1</Text>
         </TouchableOpacity>
      </View>
      
