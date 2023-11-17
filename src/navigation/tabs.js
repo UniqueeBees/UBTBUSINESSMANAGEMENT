@@ -6,6 +6,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import PushNotification from "react-native-push-notification";
 import Home from '../pages/home';
 import Dashboard from '../pages/dashboard';
+import PopperButton from '../navigation/poperButton'
  
 const Tab=createBottomTabNavigator();
 const styles=StyleSheet.create({
@@ -63,7 +64,8 @@ function Tabs() {
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name="pluscircleo" color={color} size={40} />
+             // 
+             <PopperButton></PopperButton>
             ), 
           }} ></Tab.Screen> 
             <Tab.Screen name="Find1" component={Home}
