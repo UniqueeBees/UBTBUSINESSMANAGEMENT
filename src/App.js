@@ -8,13 +8,14 @@ import BusinessEdit from './pages/businessEdit'
 import Tabs from './navigation/tabs';
 import { Alert} from 'react-native'; 
 import  AppNotification  from './notification/appNotification'
+import Customtheme from './assets/styles/theme'
 
 
 function App (){ 
     return ( 
       <SafeAreaProvider> 
         <AppNotification></AppNotification>
-        <NativeBaseProvider>
+        <NativeBaseProvider theme={Customtheme}>
         <Tabs/>
        </NativeBaseProvider> 
       </SafeAreaProvider>
