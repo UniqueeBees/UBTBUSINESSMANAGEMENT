@@ -1,5 +1,5 @@
 
-import React from 'react';
+/*import React from 'react';
 import {StyleSheet} from 'react-native'; 
 import { extendTheme } from 'native-base';
 export const Customtheme = extendTheme({
@@ -76,4 +76,4 @@ export const logo_style = StyleSheet.create({
       width: 66,
       height: 58,
     },
-  });
+  });*/

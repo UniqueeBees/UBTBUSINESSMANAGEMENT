@@ -3,9 +3,8 @@ import {
   VStack,
   FormControl,
   Input,
-  NativeBaseProvider,
   Center
-} from "native-base"
+} from "@gluestack-ui/themed"
 
 function BusinessEdit() {
   const [formData, setData] = React.useState({name:""})
@@ -28,10 +27,10 @@ function BusinessEdit() {
 } 
 export default () => {
   return (
-    <NativeBaseProvider>
+     
       <Center flex={1} px="3">
         <BusinessEdit />
       </Center>
-    </NativeBaseProvider>
+    
   )
 }

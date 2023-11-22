@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {Text, View,StyleSheet,Image,Alert} from 'react-native'; 
-import { Button  } from "native-base";
+import { Button  } from "@gluestack-ui/themed";
 
 const logo_style = StyleSheet.create({
     container: {
