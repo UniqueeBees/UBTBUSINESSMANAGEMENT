@@ -1,12 +1,16 @@
 import React from "react";
 import axios from "axios";
-const baseUrl = 'https://api.taswiq.app';
+const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
 
 export const getToken = (_domain, _username, _password) => {
+    console.log("get Token")
     const formData = new FormData(); 
-    formData.append('domain', _domain);
+  formData.append('domain', _domain);
     formData.append('username', _username);
     formData.append('password', _password);
+    /* formData.append('domain', "credozone");
+    formData.append('username', "fasil");
+    formData.append('password', "abcd1234"); */
     axios({
         method: "POST",
         formData: formData,
@@ -15,7 +19,10 @@ export const getToken = (_domain, _username, _password) => {
         console.log(res.data)
         return res.data;
     })
-    .catch(error => {return error;})
+    .catch(error => {
+        console.log("get Token error :",error)
+        return error;
+    })
 
 }
 

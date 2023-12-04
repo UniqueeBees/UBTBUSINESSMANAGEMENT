@@ -11,10 +11,10 @@ function Home() {
 
     return (
         <VStack  bg="$primary500" h="100%" >
-            <Center ml={25} mt={25} mr={25} mb={50} h="80%" bg="$indigo300" rounded="md" shadow={3} >
+            <Center ml={25} mt={25} mr={25} mb={50} h="80%" bg="$indigo300" rounded={50} shadow={3} >
                 <Text>Home1</Text>
                 <TouchableOpacity onPress={() => sentNotification("Home")}>
-                    <Text>Sent Notification</Text>
+                    <Text>Sent Notification1</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => getToken("credozone","fasil","abcd1234")}>
                     <Text>Get Token12</Text>

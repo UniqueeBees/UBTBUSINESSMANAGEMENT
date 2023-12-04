@@ -38,7 +38,7 @@ function Tabs() {
                 right:20,
                 elevation:0,
                 backgroundColor:'#ffffff',
-                borderRadius:15,
+                borderRadius: 50, 
                 height:60,
                 ...styles.shadow
               },
