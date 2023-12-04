@@ -5,7 +5,7 @@ import { TouchableOpacity, PermissionsAndroid } from 'react-native';
 import { Text, View, StatusBar, Alert } from 'react-native';
 import { sentNotification } from '../notification/appNotification'
 import { getToken, getApi, getCompany } from '../common/apiCalls'
-import axios from "axios";
+import {storeData,storageKeyTypes,getData} from '../common/localStorage'
 
 function Home() {
 
@@ -21,6 +21,18 @@ function Home() {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => getCompany("credozone")}>
                     <Text>Get company</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() =>  storeData(storageKeyTypes.language,"English")}>
+                    <Text>set language Data</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() =>  {getData(storageKeyTypes.language)}}>
+                    <Text>get language Data</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() =>  storeData(storageKeyTypes.company,"Test Company")}>
+                    <Text>set company Data</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() =>  {getData(storageKeyTypes.company)}}>
+                    <Text>get company Data</Text>
                 </TouchableOpacity>
             </Center>
         </VStack >
