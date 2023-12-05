@@ -1,7 +1,7 @@
 
-import { Button, VStack, Center } from '@gluestack-ui/themed';
+import { VStack, Center } from '@gluestack-ui/themed';
 import React from 'react';
-import { TouchableOpacity, PermissionsAndroid } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Text, View, StatusBar, Alert } from 'react-native';
 import { sentNotification } from '../notification/appNotification'
 import { getToken, getApi, getCompany } from '../common/apiCalls'
@@ -19,7 +19,7 @@ function Home() {
                 <TouchableOpacity onPress={() => getToken("microsoft","fasil","123456")}>
                     <Text>Get Token12</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => getCompany("credozone")}>
+                <TouchableOpacity onPress={() => getCompany("microsoft")}>
                     <Text>Get company</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>  storeData(storageKeyTypes.language,"English")}>
