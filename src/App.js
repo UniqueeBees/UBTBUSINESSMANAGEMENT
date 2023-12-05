@@ -19,7 +19,7 @@ function App (){
       <SafeAreaProvider> 
         <AppNotification></AppNotification>
         <GluestackUIProvider config={config}>
-        <Tabs/>
+        <Splash/>
        </GluestackUIProvider> 
       </SafeAreaProvider>
     )

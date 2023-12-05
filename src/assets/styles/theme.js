@@ -14,4 +14,19 @@ export const  styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
+  input: {
+    height: 40,
+    margin: 2,
+    borderBottomWidth: 1,
+    padding: 10, 
+  },
+  buttonLong:{
+    width:300,
+    borderRadius:0,
+
+  } ,
+  subheading:{
+    fontFamily: 'Arial',
+    fontSize:12
+  }
 });
