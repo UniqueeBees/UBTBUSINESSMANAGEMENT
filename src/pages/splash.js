@@ -47,5 +47,6 @@ function Splash() {
       </Center>
     </VStack>
   )
+ 
 }
 export default Splash;
