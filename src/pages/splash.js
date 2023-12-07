@@ -41,7 +41,7 @@ function Splash(props) {
             style={styles.buttonLong} 
             
             onPress={() =>           
-              props.navigation.navigate('BusinessEdit')
+              props.navigation.navigate('dashboard')
             
             }
           >

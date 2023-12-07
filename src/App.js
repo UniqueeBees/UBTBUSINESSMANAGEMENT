@@ -10,12 +10,9 @@ import Tabs from './navigation/tabs';
 import { Alert} from 'react-native'; 
 import  AppNotification  from './notification/appNotification'
 import Customtheme from './assets/styles/theme'
-
+import Navigation from './common/navigation';
 import { GluestackUIProvider, Text } from "@gluestack-ui/themed"
 import { config } from "@gluestack-ui/config" // Optional if you w
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator();
 function App (){
 
 
@@ -23,12 +20,7 @@ function App (){
       <SafeAreaProvider> 
         <AppNotification></AppNotification>
         <GluestackUIProvider config={config}>
-        <NavigationContainer initialRouteName="Home">
-      <Stack.Navigator screenOptions={{ headerShown: false  }}>
-        <Stack.Screen name="Home" component={Splash} />
-        <Stack.Screen name="BusinessEdit" component={dashboard} />
-      </Stack.Navigator>
-    </NavigationContainer>
+        <Navigation/>
        </GluestackUIProvider> 
       </SafeAreaProvider>
     )
