@@ -10,11 +10,12 @@ import { getToken, getApi, getCompany } from '../common/apiCalls'
 import {storeData,storageKeyTypes,getData} from '../common/localStorage'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { login, logout } from '..slices/loginSlice'
+import { login, logout } from '../slices/loginSlice'
 
 
 function Login() {
     const loginState = useSelector((state) => state.login.loginState)
+   
   const dispatch = useDispatch()
 
     const [showPassword, setShowPassword] = useState(false);
@@ -62,16 +63,17 @@ function Login() {
                 <InputIcon as={showPassword ? EyeIcon : EyeOffIcon}  color='$darkBlue500'/>
               </InputSlot>
             </Input>
+            <Text> login state : {loginState}</Text>
           </VStack>
           <Button
             ml='auto'
             onPress={()=>{
-              setShowModal(false);
+              dispatch(login());
             }}
           >
-            <ButtonText color='$white'>
+            <ButtonText color='$white'  >
               Save
-            </ButtonText>
+            </ButtonText >
           </Button>
         </VStack>
       </FormControl>

@@ -5,12 +5,11 @@ import { Button, VStack, Center, ButtonText, ButtonIcon, Input ,InputSlot,InputI
 import { styles } from '../assets/styles/theme'
 import { storeData, storageKeyTypes, getData } from '../common/localStorage'
 import { Building2 , ArrowRight } from 'lucide-react-native';
-<<<<<<< HEAD
 import {getCompany} from '../common/apiCalls'
-function Splash() {
-=======
+
+
 function Splash(props) {
->>>>>>> origin/main
+
   const [companyName, setcompanyName] = useState(getData(storageKeyTypes.company));
    function onChange(text) {
     setcompanyName(text);
@@ -46,17 +45,15 @@ function Splash(props) {
             action="primary"
             isDisabled={false}
             isFocusVisible={false}
-<<<<<<< HEAD
+
             style={styles.buttonLong}
             onClick={()=>companyLogin()}
-=======
-            style={styles.buttonLong} 
             
             onPress={() =>           
               props.navigation.navigate('dashboard')
             
             }
->>>>>>> origin/main
+
           >
             <ButtonText >Next</ButtonText>
             <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
