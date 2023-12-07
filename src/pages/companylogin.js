@@ -12,7 +12,7 @@ function Home() {
     return (
         <VStack  bg="$primary500" h="100%" >
             <Center ml={25} mt={25} mr={25} mb={50} h="80%" bg="$indigo300" rounded={50} shadow={3} >
-               <Image src=Logofile
+               
             </Center>
         </VStack >
 

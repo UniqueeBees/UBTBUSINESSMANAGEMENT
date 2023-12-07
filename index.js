@@ -4,6 +4,8 @@
 
 import {AppRegistry} from 'react-native';
 import App from './src/App';
+import store from './src/store';
+import { Provider } from 'react-redux';
 import {name as appName} from './app.json';
 import PushNotification from "react-native-push-notification";
 
@@ -21,4 +23,4 @@ PushNotification.configure({
   requestPermissions: Platform.OS === 'ios'
 })
 
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, () => ( <Provider store={store}><App /></Provider>));
