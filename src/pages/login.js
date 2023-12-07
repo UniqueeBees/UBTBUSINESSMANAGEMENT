@@ -1,10 +1,10 @@
 
 import { VStack, Center } from '@gluestack-ui/themed';
-import { Input,Heading,FormControl,Text,InputField,InputSlot,Button,ButtonText } from '@gluestack-ui/themed';
+import { Input,Heading,FormControl,InputField,InputSlot,Button,ButtonText,InputIcon,EyeOffIcon } from '@gluestack-ui/themed';
 import React from 'react';
 import {useState} from 'react'
 import { TouchableOpacity } from 'react-native';
-import { Text, View, StatusBar, Alert,Image } from 'react-native';
+import {  Text,View, StatusBar, Alert,Image } from 'react-native';
 import { sentNotification } from '../notification/appNotification'
 import { getToken, getApi, getCompany } from '../common/apiCalls'
 import {storeData,storageKeyTypes,getData} from '../common/localStorage'
