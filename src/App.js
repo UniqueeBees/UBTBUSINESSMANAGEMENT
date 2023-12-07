@@ -4,6 +4,7 @@ import {React,useEffect}from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
  
 import Splash from './pages/splash';
+import Login from './pages/login';
 import BusinessEdit from './pages/businessEdit'
 import Tabs from './navigation/tabs';
 import { Alert} from 'react-native'; 
@@ -19,7 +20,7 @@ function App (){
       <SafeAreaProvider> 
         <AppNotification></AppNotification>
         <GluestackUIProvider config={config}>
-        <Splash/>
+        <Login/>
        </GluestackUIProvider> 
       </SafeAreaProvider>
     )
