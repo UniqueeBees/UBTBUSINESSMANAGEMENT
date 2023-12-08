@@ -18,7 +18,11 @@
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
+
+    "@reduxjs/toolkit": "^2.0.1",
+
     "@react-navigation/native-stack": "^6.9.17",
+
     "@rneui/base": "^0.0.0-edge.2",
     "axios": "^1.6.2",
     "customize-cra": "^1.0.0",
@@ -36,7 +40,8 @@
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.27.0",
     "react-native-svg": "^13.4.0",
-    "react-native-vector-icons": "^10.0.2"
+    "react-native-vector-icons": "^10.0.2",
+    "react-redux": "^9.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

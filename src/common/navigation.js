@@ -5,6 +5,7 @@ import Splash from '../pages/splash';
 import dashboard from '../pages/dashboard';
 import language from '../pages/language';
 import BusinessEdit from '../pages/businessEdit'
+import Login from "../pages/login";
 const Stack = createNativeStackNavigator();
  function Navigation(){
 return (<NavigationContainer initialRouteName="Language">
