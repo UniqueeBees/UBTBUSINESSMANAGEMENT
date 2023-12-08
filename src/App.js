@@ -20,7 +20,7 @@ function App (){
       <SafeAreaProvider> 
         <AppNotification></AppNotification>
         <GluestackUIProvider config={config}>
-        <Login/>
+        <Splash/>
        </GluestackUIProvider> 
       </SafeAreaProvider>
     )
