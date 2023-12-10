@@ -1,7 +1,19 @@
-import React from "react";
 import axios from "axios";
 const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
+export  const  accountLoginAPI = async (login) => {
+    console.log("get Token",login)
+    const formData = new FormData();
+    formData.append('domain', login.domain);
+    formData.append('username', login.username);
+    formData.append('password', login.password);
+   return await axios({
+        method: "POST",
+        data: formData,
+        url: `${baseUrl}/token`,
+        headers: { "Content-Type": "multipart/form-data" },
+    })
 
+}
 export const getToken = (_domain, _username, _password) => {
     console.log("get Token")
     const formData = new FormData();
