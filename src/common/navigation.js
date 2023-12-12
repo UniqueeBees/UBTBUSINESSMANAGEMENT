@@ -8,9 +8,10 @@ import BusinessEdit from '../pages/businessEdit'
 import Login from "../pages/login";
 const Stack = createNativeStackNavigator();
  function Navigation(){
-return (<NavigationContainer initialRouteName="Language">
-      <Stack.Navigator screenOptions={{ headerShown: false  }}>
-        <Stack.Screen name="Home" component={Splash} />
+return (<NavigationContainer>
+     
+      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName="Language">
+        <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="dashboard" component={dashboard} />
         <Stack.Screen name="Language" component={language} />
       </Stack.Navigator>

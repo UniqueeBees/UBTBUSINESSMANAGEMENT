@@ -25,9 +25,7 @@ function App (){
         <AppNotification></AppNotification>
         <GluestackUIProvider config={config}>
 
-        <Navigation/>
-
-        
+        <Navigation/>       
 
        </GluestackUIProvider> 
       </SafeAreaProvider>

@@ -43,6 +43,41 @@ export const getCompany = (_domain) => {
 
 }
 
+export const getLanguage = () => {
+    console.log("get language")
+    
+    return axios({
+        method: "GET",
+        url: `${baseUrl}/account/languages`,
+        
+    }).then(res => {
+       // console.log(res.data)
+        return res.data;
+    })
+        .catch(error => {
+            console.log("get language error :", error)
+            return error;
+        })
+
+}
+export const getLanguageLabel = (code) => {
+    
+    console.log("get language")
+    return axios({
+        method: "GET",
+        url: `${baseUrl}/account/translation?language=${code}`,
+        
+    }).then(res => {
+       // console.log(res.data)
+        return res.data;
+    })
+        .catch(error => {
+            console.log("get language error :", error)
+            return error;
+        })
+
+}
+
 
 //Test Call
 const baseUrl1 = "https://jsonplaceholder.typicode.com"

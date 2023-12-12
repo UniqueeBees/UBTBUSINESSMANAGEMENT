@@ -1,28 +1,62 @@
 import React from "react"
 import {
-  VStack,
+  VStack,HStack,
   FormControl,
   Input,
-  Center
+  Center,Icon ,ArrowRightIcon,Button,Heading
 } from "@gluestack-ui/themed"
+import {FlatList, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
+import { getLanguage,getLanguageLabel } from "../common/apiCalls";
+import {storeObjectData,storageKeyTypes,getObjectData} from '../common/localStorage'
 
-function Language() {
-  const [formData, setData] = React.useState({name:""})
+import { useSelector, useDispatch } from 'react-redux'
+import { setLanguage } from '../slices/languageSlice'
+import { Box } from "lucide-react-native";
+function Language (props) {
+  const dispatch = useDispatch()
+  const languageState = useSelector((state) => state.language)
+  if(languageState.language){
+    props.navigation.navigate('Splash')
+  }
+
+  const [languageData, setData] = React.useState()
+  
+  const fetchInfo = async() => {
+   const response= await getLanguage();
+   setData(response.languages)    
+    
+  }
+
+  const SetLanguage = async(code) => {
+    
+    const response= await getLanguageLabel(code);
+    
+    const data={code:code,translations:response.translations}
+  
+    storeObjectData(storageKeyTypes.language,data)
+    dispatch(setLanguage(data));
+        
+  }
+  React.useEffect(() => {
+    fetchInfo();
+  }, []);
+  
   return (
-    <VStack width="90%" mx="3" maxW="300px">
-      <FormControl isRequired>
-        <FormControl.Label  _text={{ bold: true }}>  Name </FormControl.Label>
-        <Input  placeholder="John" onChangeText={value => setData({ ...formData, name: value })} />
-        <FormControl.HelperText  _text={{  fontSize: "xs" }}> {formData.name.length<3 ?" Name should contain atleast 3 character.":""} </FormControl.HelperText>
-        <FormControl.ErrorMessage _text={{ fontSize: "xs" }} > Error Name </FormControl.ErrorMessage>
-      </FormControl>
-      <FormControl isRequired>
-        <FormControl.Label  _text={{ bold: true }}>  Address </FormControl.Label>
-        <Input  placeholder="Address" onChangeText={value => setData({ ...formData, name: value })} />
-        <FormControl.HelperText  _text={{  fontSize: "xs" }}> {" Address"} </FormControl.HelperText>
-        <FormControl.ErrorMessage _text={{ fontSize: "xs" }} > Error Name </FormControl.ErrorMessage>
-      </FormControl>
-    </VStack>
+    
+     
+    <View>
+      <Heading size="lg" style={{textAlign:"center",paddingBottom:50,paddingTop:50}}>Choose Language</Heading>
+      <FlatList 
+        data={languageData}
+        renderItem={({item}) => <HStack><Text style={{marginLeft:'50px',width:"50%"}}>{item.name}</Text>
+       <Icon id={item.code} size="xl"
+       onPress={()=>{SetLanguage(item.code)}}
+         on as={ArrowRightIcon} m="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  /></HStack>}
+      />
+    </View>
+
+    
+   
   )
 } 
 export default Language;
