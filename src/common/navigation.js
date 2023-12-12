@@ -14,6 +14,7 @@ return (<NavigationContainer>
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="dashboard" component={dashboard} />
         <Stack.Screen name="Language" component={language} />
+        <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>
     </NavigationContainer>)}
     export default Navigation;
