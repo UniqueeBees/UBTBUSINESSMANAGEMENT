@@ -1,17 +1,15 @@
 
 import { VStack, Center } from '@gluestack-ui/themed';
-import { Input,Heading,FormControl,InputField,InputSlot,Button,ButtonText,InputIcon,EyeIcon,EyeOffIcon } from '@gluestack-ui/themed';
+import { Input,Heading,FormControl,InputField,InputSlot,Button,ButtonText,InputIcon,EyeIcon,EyeOffIcon,ButtonSpinner } from '@gluestack-ui/themed';
 import React from 'react';
 import {useState} from 'react'
 import { TouchableOpacity } from 'react-native';
 import {  Text,View, StatusBar, Alert,Image } from 'react-native';
-import { sentNotification } from '../notification/appNotification'
-import { getToken, getApi, getCompany } from '../common/apiCalls'
 import {storeData,storageKeyTypes,getData} from '../common/localStorage'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { login, logout,accountLogin } from '../slices/loginSlice'
-
+import { styles } from '../assets/styles/theme'
 
 function Login() {
     const loginState = useSelector((state) => state.login.status)
@@ -45,26 +43,30 @@ function Login() {
     
   }
     return (
+      
       <FormControl
         p='$4'
-        borderWidth='$1'
-        borderRadius='$lg'
-        borderColor='$borderLight300'
-        sx={{
-          _dark:{
-            borderWidth:'$1', borderRadius:'$lg', borderColor:'$borderDark800'
-          }
-        }}
+        
       >
         <VStack space='xl'>
           <Heading color='$text900' lineHeight='$md'>
             Login
           </Heading>
+          
+
+          
+          
+        <VStack alignContent='flex-end'>
+         <Image source={require('../assets/images/Logofile.png')} style={styles.logo} /> 
+        </VStack>
+          
+          
+        
           <VStack space='xs'>
             <Text color='$text500' lineHeight='$xs'>
-              Email{loginState}
+              Email or Username
             </Text>
-            <Input>
+            <Input variant='underlined'>
               <InputField
                 type="text"
                 value={username}
@@ -76,7 +78,7 @@ function Login() {
             <Text color='$text500' lineHeight='$xs'>
               Password
             </Text>
-            <Input textAlign='center'>
+            <Input variant='underlined' textAlign='center'>
               <InputField
                 type={showPassword ? 'text' : 'password'}
                 value={password}
@@ -89,8 +91,13 @@ function Login() {
             </Input>
           </VStack>
           <Button
+
             ml='auto'
-            disabled={loginState==='loading'}
+            size="md"
+            variant="solid"
+            action="primary"
+            isDisabled={loginState==='loading'}
+            
             onPress={onLoginClicked}
           >
             <ButtonText color='$white'>
@@ -99,6 +106,7 @@ function Login() {
           </Button>
         </VStack>
       </FormControl>
+      
     );
   }
 
