@@ -36,7 +36,7 @@ export const getToken = (_domain, _username, _password) => {
 
 }
 export const getCompany = (_domain) => {
-    console.log("get company")
+    console.log("get company" ,_domain)
     const formData = new FormData();
     formData.append('domain', _domain);
     axios({
@@ -45,11 +45,46 @@ export const getCompany = (_domain) => {
         url: `${baseUrl}/company`,
         headers: { "Content-Type": "multipart/form-data" },
     }).then(res => {
-        console.log(res.data)
+       // console.log(res.data)
         return res.data;
     })
         .catch(error => {
             console.log("get company error :", error)
+            return error;
+        })
+
+}
+
+export const getLanguage = () => {
+    console.log("get language")
+    
+    return axios({
+        method: "GET",
+        url: `${baseUrl}/account/languages`,
+        
+    }).then(res => {
+       // console.log(res.data)
+        return res.data;
+    })
+        .catch(error => {
+            console.log("get language error :", error)
+            return error;
+        })
+
+}
+export const getLanguageLabel = (code) => {
+    
+    console.log("get language")
+    return axios({
+        method: "GET",
+        url: `${baseUrl}/account/translation?language=${code}`,
+        
+    }).then(res => {
+       // console.log(res.data)
+        return res.data;
+    })
+        .catch(error => {
+            console.log("get language error :", error)
             return error;
         })
 

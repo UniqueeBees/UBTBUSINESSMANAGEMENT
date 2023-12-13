@@ -89,6 +89,7 @@ function Login() {
                 <InputIcon as={showPassword ? EyeIcon : EyeOffIcon}  color='$darkBlue500'/>
               </InputSlot>
             </Input>
+            <Text> login state : {loginState}</Text>
           </VStack>
           <Button
 
@@ -100,9 +101,9 @@ function Login() {
             
             onPress={onLoginClicked}
           >
-            <ButtonText color='$white'>
+            <ButtonText color='$white'  >
               Save
-            </ButtonText>
+            </ButtonText >
           </Button>
         </VStack>
       </FormControl>

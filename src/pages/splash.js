@@ -3,18 +3,34 @@ import { React, useState } from 'react';
 import { Text, View, StyleSheet, Image, Alert, TextInput } from 'react-native';
 import { Button, VStack, Center, ButtonText, ButtonIcon, Input ,InputSlot,InputIcon,InputField} from "@gluestack-ui/themed";
 import { styles } from '../assets/styles/theme'
-import { storeData, storageKeyTypes, getData } from '../common/localStorage'
+import { storeObjectData, storageKeyTypes, getData } from '../common/localStorage'
 import { Building2 , ArrowRight } from 'lucide-react-native';
 import {getCompany} from '../common/apiCalls'
-function Splash() {
+import { useSelector, useDispatch } from 'react-redux'
+import { setCompany } from '../slices/companySlice'
+
+function Splash(props) { 
+  const dispatch = useDispatch()
+  const companyState = useSelector((state) => state.company)
+  if(companyState.company){
+    props.navigation.navigate('login')
+  }
+
   const [companyName, setcompanyName] = useState(getData(storageKeyTypes.company));
-  function onChange(text) {
-    setcompanyName(text);
-    storeData(storageKeyTypes.company, text);
+   function onChange(text) {
+    setcompanyName(text); 
   }
-  function companyLogin(){
-    const companyDetails= getCompany();
-  }
+  const  companyLogin=async()=>{
+    const companyDetails= await getCompany(companyName)
+    console.log("company details",companyDetails)
+    storeObjectData(storageKeyTypes.company, companyDetails);
+    dispatch(setCompany(companyDetails));
+    console.log("company details",companyDetails)
+    if(companyDetails){
+      props.navigation.navigate('login')
+    } 
+  }  
+ 
   return (
     /*bg="$primary500"*/
     <VStack h="100%" >
@@ -42,10 +58,16 @@ function Splash() {
             action="primary"
             isDisabled={false}
             isFocusVisible={false}
-            style={styles.buttonLong}
-            onClick={()=>companyLogin()}
+
+            style={styles.buttonLong} 
+            
+            onPress={() =>           
+               companyLogin()
+            
+            }
+
           >
-            <ButtonText>Next </ButtonText>
+            <ButtonText >Next</ButtonText>
             <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
           </Button>
         </VStack>
