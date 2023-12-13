@@ -9,7 +9,8 @@ export const storeData = async (key,value) => {
   };
   export const storageKeyTypes={
     language:'languagekey',
-    company:"companykey"
+    company:"companykey",
+    login:'loginkey',
 }
 
 export const getData = async (key) => {

@@ -1,6 +1,6 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import {accountLoginAPI}from '../common/apiCalls'
-import {storeObjectData} from '../common/localStorage'
+import {storeObjectData,storageKeyTypes} from '../common/localStorage'
 export const accountLogin = createAsyncThunk(
   'account/accountLogin',
   async (login) => {
@@ -36,6 +36,16 @@ export const loginSlice = createSlice({
       state.loginState = 'logout'
       state.id=0
     },
+    setInitial: (state, action) => {
+      if(action && action.payload.login)
+      {
+        state=action.payload.login
+      }
+      else
+      {
+        state=initialState
+      }
+    },
   },
     extraReducers(builder) {
       builder
@@ -49,8 +59,8 @@ export const loginSlice = createSlice({
           state.status = 'succeeded'
           state.id=action.payload.user_id
           state.token=action.payload.token
-
-          storeObjectData('login',state)
+          state.loginState="login";
+          storeObjectData(storageKeyTypes.login,state)
           // Add any fetched posts to the array
           //state.posts = state.posts.concat(action.payload)
           console.log('token',action.payload)

@@ -17,7 +17,7 @@ import Customtheme from './assets/styles/theme'
 import Navigation from './common/navigation';
 import { GluestackUIProvider, Text } from "@gluestack-ui/themed"
 import { config } from "@gluestack-ui/config" // Optional if you w
-function App (){
+function App (props){
 
 
     return ( 
@@ -25,7 +25,7 @@ function App (){
         <AppNotification></AppNotification>
         <GluestackUIProvider config={config}>
 
-        <Navigation/>       
+        <Navigation initialPage={props.initialPage} />       
 
        </GluestackUIProvider> 
       </SafeAreaProvider>
