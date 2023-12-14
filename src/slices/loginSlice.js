@@ -1,5 +1,6 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import {accountLoginAPI}from '../common/apiCalls'
+import{loginDTO} from '../dto/loginDTO'
 import {storeObjectData,storageKeyTypes} from '../common/localStorage'
 export const accountLogin = createAsyncThunk(
   'account/accountLogin',
@@ -9,16 +10,12 @@ export const accountLogin = createAsyncThunk(
     return response.data
   }
 )
+const initialState= {
+  ...loginDTO
+}
 export const loginSlice = createSlice({
   name: 'login',
-  initialState: {
-    login: false,
-    id:0,
-    token:'',
-    username:'',
-    loginState:'logout',
-    status:'idle',
-  },
+  initialState,
   reducers: {
     login: (state) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -37,6 +34,7 @@ export const loginSlice = createSlice({
       state.id=0
     },
     setInitial: (state, action) => {
+      console.log('setInitial',action)
       if(action && action.payload.login)
       {
         state=action.payload.login
@@ -56,7 +54,7 @@ export const loginSlice = createSlice({
         })
         .addCase(accountLogin.fulfilled, (state, action) => {
           console.log('succeeded')
-          state.status = 'succeeded'
+          state.status = 'completed'
           state.id=action.payload.user_id
           state.token=action.payload.token
           state.loginState="login";
@@ -75,6 +73,6 @@ export const loginSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { login, initiated, logout } = loginSlice.actions
+export const { login, initiated, logout,setInitial } = loginSlice.actions
 
 export default loginSlice.reducer

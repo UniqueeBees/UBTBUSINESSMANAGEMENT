@@ -1,10 +1,10 @@
 import {storageKeyTypes,getObjectData} from './localStorage';
-export const initialStorageStatus =()=>{
+export const initialStorageStatus =async ()=>{
     const initialAppState={startPage:'Language',loginDTO:false}
-const login=getObjectData(storageKeyTypes.login)
+const login=await getObjectData(storageKeyTypes.login)
 
     if(login ){
-        if(login.loginState==='login')
+        if(login.loginState ==='login')
         {
             initialAppState.startPage= 'Dashboard'
             initialAppState.loginDTO=login;
@@ -16,5 +16,6 @@ const login=getObjectData(storageKeyTypes.login)
         }
         
     }
+    console.log('initialAppState',initialAppState)
     return initialAppState;
 }
