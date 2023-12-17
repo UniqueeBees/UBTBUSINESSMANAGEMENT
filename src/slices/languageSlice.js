@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-
+import { loginLanguageDTO } from '../dto/languageDTO'
+const initialState= {}
 export const languageSlice = createSlice({
   name: 'language',
-  initialState: {
-    language:{},
-  },
+  initialState:initialState,  
+
   reducers: {
     setLanguage: (state,action) => {
       
@@ -16,11 +16,22 @@ export const languageSlice = createSlice({
       //console.log(action) 
       state.language =action.payload
       
-    }
+    },
+    setInitialLanguage: (state, action) => {
+      
+      if(action && action.payload.language)
+      {
+        state=action.payload.language
+      }
+      else
+      {
+        state=initialState
+      }
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setLanguage } = languageSlice.actions
+export const { setLanguage,setInitialLanguage } = languageSlice.actions
 
 export default languageSlice.reducer

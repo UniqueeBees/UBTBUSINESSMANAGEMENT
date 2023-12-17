@@ -35,6 +35,15 @@ export const getData = async (key) => {
     }
   };
 
+  export const removeStoreObjectData = async (key) => {
+    try {
+      
+      await AsyncStorage.removeItem(key);
+    } catch (e) {
+      // saving error
+    }
+  };
+
  
 
   export const getObjectData = async (key) => {

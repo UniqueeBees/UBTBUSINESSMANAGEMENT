@@ -1,7 +1,8 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import { storeObjectData, storageKeyTypes} from '../common/localStorage'
-//import {companyDTO} from '../dto/companyDTO'
+import {companyDTO} from '../dto/companyDTO'
 import {getCompanyAPI} from '../common/apiCalls'
+const initialState= {  company:companyDTO,  status:"idle"}
 export const companyLogin = createAsyncThunk(
   'company/companyLogin',
   async (domainName) => {
@@ -13,10 +14,7 @@ export const companyLogin = createAsyncThunk(
 )
 export const companySlice = createSlice({
   name: 'company',
-  initialState: {
-    company:{},
-    status:"idle"
-  },
+  initialState: initialState,
   reducers: {
     setCompany: (state,action) => {
       
@@ -28,7 +26,19 @@ export const companySlice = createSlice({
       //console.log(action)
       state.company =action.payload
       
-    }
+    },
+
+    setInitialCompany: (state, action) => {
+      console.log('setInitial',action)
+      if(action && action.payload.company)
+      {
+        state=action.payload.company
+      }
+      else
+      {
+        state=initialState
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -57,6 +67,6 @@ export const companySlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setCompany } = companySlice.actions
+export const { setCompany ,setInitialCompany} = companySlice.actions
 
 export default companySlice.reducer

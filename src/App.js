@@ -19,7 +19,7 @@ import { GluestackUIProvider, Text } from "@gluestack-ui/themed"
 import { config } from "@gluestack-ui/config" // Optional if you w
 function App (props){
 
-
+console.log('app',props)
     return ( 
       <SafeAreaProvider> 
         <AppNotification></AppNotification>
