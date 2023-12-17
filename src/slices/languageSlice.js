@@ -13,7 +13,7 @@ export const languageSlice = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes.
       // Also, no return statement is required from these functions.
-      //console.log(action)
+      //console.log(action) 
       state.language =action.payload
       
     }
