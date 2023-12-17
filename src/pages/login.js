@@ -42,6 +42,10 @@ function Login() {
       }
     
   }
+
+  const onbackClicked=()=>{
+    navigateTo(props,navigationRoutes.Login,navAction.Previous);
+  }
     return (
       
       <FormControl
