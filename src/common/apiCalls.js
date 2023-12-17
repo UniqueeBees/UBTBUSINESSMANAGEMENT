@@ -35,24 +35,26 @@ export const getToken = (_domain, _username, _password) => {
         })
 
 }
-export const getCompany = (_domain) => {
-    console.log("get company" ,_domain)
+export const getCompanyAPI = async(_domain) => {
+    console.log("get company api" ,_domain)
     const formData = new FormData();
     formData.append('domain', _domain);
-    axios({
+   return  await axios({
         method: "POST",
         data: formData,
         url: `${baseUrl}/company`,
         headers: { "Content-Type": "multipart/form-data" },
-    }).then(res => {
-       // console.log(res.data)
+    })
+    
+    /*.then(res => {
+      console.log("response API Call",res.data)
         return res.data;
     })
         .catch(error => {
             console.log("get company error :", error)
             return error;
         })
-
+*/
 }
 
 export const getLanguage = () => {

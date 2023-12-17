@@ -5,30 +5,45 @@ import { Button, VStack, Center, ButtonText, ButtonIcon, Input ,InputSlot,InputI
 import { styles } from '../assets/styles/theme'
 import { storeObjectData, storageKeyTypes, getData } from '../common/localStorage'
 import { Building2 , ArrowRight } from 'lucide-react-native';
-import {getCompany} from '../common/apiCalls'
+import {navigateTo,navigationRoutes,navAction} from '../common/navigation'
+
 import { useSelector, useDispatch } from 'react-redux'
-import { setCompany } from '../slices/companySlice'
+import { companyLogin } from '../slices/companySlice'
 
 function Splash(props) { 
   const dispatch = useDispatch()
   const companyState = useSelector((state) => state.company)
-  if(companyState.company){
-    props.navigation.navigate('login')
+  console.log("company details companyState",companyState) 
+  if(companyState.company.length>0){
+    //props.navigation.navigate('login')
   }
 
   const [companyName, setcompanyName] = useState(getData(storageKeyTypes.company));
    function onChange(text) {
     setcompanyName(text); 
   }
-  const  companyLogin=async()=>{
-    const companyDetails= await getCompany(companyName)
-    console.log("company details",companyDetails)
-    storeObjectData(storageKeyTypes.company, companyDetails);
-    dispatch(setCompany(companyDetails));
-    console.log("company details",companyDetails)
+  const  onCompanyLogin=async()=>{
+    try {
+      console.log("company login",companyName) 
+      // setAddRequestStatus('pending')
+       await dispatch(companyLogin(companyName))
+       navigateTo(props,navigationRoutes.Splash,navAction.Next);
+     } 
+     catch (err) 
+     {
+       console.error('Failed to save the post: ', err)
+       navigateTo(props,navigationRoutes.Splash,navAction.Same);
+     } 
+     finally
+      {
+       //setAddRequestStatus('idle')
+     }
+   /* console.log("company login",companyName) 
+    const companyDetails=  await getCompany(companyName);
+    console.log("company details",companyDetails) 
     if(companyDetails){
-      props.navigation.navigate('login')
-    } 
+      //props.navigation.navigate('login')
+    } */
   }  
  
   return (
@@ -61,13 +76,10 @@ function Splash(props) {
 
             style={styles.buttonLong} 
             
-            onPress={() =>           
-               companyLogin()
-            
-            }
+            onPress={ onCompanyLogin}
 
           >
-            <ButtonText >Next</ButtonText>
+            <ButtonText >Next1</ButtonText>
             <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
           </Button>
         </VStack>

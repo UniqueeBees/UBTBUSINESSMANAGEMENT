@@ -11,9 +11,9 @@ import {storeData,storageKeyTypes,getData} from '../common/localStorage'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { login, logout,accountLogin } from '../slices/loginSlice'
+import {navigateTo,navigationRoutes,navAction} from '../common/navigation'
 
-
-function Login() {
+function Login(props) {
     const loginState = useSelector((state) => state.login.status)
   const dispatch = useDispatch()
 
@@ -43,6 +43,10 @@ function Login() {
         //setAddRequestStatus('idle')
       }
     
+  }
+
+  const onbackClicked=()=>{
+    navigateTo(props,navigationRoutes.Login,navAction.Previous);
   }
     return (
       <FormControl
@@ -89,6 +93,14 @@ function Login() {
             </Input>
             <Text> login state : {loginState}</Text>
           </VStack>
+          <Button
+            ml='auto' 
+            onPress={onbackClicked}
+          >
+            <ButtonText color='$white'  >
+              back1
+            </ButtonText >
+          </Button>
           <Button
             ml='auto'
             disabled={loginState==='loading'}
