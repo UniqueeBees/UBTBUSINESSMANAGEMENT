@@ -8,7 +8,7 @@ import {
 import {FlatList, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
 import { getLanguage,getLanguageLabel } from "../common/apiCalls";
 import {storeObjectData,storageKeyTypes,getObjectData} from '../common/localStorage'
-
+import {  navigationRoutes } from '../common/navigation'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLanguage } from '../slices/languageSlice'
 import { Box } from "lucide-react-native";
@@ -18,7 +18,7 @@ function Language (props) {
   const languageState = useSelector((state) => state.language)
   if(languageState.language){
     //props.navigation.navigate('Splash')
-    dispatch(setPage('Splash'))
+    dispatch(setPage(navigationRoutes.company))
   }
 
   const [languageData, setData] = React.useState()

@@ -49,7 +49,7 @@ function Splash(props) {
   clearLanguage=async()=>{
   await getObjectData(storageKeyTypes.language)
     removeStoreObjectData(storageKeyTypes.language)
-    dispatch(setPage(navigationRoutes.login))
+    dispatch(setPage(navigationRoutes.language))
   }
 
   return (

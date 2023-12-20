@@ -24,13 +24,10 @@ function Login() {
       });
     };
     const onLoginClicked =  async() => {
-      console.log('event1')
       try {
-       // setAddRequestStatus('pending')
+       
         await dispatch(accountLogin({ domain:'microsoft', username:username, password :password}))
-       /* setTitle('')
-        setContent('')
-        setUserId('')*/
+       
       } 
       catch (err) 
       {

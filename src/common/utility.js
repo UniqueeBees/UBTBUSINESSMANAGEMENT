@@ -6,8 +6,6 @@ export const initialStorageStatus = async () => {
     const company = await getObjectData(storageKeyTypes.company)
     const login = await getObjectData(storageKeyTypes.login)
     let haslogin=false,hasCompany=false,hasLanguage=false;
-    console.log(language);
-    console.log(company)
     if (login) {
         if (login.loginState === 'login') {
             initialAppState.loginDTO = login
