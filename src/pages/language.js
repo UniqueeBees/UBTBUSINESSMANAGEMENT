@@ -12,11 +12,13 @@ import {storeObjectData,storageKeyTypes,getObjectData} from '../common/localStor
 import { useSelector, useDispatch } from 'react-redux'
 import { setLanguage } from '../slices/languageSlice'
 import { Box } from "lucide-react-native";
+import { setPage} from '../slices/initialPageSlice'
 function Language (props) {
   const dispatch = useDispatch()
   const languageState = useSelector((state) => state.language)
   if(languageState.language){
-    props.navigation.navigate('Splash')
+    //props.navigation.navigate('Splash')
+    dispatch(setPage('Splash'))
   }
 
   const [languageData, setData] = React.useState()

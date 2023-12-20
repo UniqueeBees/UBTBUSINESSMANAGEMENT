@@ -1,4 +1,5 @@
 import React  from "react"
+import { useSelector } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from '../pages/splash';
@@ -39,15 +40,15 @@ export function navigateTo(props,actionFrom,navAction){
   }
 }
  function Navigation(props){
-
-  console.log('Navigation',props)
+  const initialPage = useSelector((state) => state.initialPage.page)
+  console.log('Navigation-initialPage',initialPage)
 return (<NavigationContainer>
      
-      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName={props.initialPage}>
+      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName={initialPage}>
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Dashboard" component={dashboard} />
         <Stack.Screen name={navigationRoutes.language} component={language} />
-        <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name={navigationRoutes.login} component={Login} />
       </Stack.Navigator>
     </NavigationContainer>)}
     export default Navigation;
