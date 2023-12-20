@@ -8,7 +8,7 @@ export const companyLogin = createAsyncThunk(
   async (domainName) => {
     console.log('getCompanyAPI')
     const response = await getCompanyAPI( domainName)
-    console.log('getCompanyAPI response' ,response.data)
+    
     return response.data
   }
 )
@@ -49,8 +49,9 @@ export const companySlice = createSlice({
       })
       .addCase(companyLogin.fulfilled, (state, action) => {
         console.log('succeeded')
+
         state.status = 'succeeded'
-        state.company=action.payload.company   
+        state.company=action.payload   
         storeObjectData(storageKeyTypes.company,  state.company);
         // Add any fetched posts to the array
         //state.posts = state.posts.concat(action.payload)

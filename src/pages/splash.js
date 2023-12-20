@@ -9,15 +9,12 @@ import { navigateTo, navigationRoutes, navAction } from '../common/navigation'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { companyLogin } from '../slices/companySlice'
+import {buildDTO} from '../dto/companyDTO';
 
 function Splash(props) {
   const dispatch = useDispatch()
   const companyState = useSelector((state) => state.company)
-  console.log("company details companyState", companyState)
-  if (companyState.company.length > 0) {
-    //props.navigation.navigate('login')
-  }
-
+ 
   const [companyName, setcompanyName] = useState(getData(storageKeyTypes.company));
   function onChange(text) {
     setcompanyName(text);
@@ -26,14 +23,17 @@ function Splash(props) {
     try {
       console.log("company login", companyName)
       // setAddRequestStatus('pending')
-      const company = await dispatch(companyLogin(companyName))
+      await dispatch(companyLogin(companyName))
+      //const cDTO= buildDTO(companyState.company); 
+      console.log("company State", companyState)
+      
       if (company.id > -1) {
-        navigateTo(props, navigationRoutes.Splash, navAction.Next);
+        navigateTo(props, navigationRoutes.login, navAction.Next);
       }
     }
     catch (err) {
       console.error('Failed to save the post: ', err)
-      navigateTo(props, navigationRoutes.Splash, navAction.Same);
+      navigateTo(props, navigationRoutes.company, navAction.Same);
     }
     finally {
       //setAddRequestStatus('idle')
