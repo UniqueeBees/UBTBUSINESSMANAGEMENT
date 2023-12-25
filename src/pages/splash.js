@@ -9,6 +9,7 @@ import { navigateTo, navigationRoutes, navAction } from '../common/navigation'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { companyLogin } from '../slices/companySlice'
+import { setPage} from '../slices/initialPageSlice'
 import {buildDTO} from '../dto/companyDTO';
 
 function Splash(props) {
@@ -48,7 +49,7 @@ function Splash(props) {
   clearLanguage=async()=>{
   await getObjectData(storageKeyTypes.language)
     removeStoreObjectData(storageKeyTypes.language)
-
+    dispatch(setPage(navigationRoutes.language))
   }
 
   return (

@@ -6,12 +6,14 @@ import dashboard from '../pages/dashboard';
 import language from '../pages/language';
 import BusinessEdit from '../pages/businessEdit'
 import Login from "../pages/login";
+import InitialPage from "../pages/initialPage";
 const Stack = createNativeStackNavigator();
 export const navigationRoutes={
   company:"company",
   dashboard:"dashboard",
   language:"language",
-  login:"login"
+  login:"login",
+  initialPage:'initialPage',
 }
 export const navAction={
   Next:"next",
@@ -39,15 +41,15 @@ export function navigateTo(props,actionFrom,navAction){
   }
 }
  function Navigation(props){
-
-  console.log('Navigation',props)
+  
 return (<NavigationContainer>
      
-      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName={props.initialPage}>
-        <Stack.Screen name="Splash" component={Splash} />
-        <Stack.Screen name="Dashboard" component={dashboard} />
+      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName={navigationRoutes.initialPage}>
+        <Stack.Screen name={navigationRoutes.initialPage} component={InitialPage} />
+        <Stack.Screen name={navigationRoutes.company} component={Splash} />
+        <Stack.Screen name={navigationRoutes.dashboard} component={dashboard} />
         <Stack.Screen name={navigationRoutes.language} component={language} />
-        <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name={navigationRoutes.login} component={Login} />
       </Stack.Navigator>
     </NavigationContainer>)}
     export default Navigation;
