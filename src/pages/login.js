@@ -2,7 +2,7 @@
 import { VStack, Center } from '@gluestack-ui/themed';
 import { Input,Heading,FormControl,InputField,InputSlot,Button,ButtonText,InputIcon,EyeIcon,EyeOffIcon,ButtonSpinner } from '@gluestack-ui/themed';
 import React from 'react';
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import { TouchableOpacity } from 'react-native';
 import {  Text,View, StatusBar, Alert,Image } from 'react-native';
 import {storeData,storageKeyTypes,getData} from '../common/localStorage'
@@ -10,7 +10,8 @@ import {storeData,storageKeyTypes,getData} from '../common/localStorage'
 import { useSelector, useDispatch } from 'react-redux'
 import { login, logout,accountLogin } from '../slices/loginSlice'
 import { styles } from '../assets/styles/theme'
-
+import { setPage} from '../slices/initialPageSlice'
+import {  navigationRoutes } from '../common/navigation'
 function Login() {
     const loginState = useSelector((state) => state.login.status)
   const dispatch = useDispatch()
@@ -18,6 +19,11 @@ function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [username,setUsername]=useState('')
     const [password,setPassword]=useState('')
+    useEffect(()=>{
+      if(loginState === 'login'){
+        dispatch(setPage(navigationRoutes.dashboard))
+      }
+    },[loginState])
     const handleState = () => {
       setShowPassword((showState) => {
         return !showState;
