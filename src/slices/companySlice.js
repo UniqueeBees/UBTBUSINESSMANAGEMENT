@@ -32,7 +32,8 @@ export const companySlice = createSlice({
       console.log('setInitial',action)
       if(action && action.payload.company)
       {
-        state=action.payload.company
+        var companyDTO=action.payload;
+        state.company=companyDTO;
       }
       else
       {
