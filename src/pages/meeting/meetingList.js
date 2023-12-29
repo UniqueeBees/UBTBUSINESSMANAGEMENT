@@ -10,7 +10,6 @@ const meetingListItem=useSelector((state)=>state.meeting.listItems);
 const token = useSelector((state) => state.login.token)
 const dispatch = useDispatch()
 useEffect( ()=>{
-    console.log('useDispatch',token)
      dispatch(getMeetingListByUser(token))
 },[token])
 return(

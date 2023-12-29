@@ -38,7 +38,12 @@ export const loginSlice = createSlice({
       if(action && action.payload)
       {
         console.log('setInitial1',action)
-        state=action.payload
+       // state=action.payload
+        state.reqStatus = action.payload.reqStatus
+            state.loginAction = action.payload.loginAction
+            state.id=action.payload.id
+            state.token=action.payload.token
+            state.loginState=action.payload.loginState;
       }
       else
       {

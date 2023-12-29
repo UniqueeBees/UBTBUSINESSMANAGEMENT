@@ -14,6 +14,7 @@ import { setPage} from '../slices/initialPageSlice'
 import {  navigationRoutes } from '../common/navigation'
 function Login() {
     const loginState = useSelector((state) => state.login.loginState)
+    const id = useSelector((state) => state.login.id)
     const requestStatus = useSelector((state) => state.login.reqStatus)
     const companyState = useSelector((state) => state.company)
     const loginLanguageDTO=useSelector((state)=>state.language.loginLanguageDTO)
@@ -61,7 +62,7 @@ function Login() {
       >
         <VStack space='xl'>
           <Heading color='$text900' lineHeight='$md'>
-            {loginLanguageDTO.title}
+            {id}
           </Heading>
           
 

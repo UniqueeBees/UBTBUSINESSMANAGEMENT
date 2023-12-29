@@ -26,7 +26,7 @@ const styles=StyleSheet.create({
 function Tabs() {
  
     return ( 
-      <NavigationContainer>
+      
         <Tab.Navigator
         screenOptions={{
             tabBarShowLabel:false,
@@ -84,7 +84,7 @@ function Tabs() {
           }} ></Tab.Screen> 
 
         </Tab.Navigator>
-        </NavigationContainer>
+       
     );
 }
 export default Tabs;

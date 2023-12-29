@@ -33,7 +33,7 @@ export const companySlice = createSlice({
       if(action && action.payload)
       {
         console.log('setInitialCompany',action.payload)
-        state=action.payload
+        state.company=action.payload
       }
       else
       {

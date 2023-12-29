@@ -13,7 +13,6 @@ const initialState={
 export const getMeetingListByUser = createAsyncThunk(
     'meeting/getlistByUser',
     async (token) => {
-      console.log('getMeetingListByUserAPI',token)
       const response = await getMeetingsByUser(token)
       return response.data
     }
@@ -47,7 +46,7 @@ extraReducers(builder){
 
       })
       .addCase(getMeetingListByUser.rejected, (state, action) => {
-        
+        console.log('meetingListError',action)
         state.loading = false;
 
       })
