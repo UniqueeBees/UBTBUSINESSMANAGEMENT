@@ -3,6 +3,7 @@ import loginReducer from './slices/loginSlice'
 import languageReducer from './slices/languageSlice'
 import companyReducer from './slices/companySlice'
 import initialPageReducer from './slices/initialPageSlice'
+import meetingReducer from './slices/meetingSlice'
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     language:languageReducer,
     company:companyReducer,
     initialPage:initialPageReducer,
+    meeting:meetingReducer,
   },
 })

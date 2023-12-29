@@ -34,10 +34,11 @@ export const loginSlice = createSlice({
       state.id=0
     },
     setInitial: (state, action) => {
-      console.log('setInitial',action)
-      if(action && action.payload.login)
+      
+      if(action && action.payload)
       {
-        state=action.payload.login
+        console.log('setInitial1',action)
+        state=action.payload
       }
       else
       {

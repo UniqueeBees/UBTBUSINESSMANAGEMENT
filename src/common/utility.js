@@ -38,7 +38,8 @@ export const initialStorageStatus = async () => {
 
     }
 if(haslogin){
-    initialAppState.startPage = navigationRoutes.login 
+    console.log('hasLogin')
+    initialAppState.startPage = navigationRoutes.dashboard 
 }
 else
 {
