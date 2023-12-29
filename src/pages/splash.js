@@ -46,11 +46,7 @@ function Splash(props) {
        //props.navigation.navigate('login')
      } */
   }
-  clearLanguage=async()=>{
-  await getObjectData(storageKeyTypes.language)
-    removeStoreObjectData(storageKeyTypes.language)
-    dispatch(setPage(navigationRoutes.language))
-  }
+  
 
   return (
     /*bg="$primary500"*/
@@ -85,28 +81,12 @@ function Splash(props) {
             onPress={onCompanyLogin}
 
           >
-            <ButtonText >Next1</ButtonText>
+            <ButtonText >Next</ButtonText>
             <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
           </Button>
         </VStack>
 
-        <VStack mt={100} style={{ width: 300 }}>
-          <Button
-            size="md"
-            variant="solid"
-            action="primary"
-            isDisabled={false}
-            isFocusVisible={false}
-
-            style={styles.buttonLong}
-
-            onPress={clearLanguage}
-
-          >
-            <ButtonText >clear language</ButtonText>
-            <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
-          </Button>
-        </VStack>
+       
 
       </Center>
     </VStack>
