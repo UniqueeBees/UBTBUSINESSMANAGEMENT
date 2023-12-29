@@ -1,5 +1,5 @@
 
-import { React, useState } from 'react';
+import { React, useState,useEffect } from 'react';
 import { Text, View, StyleSheet, Image, Alert, TextInput } from 'react-native';
 import { Button, VStack, Center, ButtonText, ButtonIcon, Input, InputSlot, InputIcon, InputField } from "@gluestack-ui/themed";
 import { styles } from '../assets/styles/theme'
@@ -20,6 +20,11 @@ function Splash(props) {
   }
 
   const [companyName, setcompanyName] = useState(getData(storageKeyTypes.company));
+  useEffect(()=>{
+    if (companyState.company.id > -1) {
+      dispatch(setPage(navigationRoutes.login))
+    }
+  },[companyState.company.id])
   function onChange(text) {
     setcompanyName(text);
   }

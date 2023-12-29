@@ -5,7 +5,7 @@ import React from 'react';
 import {useState,useEffect} from 'react'
 import { TouchableOpacity } from 'react-native';
 import {  Text,View, StatusBar, Alert,Image } from 'react-native';
-import {storeData,storageKeyTypes,getData} from '../common/localStorage'
+import {storageKeyTypes} from '../common/localStorage'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { login, logout,accountLogin } from '../slices/loginSlice'
@@ -13,14 +13,18 @@ import { styles } from '../assets/styles/theme'
 import { setPage} from '../slices/initialPageSlice'
 import {  navigationRoutes } from '../common/navigation'
 function Login() {
-    const loginState = useSelector((state) => state.login.status)
+    const loginState = useSelector((state) => state.login.loginState)
+    const requestStatus = useSelector((state) => state.login.reqStatus)
+    const companyState = useSelector((state) => state.company)
+    const loginLanguageDTO=useSelector((state)=>state.language.loginLanguageDTO)
+    
   const dispatch = useDispatch()
 
     const [showPassword, setShowPassword] = useState(false);
     const [username,setUsername]=useState('')
     const [password,setPassword]=useState('')
     useEffect(()=>{
-      if(loginState === 'login'){
+      if(loginState){
         dispatch(setPage(navigationRoutes.dashboard))
       }
     },[loginState])
@@ -31,8 +35,8 @@ function Login() {
     };
     const onLoginClicked =  async() => {
       try {
-       
-        await dispatch(accountLogin({ domain:'microsoft', username:username, password :password}))
+       console.log('onLoginClicked',companyState)
+        await dispatch(accountLogin({ domain:companyState.company.domain, username:username, password :password}))
        
       } 
       catch (err) 
@@ -57,7 +61,7 @@ function Login() {
       >
         <VStack space='xl'>
           <Heading color='$text900' lineHeight='$md'>
-            Login
+            {loginLanguageDTO.title}
           </Heading>
           
 
@@ -71,7 +75,7 @@ function Login() {
         
           <VStack space='xs'>
             <Text color='$text500' lineHeight='$xs'>
-              Email or Username
+              {loginLanguageDTO.username}
             </Text>
             <Input variant='underlined'>
               <InputField
@@ -83,7 +87,7 @@ function Login() {
           </VStack>
           <VStack space='xs'>
             <Text color='$text500' lineHeight='$xs'>
-              Password
+              {loginLanguageDTO.password}
             </Text>
             <Input variant='underlined' textAlign='center'>
               <InputField
@@ -96,7 +100,6 @@ function Login() {
                 <InputIcon as={showPassword ? EyeIcon : EyeOffIcon}  color='$darkBlue500'/>
               </InputSlot>
             </Input>
-            <Text> login state : {loginState}</Text>
           </VStack>
           <Button
 
@@ -104,12 +107,12 @@ function Login() {
             size="md"
             variant="solid"
             action="primary"
-            isDisabled={loginState==='loading'}
+            isDisabled={requestStatus==='loading'}
             
             onPress={onLoginClicked}
           >
             <ButtonText color='$white'  >
-              Save
+              {loginLanguageDTO.submit}
             </ButtonText >
           </Button>
         </VStack>
