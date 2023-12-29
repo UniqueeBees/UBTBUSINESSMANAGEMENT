@@ -2,14 +2,18 @@ import { storageKeyTypes, getObjectData } from './localStorage';
 import {navigationRoutes} from './navigation';
 export const initialStorageStatus = async () => {
     const initialAppState = { startPage: navigationRoutes.language, loginDTO: false, languageDTO: false, companyDTO: false }
+    const login = await getObjectData(storageKeyTypes.login)
     const language = await getObjectData(storageKeyTypes.language)
     const company = await getObjectData(storageKeyTypes.company)
-    const login = await getObjectData(storageKeyTypes.login)
+    
     let haslogin=false,hasCompany=false,hasLanguage=false;
+   
     if (login) {
-        if (login.loginState === 'login') {
+        if (login.loginState===true) {
+          
             initialAppState.loginDTO = login
             haslogin=true
+            
         }
         else {
             
@@ -22,6 +26,9 @@ export const initialStorageStatus = async () => {
 
         initialAppState.companyDTO = company
         hasCompany=true
+        if(company.company && company.company.id ===-1){
+            hasCompany=false;
+        }
 
     } 
 
@@ -31,7 +38,7 @@ export const initialStorageStatus = async () => {
 
     }
 if(haslogin){
-    initialAppState.startPage = navigationRoutes.dashboard 
+    initialAppState.startPage = navigationRoutes.login 
 }
 else
 {
