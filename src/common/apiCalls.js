@@ -97,7 +97,17 @@ export const getLanguageLabel = (code) => {
         })
 
 }
+export  const  getMeetingsByUser = async (token) => {
+    console.log("getMeetingsByUser",token)
+   
+   return await axios({
+        method: "GET",
+        data: formData,
+        url: `${baseUrl}/user/meeting`,
+        headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
+    })
 
+}
 
 //Test Call
 const baseUrl1 = "https://jsonplaceholder.typicode.com"

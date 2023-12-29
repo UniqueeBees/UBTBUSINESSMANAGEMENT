@@ -7,7 +7,7 @@ import language from '../pages/language';
 import BusinessEdit from '../pages/businessEdit'
 import Login from "../pages/login";
 import InitialPage from "../pages/initialPage";
-import BusinessDetails from "../pages/businessDetails";
+import Tabs from '../navigation/tabs';
 const Stack = createNativeStackNavigator();
 export const navigationRoutes={
   company:"company",
@@ -49,7 +49,7 @@ return (<NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName={navigationRoutes.initialPage}>
         <Stack.Screen name={navigationRoutes.initialPage} component={InitialPage} />
         <Stack.Screen name={navigationRoutes.company} component={Splash} />
-        <Stack.Screen name={navigationRoutes.dashboard} component={Dashboard} />
+        <Stack.Screen name={navigationRoutes.dashboard} component={Tabs} />
         <Stack.Screen name={navigationRoutes.language} component={language} />
         <Stack.Screen name={navigationRoutes.login} component={Login} />
         <Stack.Screen name={navigationRoutes.createBusiness} component={BusinessDetails} />
