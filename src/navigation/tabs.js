@@ -57,7 +57,7 @@ function Tabs() {
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name="dashboard" color={color} size={size} />
+              <AntDesign name="dashboard" color={color} size={size}  />
             ), 
           }} ></Tab.Screen> 
           <Tab.Screen name="Add" component={Home}

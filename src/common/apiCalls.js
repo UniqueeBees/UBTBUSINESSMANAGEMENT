@@ -96,13 +96,21 @@ export  const  getMeetingsByUser = async (token) => {
    
    return await axios({
         method: "GET",
-        data: formData,
         url: `${baseUrl}/user/meeting`,
-        headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
+        headers: { "APITOKEN":token },
     })
 
 }
+export  const  getTasksByUser = async (token) => {
+    console.log("getTasksByUser",token)
+   
+   return await axios({
+        method: "GET",
+        url: `${baseUrl}/tasks`,
+        headers: { "APITOKEN":token },
+    })
 
+}
 //Test Call
 const baseUrl1 = "https://jsonplaceholder.typicode.com"
 export const getApi = () => {

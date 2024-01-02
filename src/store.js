@@ -4,6 +4,7 @@ import languageReducer from './slices/languageSlice'
 import companyReducer from './slices/companySlice'
 import initialPageReducer from './slices/initialPageSlice'
 import meetingReducer from './slices/meetingSlice'
+import taskReducer from './slices/taskSlice'
 
 export default configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
     company:companyReducer,
     initialPage:initialPageReducer,
     meeting:meetingReducer,
+    task:taskReducer,
   },
 })

@@ -28,5 +28,8 @@ export const  styles = StyleSheet.create({
   subheading:{
     fontFamily: 'Arial',
     fontSize:12
+  },
+  buttonGeneral:{
+    borderRadius:0,
   }
 });

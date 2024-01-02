@@ -7,3 +7,7 @@ export const loginLanguageDTO={
     requiredCommon:'',
 
 }
+export const dashboardLanguageDTO={
+    meetings:'Meetings',
+    tasks:'Tasks',
+}

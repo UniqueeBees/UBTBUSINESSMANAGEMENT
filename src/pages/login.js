@@ -62,7 +62,7 @@ function Login() {
       >
         <VStack space='xl'>
           <Heading color='$text900' lineHeight='$md'>
-            {id}
+            {loginLanguageDTO.title}
           </Heading>
           
 

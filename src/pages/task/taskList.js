@@ -4,13 +4,13 @@ import {
     VStack,HStack,Icon ,ArrowRightIcon,Button,Heading,Box,Badge,BadgeText
   } from "@gluestack-ui/themed";
   import {FlatList, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
-function MeetingList(props){
+function TaskList(props){
 
 return(
 
       
       <FlatList 
-        data={props.meetingListItems}
+        data={props.taskListItems}
         renderItem={({item}) => <Box style={{borderRadius:5}}  bgColor="$white" m="$2" p="$2" pl="$5">
           <VStack>
           <Heading size="md" >{item.title}</Heading>
@@ -30,4 +30,4 @@ return(
     
     )
 }
-export default MeetingList;
+export default TaskList;
