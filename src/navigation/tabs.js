@@ -2,10 +2,13 @@ import React, { useEffect } from 'react';
 import { StyleSheet ,View,Text,Image} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import PushNotification from "react-native-push-notification";
 import Home from '../pages/home';
 import Dashboard from '../pages/dashboard';
+import MeetingSetup from '../pages/meeting/meetingSetup';
+import TaskSetup from '../pages/task/taskSetup';
 import PopperButton from '../navigation/poperButton'
  
 const Tab=createBottomTabNavigator();
@@ -21,16 +24,27 @@ const styles=StyleSheet.create({
         elevation:5
     }
 })
+const DashboardStack = createNativeStackNavigator();
 
+function DashboardStackScreen() {
+  return (
+    <DashboardStack.Navigator screenOptions={{headerShown:false}}>
+      <DashboardStack.Screen name="dashboardLayout" component={Dashboard} />
+      <DashboardStack.Screen name="meetingSetup" component={MeetingSetup} />
+      <DashboardStack.Screen name="taskSetup" component={TaskSetup} />
+    </DashboardStack.Navigator>
+  );
+}
  
 function Tabs() {
  
     return ( 
       
         <Tab.Navigator
+        initialRouteName='dashboard'
         screenOptions={{
             tabBarShowLabel:false,
-            headerShown:true,
+            headerShown:false,
             tabBarStyle: {  
               position:'absolute',
                 bottom:25,
@@ -53,7 +67,7 @@ function Tabs() {
               <AntDesign name="home" color={color} size={size} />
             ), 
           }} ></Tab.Screen> 
-            <Tab.Screen name="Find" component={Dashboard}
+            <Tab.Screen name="dashboard" component={DashboardStackScreen}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
