@@ -7,6 +7,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import PushNotification from "react-native-push-notification";
 import Home from '../pages/home';
 import Dashboard from '../pages/dashboard';
+import Settings from '../pages/settings';
 import MeetingSetup from '../pages/meeting/meetingSetup';
 import TaskSetup from '../pages/task/taskSetup';
 import PopperButton from '../navigation/poperButton'
@@ -89,7 +90,7 @@ function Tabs() {
               <AntDesign name="piechart" color={color} size={size} />
             ), 
           }} ></Tab.Screen> 
-           <Tab.Screen name="Find2" component={Home}
+           <Tab.Screen name="Settings" component={Settings}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (

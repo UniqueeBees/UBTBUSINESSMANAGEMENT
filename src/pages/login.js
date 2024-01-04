@@ -9,12 +9,16 @@ import {storageKeyTypes} from '../common/localStorage'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { login, logout,accountLogin } from '../slices/loginSlice'
+import { getUserProfile } from '../slices/userSlice';
 import { styles } from '../assets/styles/theme'
 import { setPage} from '../slices/initialPageSlice'
 import {  navigationRoutes } from '../common/navigation'
 function Login() {
     const loginState = useSelector((state) => state.login.loginState)
+    const token = useSelector((state) => state.login.token)
     const id = useSelector((state) => state.login.id)
+    const hasUser = useSelector((state) => state.user.hasUser)
+    const userLoading = useSelector((state) => state.user.loading)
     const requestStatus = useSelector((state) => state.login.reqStatus)
     const companyState = useSelector((state) => state.company)
     const loginLanguageDTO=useSelector((state)=>state.language.loginLanguageDTO)
@@ -26,9 +30,16 @@ function Login() {
     const [password,setPassword]=useState('')
     useEffect(()=>{
       if(loginState){
-        dispatch(setPage(navigationRoutes.dashboard))
+        if(!userLoading){
+        dispatch(getUserProfile(token))
+        }
       }
     },[loginState])
+    useEffect(()=>{
+      if(hasUser){
+       dispatch(setPage(navigationRoutes.dashboard))
+      }
+    },[hasUser])
     const handleState = () => {
       setShowPassword((showState) => {
         return !showState;

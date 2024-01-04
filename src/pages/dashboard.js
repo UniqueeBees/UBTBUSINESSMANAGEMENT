@@ -6,19 +6,28 @@ import MeetingLayout from './meeting/meetingLayout';
 import TaskLayout from './task/taskLayout';
 import Header from '../common/header';
 import { styles } from '../assets/styles/theme';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { setPage } from '../slices/initialPageSlice';
+import { navigationRoutes } from '../common/navigation';
 
-function Dashboard (){
+function Dashboard (props){
     const [isMeeting,setIsMeeting]=useState(true);
     const companyState = useSelector((state) => state.company)
+    const hasUser = useSelector((state) => state.user.hasUser)
     const dashboardLanguageDTO=useSelector((state)=>state.language.dashboardLanguageDTO)
+    const dispatch=useDispatch();
     const onMeetingPress=()=>{
         setIsMeeting(true);
     }
     const onTasksPress=()=>{
         setIsMeeting(false);
     }
-   
+   useEffect(()=>{
+    console.log('hasUser',hasUser)
+    if(!hasUser){
+        dispatch(setPage(navigationRoutes.login))
+    }
+   })
     const meetingBgColor=isMeeting ? {}:{bgColor:'$whitesmoke'}
     const taskBgColor=!isMeeting ? {}:{bgColor:'$whitesmoke'}
     return (

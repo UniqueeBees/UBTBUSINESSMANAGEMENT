@@ -92,8 +92,6 @@ export const getLanguageLabel = (code) => {
 
 }
 export  const  getMeetingsByUser = async (token) => {
-    console.log("getMeetingsByUser",token)
-   
    return await axios({
         method: "GET",
         url: `${baseUrl}/user/meeting`,
@@ -102,11 +100,17 @@ export  const  getMeetingsByUser = async (token) => {
 
 }
 export  const  getTasksByUser = async (token) => {
-    console.log("getTasksByUser",token)
-   
    return await axios({
         method: "GET",
         url: `${baseUrl}/tasks`,
+        headers: { "APITOKEN":token },
+    })
+
+}
+export  const  getUser = async (token) => {
+   return await axios({
+        method: "POST",
+        url: `${baseUrl}/user`,
         headers: { "APITOKEN":token },
     })
 

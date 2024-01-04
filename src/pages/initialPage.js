@@ -9,9 +9,9 @@ function InitialPage (props){
     const isFocused = useIsFocused();
   // <Text>{isFocused ? 'focused' : 'unfocused'}</Text>    
     useEffect(()=>{
-        props.navigation.navigate(initialPage)
-         
+        props.navigation.navigate(initialPage) 
      })
+
     return (
      <View style={{ height:'100%'}}>
        <Text>{' '}</Text>    
