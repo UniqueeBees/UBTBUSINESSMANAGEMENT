@@ -29,9 +29,16 @@ export const loginSlice = createSlice({
     initiated: (state) => {
       state.loginState ='initiated'
     },
-    logout: (state, action) => {
-      state=initialState;
+    logout: (state) => {
+      console.log('before logout',state)
+     // state={...initialState};
+      state.loginState=false;
+      state.loginAction='logout'
+      state.id=0
+      state.token=''
+      state.username=''
       removeStoreObjectData(storageKeyTypes.login);
+      console.log('after logout',state)
     },
     setInitial: (state, action) => {
       

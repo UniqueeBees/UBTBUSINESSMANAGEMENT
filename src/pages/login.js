@@ -40,6 +40,7 @@ function Login() {
        dispatch(setPage(navigationRoutes.dashboard))
       }
     },[hasUser])
+    
     const handleState = () => {
       setShowPassword((showState) => {
         return !showState;

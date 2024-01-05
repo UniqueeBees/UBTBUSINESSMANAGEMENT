@@ -5,11 +5,18 @@ import { useIsFocused } from '@react-navigation/native';
 import {useEffect} from 'react'
 import { View,Text} from 'react-native';
 function InitialPage (props){
-    const initialPage = useSelector((state) => state.initialPage.page)
+    const initialPage = useSelector((state) => state.initialPage)
     const isFocused = useIsFocused();
   // <Text>{isFocused ? 'focused' : 'unfocused'}</Text>    
     useEffect(()=>{
-        props.navigation.navigate(initialPage) 
+      if(initialPage.routeParameters){
+        props.navigation.navigate(initialPage.page,initialPage.routeParameters) 
+      }
+      else
+      {
+        props.navigation.navigate(initialPage.page) 
+      }
+        
      })
 
     return (
