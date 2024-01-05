@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
+export const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
 export  const  accountLoginAPI = async (login) => {
     console.log("get Token",login)
     const formData = new FormData();

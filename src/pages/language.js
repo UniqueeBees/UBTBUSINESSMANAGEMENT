@@ -16,6 +16,8 @@ import { setPage} from '../slices/initialPageSlice'
 function Language (props) {
   const dispatch = useDispatch()
   const languageState = useSelector((state) => state.language)
+  const companyId=useSelector((state)=>state.company.company.id)
+  const hasLogin=useSelector((state)=>state.login.loginState)
   const isInitialMount = useRef(true);
   useEffect(()=>{
     if (isInitialMount.current) {
@@ -23,7 +25,19 @@ function Language (props) {
    } else {
     if(languageState.language){
       //props.navigation.navigate('Splash')
-      dispatch(setPage(navigationRoutes.company))
+      if(companyId === -1){
+        dispatch(setPage(navigationRoutes.company))
+      }
+      else{
+        if(hasLogin){
+          dispatch(setPage(navigationRoutes.dashboard))
+        }
+        else{
+          dispatch(setPage(navigationRoutes.login))
+        }
+
+      }
+      
     }
   }
   },[languageState.language])
