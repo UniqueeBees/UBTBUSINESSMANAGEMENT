@@ -1,5 +1,5 @@
 
-import { React, useState } from 'react';
+import { React, useState,useEffect } from 'react';
 import { Text, View, StyleSheet, Image, Alert, TextInput } from 'react-native';
 import { Button, VStack, Center, ButtonText, ButtonIcon, Input, InputSlot, InputIcon, InputField } from "@gluestack-ui/themed";
 import { styles } from '../assets/styles/theme'
@@ -9,6 +9,7 @@ import { navigateTo, navigationRoutes, navAction } from '../common/navigation'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { companyLogin } from '../slices/companySlice'
+import { setPage} from '../slices/initialPageSlice'
 
 function Splash(props) {
   const dispatch = useDispatch()
@@ -19,6 +20,11 @@ function Splash(props) {
   }
 
   const [companyName, setcompanyName] = useState(getData(storageKeyTypes.company));
+  useEffect(()=>{
+    if (companyState.company.id > -1) {
+      dispatch(setPage(navigationRoutes.login))
+    }
+  },[companyState.company.id])
   function onChange(text) {
     setcompanyName(text);
   }
@@ -48,7 +54,7 @@ function Splash(props) {
   clearLanguage=async()=>{
   await getObjectData(storageKeyTypes.language)
     removeStoreObjectData(storageKeyTypes.language)
-
+    dispatch(setPage(navigationRoutes.language))
   }
 
   return (

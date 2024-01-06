@@ -3,7 +3,11 @@ export const loginLanguageDTO={
     password:'Password',
     title:'Login',
     submit:'Submit',
-    loginFailed:'',
-    requiredCommon:''
+    loginFailed:'Authentication failed',
+    requiredCommon:'',
 
+}
+export const dashboardLanguageDTO={
+    meetings:'Meetings',
+    tasks:'Tasks',
 }

@@ -26,7 +26,7 @@ const styles=StyleSheet.create({
 function Tabs() {
  
     return ( 
-      <NavigationContainer>
+      
         <Tab.Navigator
         screenOptions={{
             tabBarShowLabel:false,
@@ -57,7 +57,7 @@ function Tabs() {
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name="dashboard" color={color} size={size} />
+              <AntDesign name="dashboard" color={color} size={size}  />
             ), 
           }} ></Tab.Screen> 
           <Tab.Screen name="Add" component={Home}
@@ -84,7 +84,7 @@ function Tabs() {
           }} ></Tab.Screen> 
 
         </Tab.Navigator>
-        </NavigationContainer>
+       
     );
 }
 export default Tabs;

@@ -2,18 +2,21 @@ import { storageKeyTypes, getObjectData } from './localStorage';
 import {navigationRoutes} from './navigation';
 export const initialStorageStatus = async () => {
     const initialAppState = { startPage: navigationRoutes.language, loginDTO: false, languageDTO: false, companyDTO: false }
+    const login = await getObjectData(storageKeyTypes.login)
     const language = await getObjectData(storageKeyTypes.language)
     const company = await getObjectData(storageKeyTypes.company)
-    const login = await getObjectData(storageKeyTypes.login)
-    console.log(language);
-    console.log(company)
+    
+    let haslogin=false,hasCompany=false,hasLanguage=false;
+   
     if (login) {
-        if (login.loginState === 'login') {
-            initialAppState.startPage = navigationRoutes.dashboard
-            initialAppState.loginDTO = login;
+        if (login.loginState===true) {
+          
+            initialAppState.loginDTO = login
+            haslogin=true
+            
         }
         else {
-            initialAppState.startPage = navigationRoutes.login
+            
             initialAppState.loginDTO = false;
         }
 
@@ -22,25 +25,36 @@ export const initialStorageStatus = async () => {
     if (company) {
 
         initialAppState.companyDTO = company
-        initialAppState.startPage = navigationRoutes.login
+        hasCompany=true
+        if(company.company && company.company.id ===-1){
+            hasCompany=false;
+        }
 
-    } else {
-        initialAppState.startPage = navigationRoutes.company
-
-    }
+    } 
 
     if (language) {
-
+        hasLanguage=true
         initialAppState.languageDTO = language
-        initialAppState.startPage = navigationRoutes.company
-
-    } else {
-
-        console.log('navigationroutes',navigationRoutes)
-        initialAppState.startPage = navigationRoutes.language
 
     }
-
+if(haslogin){
+    console.log('hasLogin')
+    initialAppState.startPage = navigationRoutes.dashboard 
+}
+else
+{
+   if(hasCompany){
+    initialAppState.startPage = navigationRoutes.login
+   } 
+   else{
+    if(hasLanguage){
+        initialAppState.startPage = navigationRoutes.company  
+    }
+    else{
+        initialAppState.startPage = navigationRoutes.language  
+    }
+   }
+}
 
 
     console.log('initialAppState', initialAppState)

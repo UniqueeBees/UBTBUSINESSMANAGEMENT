@@ -91,8 +91,26 @@ export const getLanguageLabel = (code) => {
         })
 
 }
+export  const  getMeetingsByUser = async (token) => {
+    console.log("getMeetingsByUser",token)
+   
+   return await axios({
+        method: "GET",
+        url: `${baseUrl}/user/meeting`,
+        headers: { "APITOKEN":token },
+    })
 
+}
+export  const  getTasksByUser = async (token) => {
+    console.log("getTasksByUser",token)
+   
+   return await axios({
+        method: "GET",
+        url: `${baseUrl}/tasks`,
+        headers: { "APITOKEN":token },
+    })
 
+}
 //Test Call
 const baseUrl1 = "https://jsonplaceholder.typicode.com"
 export const getApi = () => {

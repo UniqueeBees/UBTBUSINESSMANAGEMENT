@@ -30,14 +30,20 @@ export const loginSlice = createSlice({
       state.loginState ='initiated'
     },
     logout: (state, action) => {
-      state.loginState = 'logout'
+      state.loginState=false;
       state.id=0
     },
     setInitial: (state, action) => {
-      console.log('setInitial',action)
-      if(action && action.payload.login)
+      
+      if(action && action.payload)
       {
-        state=action.payload.login
+        console.log('setInitial1',action)
+       // state=action.payload
+        state.reqStatus = action.payload.reqStatus
+            state.loginAction = action.payload.loginAction
+            state.id=action.payload.id
+            state.token=action.payload.token
+            state.loginState=action.payload.loginState;
       }
       else
       {
@@ -49,23 +55,36 @@ export const loginSlice = createSlice({
       builder
         .addCase(accountLogin.pending, (state, action) => {
           console.log('pending')
-          state.status = 'loading'
-          
+          state.reqStatus = 'loading'
+          state.loginState=false;
         })
         .addCase(accountLogin.fulfilled, (state, action) => {
-          console.log('succeeded')
-          state.status = 'completed'
-          state.id=action.payload.user_id
-          state.token=action.payload.token
-          state.loginState="login";
-          storeObjectData(storageKeyTypes.login,state)
+          if(action.payload.status)
+          {
+            console.log('succeeded')
+            state.reqStatus = 'completed'
+            state.loginAction = 'login'
+            state.id=action.payload.user_id
+            state.token=action.payload.token
+            state.loginState=true;
+            storeObjectData(storageKeyTypes.login,state)
+          }
+         else
+         {
+          state.reqStatus = 'completed'
+          state.loginAction = 'failed'
+          state.loginState=false;
+          state.error = action.payload.message
+         }
           // Add any fetched posts to the array
           //state.posts = state.posts.concat(action.payload)
           console.log('token',action.payload)
         })
         .addCase(accountLogin.rejected, (state, action) => {
           console.log('failed',action)
-          state.status = 'failed'
+          state.loginAction = 'failed'
+          state.loginState=false;
+          state.reqStatus = 'completed'
           state.error = action.error.message
         })
     },
