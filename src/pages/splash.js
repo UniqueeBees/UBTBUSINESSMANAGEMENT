@@ -18,10 +18,13 @@ function Splash(props) {
  
   const [companyName, setcompanyName] = useState(getData(storageKeyTypes.company));
   useEffect(()=>{
+    console.log("companyState",companyState)
     if (companyState.company.id > -1) {
+     //removeStoreObjectData(storageKeyTypes.company);
       dispatch(setPage(navigationRoutes.login))
     }
   },[companyState.company.id])
+
   function onChange(text) {
     setcompanyName(text);
   }
@@ -33,9 +36,7 @@ function Splash(props) {
       //const cDTO= buildDTO(companyState.company); 
       console.log("company State", companyState)
       
-      if (company.id > -1) {
-        navigateTo(props, navigationRoutes.login, navAction.Next);
-      }
+     
     }
     catch (err) {
       console.error('Failed to save the post: ', err)

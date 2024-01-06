@@ -44,7 +44,8 @@ if(haslogin){
 else
 {
    if(hasCompany){
-    initialAppState.startPage = navigationRoutes.login
+    // login
+    initialAppState.startPage = navigationRoutes.company
    } 
    else{
     if(hasLanguage){

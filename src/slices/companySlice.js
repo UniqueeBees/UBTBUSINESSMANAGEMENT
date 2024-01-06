@@ -51,7 +51,10 @@ export const companySlice = createSlice({
       .addCase(companyLogin.fulfilled, (state, action) => {
        
         state.status = apiCallStatus.fullfilled
-        state.company=buildDTO(action.payload) 
+        console.log("Before buildDTO  state.company" , state.company)
+        var company= buildDTO(action.payload.company) 
+        state.company= company;
+        console.log("After buildDTO  state.company" , company)
         console.log(apiCallStatus.fullfilled,state.company)
         storeObjectData(storageKeyTypes.company,  state.company);
         // Add any fetched posts to the array

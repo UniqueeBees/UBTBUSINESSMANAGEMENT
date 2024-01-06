@@ -6,8 +6,10 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import PushNotification from "react-native-push-notification";
 import Home from '../pages/home';
 import Dashboard from '../pages/dashboard';
+import BusinessList from '../pages/business/businessList'
 import PopperButton from '../navigation/poperButton'
- 
+ const TabIconSize="35";
+ const TabIconColor="black";
 const Tab=createBottomTabNavigator();
 const styles=StyleSheet.create({
     shadow:{
@@ -24,27 +26,29 @@ const styles=StyleSheet.create({
 
  
 function Tabs() {
- 
+    
     return ( 
       
         <Tab.Navigator
         screenOptions={{
             tabBarShowLabel:false,
-            headerShown:true,
+            headerShown:false,
             tabBarStyle: {  
               position:'absolute',
-                bottom:25,
-                left:20,
-                right:20,
+                bottom:0,
+                left:0,
+                right:0,
                 elevation:0,
                 backgroundColor:'#ffffff',
-                borderRadius: 50, 
-                height:60,
+                borderTopLeftRadius: 35, 
+                borderTopRightRadius: 35, 
+                height:100,
+                
                 ...styles.shadow
               },
               
           }}
-        
+           
         >
              <Tab.Screen name="home" component={Home}
            options={{
@@ -53,11 +57,11 @@ function Tabs() {
               <AntDesign name="home" color={color} size={size} />
             ), 
           }} ></Tab.Screen> 
-            <Tab.Screen name="Find" component={Dashboard}
+            <Tab.Screen name="business" component={BusinessList}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name="dashboard" color={color} size={size} />
+              <AntDesign name="database" color={color} size={size} />
             ), 
           }} ></Tab.Screen> 
           <Tab.Screen name="Add" component={Home}
@@ -72,7 +76,7 @@ function Tabs() {
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name="piechart" color={color} size={size} />
+              <AntDesign name="profile" color={color} size={size} />
             ), 
           }} ></Tab.Screen> 
            <Tab.Screen name="Find2" component={Home}

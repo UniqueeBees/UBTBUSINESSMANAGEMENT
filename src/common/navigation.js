@@ -16,6 +16,7 @@ export const navigationRoutes={
   login:"login",
   initialPage:'initialPage',
   createBusiness:'createBusiness',
+  listBusiness:'listBusiness',
 }
 export const navAction={
   Next:"next",
@@ -40,6 +41,17 @@ export function navigateTo(props,actionFrom,navAction){
       }
       break;
     }
+    case navigationRoutes.listBusiness :{
+      console.log("nav route login",navAction) 
+      if(navAction.Next){
+      props.navigation.navigate(navigationRoutes.createBusiness)
+      } else if (navAction.Previous)
+      {
+        console.log("nav route login previous")
+        props.navigation.navigate(navigationRoutes.listBusiness)
+      }
+      break;
+    }
   }
 }
  function Navigation(props){
@@ -51,8 +63,7 @@ return (<NavigationContainer>
         <Stack.Screen name={navigationRoutes.company} component={Splash} />
         <Stack.Screen name={navigationRoutes.dashboard} component={Tabs} />
         <Stack.Screen name={navigationRoutes.language} component={language} />
-        <Stack.Screen name={navigationRoutes.login} component={Login} />
-        <Stack.Screen name={navigationRoutes.createBusiness} component={BusinessDetails} />
+        <Stack.Screen name={navigationRoutes.login} component={Login} /> 
       </Stack.Navigator>
     </NavigationContainer>)}
     export default Navigation;

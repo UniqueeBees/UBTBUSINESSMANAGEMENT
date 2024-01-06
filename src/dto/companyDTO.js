@@ -17,10 +17,12 @@ export const  companyDTO = {
     zip:""
 }
 
-export function buildDTO (company){
-     const cDTO=companyDTO;
+export  function  buildDTO (company){ 
+     const cDTO={...companyDTO}
      cDTO.id=company.id;
      cDTO.name=company.name;
+     cDTO.domain=company.domain;
+     
      return cDTO;
     
 }
