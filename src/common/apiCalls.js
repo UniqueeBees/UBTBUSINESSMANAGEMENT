@@ -102,3 +102,27 @@ export const getApi = () => {
     }).then(res => console.log(res)).catch(error => console.log(error))
 }
 
+export const saveContact = (contactData) => {
+   
+    const formData = new FormData();
+    formData.append('name', contactData.Name);
+    formData.append('designation', contactData.Designation);
+    formData.append('email', contactData.Email);
+    formData.append('mobile', contactData.MobileNo);
+    formData.append('datetime', new Date());
+        axios({
+        method: "POST",
+        data: formData,
+        url: `${baseUrl}/token`,
+        headers: { "Content-Type": "multipart/form-data" },
+    }).then(res => {
+        console.log(res.data)
+        return res.data;
+    })
+        .catch(error => {
+            console.log("create contact error :", error)
+            return error;
+        })
+
+}
+

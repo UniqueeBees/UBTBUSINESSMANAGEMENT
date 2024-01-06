@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from '../pages/splash';
 import dashboard from '../pages/dashboard';
 import language from '../pages/language';
-import BusinessEdit from '../pages/businessEdit'
+import contact from '../pages/contact'
 import Login from "../pages/login";
 const Stack = createNativeStackNavigator();
 export const navigationRoutes={
@@ -43,11 +43,12 @@ export function navigateTo(props,actionFrom,navAction){
   console.log('Navigation',props)
 return (<NavigationContainer>
      
-      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName={props.initialPage}>
+      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName="contact">
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Dashboard" component={dashboard} />
         <Stack.Screen name={navigationRoutes.language} component={language} />
         <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name="contact" component={contact} />
       </Stack.Navigator>
     </NavigationContainer>)}
     export default Navigation;
