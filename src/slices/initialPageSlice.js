@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 import {  navigationRoutes } from '../common/navigation'
 export const initialPageSlice = createSlice({
   name: 'initialPage',
-  initialState:{page:''},
+  initialState:{page:'',
+  routeParameters:{}
+},
   reducers: {
     setPage: (state,action) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -11,10 +13,15 @@ export const initialPageSlice = createSlice({
       // immutable state based off those changes.
       // Also, no return statement is required from these functions.
       state.page =action.payload
+      state.routeParameters=false;
+    },
+    setPageWithParameters: (state,action) => {
+      state.page =action.payload.page
+      state.routeParameters=action.payload.routeParameters;
     },
   }, 
 })
 
 // Action creators are generated for each case reducer function
-export const {setPage } = initialPageSlice.actions
+export const {setPage,setPageWithParameters } = initialPageSlice.actions
 export default initialPageSlice.reducer

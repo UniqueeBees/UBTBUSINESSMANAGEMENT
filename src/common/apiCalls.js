@@ -1,5 +1,11 @@
 import axios from "axios";
-const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
+export const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
+export const apiCallStatus={
+    pending:'pending',
+    fullfilled:'fullfilled',
+    rejected:'rejected'
+
+}
 export  const  accountLoginAPI = async (login) => {
     console.log("get Token",login)
     const formData = new FormData();
@@ -92,8 +98,6 @@ export const getLanguageLabel = (code) => {
 
 }
 export  const  getMeetingsByUser = async (token) => {
-    console.log("getMeetingsByUser",token)
-   
    return await axios({
         method: "GET",
         url: `${baseUrl}/user/meeting`,
@@ -102,11 +106,42 @@ export  const  getMeetingsByUser = async (token) => {
 
 }
 export  const  getTasksByUser = async (token) => {
-    console.log("getTasksByUser",token)
-   
    return await axios({
         method: "GET",
         url: `${baseUrl}/tasks`,
+        headers: { "APITOKEN":token },
+    })
+
+}
+export  const  getUser = async (token) => {
+   return await axios({
+        method: "POST",
+        url: `${baseUrl}/user`,
+        headers: { "APITOKEN":token },
+    })
+
+}
+
+export const getBusinessList=async (token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/business`,
+        headers: { "APITOKEN":token },
+    })
+
+}
+ export const createBusiness=async(_token,_business)=>{
+    return await axios({
+        method: "POST",
+        data: _business,
+        url: `${baseUrl}/business`,
+        headers: { "APITOKEN":token },
+    })
+ }
+ export const getBusinessTypes=async (token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/business/types`,
         headers: { "APITOKEN":token },
     })
 

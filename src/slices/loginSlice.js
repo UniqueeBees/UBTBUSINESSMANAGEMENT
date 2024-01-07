@@ -1,7 +1,7 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import {accountLoginAPI}from '../common/apiCalls'
 import{loginDTO} from '../dto/loginDTO'
-import {storeObjectData,storageKeyTypes} from '../common/localStorage'
+import {storeObjectData,storageKeyTypes,removeStoreObjectData} from '../common/localStorage'
 export const accountLogin = createAsyncThunk(
   'account/accountLogin',
   async (login) => {
@@ -29,9 +29,16 @@ export const loginSlice = createSlice({
     initiated: (state) => {
       state.loginState ='initiated'
     },
-    logout: (state, action) => {
+    logout: (state) => {
+      console.log('before logout',state)
+     // state={...initialState};
       state.loginState=false;
+      state.loginAction='logout'
       state.id=0
+      state.token=''
+      state.username=''
+      removeStoreObjectData(storageKeyTypes.login);
+      console.log('after logout',state)
     },
     setInitial: (state, action) => {
       

@@ -39,12 +39,13 @@ export const initialStorageStatus = async () => {
     }
 if(haslogin){
     console.log('hasLogin')
-    initialAppState.startPage = navigationRoutes.dashboard 
+    initialAppState.startPage = navigationRoutes.navigationTab 
 }
 else
 {
    if(hasCompany){
-    initialAppState.startPage = navigationRoutes.login
+    // login
+    initialAppState.startPage = navigationRoutes.company
    } 
    else{
     if(hasLanguage){

@@ -1,17 +1,22 @@
 import React from 'react';
 import {Image, View} from 'react-native';
-import { Center,VStack,Heading,Button,ButtonText } from '@gluestack-ui/themed';
+import { Center,VStack,Heading,Button,ButtonText,HStack } from '@gluestack-ui/themed';
 import { styles } from '../../assets/styles/theme';
-
 import { useNavigation } from '@react-navigation/native';
-function CreateTask(){
+function CreateBusiness(){
   const navigation = useNavigation();
 return(
   <View>
     <Center>
+    <VStack width="100%" mx="3" style={styles.pageHeader} >
+        <HStack space="xs">
+         <Heading>Create Business</Heading>
+        </HStack>
+        </VStack>
+
         <VStack>
         <Image source={require('../../assets/images/Logofile.png')} style={styles.logo} /> 
-        <Heading>No Task Listed</Heading>
+        <Heading>No Business Listed</Heading>
         <Button
             size="md"
             variant="solid"
@@ -19,13 +24,13 @@ return(
             isDisabled={false}
             isFocusVisible={false}
             style={styles.buttonLong}
-            onPress={() => navigation.navigate('taskSetup')}
+            onPress={() => navigation.navigate('businessDetails')}
           >
-            <ButtonText >Create Task</ButtonText>
+            <ButtonText >Create Business</ButtonText>
           </Button>
         </VStack>
     </Center>
     </View>
 )
 }
-export default CreateTask;
+export default CreateBusiness;

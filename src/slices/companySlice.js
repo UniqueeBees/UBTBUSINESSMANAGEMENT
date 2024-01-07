@@ -1,14 +1,14 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import { storeObjectData, storageKeyTypes} from '../common/localStorage'
-import {companyDTO} from '../dto/companyDTO'
-import {getCompanyAPI} from '../common/apiCalls'
+import {companyDTO,buildDTO} from '../dto/companyDTO'
+import {getCompanyAPI,apiCallStatus} from '../common/apiCalls'
 const initialState= {  company:companyDTO,  status:"idle"}
 export const companyLogin = createAsyncThunk(
   'company/companyLogin',
   async (domainName) => {
     console.log('getCompanyAPI')
     const response = await getCompanyAPI( domainName)
-    console.log('getCompanyAPI response' ,response.data)
+    
     return response.data
   }
 )
@@ -16,8 +16,7 @@ export const companySlice = createSlice({
   name: 'company',
   initialState: initialState,
   reducers: {
-    setCompany: (state,action) => {
-      
+    setCompany: (state,action) => { 
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
@@ -32,8 +31,8 @@ export const companySlice = createSlice({
       
       if(action && action.payload)
       {
-        console.log('setInitialCompany',action.payload)
-        state.company=action.payload
+        var companyDTO=action.payload;
+        state.company=companyDTO;
       }
       else
       {
@@ -44,14 +43,18 @@ export const companySlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(companyLogin.pending, (state, action) => {
-        console.log('pending')
-        state.status = 'loading'
+        console.log(apiCallStatus.pending)
+        state.status = apiCallStatus.pending
         
       })
       .addCase(companyLogin.fulfilled, (state, action) => {
-        console.log('succeeded')
-        state.status = 'succeeded'
-        state.company=action.payload.company   
+       
+        state.status = apiCallStatus.fullfilled
+        console.log("Before buildDTO  state.company" , state.company)
+        var company= buildDTO(action.payload.company) 
+        state.company= company;
+        console.log("After buildDTO  state.company" , company)
+        console.log(apiCallStatus.fullfilled,state.company)
         storeObjectData(storageKeyTypes.company,  state.company);
         // Add any fetched posts to the array
         //state.posts = state.posts.concat(action.payload)
@@ -59,8 +62,8 @@ export const companySlice = createSlice({
         console.log('token',action.payload)
       })
       .addCase(companyLogin.rejected, (state, action) => {
-        console.log('failed',action)
-        state.status = 'failed'
+        console.log(apiCallStatus.rejected,action)
+        state.status = apiCallStatus.rejected
         state.error = action.error.message
         state.company={}
       })

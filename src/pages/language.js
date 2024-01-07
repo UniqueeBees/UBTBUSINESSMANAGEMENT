@@ -1,4 +1,4 @@
-import React from "react"
+import React,{useEffect,useRef} from "react"
 import {
   VStack,HStack,
   FormControl,
@@ -16,10 +16,32 @@ import { setPage} from '../slices/initialPageSlice'
 function Language (props) {
   const dispatch = useDispatch()
   const languageState = useSelector((state) => state.language)
-  if(languageState.language){
-    //props.navigation.navigate('Splash')
-    dispatch(setPage(navigationRoutes.company))
+  const companyId=useSelector((state)=>state.company.company.id)
+  const hasLogin=useSelector((state)=>state.login.loginState)
+  const isInitialMount = useRef(true);
+  useEffect(()=>{
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+   } else {
+    if(languageState.language){
+      //props.navigation.navigate('Splash')
+      if(companyId === -1){
+        dispatch(setPage(navigationRoutes.company))
+      }
+      else{
+        if(hasLogin){
+          dispatch(setPage(navigationRoutes.navigationTab))
+        }
+        else{
+          dispatch(setPage(navigationRoutes.login))
+        }
+
+      }
+      
+    }
   }
+  },[languageState.language])
+  
 
   const [languageData, setData] = React.useState()
   
