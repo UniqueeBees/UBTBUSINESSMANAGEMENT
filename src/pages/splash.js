@@ -1,5 +1,5 @@
 
-import { React, useState,useEffect } from 'react';
+import { React, useState,useEffect,useRef } from 'react';
 import { Text, View, StyleSheet, Image, Alert, TextInput } from 'react-native';
 import { Button, VStack, Center, ButtonText, ButtonIcon, Input, InputSlot, InputIcon, InputField } from "@gluestack-ui/themed";
 import { styles } from '../assets/styles/theme'
@@ -15,14 +15,19 @@ import {buildDTO} from '../dto/companyDTO';
 function Splash(props) {
   const dispatch = useDispatch()
   const companyState = useSelector((state) => state.company)
- 
+  console.log("company details companyState", companyState)
+   
+  const isInitialMount = useRef(true);
   const [companyName, setcompanyName] = useState(getData(storageKeyTypes.company));
   useEffect(()=>{
-    console.log("companyState",companyState)
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+   } else {
     if (companyState.company.id > -1) {
      //removeStoreObjectData(storageKeyTypes.company);
       dispatch(setPage(navigationRoutes.login))
     }
+  }
   },[companyState.company.id])
 
   function onChange(text) {

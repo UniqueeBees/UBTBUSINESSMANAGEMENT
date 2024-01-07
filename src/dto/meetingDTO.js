@@ -6,18 +6,19 @@ export const meetingListItemDTO={
     meetingStartDate:'',
     meetingStartTime:'',
     meetingPurpose:'',
-
+    scheduledAt:'',
 }
 export const buildMeetingListItems=(meetingList)=>{
     const meetingListItemsDTO=meetingList.map((item)=>{
         return {
             id:item.id,
             title:item.title,
-            description:item.description,
+            description:item.notes,
             createdBy:'',
+            scheduledAt:item.scheduled_at,
             meetingStartDate:'',
             meetingStartTime:'',
-            meetingPurpose:'',
+            meetingPurpose:'purpose',
         
         };
     });

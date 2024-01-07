@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
+export const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
 export const apiCallStatus={
     pending:'pending',
     fullfilled:'fullfilled',
@@ -98,17 +98,29 @@ export const getLanguageLabel = (code) => {
 
 }
 export  const  getMeetingsByUser = async (token) => {
-    console.log("getMeetingsByUser",token)
-   
    return await axios({
         method: "GET",
-        data: formData,
         url: `${baseUrl}/user/meeting`,
-        headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
+        headers: { "APITOKEN":token },
     })
 
 }
+export  const  getTasksByUser = async (token) => {
+   return await axios({
+        method: "GET",
+        url: `${baseUrl}/tasks`,
+        headers: { "APITOKEN":token },
+    })
 
+}
+export  const  getUser = async (token) => {
+   return await axios({
+        method: "POST",
+        url: `${baseUrl}/user`,
+        headers: { "APITOKEN":token },
+    })
+
+}
 //Test Call
 const baseUrl1 = "https://jsonplaceholder.typicode.com"
 export const getApi = () => {

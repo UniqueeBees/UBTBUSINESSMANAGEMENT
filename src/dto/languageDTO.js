@@ -7,3 +7,15 @@ export const loginLanguageDTO={
     requiredCommon:'',
 
 }
+export const dashboardLanguageDTO={
+    meetings:'Meetings',
+    tasks:'Tasks',
+}
+export const settingsLanguageDTO={
+    changeLanguage:'Change language',
+    logout:'Sign out',
+    changeCompany:'Change company',
+    changePassword:'Change password',
+    helpLineNumber:'Call helpline',
+
+}

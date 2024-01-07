@@ -1,6 +1,6 @@
 import { createSlice,createAsyncThunk} from "@reduxjs/toolkit";
-import {getMeetingsByUser}from '../common/apiCalls';
-import{buildMeetingListItems}from '../dto/meetingDTO';
+import {getTasksByUser}from '../common/apiCalls';
+import{buildTaskListItems}from '../dto/taskDTO';
 const initialState={
     listItems:[],
     pageCount:0,
@@ -11,15 +11,15 @@ const initialState={
     hasNewItem:false,
     hasError:false,
 }
-export const getMeetingListByUser = createAsyncThunk(
-    'meeting/getlistByUser',
+export const getTaskListByUser = createAsyncThunk(
+    'task/getlistByUser',
     async (token) => {
-      const response = await getMeetingsByUser(token)
+      const response = await getTasksByUser(token)
       return response.data
     }
   )
-export const meetingSlice=createSlice({
-        name:'meeting',
+export const taskSlice=createSlice({
+        name:'task',
         initialState,
     reducers:{
         reset: (state) => {
@@ -34,28 +34,28 @@ export const meetingSlice=createSlice({
     },
 extraReducers(builder){
     builder
-    .addCase(getMeetingListByUser.pending, (state, action) => {
+    .addCase(getTaskListByUser.pending, (state, action) => {
         
         state.loading = true;
         state.hasError=false;
       })
-      .addCase(getMeetingListByUser.fulfilled, (state, action) => {
+      .addCase(getTaskListByUser.fulfilled, (state, action) => {
         
-        console.log('meetingList',action)
+        console.log('taskList',action)
         state.loading = false;
         const resp=action.payload;
         if(resp.status){
           state.hasError=false;
-          const meetingListItems=buildMeetingListItems(resp.meetings)
-          state.listItems=meetingListItems;
+          const taskListItems=buildTaskListItems(resp.tasks)
+          state.listItems=taskListItems;
         }
         else{
           state.hasError=true;
         }
 
       })
-      .addCase(getMeetingListByUser.rejected, (state, action) => {
-        console.log('meetingListError',action)
+      .addCase(getTaskListByUser.rejected, (state, action) => {
+        console.log('taskListError',action)
         state.hasError=true;
         state.loading = false;
 
@@ -64,5 +64,5 @@ extraReducers(builder){
 
 })
 
-export const {reset } = meetingSlice.actions
-export default meetingSlice.reducer;
+export const {reset } = taskSlice.actions
+export default taskSlice.reducer;

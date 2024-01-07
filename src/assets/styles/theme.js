@@ -57,5 +57,8 @@ export const  styles = StyleSheet.create({
     height:60,
     color:"black",
     fontSize:200
+  },
+  buttonGeneral:{
+    borderRadius:0,
   }
 });

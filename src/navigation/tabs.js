@@ -2,11 +2,15 @@ import React, { useEffect } from 'react';
 import { StyleSheet ,View,Text,Image} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import PushNotification from "react-native-push-notification";
 import Home from '../pages/home';
 import Dashboard from '../pages/dashboard';
 import BusinessList from '../pages/business/businessList'
+import Settings from '../pages/settings';
+import MeetingSetup from '../pages/meeting/meetingSetup';
+import TaskSetup from '../pages/task/taskSetup';
 import PopperButton from '../navigation/poperButton'
  const TabIconSize="35";
  const TabIconColor="black";
@@ -23,13 +27,24 @@ const styles=StyleSheet.create({
         elevation:5
     }
 })
+const DashboardStack = createNativeStackNavigator();
 
+function DashboardStackScreen() {
+  return (
+    <DashboardStack.Navigator screenOptions={{headerShown:false}}>
+      <DashboardStack.Screen name="dashboardLayout" component={Dashboard} />
+      <DashboardStack.Screen name="meetingSetup" component={MeetingSetup} />
+      <DashboardStack.Screen name="taskSetup" component={TaskSetup} />
+    </DashboardStack.Navigator>
+  );
+}
  
 function Tabs() {
     
     return ( 
       
         <Tab.Navigator
+        initialRouteName='dashboard'
         screenOptions={{
             tabBarShowLabel:false,
             headerShown:false,
@@ -49,21 +64,22 @@ function Tabs() {
               
           }}
            
-        >
-             <Tab.Screen name="home" component={Home}
+        >  
+            <Tab.Screen name="dashboard" component={DashboardStackScreen}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name="home" color={color} size={size} />
+              <AntDesign name="home" color={color} size={size}  />
             ), 
           }} ></Tab.Screen> 
-            <Tab.Screen name="business" component={BusinessList}
+          <Tab.Screen name="business" component={BusinessList}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
               <AntDesign name="database" color={color} size={size} />
             ), 
           }} ></Tab.Screen> 
+          
           <Tab.Screen name="Add" component={Home}
            options={{
             tabBarLabel: 'Updates',
@@ -79,7 +95,7 @@ function Tabs() {
               <AntDesign name="profile" color={color} size={size} />
             ), 
           }} ></Tab.Screen> 
-           <Tab.Screen name="Find2" component={Home}
+           <Tab.Screen name="Settings" component={Settings}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
