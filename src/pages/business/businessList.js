@@ -9,15 +9,18 @@ const sections ={
   list:0,
   new:1,
 }
-function NewItem (){
-   return <BusinessDetails></BusinessDetails>
- }
+
 
  
 function BusinessList (props) {
   const [section, setSection] = useState(sections.list);
-
-  function list (){
+  function NewItem (){
+    return <BusinessDetails onComplete={loadList}></BusinessDetails>
+  }
+  function loadList(){
+    setSection(sections.list)
+  }
+function list (){
     onCreateCompany=()=>{
        setSection(sections.new)
    }  

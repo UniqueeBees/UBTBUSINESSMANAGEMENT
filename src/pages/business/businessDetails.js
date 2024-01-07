@@ -33,20 +33,23 @@ import {
 import { ArrowRight } from 'lucide-react-native';
 import { businessDTO } from "../../dto/businessDTO"
 import { styles } from '../../assets/styles/theme'
+import { useNavigation } from "@react-navigation/native";
 const wizardStageEnum = {
   basic: 1,
   advance: 2,
   location: 3,
   files: 4
 }
- 
-export default function BusinessDetails() {
+
+export default function BusinessDetails(props) {
   const [formData, setData] = React.useState(businessDTO)
   const [wizardStage, setwizStage] = React.useState(wizardStageEnum.basic)
+  const navigation = useNavigation();
 
   useEffect(() => {
     setwizStage(wizardStageEnum.basic);
   }, []);
+  
 
   function BusinessDetails_W1() {
 
@@ -315,7 +318,10 @@ export default function BusinessDetails() {
   }
 
   function createBusiness (){
+    
+    //setwizStage(wizardStageEnum.basic);
       console.log("Business Created",formData)
+      props.onComplete();
   }
    
   function loadComponent() {  
