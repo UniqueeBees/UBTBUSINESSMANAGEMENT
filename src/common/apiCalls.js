@@ -121,6 +121,31 @@ export  const  getUser = async (token) => {
     })
 
 }
+
+export const getBusinessList=async (token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/business`,
+        headers: { "APITOKEN":token },
+    })
+
+}
+ export const createBusiness=async(_token,_business)=>{
+    return await axios({
+        method: "POST",
+        data: _business,
+        url: `${baseUrl}/business`,
+        headers: { "APITOKEN":token },
+    })
+ }
+ export const getBusinessTypes=async (token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/business/types`,
+        headers: { "APITOKEN":token },
+    })
+
+}
 //Test Call
 const baseUrl1 = "https://jsonplaceholder.typicode.com"
 export const getApi = () => {

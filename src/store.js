@@ -6,6 +6,7 @@ import initialPageReducer from './slices/initialPageSlice'
 import meetingReducer from './slices/meetingSlice'
 import taskReducer from './slices/taskSlice'
 import userReducer from './slices/userSlice'
+import businessReducer from './slices/businessSlice'
 export default configureStore({
   reducer: {
     login: loginReducer,
@@ -15,5 +16,6 @@ export default configureStore({
     meeting:meetingReducer,
     task:taskReducer,
     user:userReducer,
+    business:businessReducer,
   },
 })

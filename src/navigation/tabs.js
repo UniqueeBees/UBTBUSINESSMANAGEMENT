@@ -8,6 +8,7 @@ import PushNotification from "react-native-push-notification";
 import Home from '../pages/home';
 import Dashboard from '../pages/dashboard';
 import BusinessList from '../pages/business/businessList'
+import BusinessDetails from '../pages/business/businessDetails'
 import Settings from '../pages/settings';
 import MeetingSetup from '../pages/meeting/meetingSetup';
 import TaskSetup from '../pages/task/taskSetup';
@@ -28,7 +29,7 @@ const styles=StyleSheet.create({
     }
 })
 const DashboardStack = createNativeStackNavigator();
-
+const BusinessStack=createNativeStackNavigator();
 function DashboardStackScreen() {
   return (
     <DashboardStack.Navigator screenOptions={{headerShown:false}}>
@@ -37,6 +38,14 @@ function DashboardStackScreen() {
       <DashboardStack.Screen name="taskSetup" component={TaskSetup} />
     </DashboardStack.Navigator>
   );
+}
+function BusinessStackScreen(){
+  return (
+    <BusinessStack.Navigator screenOptions={{headerShown:false}}>
+      <BusinessStack.Screen name="businessList" component={BusinessList}/>
+      <BusinessStack.Screen name="businessDetails" component={BusinessDetails}/>
+    </BusinessStack.Navigator>
+  )
 }
  
 function Tabs() {
@@ -62,9 +71,7 @@ function Tabs() {
                 ...styles.shadow
               },
               
-          }}
-           
-        >  
+          }} >  
             <Tab.Screen name="dashboard" component={DashboardStackScreen}
            options={{
             tabBarLabel: 'Updates',
@@ -72,7 +79,7 @@ function Tabs() {
               <AntDesign name="home" color={color} size={size}  />
             ), 
           }} ></Tab.Screen> 
-          <Tab.Screen name="business" component={BusinessList}
+          <Tab.Screen name="businessList" component={BusinessStackScreen}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (

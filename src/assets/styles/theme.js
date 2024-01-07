@@ -23,6 +23,7 @@ export const  styles = StyleSheet.create({
   buttonLong:{
     width:300,
     borderRadius:0,
+ 
 
   } ,
   subheading:{
@@ -60,5 +61,8 @@ export const  styles = StyleSheet.create({
   },
   buttonGeneral:{
     borderRadius:0,
+  },
+  shortButton:{
+    
   }
 });

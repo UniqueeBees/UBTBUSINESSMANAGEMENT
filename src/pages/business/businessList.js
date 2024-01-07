@@ -1,64 +1,80 @@
-import {React,useState,useEffect } from "react" 
- 
-import { Button, VStack, Center, ButtonText, ButtonIcon, Input, InputSlot, InputIcon, InputField ,Text} from "@gluestack-ui/themed";
+import { React, useState, useEffect } from "react"
+
+import {
+  Button, VStack, Center, ButtonText, ButtonIcon,
+  Heading, Text, Image,FlatList,Box,HStack,Badge,BadgeText
+} from "@gluestack-ui/themed";
 import { styles } from '../../assets/styles/theme'
 import { Building2, ArrowRight } from 'lucide-react-native';
-import { navigateTo, navigationRoutes, navAction } from '../../common/navigation'
+import { useNavigation } from '@react-navigation/native';
 import BusinessDetails from "./businessDetails";
-const sections ={
-  list:0,
-  new:1,
+import BusinessCreate from "./businessCreate";
+import { useSelector,useDispatch } from 'react-redux';
+import { getBusinessListItems } from '../../slices/businessSlice';
+ 
+
+function BusinessList(props) {
+  const businessListItems = useSelector((state) => state.business.businessList);
+  const token = useSelector((state) => state.login.token)
+  const dispatch = useDispatch()
+  const navigation = useNavigation();
+
+
+  useEffect(() => {
+    dispatch(getBusinessListItems(token))
+  }, [token])
+
+  function createList() {
+    console.log("businessList",businessListItems)
+    return (
+      <VStack width="100%" mx="3" style={styles.pageHeader} >
+      <HStack space="xs">
+       <Heading > Business List</Heading>
+       
+          <Button
+            size="md"
+            variant="solid"
+            action="primary"
+            isDisabled={false}
+            isFocusVisible={false}
+
+            style={styles.shortButton}
+
+            onPress={()=>navigation.navigate("businessDetails")}
+
+          >
+            <ButtonText >Add</ButtonText>
+           
+          </Button>
+        
+      </HStack>
+     
+      <FlatList
+        data={businessListItems}
+        renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
+          <VStack>
+            <Heading size="md" >{item.name}</Heading> 
+            <HStack space="md" justifyContent="flex-end">
+
+              <Badge size="md" variant="solid" borderRadius="$xl" action="muted" >
+                <BadgeText>{item.email}</BadgeText>
+              </Badge>
+              <Badge size="md" variant="solid" borderRadius="$xl" action="muted" >
+                <BadgeText >{item.phone}</BadgeText>
+              </Badge>
+            </HStack>
+          </VStack>
+        </Box>}
+      />
+       </VStack>
+    )
+  }
+  return (
+
+    <VStack>
+      {businessListItems.length === 0 ? <BusinessCreate /> : createList()}
+    </VStack>
+  )
 }
 
-
- 
-function BusinessList (props) {
-  const [section, setSection] = useState(sections.list);
-  function NewItem (){
-    return <BusinessDetails onComplete={loadList}></BusinessDetails>
-  }
-  function loadList(){
-    setSection(sections.list)
-  }
-function list (){
-    onCreateCompany=()=>{
-       setSection(sections.new)
-   }  
-    return ( 
-      <Center flex={1} px="3">
-       <VStack>
-          <Text> Business List </Text>
-          <Button
-          size="md"
-          variant="solid"
-          action="primary"
-          isDisabled={false}
-          isFocusVisible={false}
-  
-          style={styles.buttonLong}
-  
-          onPress={onCreateCompany}
-  
-        >
-          <ButtonText >New Business 1</ButtonText>
-          <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
-        </Button>
-       </VStack>
-      </Center>
-    
-  )
-  }
-  
-  switch(section){
-    case sections.list:{
-      return list(); 
-    }
-    case sections.new:{
-      return NewItem();
-    }
-    default :{
-      return list(); 
-    }
-  }
-  } 
-  export default BusinessList;
+export default BusinessList;

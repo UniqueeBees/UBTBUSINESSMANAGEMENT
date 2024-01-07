@@ -34,6 +34,8 @@ import { ArrowRight } from 'lucide-react-native';
 import { businessDTO } from "../../dto/businessDTO"
 import { styles } from '../../assets/styles/theme'
 import { useNavigation } from "@react-navigation/native";
+import { useSelector,useDispatch } from 'react-redux';
+import {businessTypes} from '../../slices/businessSlice'
 const wizardStageEnum = {
   basic: 1,
   advance: 2,
@@ -45,12 +47,20 @@ export default function BusinessDetails(props) {
   const [formData, setData] = React.useState(businessDTO)
   const [wizardStage, setwizStage] = React.useState(wizardStageEnum.basic)
   const navigation = useNavigation();
-
-  useEffect(() => {
-    setwizStage(wizardStageEnum.basic);
-  }, []);
-  
-
+  const businessTypeList = useSelector((state) => state.business.businessTypes);
+  const dispatch = useDispatch()
+  const token = useSelector((state) => state.login.token)
+  useEffect(()=>{
+     if(businessTypeList.length===0){
+      dispatch(businessTypes(token))
+     }
+  },businessTypes)
+  function getBusinessTypeKey(key){
+    let bType= businessTypeList.find(e=>e.key==key);
+    if(bType){
+      return bType.value;
+    }else{ return key;}
+  }
   function BusinessDetails_W1() {
 
     return (
@@ -67,7 +77,7 @@ export default function BusinessDetails(props) {
           </FormControlLabel>
           <Select onValueChange={value => setData({ ...formData, type: value })} >
             <SelectTrigger>
-              <SelectInput placeholder="Select Business Type"  value={formData.type} />
+              <SelectInput placeholder="Select Business Type"  value={getBusinessTypeKey(formData.type)} />
               <SelectIcon mr="$3">
                 <Icon as={ChevronDownIcon} />
               </SelectIcon>
@@ -78,11 +88,9 @@ export default function BusinessDetails(props) {
                 <SelectDragIndicatorWrapper>
                   <SelectDragIndicator />
                 </SelectDragIndicatorWrapper>
-                <SelectItem label="Red" value="red" />
-                <SelectItem label="Blue" value="blue" />
-                <SelectItem label="Black" value="black" />
-                <SelectItem label="Pink" value="pink" isDisabled={true} />
-                <SelectItem label="Green" value="green" />
+                {businessTypeList.map((item)=>{
+                    return  <SelectItem label={item.value} value={item.key} />
+                })} 
               </SelectContent>
             </SelectPortal>
           </Select>
@@ -321,7 +329,7 @@ export default function BusinessDetails(props) {
     
     //setwizStage(wizardStageEnum.basic);
       console.log("Business Created",formData)
-      props.onComplete();
+      navigation.navigate('businessList');
   }
    
   function loadComponent() {  
