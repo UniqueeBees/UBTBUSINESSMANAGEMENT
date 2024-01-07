@@ -5,7 +5,7 @@ const initialState = {
   alert: {}
 
 }
-export const languageSlice = createSlice({
+export const alertSlice = createSlice({
   name: 'error',
   initialState: initialState,
 
