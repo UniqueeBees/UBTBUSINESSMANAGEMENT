@@ -38,7 +38,7 @@ function Login() {
     },[loginState])
     useEffect(()=>{
       if(hasUser){
-       dispatch(setPage(navigationRoutes.dashboard))
+       dispatch(setPage(navigationRoutes.navigationTab))
       }
     },[hasUser])
     

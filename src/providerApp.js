@@ -22,7 +22,7 @@ export default function  providerApp(){
             store.dispatch(setInitial(resp.loginDTO))
             store.dispatch(setInitialCompany(resp.companyDTO))
             store.dispatch(setInitialLanguage(resp.languageDTO))
-            if(resp.startPage === navigationRoutes.dashboard){
+            if(resp.startPage === navigationRoutes.navigationTab){
                 store.dispatch(getUserProfile(resp.loginDTO.token))
             }
             store.dispatch(setPage(resp.startPage))

@@ -11,7 +11,7 @@ import Tabs from '../navigation/tabs';
 const Stack = createNativeStackNavigator();
 export const navigationRoutes={
   company:"company",
-  dashboard:"dashboard",
+  navigationTab:"navigationTab",
   language:"language",
   login:"login",
   initialPage:'initialPage',
@@ -61,7 +61,7 @@ return (<NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName={navigationRoutes.initialPage}>
         <Stack.Screen name={navigationRoutes.initialPage} component={InitialPage} />
         <Stack.Screen name={navigationRoutes.company} component={Splash} />
-        <Stack.Screen name={navigationRoutes.dashboard} component={Tabs} />
+        <Stack.Screen name={navigationRoutes.navigationTab} component={Tabs} />
         <Stack.Screen name={navigationRoutes.language} component={language} />
         <Stack.Screen name={navigationRoutes.login} component={Login} /> 
        
