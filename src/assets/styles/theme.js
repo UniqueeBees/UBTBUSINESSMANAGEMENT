@@ -30,7 +30,7 @@ export const  styles = StyleSheet.create({
     fontSize:12
   },
   fieldSetContainer:{
-    backgroundColor: 'white',
+    backgroundColor: 'smokewhiter',
     paddingTop:0,
     paddingVertical:100,
     paddingHorizontal:5,

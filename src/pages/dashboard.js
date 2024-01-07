@@ -31,9 +31,9 @@ function Dashboard (props){
     const meetingBgColor=isMeeting ? {}:{bgColor:'$whitesmoke'}
     const taskBgColor=!isMeeting ? {}:{bgColor:'$whitesmoke'}
     return (
-     <View  style={{height:'100%', padding: 30}}>
+     <View  style={styles.fieldSetContainer}>
         <VStack>
-            <Header title={companyState.company.name} />
+            <Header title={companyState.company.name}  style={styles.pageHeader}/>
             <Center>
             <HStack pt="$4" pb="$4">
                 <Button ml='auto' size="md" variant="solid" action="primary" {...meetingBgColor} style={styles.buttonGeneral} onPress={onMeetingPress}>

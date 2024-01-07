@@ -22,6 +22,7 @@ export  function  buildDTO (company){
      cDTO.id=company.id;
      cDTO.name=company.name;
      cDTO.domain=company.domain;
+     cDTO.logo=company.logo;
      
      return cDTO;
     

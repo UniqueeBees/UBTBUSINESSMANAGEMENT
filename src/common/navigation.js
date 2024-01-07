@@ -16,7 +16,7 @@ export const navigationRoutes={
   login:"login",
   initialPage:'initialPage',
   createBusiness:'createBusiness',
-  listBusiness:'listBusiness',
+  listBusiness:'listBusiness' 
 }
 export const navAction={
   Next:"next",
@@ -51,7 +51,7 @@ export function navigateTo(props,actionFrom,navAction){
         props.navigation.navigate(navigationRoutes.listBusiness)
       }
       break;
-    }
+    } 
   }
 }
  function Navigation(props){
@@ -64,6 +64,7 @@ return (<NavigationContainer>
         <Stack.Screen name={navigationRoutes.dashboard} component={Tabs} />
         <Stack.Screen name={navigationRoutes.language} component={language} />
         <Stack.Screen name={navigationRoutes.login} component={Login} /> 
+       
       </Stack.Navigator>
     </NavigationContainer>)}
     export default Navigation;

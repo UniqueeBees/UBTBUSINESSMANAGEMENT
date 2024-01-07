@@ -15,7 +15,7 @@ import {buildDTO} from '../dto/companyDTO';
 function Splash(props) {
   const dispatch = useDispatch()
   const companyState = useSelector((state) => state.company)
-  console.log("company details companyState", companyState)
+  //console.log("company details companyState", companyState)
    
   const isInitialMount = useRef(true);
   const [companyName, setcompanyName] = useState(getData(storageKeyTypes.company));
@@ -28,7 +28,7 @@ function Splash(props) {
       dispatch(setPage(navigationRoutes.login))
     }
   }
-  },[companyState.company.id])
+  },[companyState.status])
 
   function onChange(text) {
     setcompanyName(text);
@@ -39,7 +39,7 @@ function Splash(props) {
       // setAddRequestStatus('pending')
       await dispatch(companyLogin(companyName))
       //const cDTO= buildDTO(companyState.company); 
-      console.log("company State", companyState)
+      //console.log("company State", companyState)
       
      
     }
