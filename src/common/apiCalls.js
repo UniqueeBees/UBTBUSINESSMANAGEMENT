@@ -120,21 +120,24 @@ export const getApi = () => {
     }).then(res => console.log(res)).catch(error => console.log(error))
 }
 
-export const saveContact = (contactData) => {
-   
+export const saveContact = (contactData,token) => {
+   console.log(token)
     const formData = new FormData();
+    formData.append('business_id', 1);
     formData.append('name', contactData.Name);
     formData.append('designation', contactData.Designation);
     formData.append('email', contactData.Email);
     formData.append('mobile', contactData.MobileNo);
-    formData.append('datetime', new Date());
+    //formData.append('datetime', new Date());
+
+  console.log(formData)
         axios({
         method: "POST",
         data: formData,
-        url: `${baseUrl}/token`,
-        headers: { "Content-Type": "multipart/form-data" },
+        url: `${baseUrl}/contacts`,
+        headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
     }).then(res => {
-        console.log(res.data)
+        console.log(res)
         return res.data;
     })
         .catch(error => {

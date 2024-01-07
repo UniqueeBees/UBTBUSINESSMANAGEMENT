@@ -6,8 +6,8 @@ import { Text, View, StatusBar, Alert } from 'react-native';
 import { sentNotification } from '../notification/appNotification'
 import { getToken, getApi, getCompany } from '../common/apiCalls'
 import {storeData,storageKeyTypes,getData} from '../common/localStorage'
-
-function Home() {
+import { navigateTo, navigationRoutes, navAction } from '../common/navigation'
+function Home(props) {
 
     return (
         <VStack  bg="$primary500" h="100%" >
@@ -33,6 +33,11 @@ function Home() {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>  {getData(storageKeyTypes.company)}}>
                     <Text>get company Data</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() =>  {
+                    navigateTo(props,navigationRoutes.contact,navAction.Same);
+                }}>
+                    <Text>Create Contact</Text>
                 </TouchableOpacity>
             </Center>
         </VStack >

@@ -1,11 +1,15 @@
 import React from "react";
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { VStack, FormControl, FormControlError, FormControlErrorText, Input, Heading, InputField, InputSlot, Button, ButtonText, InputIcon, EyeIcon, EyeOffIcon, ButtonSpinner } from '@gluestack-ui/themed';
-import { FlatList, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { saveContact } from "../common/apiCalls";
+import Alert from "../common/alert";
+import { useSelector, useDispatch } from 'react-redux'
+import { showAlert} from '../slices/alertSlice'
 const Contact = () => {
   const [contactData, setContactData] = useState({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo: "" });
-
+  const loginState = useSelector((state) => state.login)
+let showAlert=false;
   const handleChange = (key, value) => {
 
     let updateData = { ...contactData }
@@ -24,12 +28,17 @@ const Contact = () => {
   }
 
   const validateData = () => {
-    for (var key in contactData) {
-      // skip loop if the property is from prototype
+    let updateData = { ...contactData }
+    const alert={action:'error',Title:'Error',description:'Please correct the indicated items'}
+      for (var key in contactData) {
       if (contactData.hasOwnProperty(key)) {
 
-        if (contactData[key] === "") {
-          console.log(key)
+        if (contactData["Name"] === "") {
+         
+          updateData[key+'Error'] = true
+          setContactData(updateData)
+          
+          dispatch(showAlert(alert))
           return false;
         }
 
@@ -55,13 +64,17 @@ const Contact = () => {
 
 
   const saveData = () => {
-    console.log(contactData)
-    validateData();
-    //saveContact(contactData)
+    if(validateData())
+    {
+      saveContact(contactData,loginState.token)
+    }
+   
 
   }
 
   return (
+    <VStack>
+    <Alert show={showAlert}></Alert>
     <FormControl
       p='$4'
 
@@ -162,7 +175,7 @@ const Contact = () => {
 
       </VStack>
     </FormControl>
-
+    </VStack>
   );
 }
 
