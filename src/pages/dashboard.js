@@ -1,7 +1,7 @@
 
 import React,{useEffect, useState} from 'react';  
 import {Text, View} from 'react-native';
-import { Button,ButtonText,Center,HStack,VStack } from '@gluestack-ui/themed';
+import { Button,ButtonText,Center,HStack,VStack,Heading } from '@gluestack-ui/themed';
 import MeetingLayout from './meeting/meetingLayout';
 import TaskLayout from './task/taskLayout';
 import Header from '../common/header';
@@ -33,7 +33,8 @@ function Dashboard (props){
     return (
      <View  style={styles.fieldSetContainer}>
         <VStack>
-            <Header title={companyState.company.name}  style={styles.pageHeader}/>
+        <Heading style={styles.pageTitle} >{companyState.company.name}</Heading>
+          
             <Center>
             <HStack pt="$4" pb="$4">
                 <Button ml='auto' size="md" variant="solid" action="primary" {...meetingBgColor} style={styles.buttonGeneral} onPress={onMeetingPress}>
