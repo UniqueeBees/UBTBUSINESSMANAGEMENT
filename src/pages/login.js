@@ -1,5 +1,5 @@
 
-import { VStack, Center,Image } from '@gluestack-ui/themed';
+import { VStack, Center,Image, Box } from '@gluestack-ui/themed';
 import { Input,Heading,FormControl,InputField,InputSlot,Button,ButtonText,InputIcon,EyeIcon,EyeOffIcon,ButtonSpinner } from '@gluestack-ui/themed';
 import React from 'react';
 import {useState,useEffect} from 'react'
@@ -68,36 +68,26 @@ function Login() {
     navigateTo(props,navigationRoutes.Login,navAction.Previous);
   }
     return (
-      
-      <FormControl
-        p='$4'
-        
-      >
+      <FormControl p='$4'>
+        {(loginState && hasUser) ? <Box /> :
         <VStack space='xl'>
-          <Heading color='$text900' lineHeight='$md'>
+          <Heading color='$textDark800' lineHeight='$md'>
             {loginLanguageDTO.title}
-          </Heading>
-          
-
-          
-          
-        <Center >
-         <Image source={{
-              uri: `${baseUrl}/files/${companyState.company.logo}`,
-              method: 'GET',
-              headers: {
-                Pragma: 'no-cache',
-              },
-              body: 'Your Body goes here',
-            }} 
-            resizeMode="contain"
-            alt=""
-            size="xl"
-             /> 
-        </Center>
-          
-          
-        
+          </Heading> 
+          <Center >
+            <Image source={{
+                uri: `${baseUrl}/files/${companyState.company.logo}`,
+                method: 'GET',
+                headers: {
+                  Pragma: 'no-cache',
+                },
+                body: 'Your Body goes here',
+              }} 
+              resizeMode="contain"
+              alt=""
+              size="xl"
+              /> 
+          </Center>
           <VStack space='xs'>
             <Text color='$text500' lineHeight='$xs'>
               {loginLanguageDTO.username}
@@ -141,6 +131,7 @@ function Login() {
             </ButtonText >
           </Button>
         </VStack>
+      }
       </FormControl>
       
     );

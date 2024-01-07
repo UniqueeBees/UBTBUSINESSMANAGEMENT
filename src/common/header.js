@@ -1,9 +1,9 @@
-import React,{useEffect} from "react";
-import { VStack, Center,Heading } from '@gluestack-ui/themed';
+import React from "react";
+import { VStack,Heading } from '@gluestack-ui/themed';
 function Header(props){
     return(
         <VStack space='xl'>
-          <Heading  lineHeight='$md'>
+          <Heading color="$textDark500" lineHeight='$md'>
             {props.title}
           </Heading>
           </VStack>

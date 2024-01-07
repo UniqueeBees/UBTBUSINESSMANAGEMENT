@@ -36,6 +36,7 @@ const actionEvent=(item)=>{
       dispatch(logout());
   }
   else if(item.key === "language"){
+    console.log('settingds dispatch',item.key)
     dispatch(setPage(navigationRoutes.language))
   }
   else if(item.key === "company"){
