@@ -79,7 +79,7 @@ function Tabs() {
               <AntDesign name="home" color={color} size={size}  />
             ), 
           }} ></Tab.Screen> 
-          <Tab.Screen name="businessList" component={BusinessStackScreen}
+          <Tab.Screen name="businessLayout" component={BusinessStackScreen}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
