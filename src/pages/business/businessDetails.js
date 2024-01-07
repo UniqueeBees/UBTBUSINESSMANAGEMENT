@@ -89,7 +89,7 @@ export default function BusinessDetails(props) {
                   <SelectDragIndicator />
                 </SelectDragIndicatorWrapper>
                 {businessTypeList.map((item)=>{
-                    return  <SelectItem label={item.value} value={item.key} />
+                    return  <SelectItem key={item.key} label={item.value} value={item.key} />
                 })} 
               </SelectContent>
             </SelectPortal>
