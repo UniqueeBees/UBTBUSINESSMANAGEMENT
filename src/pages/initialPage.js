@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { useIsFocused } from '@react-navigation/native';
 import {useEffect} from 'react'
 import { View,Text} from 'react-native';
+import {  navigationRoutes } from '../common/navigation'
 function InitialPage (props){
     const initialPage = useSelector((state) => state.initialPage)
     const isFocused = useIsFocused();
@@ -14,7 +15,14 @@ function InitialPage (props){
       }
       else
       {
-        props.navigation.navigate(initialPage.page) 
+      //  props.navigation.navigate(initialPage.page)
+       if(initialPage.page === navigationRoutes.navigationTab){
+        props.navigation.navigate(initialPage.page,{screen:'dashboard'})
+        }
+        else
+        {
+          props.navigation.navigate(initialPage.page)
+        } 
       }
         
      })

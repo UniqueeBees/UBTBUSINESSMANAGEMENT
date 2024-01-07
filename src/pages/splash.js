@@ -1,21 +1,21 @@
 
 import { React, useState,useEffect,useRef } from 'react';
-import { Text, View, StyleSheet, Image, Alert, TextInput } from 'react-native';
+import { Text,Image} from 'react-native';
 import { Button, VStack, Center, ButtonText, ButtonIcon, Input, InputSlot, InputIcon, InputField } from "@gluestack-ui/themed";
 import { styles } from '../assets/styles/theme'
-import { storeObjectData, storageKeyTypes, getData,removeStoreObjectData,getObjectData } from '../common/localStorage'
+import { storageKeyTypes, getData} from '../common/localStorage'
 import { Building2, ArrowRight } from 'lucide-react-native';
 import { navigateTo, navigationRoutes, navAction } from '../common/navigation'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { companyLogin } from '../slices/companySlice'
+import { logout } from '../slices/loginSlice';
 import { setPage} from '../slices/initialPageSlice'
-import {buildDTO} from '../dto/companyDTO';
-
+import {apiCallStatus} from '../common/apiCalls'
 function Splash(props) {
   const dispatch = useDispatch()
   const companyState = useSelector((state) => state.company)
-  //console.log("company details companyState", companyState)
+  const loginState = useSelector((state) => state.login.loginState)
    
   const isInitialMount = useRef(true);
   const [companyName, setcompanyName] = useState(getData(storageKeyTypes.company));
@@ -23,8 +23,11 @@ function Splash(props) {
     if (isInitialMount.current) {
       isInitialMount.current = false;
    } else {
-    if (companyState.company.id > -1) {
-     //removeStoreObjectData(storageKeyTypes.company);
+    if (companyState.company.id > -1 && companyState.status === apiCallStatus.fullfilled ) {
+     if(loginState)
+     {
+      dispatch(logout())
+     }
       dispatch(setPage(navigationRoutes.login))
     }
   }
@@ -36,10 +39,7 @@ function Splash(props) {
   const onCompanyLogin = async () => {
     try {
       console.log("company login", companyName)
-      // setAddRequestStatus('pending')
       await dispatch(companyLogin(companyName))
-      //const cDTO= buildDTO(companyState.company); 
-      //console.log("company State", companyState)
       
      
     }
@@ -48,14 +48,8 @@ function Splash(props) {
       navigateTo(props, navigationRoutes.company, navAction.Same);
     }
     finally {
-      //setAddRequestStatus('idle')
     }
-    /* console.log("company login",companyName) 
-     const companyDetails=  await getCompany(companyName);
-     console.log("company details",companyDetails) 
-     if(companyDetails){
-       //props.navigation.navigate('login')
-     } */
+    
   }
   
 

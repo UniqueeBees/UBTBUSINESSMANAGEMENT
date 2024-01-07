@@ -30,7 +30,7 @@ function Language (props) {
       }
       else{
         if(hasLogin){
-          dispatch(setPage(navigationRoutes.dashboard))
+          dispatch(setPage(navigationRoutes.navigationTab))
         }
         else{
           dispatch(setPage(navigationRoutes.login))
