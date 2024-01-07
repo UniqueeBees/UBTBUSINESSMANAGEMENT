@@ -69,7 +69,7 @@ function Login() {
   }
     return (
       <FormControl p='$4'>
-        {loginState ? <Box /> :
+        {(loginState && hasUser) ? <Box /> :
         <VStack space='xl'>
           <Heading color='$textDark800' lineHeight='$md'>
             {loginLanguageDTO.title}
