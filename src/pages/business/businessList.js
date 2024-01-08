@@ -30,26 +30,11 @@ function BusinessList(props) {
       <VStack width="100%" mx="3" style={styles.pageHeader} >
       <HStack space="xs">
        <Heading > Business List</Heading>
-       
-          <Button
-            size="md"
-            variant="solid"
-            action="primary"
-            isDisabled={false}
-            isFocusVisible={false}
-
-            style={styles.shortButton}
-
-            onPress={()=>navigation.navigate("businessDetails")}
-
-          >
-            <ButtonText >Add</ButtonText>
-           
-          </Button>
+               
         
       </HStack>
      
-      <FlatList
+      <FlatList style={{height:"84%"}}
         data={businessListItems}
         renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
           <VStack>
@@ -65,8 +50,24 @@ function BusinessList(props) {
             </HStack>
           </VStack>
         </Box>}
-      />
+      />    
+       
+        <Button 
+        size="md"
+        variant="solid"
+        action="primary"
+        isDisabled={false}
+        isFocusVisible={false}
+        
+        style={styles.shortButton }
+
+        onPress={()=>navigation.navigate("businessDetails")}
+
+      >
+     <ButtonText >Add</ButtonText>    
+      </Button>
        </VStack>
+       
     )
   }
   return (

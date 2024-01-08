@@ -63,6 +63,10 @@ export const  styles = StyleSheet.create({
     borderRadius:0,
   },
   shortButton:{
-    
-  }
+    width:100,
+    marginRight:10,
+    marginLeft:"auto"
+
+  },
+  
 });

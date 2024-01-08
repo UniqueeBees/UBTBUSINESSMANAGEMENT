@@ -1,6 +1,7 @@
 
 import { VStack, Center,Image, Box } from '@gluestack-ui/themed';
-import { Input,Heading,FormControl,InputField,InputSlot,Button,ButtonText,InputIcon,EyeIcon,EyeOffIcon,ButtonSpinner } from '@gluestack-ui/themed';
+import { Input,Heading,FormControl,InputField,InputSlot,Button,ButtonText,
+  InputIcon,EyeIcon,EyeOffIcon,ButtonSpinner,AtSignIcon ,LockIcon} from '@gluestack-ui/themed';
 import React from 'react';
 import {useState,useEffect} from 'react'
 import { TouchableOpacity } from 'react-native';
@@ -23,6 +24,7 @@ function Login() {
     const requestStatus = useSelector((state) => state.login.reqStatus)
     const companyState = useSelector((state) => state.company)
     const loginLanguageDTO=useSelector((state)=>state.language.loginLanguageDTO)
+    const language=useSelector((state)=>state.language)
     
   const dispatch = useDispatch()
 
@@ -67,13 +69,14 @@ function Login() {
   const onbackClicked=()=>{
     navigateTo(props,navigationRoutes.Login,navAction.Previous);
   }
+  console.log(language)
     return (
-      <FormControl p='$4'>
+      <FormControl p='$4' mt="$20">
         {(loginState && hasUser) ? <Box /> :
         <VStack space='xl'>
-          <Heading color='$textDark800' lineHeight='$md'>
+          {/* <Heading color='$textDark800' lineHeight='$md'>
             {loginLanguageDTO.title}
-          </Heading> 
+          </Heading>  */}
           <Center >
             <Image source={{
                 uri: `${baseUrl}/files/${companyState.company.logo}`,
@@ -88,6 +91,7 @@ function Login() {
               size="xl"
               /> 
           </Center>
+          <VStack pl="$10" pr="$10" space='lg' reverse={false}>
           <VStack space='xs'>
             <Text color='$text500' lineHeight='$xs'>
               {loginLanguageDTO.username}
@@ -96,7 +100,7 @@ function Login() {
               <InputField
                 type="text"
                 value={username}
-                onChangeText={text => setUsername(text)}
+                onChangeText={text => setUsername(text)} placeholder="UserName"
               />
             </Input>
           </VStack>
@@ -105,7 +109,12 @@ function Login() {
               {loginLanguageDTO.password}
             </Text>
             <Input variant='underlined' textAlign='center'>
-              <InputField
+            <InputSlot pl='$3'>
+                {/* EyeIcon, EyeOffIcon are both imported from 'lucide-react-native' */}
+                <InputIcon as={LockIcon} />
+              </InputSlot>
+
+              <InputField ml="$5"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChangeText={text => setPassword(text)}
@@ -116,20 +125,23 @@ function Login() {
               </InputSlot>
             </Input>
           </VStack>
+          
           <Button
-
-            ml='auto'
+mt="$20"
+          ml="$0"
             size="md"
             variant="solid"
             action="primary"
             isDisabled={requestStatus==='loading'}
-            
+            style={styles.buttonLong}
             onPress={onLoginClicked}
           >
             <ButtonText color='$white'  >
               {loginLanguageDTO.submit}
             </ButtonText >
           </Button>
+          </VStack>
+          
         </VStack>
       }
       </FormControl>

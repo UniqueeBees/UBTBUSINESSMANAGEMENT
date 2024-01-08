@@ -2,7 +2,7 @@ import { createSlice,createAsyncThunk} from "@reduxjs/toolkit";
 import {getUser}from '../common/apiCalls';
 import{buildUserDTO,userDTO}from '../dto/userDTO';
 const initialState={
-    user:userDTO,
+    userDTO:userDTO,
     hasUser:false,
 }
 export const getUserProfile = createAsyncThunk(

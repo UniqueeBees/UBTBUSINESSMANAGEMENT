@@ -3,7 +3,7 @@ import {
   VStack,HStack,
   FormControl,
   Input,
-  Center,Icon ,ArrowRightIcon,Button,Heading
+  Center,Icon ,ArrowRightIcon,Button,Heading,Box
 } from "@gluestack-ui/themed"
 import {FlatList, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
 import { getLanguage,getLanguageLabel } from "../common/apiCalls";
@@ -11,7 +11,6 @@ import {storeObjectData,storageKeyTypes,getObjectData} from '../common/localStor
 import {  navigationRoutes } from '../common/navigation'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLanguage } from '../slices/languageSlice'
-import { Box } from "lucide-react-native";
 import { setPage} from '../slices/initialPageSlice'
 function Language (props) {
   const dispatch = useDispatch()
@@ -69,14 +68,17 @@ function Language (props) {
     
      
     <View>
+      
       <Heading size="lg" style={{textAlign:"center",paddingBottom:50,paddingTop:50}}>Choose Language</Heading>
+      <VStack pl="$20" pr="$10" space="lg" bgColor="$white">
       <FlatList 
         data={languageData}
-        renderItem={({item}) => <HStack><Text style={{marginLeft:'50px',width:"50%"}}>{item.name}</Text>
+        renderItem={({item}) => <HStack textAlign="left"><Text style={{width:"80%",textAlign:"left",fontSize:14}}>{item.name}</Text>
        <Icon id={item.code} size="xl"
        onPress={()=>{SetLanguage(item.code)}}
          on as={ArrowRightIcon} m="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  /></HStack>}
       />
+      </VStack>
     </View>
 
     

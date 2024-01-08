@@ -1,26 +1,30 @@
 
-import React,{useEffect} from 'react';  
-import {View} from 'react-native';
+import React, { useEffect } from 'react';
+import { View } from 'react-native';
 import MeetingList from './meetingList';
 import CreateMeeting from './createMeeting';
-import { useSelector,useDispatch } from 'react-redux';
-import {getMeetingListByUser} from '../../slices/meetingSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { getMeetingListByUser } from '../../slices/meetingSlice';
+import {
+    VStack
+} from "@gluestack-ui/themed";
+function MeetingLayout() {
 
-function MeetingLayout (){
-   
-    const meetingListItems=useSelector((state)=>state.meeting.listItems);
+    const meetingListItems = useSelector((state) => state.meeting.listItems);
     const token = useSelector((state) => state.login.token)
     const dispatch = useDispatch()
-    useEffect( ()=>{
+    useEffect(() => {
         dispatch(getMeetingListByUser(token))
-    },[token])
+    }, [token])
 
-   
+
     return (
-     
-          <View>
-          {meetingListItems.length === 0 ? <CreateMeeting /> :<MeetingList meetingListItems={meetingListItems}/>}    
-         </View> 
+
+
+        <VStack space="md">
+            {meetingListItems.length === 0 ? <CreateMeeting /> : <MeetingList meetingListItems={meetingListItems} />}
+        </VStack>
+
     )
 }
 export default MeetingLayout;
