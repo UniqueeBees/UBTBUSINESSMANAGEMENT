@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loginLanguageDTO,dashboardLanguageDTO,settingsLanguageDTO } from '../dto/languageDTO'
+import { loginLanguageDTO,dashboardLanguageDTO,settingsLanguageDTO,taskLanguageDTO } from '../dto/languageDTO'
 const initialState= {
   loginLanguageDTO:loginLanguageDTO,
   dashboardLanguageDTO:dashboardLanguageDTO,
   settingsLanguageDTO:settingsLanguageDTO,
+  taskLanguageDTO:taskLanguageDTO,
 }
 export const languageSlice = createSlice({
   name: 'language',

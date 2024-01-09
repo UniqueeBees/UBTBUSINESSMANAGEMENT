@@ -19,3 +19,8 @@ export const settingsLanguageDTO={
     helpLineNumber:'Call helpline',
 
 }
+export const taskLanguageDTO={
+    MyTasks:'MyTasks',
+    Tasks:'Tasks',
+    DueDate:'DueDate',
+}

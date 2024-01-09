@@ -12,6 +12,7 @@ import BusinessDetails from '../pages/business/businessDetails'
 import Settings from '../pages/settings';
 import MeetingSetup from '../pages/meeting/meetingSetup';
 import TaskSetup from '../pages/task/taskSetup';
+import TaskListLayout from '../pages/task/taskListLayout';
 import PopperButton from '../navigation/poperButton'
  const TabIconSize="35";
  const TabIconColor="black";
@@ -95,7 +96,7 @@ function Tabs() {
              <PopperButton></PopperButton>
             ), 
           }} ></Tab.Screen> 
-            <Tab.Screen name="Find1" component={Home}
+            <Tab.Screen name="taskListLayout" component={TaskListLayout}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
