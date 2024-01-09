@@ -29,10 +29,8 @@ function BusinessList(props) {
     console.log("businessList",businessListItems)
     return (
       <VStack width="100%" mx="3" style={styles.pageHeader} >
-      <HStack space="xs" pr="$10"><Icon  size="xl"
-       onPress={()=>{}}
-         on as={ArrowLeftIcon} ml="$5" mt="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  />
-       <Heading textAlign="center" width="100%" > BUSINESSES</Heading>
+      <HStack space="xs" textAlign="center">
+       <Heading textAlign="center" width="100%" fontSize={16} >BUSINESSES</Heading>
                
         
       </HStack>

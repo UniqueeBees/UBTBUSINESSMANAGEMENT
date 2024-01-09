@@ -100,7 +100,7 @@ function Login() {
               <InputField
                 type="text"
                 value={username}
-                onChangeText={text => setUsername(text)} placeholder="UserName"
+                onChangeText={text => setUsername(text)} placeholder="Username"
               />
             </Input>
           </VStack>

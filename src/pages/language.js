@@ -65,18 +65,21 @@ function Language (props) {
   }, []);
   
   return (
-    <VStack bgColor="$white">
+    <VStack>
     <Heading size="lg" style={{textAlign:"center",paddingBottom:50,paddingTop:50,width:"100%"}}>Choose Language</Heading>
     
-      <VStack pl="$20" pr="$10" space="lg" bgColor="$white" height="100%" >
+      <VStack space="2xl" height="100%" >
       
       
       <FlatList 
         data={languageData}
-        renderItem={({item}) => <HStack textAlign="left"><Text style={{width:"80%",textAlign:"left",fontSize:16}}>{item.name}</Text>
+        renderItem={({item}) =>
+         <HStack onPress={()=>{SetLanguage(item.code)}} mt="$5" pl="$10" bgColor="$white" textAlign="left"><Text style={{width:"80%",textAlign:"left",fontSize:16}} onPress={()=>{SetLanguage(item.code)}}>{item.name}</Text>
        <Icon id={item.code} size="xl"
        onPress={()=>{SetLanguage(item.code)}}
-         on as={ArrowRightIcon} m="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  /></HStack>}
+         on as={ArrowRightIcon} m="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  />
+         </HStack>
+        }
       />
       </VStack>
     </VStack>
