@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react"
 
 import {
   Button, VStack, Center, ButtonText, ButtonIcon,
-  Heading, Text, Image,FlatList,Box,HStack,Badge,BadgeText
+  Heading, Text, Image,FlatList,Box,HStack,Badge,BadgeText,Icon ,ArrowLeftIcon,MailIcon,PhoneIcon
 } from "@gluestack-ui/themed";
 import { styles } from '../../assets/styles/theme'
 import { Building2, ArrowRight } from 'lucide-react-native';
@@ -28,8 +28,10 @@ function BusinessList(props) {
     console.log("businessList",businessListItems)
     return (
       <VStack width="100%" mx="3" style={styles.pageHeader} >
-      <HStack space="xs">
-       <Heading > Business List</Heading>
+      <HStack space="xs" pr="$10"><Icon  size="xl"
+       onPress={()=>{}}
+         on as={ArrowLeftIcon} ml="$5" mt="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  />
+       <Heading textAlign="center" width="100%" > BUSINESSES</Heading>
                
         
       </HStack>
@@ -39,15 +41,16 @@ function BusinessList(props) {
         renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
           <VStack>
             <Heading size="md" >{item.name}</Heading> 
-            <HStack space="md" justifyContent="flex-end">
-
-              <Badge size="md" variant="solid" borderRadius="$xl" action="muted" >
-                <BadgeText>{item.email}</BadgeText>
+            <VStack  pt="$2" >
+              <Badge variant="solid"  action="muted">
+              {item.email?<Icon as={MailIcon} m="$2" w="$4" h="$4" />:""}<BadgeText style={{textTransform: 'capitalize'}}>{item.email}</BadgeText>
               </Badge>
-              <Badge size="md" variant="solid" borderRadius="$xl" action="muted" >
-                <BadgeText >{item.phone}</BadgeText>
+              </VStack>
+              <VStack>
+              <Badge variant="solid" action="muted"  >
+              {item.phone?<Icon as={PhoneIcon} m="$2" w="$4" h="$4" />:""}<BadgeText style={{textTransform: 'capitalize'}}>{item.phone}</BadgeText>
               </Badge>
-            </HStack>
+            </VStack>
           </VStack>
         </Box>}
       />    

@@ -8,6 +8,9 @@ import { logout } from "../slices/loginSlice";
 import { setPage, setPageWithParameters } from '../slices/initialPageSlice';
 import { resetUser } from "../slices/userSlice";
 import { navigationRoutes } from '../common/navigation';
+import { getMeetingListByUser } from '../slices/meetingSlice';
+import {getTaskListByUser} from '../slices/taskSlice';
+import { getBusinessListItems } from '../slices/businessSlice';
 import {
   Avatar,
   AvatarBadge,
@@ -27,6 +30,7 @@ function Settings() {
   const meetingListItems = useSelector((state) => state.meeting.listItems);
   const taskListItems=useSelector((state)=>state.task.listItems);
   const businessListItems = useSelector((state) => state.business.businessList);
+  const token = useSelector((state) => state.login.token)
   const items = [
     { key: 'language', category: 1, order: 1, label: settingsLanguageDTO.changeLanguage },
     { key: 'company', category: 2, order: 2, label: settingsLanguageDTO.changeCompany },
@@ -42,6 +46,20 @@ function Settings() {
 
     }
   }, [loginState])
+
+
+  useEffect( ()=>{
+    if(taskListItems.length==0){
+    dispatch(getTaskListByUser(token))
+  }
+  if(meetingListItems.length==0){
+    dispatch(getMeetingListByUser(token))
+  }
+  if(businessListItems.length==0){
+    dispatch(getBusinessListItems(token))
+  }
+},[token])
+
   const actionEvent = (item) => {
     if (item.key === "user") {
       setSelectedItem("user");
