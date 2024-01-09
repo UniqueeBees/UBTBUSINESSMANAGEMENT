@@ -8,7 +8,7 @@ export const  styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white'
+   // backgroundColor: 'white'
   },
   logo: {
     width: 200,
@@ -31,7 +31,7 @@ export const  styles = StyleSheet.create({
     fontSize:12
   },
   fieldSetContainer:{
-    backgroundColor: 'smokewhiter',
+    //backgroundColor: 'smokewhiter',
     paddingTop:0,
     paddingVertical:100,
     paddingHorizontal:5,
@@ -68,5 +68,8 @@ export const  styles = StyleSheet.create({
     marginLeft:"auto"
 
   },
+  scrollView_withToolBar:{
+    
+  }
   
 });

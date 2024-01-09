@@ -27,7 +27,8 @@ import {
   Icon,
   ChevronDownIcon,
   HStack,
-  ArrowLeftIcon
+  ArrowLeftIcon,
+  ScrollView,
 
 } from "@gluestack-ui/themed"
 import { ArrowRight } from 'lucide-react-native';
@@ -66,11 +67,13 @@ export default function BusinessDetails(props) {
     return (
       <VStack width="100%" mx="3"  height ="100%" style={styles.fieldSetContainer}>
         <VStack width="100%" mx="3" style={styles.pageHeader} >
-        <HStack space="xs">
-         <Heading   >Create Business</Heading>
+        <HStack space="4xl">
+        <Icon as={ArrowLeftIcon} size="lg" style={{marginTop:8}}  onPress={()=>navigation.navigate('businessList')}/><Heading   >Create Business</Heading>
         </HStack>
+        
         </VStack>
         <Heading style={styles.pageTitle}>Basic Details</Heading>
+        <ScrollView style={styles.scrollView_withToolBar} >
         <FormControl isRequired>
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Type</FormControlLabelText>
@@ -164,7 +167,7 @@ export default function BusinessDetails(props) {
             <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
           </Button>
         </VStack>
-
+        </ScrollView>
       </VStack>
     )
   }
@@ -178,6 +181,7 @@ export default function BusinessDetails(props) {
         </HStack>
         </VStack>
         <Heading style={styles.pageTitle} >Additional Informations</Heading>
+        <ScrollView style={styles.scrollView_withToolBar} >
         <FormControl >
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Landmark</FormControlLabelText>
@@ -258,7 +262,7 @@ export default function BusinessDetails(props) {
             <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
           </Button>
         </VStack>
-
+</ScrollView>
       </VStack>
     )
   }
@@ -352,11 +356,13 @@ export default function BusinessDetails(props) {
     } 
   }
   return (
-    <Center flex={1} px="3">
+     
+   
     <VStack width="100%" mx="3"   height="100%">
       {loadComponent()}
       </VStack>
-    </Center>
+     
+    
 
   )
 }

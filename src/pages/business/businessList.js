@@ -2,7 +2,8 @@ import { React, useState, useEffect } from "react"
 
 import {
   Button, VStack, Center, ButtonText, ButtonIcon,
-  Heading, Text, Image,FlatList,Box,HStack,Badge,BadgeText,Icon ,ArrowLeftIcon,MailIcon,PhoneIcon
+  Heading, Text, Image,FlatList,Box,HStack,Badge,BadgeText,Icon ,ArrowLeftIcon,MailIcon,PhoneIcon 
+   
 } from "@gluestack-ui/themed";
 import { styles } from '../../assets/styles/theme'
 import { Building2, ArrowRight } from 'lucide-react-native';
