@@ -1,8 +1,10 @@
 import { createSlice,createAsyncThunk} from "@reduxjs/toolkit";
-import {getTasksByUser}from '../common/apiCalls';
-import{buildTaskListItems}from '../dto/taskDTO';
+import {getTasksByUser,getTaskStatusListAPI}from '../common/apiCalls';
+import{buildTaskListItems,buildTaskStatusList}from '../dto/taskDTO';
+
 const initialState={
     listItems:[],
+    taskStatusList:[],
     pageCount:0,
     pageItemCount:10,
     fetchedItemCount:0,
@@ -13,8 +15,15 @@ const initialState={
 }
 export const getTaskListByUser = createAsyncThunk(
     'task/getlistByUser',
+    async (user) => {
+      const response = await getTasksByUser(user.token,user.id)
+      return response.data
+    }
+  )
+  export const getTaskStatusList= createAsyncThunk(
+    'task/getTaskStatusList',
     async (token) => {
-      const response = await getTasksByUser(token)
+      const response = await getTaskStatusListAPI(token)
       return response.data
     }
   )
@@ -60,9 +69,23 @@ extraReducers(builder){
         state.loading = false;
 
       })
+      .addCase(getTaskStatusList.fulfilled, (state, action) => {
+        
+        console.log('getTaskStatusList',action)
+        const resp=action.payload;
+        if(resp.status){
+          const taskStatusList=buildTaskStatusList(resp.status_list )
+          state.taskStatusList=taskStatusList;
+        }
+
+      })
 },
 
 })
+
+export const selectNotCompletedTasks = (state, userId) => state.task.listItems.filter(item => item.status !== "3" 
+&& item.assignedTo === userId)
+export const selectMyTasks = (state, userId) => state.task.listItems.filter(item => item.assignedTo === userId)
 
 export const {reset } = taskSlice.actions
 export default taskSlice.reducer;

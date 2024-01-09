@@ -105,14 +105,23 @@ export  const  getMeetingsByUser = async (token) => {
     })
 
 }
-export  const  getTasksByUser = async (token) => {
+export  const  getTasksByUser = async (token,id) => {
+    
    return await axios({
         method: "GET",
-        url: `${baseUrl}/tasks`,
+        url: `${baseUrl}/tasks?user_id=${id}&assigned_to=${id}`,
         headers: { "APITOKEN":token },
     })
 
 }
+export  const  getTaskStatusListAPI = async (token) => {
+    return await axios({
+         method: "GET",
+         url: `${baseUrl}/tasks/status`,
+         headers: { "APITOKEN":token },
+     })
+ 
+ }
 export  const  getUser = async (token) => {
    return await axios({
         method: "POST",
