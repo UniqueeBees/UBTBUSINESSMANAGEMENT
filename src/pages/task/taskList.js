@@ -12,7 +12,7 @@ const getTaskStatus=(task)=>{
   const status=statusList.find(statusItem =>statusItem.id == task.status);
   const statusName= status? status.name : '';
   const color= status? status.color : '';
-  const dueDate=`${taskLanguageDTO.DueDate}: ${task.dueDate}`;
+  const dueDate=`${taskLanguageDTO.dueDate}: ${task.dueDate}`;
   return(
     <HStack space="md" justifyContent="flex-end">
 
@@ -28,7 +28,7 @@ const getTaskStatus=(task)=>{
 return(
 
       <View>
-      <FlatList 
+      <FlatList style={{height:"84%"}}
         data={props.taskListItems}
         renderItem={({item}) => <Box style={{borderRadius:5}}  bgColor="$white" m="$2" p="$2" pl="$5">
           <VStack>

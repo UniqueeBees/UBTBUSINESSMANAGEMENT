@@ -47,12 +47,12 @@ function TaskListLayout (props){
             <HStack pt="$4" pb="$4">
                 <Button ml='auto' size="md" variant="solid" action="primary" {...meetingBgColor} style={styles.buttonGeneral} onPress={onMeetingPress}>
                     <ButtonText color={isMyTask?'$white':'$black'}  >
-                        {taskLanguageDTO.MyTasks}
+                        {taskLanguageDTO.myTasks}
                     </ButtonText >
                 </Button>
                 <Button ml='auto' size="md" variant="solid" action="primary" style={styles.buttonGeneral} {...taskBgColor} onPress={onTasksPress}>
                     <ButtonText color={!isMyTask?'$white':'$black'}  >
-                        {taskLanguageDTO.Tasks}
+                        {taskLanguageDTO.tasks}
                     </ButtonText >
             </Button>
             </HStack>

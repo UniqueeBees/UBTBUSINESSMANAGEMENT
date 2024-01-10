@@ -39,7 +39,7 @@ function Login() {
       }
     },[loginState])
     useEffect(()=>{
-      if(hasUser){
+      if(hasUser && loginState){
        dispatch(setPage(navigationRoutes.navigationTab))
       }
     },[hasUser])
@@ -51,7 +51,7 @@ function Login() {
     };
     const onLoginClicked =  async() => {
       try {
-       console.log('onLoginClicked',companyState)
+      
         await dispatch(accountLogin({ domain:companyState.company.domain, username:username, password :password}))
        
       } 

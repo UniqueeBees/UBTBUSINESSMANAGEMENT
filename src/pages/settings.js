@@ -68,6 +68,7 @@ function Settings() {
     else if (item.key === "language") {
       console.log('settingds dispatch', item.key)
       dispatch(setPage(navigationRoutes.language))
+     // dispatch(setPage(navigationRoutes.none))
     }
     else if (item.key === "company") {
       dispatch(setPageWithParameters({ page: navigationRoutes.company, routeParameters: { skipEffectNav: true } }))
