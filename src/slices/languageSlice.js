@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { loginLanguageDTO,dashboardLanguageDTO,settingsLanguageDTO,taskLanguageDTO } from '../dto/languageDTO'
+import { BuildLoginLanguageDTO,BuildDashboardLanguageDTO,BuildSettingsLanguageDTO,BuildTaskLanguageDTO } from '../dto/languageDTOBuilder'
 const initialState= {
   loginLanguageDTO:loginLanguageDTO,
   dashboardLanguageDTO:dashboardLanguageDTO,
@@ -20,7 +21,10 @@ export const languageSlice = createSlice({
       // Also, no return statement is required from these functions.
       //console.log(action) 
       state.language =action.payload
-      
+      state.loginLanguageDTO=BuildLoginLanguageDTO(state.language.translations);
+      state.dashboardLanguageDTO=BuildDashboardLanguageDTO(state.language.translations);
+      state.settingsLanguageDTO=BuildSettingsLanguageDTO(state.language.translations);
+      state.taskLanguageDTO=BuildTaskLanguageDTO(state.language.translations);
     },
     setInitialLanguage: (state, action) => {
       
@@ -32,6 +36,7 @@ export const languageSlice = createSlice({
       {
         state=initialState
       }
+     
     },
   },
 })

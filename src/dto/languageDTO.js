@@ -21,7 +21,7 @@ export const settingsLanguageDTO={
 
 }
 export const taskLanguageDTO={
-    MyTasks:'MyTasks',
-    Tasks:'Tasks',
-    DueDate:'DueDate',
+    myTasks:'MyTasks',
+    tasks:'Tasks',
+    dueDate:'DueDate',
 }
