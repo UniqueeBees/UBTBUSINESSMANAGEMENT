@@ -1,8 +1,8 @@
 import { React, useState, useEffect } from "react"
-
+import {Dimensions} from 'react-native';
 import {
   Button, VStack, Center, ButtonText, ButtonIcon,
-  Heading, Text, Image,FlatList,Box,HStack,Badge,BadgeText,Icon ,ArrowLeftIcon,MailIcon,PhoneIcon 
+  Heading, Text, Image,FlatList,Box,HStack,Badge,BadgeText,Icon ,ArrowLeftIcon,MailIcon,PhoneIcon ,AddIcon
    
 } from "@gluestack-ui/themed";
 import { styles } from '../../assets/styles/theme'
@@ -35,7 +35,7 @@ function BusinessList(props) {
         
       </HStack>
      
-      <FlatList style={{height:"84%"}}
+      <FlatList style={{height:Dimensions.get('window').height-170}}
         data={businessListItems}
         renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
           <VStack>
@@ -66,7 +66,7 @@ function BusinessList(props) {
         onPress={()=>navigation.navigate("businessDetails")}
 
       >
-     <ButtonText >Add</ButtonText>    
+     <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>    
       </Button>
        </VStack>
        

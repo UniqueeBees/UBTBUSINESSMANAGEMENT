@@ -18,7 +18,7 @@ import {
   AvatarImage, AvatarGroup
 } from "@gluestack-ui/themed"
 import { baseUrl, getProfile } from '../common/apiCalls';
-
+import { styles } from '../assets/styles/theme';
 function Settings() {
 
   const dispatch = useDispatch();
@@ -131,7 +131,7 @@ function Settings() {
           renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
             <VStack>
               <HStack>
-                <Heading size="md" >{item.label}</Heading>
+                <Heading size="md" style={styles.subTitle} >{item.label}</Heading>
                 <Icon id={item.code} size="xl"
                   onPress={() => { actionEvent(item) }}
                   on as={ArrowRightIcon} m="$2" w="$4" h="$4" style={{ cursor: 'pointer' }} />

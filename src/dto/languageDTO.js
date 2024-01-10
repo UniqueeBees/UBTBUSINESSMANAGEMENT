@@ -5,6 +5,7 @@ export const loginLanguageDTO={
     submit:'Submit',
     loginFailed:'Authentication failed',
     requiredCommon:'',
+    signIn:"Sign In"
 
 }
 export const dashboardLanguageDTO={
