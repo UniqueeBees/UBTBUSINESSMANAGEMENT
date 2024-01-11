@@ -29,7 +29,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
         return (
          
             <Center flex={1} px="3">
-                 <AntDesign name="plussquareo" color="black" size={35}   />
+                 <AntDesign name="plussquareo" color="black" size={25}   />
             </Center>
          
         );

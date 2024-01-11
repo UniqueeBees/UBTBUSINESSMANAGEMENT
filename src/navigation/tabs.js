@@ -14,6 +14,7 @@ import MeetingSetup from '../pages/meeting/meetingSetup';
 import TaskSetup from '../pages/task/taskSetup';
 import TaskListLayout from '../pages/task/taskListLayout';
 import PopperButton from '../navigation/poperButton'
+import { SettingsIcon,Icon } from '@gluestack-ui/themed';
  const TabIconSize="35";
  const TabIconColor="black";
 const Tab=createBottomTabNavigator();
@@ -107,7 +108,7 @@ function Tabs() {
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name="search1" color={color} size={size} />
+              <Icon as={SettingsIcon} m="$2" w="$7" h="$7" />
             ), 
           }} ></Tab.Screen> 
 
