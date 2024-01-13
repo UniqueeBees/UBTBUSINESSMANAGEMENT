@@ -74,7 +74,17 @@ export const styles = StyleSheet.create({
 
   },
   subTitle: {
-    fontSize: 14,
-  }
+    fontSize: 15,
+    fontWeight:"normal",
+    fontFamily:"Poppins",
+  },
+  langugeHeading:{
+    textAlign:"center",
+    paddingBottom:50,
+    paddingTop:50,
+    width:"100%",
+    fontFamily:"Poppins",
+    fontSize:28,
+    fontWeight:"normal"}
 
 });

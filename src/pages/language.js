@@ -5,13 +5,14 @@ import {
   Input,
   Center,Icon ,ArrowRightIcon,Button,Heading,Box
 } from "@gluestack-ui/themed"
-import {FlatList, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
+import {FlatList, StyleSheet, Text, View,TouchableOpacity,TouchableHighlight} from 'react-native';
 import { getLanguage,getLanguageLabel } from "../common/apiCalls";
 import {storeObjectData,storageKeyTypes,getObjectData} from '../common/localStorage'
 import {  navigationRoutes } from '../common/navigation'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLanguage } from '../slices/languageSlice'
 import { setPage} from '../slices/initialPageSlice'
+import { styles } from '../assets/styles/theme'
 function Language (props) {
   const dispatch = useDispatch()
   const languageState = useSelector((state) => state.language)
@@ -65,23 +66,23 @@ function Language (props) {
   }, []);
   
   return (
-    <VStack>
-    <Heading size="lg" style={{textAlign:"center",paddingBottom:50,paddingTop:50,width:"100%"}}>Choose Language</Heading>
-    
-      <VStack space="2xl" height="100%" >
-      
-      
+    <VStack bgColor="$white" height="100%">
+    <Heading size="lg" style={styles.langugeHeading}>Choose Language</Heading>
+    <VStack space="md"  width="100%" pl={65}  pr={65} >
+      <VStack space="md" bgColor="#F0FFFF" width="100%"  pt="$1" >
       <FlatList 
         data={languageData}
         renderItem={({item}) =>
-         <HStack onPress={()=>{SetLanguage(item.code)}} mt="$5" pl="$10" bgColor="$white" textAlign="left"><Text style={{width:"80%",textAlign:"left",fontSize:16}} onPress={()=>{SetLanguage(item.code)}}>{item.name}</Text>
-       <Icon id={item.code} size="xl"
-       onPress={()=>{SetLanguage(item.code)}}
+        <TouchableHighlight onPress={()=>{SetLanguage(item.code)}} underlayColor="white">
+         <HStack mb="$1" alignItems="center" height={60} backgroundColor="$white" borderRadius={30}  textAlign="left"><Text style={{width:"90%",textAlign:"left",fontSize:16}} >{item.name}</Text>
+       <Icon id={item.code} size="xl"   
          on as={ArrowRightIcon} m="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  />
-         </HStack>
+         </HStack></TouchableHighlight>
         }
       />
       </VStack>
+      </VStack>
+
     </VStack>
 
     
