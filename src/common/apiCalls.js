@@ -130,6 +130,14 @@ export  const  getUser = async (token) => {
     })
 
 }
+export  const  getUsers = async (token) => {
+    return await axios({
+         method: "POST",
+         url: `${baseUrl}/users`,
+         headers: { "APITOKEN":token },
+     })
+ 
+ }
 
 export const getBusinessList=async (token)=>{
     return await axios({
@@ -155,6 +163,16 @@ export const getBusinessList=async (token)=>{
     })
 
 }
+
+export const addTask=async(token,task)=>{
+    console.log('addTaskAPI',task)
+    return await axios({
+        method: "POST",
+        data: task,
+        url: `${baseUrl}/tasks`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
 //Test Call
 const baseUrl1 = "https://jsonplaceholder.typicode.com"
 export const getApi = () => {
@@ -190,5 +208,6 @@ export const saveContact = (contactData,token) => {
         })
 
 }
+
 
 
