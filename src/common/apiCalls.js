@@ -105,6 +105,13 @@ export  const  getMeetingsByUser = async (token) => {
     })
 
 }
+export const getMeetingPurposeList=async(token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/purposes`,
+        headers: { "APITOKEN":token },
+    })
+}
 export  const  getTasksByUser = async (token,id) => {
     
    return await axios({

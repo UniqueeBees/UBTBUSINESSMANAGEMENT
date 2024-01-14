@@ -75,7 +75,7 @@ export const taskSlice = createSlice({
         if (resp.status) {
           state.hasError = false;
           const taskListItems = buildTaskListItems(resp.tasks)
-          state.listItems = [];//taskListItems;
+          state.listItems = taskListItems;
         }
         else {
           state.hasError = true;

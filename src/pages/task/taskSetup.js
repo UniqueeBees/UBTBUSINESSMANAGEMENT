@@ -106,8 +106,7 @@ function TaskSetup() {
                         </FormControlLabel>
                         <Input variant="underlined" size="md"    >
                             <InputField placeholder={taskLanguageDTO.assignToPlaceholder} value={executiveName}
-                                editable={false}
-                                onChangeText={value => setData({ ...formData, assignTo: value })}>
+                                editable={false}>
                             </InputField>
                             <InputSlot pr='$3' onPress={() => handleExecutiveSelect(true)}>
                                 <InputIcon as={ChevronRight} size="lg" />

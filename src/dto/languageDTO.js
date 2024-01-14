@@ -39,3 +39,26 @@ export const taskLanguageDTO = {
     executiveListTitle: 'EXECUTIVES',
 
 }
+export const meetingLanguageDTO = {
+    createMeeting: 'Create Meeting',
+    purpose: 'Purpose',
+    purposePlaceholder: 'Select Meeting Purpose',
+    purposeValidationMessage: 'Purpose is required',
+    contact: 'Contact',
+    contactPlaceholder: 'Select Contact',
+    contactValidationMessage: 'Contact is required',
+    title: 'Title',
+    titlePlaceholder: 'Enter Meeting Title',
+    titleValidationMessage: 'Title is required',
+    description: 'Description',
+    descriptionPlaceholder: 'Enter Description',
+    schedule: 'Schedule',
+    startMeeting: 'Start Meeting',
+    meetingDateAndTime:'Date & Time',
+    meetingDateAndTimePlaceholder:'Enter Schedule Meeting Date & Time',
+    meetingDateAndTimeValidationMessage:'Date & Time is required',
+    scheuleMeeting:'Schedule Meeting',
+
+
+
+}
