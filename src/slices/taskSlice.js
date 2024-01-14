@@ -59,6 +59,10 @@ export const taskSlice = createSlice({
       state.listItems = []
       state.saveRequestStatus = requestStatusDTO.idle;
     },
+    resetSaveRequestStatus: (state) => {
+      state.saveRequestStatus = requestStatusDTO.idle;
+
+    },
   },
   extraReducers(builder) {
     builder
@@ -129,5 +133,5 @@ export const selectNotCompletedTasks = (state, userId) => state.task.listItems.f
   && item.assignedTo === userId)
 export const selectMyTasks = (state, userId) => state.task.listItems.filter(item => item.assignedTo === userId)
 
-export const { reset } = taskSlice.actions
+export const { reset,resetSaveRequestStatus } = taskSlice.actions
 export default taskSlice.reducer;

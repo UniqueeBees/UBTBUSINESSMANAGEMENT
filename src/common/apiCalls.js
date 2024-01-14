@@ -146,6 +146,14 @@ export  const  getUsers = async (token) => {
  
  }
 
+ export const getContacts=async(token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/contacts`,
+        headers: { "APITOKEN":token },
+    })
+ }
+
 export const getBusinessList=async (token)=>{
     return await axios({
         method: "GET",
@@ -177,6 +185,15 @@ export const addTask=async(token,task)=>{
         method: "POST",
         data: task,
         url: `${baseUrl}/tasks`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
+ export const addMeeting=async(token,meeting)=>{
+    console.log('addMeetingAPI',meeting)
+    return await axios({
+        method: "POST",
+        data: meeting,
+        url: `${baseUrl}/meeting`,
         headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
     })
  }

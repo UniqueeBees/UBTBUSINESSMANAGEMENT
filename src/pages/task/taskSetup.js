@@ -32,7 +32,7 @@ import { View, Text } from 'react-native';
 import DateTimePicker,{DateDisplayFormat} from '../../common/datetimepicker'
 import { useNavigation } from "@react-navigation/native";
 import { getUserList } from '../../slices/userSlice';
-import { addNewTask } from '../../slices/taskSlice';
+import { addNewTask,resetSaveRequestStatus } from '../../slices/taskSlice';
 import { requestStatusDTO } from '../../dto/statusDTO';
 import UserList from './userList';
 
@@ -56,7 +56,17 @@ function TaskSetup() {
     }, [token])
     useEffect(() => {
         if (saveRequestStatus === requestStatusDTO.fulfilled) {
-            navigation.navigate('taskListLayout') 
+            setData(taskSetup);
+            setExecutiveName('')
+            navigation.navigate('dashboard',{screen:'dashboardLayout'})
+            dispatch(resetSaveRequestStatus());
+        }
+        else if (saveRequestStatus === requestStatusDTO.pending) {
+            //show busy indicator
+        }
+        else if (saveRequestStatus === requestStatusDTO.rejected) {
+            //error
+            dispatch(resetSaveRequestStatus());
         }
     }, [saveRequestStatus])
 

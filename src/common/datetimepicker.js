@@ -7,6 +7,10 @@ import moment from 'moment';
 
 export const DateDisplayFormat = {
     shortDate: "l",
+    meetingFormat:'MMM DD, hh:mm a',
+}
+export const getCurrentDateFormated=(dataSourceFormat)=>{
+   return moment().format(dataSourceFormat);
 }
 function DateTimePicker(props) {
     const [isVisible, setVisible] = useState(false);

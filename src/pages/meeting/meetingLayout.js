@@ -8,7 +8,7 @@ import { getMeetingListByUser, getPurposeList } from '../../slices/meetingSlice'
 import {
     VStack
 } from "@gluestack-ui/themed";
-function MeetingLayout() {
+function MeetingLayout(props) {
 
     const meetingListItems = useSelector((state) => state.meeting.listItems);
     const purposeList = useSelector((state) => state.meeting.purposeList);

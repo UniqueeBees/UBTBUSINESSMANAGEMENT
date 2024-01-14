@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getUser,getUsers } from '../common/apiCalls';
-import { buildUserDTO, buildUserListItemDTO, userDTO } from '../dto/userDTO';
+import { getUser,getUsers,getContacts } from '../common/apiCalls';
+import { buildUserDTO, buildUserListItemDTO, userDTO ,buildContactListItemDTO} from '../dto/userDTO';
 import { requestStatusDTO } from "../dto/statusDTO";
 const initialState = {
   userDTO: userDTO,
   userList: { list: [], requestStatus: requestStatusDTO.idle },
+  contactList: { list: [], requestStatus: requestStatusDTO.idle },
   hasUser: false,
 }
 export const getUserProfile = createAsyncThunk(
@@ -18,6 +19,13 @@ export const getUserList = createAsyncThunk(
   'user/getUsers',
   async (token) => {
     const response = await getUsers(token)
+    return response.data
+  }
+)
+export const getContactList = createAsyncThunk(
+  'contact/getContactList',
+  async (token) => {
+    const response = await getContacts(token)
     return response.data
   }
 )
@@ -88,6 +96,28 @@ export const userSlice = createSlice({
       })
       .addCase(getUserList.rejected, (state, action) => {
         state.userList = { list: [], requestStatus: requestStatusDTO.rejected };
+      })
+      .addCase(getContactList.pending, (state, action) => {
+        state.contactList = { list: [], requestStatus: requestStatusDTO.pending };
+      })
+      .addCase(getContactList.fulfilled, (state, action) => {
+
+        console.log('getContactList', action)
+        state.loading = false;
+        const resp = action.payload;
+        if (resp.status) {
+          state.hasError = false;
+          const contactList = buildContactListItemDTO(resp.contacts)
+          state.contactList = { list: contactList, requestStatus: requestStatusDTO.fulfilled };
+        }
+        else {
+          state.contactList = { list: [], requestStatus: requestStatusDTO.rejected };
+        }
+
+      })
+      .addCase(getContactList.rejected, (state, action) => {
+        console.log('getContactList-rejected', action)
+        state.contactList = { list: [], requestStatus: requestStatusDTO.rejected };
       })
   },
 

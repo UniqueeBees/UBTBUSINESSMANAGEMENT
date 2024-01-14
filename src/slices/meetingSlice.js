@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getMeetingsByUser,getMeetingPurposeList } from '../common/apiCalls';
-import { buildMeetingListItems, buildPurposeListItems,meetingSetupDTO } from '../dto/meetingDTO';
+import { getMeetingsByUser,getMeetingPurposeList,addMeeting } from '../common/apiCalls';
+import { buildMeetingListItems,buildMeetingListItem, buildPurposeListItems,meetingSetupDTO } from '../dto/meetingDTO';
 import { requestStatusDTO } from "../dto/statusDTO";
 const initialState = {
   listItems: [],
@@ -29,6 +29,20 @@ export const getPurposeList = createAsyncThunk(
     return response.data
   }
 )
+export const addNewMeeting = createAsyncThunk(
+  'meeting/addMeeting',
+  async (meeting) => {
+    const formData = new FormData();
+    formData.append('purpose_id', meeting.meetingData.purposeId);
+    formData.append('contact_id', meeting.meetingData.contactId);
+    formData.append('business_id', meeting.meetingData.businessId);
+    formData.append('title', meeting.meetingData.title);
+    formData.append('notes', meeting.meetingData.description);
+      formData.append('scheduled_at', meeting.meetingData.scheduledAt);
+    const response = await addMeeting(meeting.token, formData)
+    return response.data
+  }
+)
 export const meetingSlice = createSlice({
   name: 'meeting',
   initialState,
@@ -40,6 +54,10 @@ export const meetingSlice = createSlice({
       // immutable state based off those changes.
       // Also, no return statement is required from these functions.
       state.listItems = []
+
+    },
+    resetSaveRequestStatus: (state) => {
+      state.saveRequestStatus = requestStatusDTO.idle;
 
     },
   },
@@ -58,7 +76,7 @@ export const meetingSlice = createSlice({
         if (resp.status) {
           state.hasError = false;
           const meetingListItems = buildMeetingListItems(resp.meetings)
-          state.listItems = []; meetingListItems;
+          state.listItems = meetingListItems;
         }
         else {
           state.hasError = true;
@@ -84,11 +102,33 @@ export const meetingSlice = createSlice({
           state.hasError = true;
         }
 
+      }).addCase(addNewMeeting.pending, (state, action) => {
+        state.saveRequestStatus = requestStatusDTO.pending;
+
+
+      })
+      .addCase(addNewMeeting.fulfilled, (state, action) => {
+        console.log('addNewMeeting-fulfilled', action)
+        const resp = action.payload;
+        if (resp.status) {
+          state.saveRequestStatus = requestStatusDTO.fulfilled;
+          const newMeeting = buildMeetingListItem(resp.meeting);
+          state.listItems.push(newMeeting);
+        }
+        else {
+          state.saveRequestStatus = requestStatusDTO.rejected;
+        }
+
+      })
+      .addCase(addNewMeeting.rejected, (state, action) => {
+        console.log('addNewMeeting-rejected', action)
+        state.saveRequestStatus = requestStatusDTO.rejected;
+
       })
     //
   },
 
 })
 
-export const { reset } = meetingSlice.actions
+export const { reset,resetSaveRequestStatus } = meetingSlice.actions
 export default meetingSlice.reducer;

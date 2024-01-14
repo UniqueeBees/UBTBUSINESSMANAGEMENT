@@ -25,7 +25,8 @@ function TaskLayout (){
     return (
      
           <View>
-          {(isTaskListRequestLoading && taskListItems.length === 0) ?<Box /> : taskListItems.length === 0 ? <CreateTask taskLanguageDTO={taskLanguageDTO} /> :<TaskList taskLanguageDTO={taskLanguageDTO} taskListItems={taskListItems} statusList={taskStatusList}/>}    
+          {(isTaskListRequestLoading && taskListItems.length === 0) ?<Box /> : taskListItems.length === 0 ? 
+          <CreateTask taskLanguageDTO={taskLanguageDTO} /> :<TaskList taskLanguageDTO={taskLanguageDTO} taskListItems={taskListItems} statusList={taskStatusList}/>}    
          </View> 
     )
 }
