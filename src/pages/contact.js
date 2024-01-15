@@ -98,15 +98,15 @@ setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo:
     >
 
       <VStack space='xl'>
-        <Heading lineHeight='$md' style={styles.Heading}>
+        <Heading lineHeight='$md' style={styles.mainHeading} >
           Create Contact
         </Heading>
 
-
+<VStack style={styles.outerVStack}  space="2xl">
         <VStack space='xs' alignItems="">
 
-          <FormControl isInvalid={isValid("NameError")}>
-            <Text lineHeight='$xs'>
+          <FormControl isInvalid={isValid("NameError")} isRequired>
+            <Text lineHeight='$xs' style={styles.inputLabel} >
               Name
             </Text>
             <Input variant='underlined' ml="$3">
@@ -117,7 +117,7 @@ setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo:
               />
             </Input>
 
-            <FormControlError>
+            <FormControlError ml="$3">
               <FormControlErrorText>
                 Name is required.
               </FormControlErrorText>
@@ -126,7 +126,7 @@ setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo:
 
 
         <VStack space='xs'>
-          <Text lineHeight='$xs'>
+          <Text lineHeight='$xs' style={styles.inputLabel}>
             Designation
           </Text>
           <Input variant='underlined'  ml="$3">
@@ -139,7 +139,7 @@ setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo:
         </VStack>
 
         <VStack space='xs'>
-          <Text lineHeight='$xs'>
+          <Text lineHeight='$xs' style={styles.inputLabel}>
             Email Address
           </Text>
           <Input variant='underlined'  ml="$3">
@@ -152,11 +152,11 @@ setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo:
         </VStack>
 
         <VStack space='xs'>
-          <Text lineHeight='$xs'>
+          <Text lineHeight='$xs' style={styles.inputLabel}>
             Mobile No
           </Text>
           <Input variant='underlined'  ml="$3">
-            <InputField placeholder="Enter Mobile No"
+            <InputField placeholder="Enter Mobile No" style={styles.inputPlaceholder}
               type="text"
               value={contactData.MobileNo}
               onChangeText={text => handleChange('MobileNo', text)}
@@ -164,7 +164,7 @@ setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo:
           </Input>
         </VStack>
         <VStack space='xs'>
-          <Text lineHeight='$xs'>
+          <Text lineHeight='$xs' style={styles.inputLabel}>
             WhatsApp No
           </Text>
           <Input variant='underlined'  ml="$3">
@@ -175,22 +175,23 @@ setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo:
             />
           </Input>
         </VStack>
-
-        <Button
+        <VStack width="100%" alignItems="center">
+        <Button style={styles.submitButton}
 
           ml='$0'
-          size="lg"
+          size="md"
           variant="solid"
           action="primary"
 
           onPress={saveData}
         >
-          <ButtonText color='$white' style={styles.buttonLong} >
+         
+          <ButtonText color='$white' style={styles.submitButtonText} >
             Submit
           </ButtonText >
           <ButtonIcon size={20} as={ArrowRight} maxWidth={200} />
-        </Button>
-       
+        </Button></VStack>
+        </VStack>
       </VStack>
     </FormControl>
     </VStack>

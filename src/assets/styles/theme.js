@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
     width: 300,
     borderRadius: 0,
 
-
   },
   subheading: {
     fontFamily: 'Arial',
@@ -87,5 +86,45 @@ export const styles = StyleSheet.create({
     fontSize:28,
     fontWeight:"normal"
   },
+  mainHeading:{
+    textAlign:"center",
+    width:"100%",
+    fontFamily:"Poppins",
+    fontSize:16,
+    fontWeight:"bold",
+    letterSpacing:1.5,
+    textTransform:"uppercase",
+    marginTop:20
+     
+  },
+  outerVStack:{
+  ml:"$5", mr:"$5"
+},
+inputLabel:{
+  fontSize: 12,
+  fontWeight:"normal",
+  fontFamily:"Poppins",
+
+},
+inputPlaceholder:{
+  fontSize: 13,
+  fontWeight:"normal",
+  fontFamily:"Poppins",
+
+},
+submitButtonText: {
+  width: 240,
+  borderRadius: 0,
+  fontFamily:"Poppins",
+  fontSize:13,
+},
+submitButton: {
+  width: 300,
+  borderRadius: 0,
+  textAlign:"center",
+  marginTop:10
+
+},
+
 
 });
