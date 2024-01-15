@@ -1,19 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loginLanguageDTO, dashboardLanguageDTO } from '../dto/languageDTO'
 const initialState = {
   show: false,
   alert: {}
 
 }
+
 export const alertSlice = createSlice({
   name: 'error',
   initialState: initialState,
 
   reducers: {
-    showAlert: (state, action) => {
-console.log(action)
-      state.show = show,
-      state.alert=action.payload.alert
+      showAlert: (state, action) => {
+      state.show = true,
+      state.alert=action.payload
 
     },
     hideAlert: (state, action) => {

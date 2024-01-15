@@ -18,13 +18,15 @@ import Customtheme from './assets/styles/theme'
 import Navigation from './common/navigation';
 import { GluestackUIProvider, Text } from "@gluestack-ui/themed"
 import { config } from "@gluestack-ui/config" // Optional if you w
+import Alert from "./common/alert";
 function App() {
 
   return (
     <SafeAreaProvider>
+     
       <AppNotification></AppNotification>
       <GluestackUIProvider config={config}>
-
+      <Alert/>
         <Navigation />
 
       </GluestackUIProvider>

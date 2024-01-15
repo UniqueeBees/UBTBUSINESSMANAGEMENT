@@ -1,5 +1,6 @@
 import axios from "axios";
 export const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
+
 export const apiCallStatus={
     pending:'pending',
     fullfilled:'fullfilled',
@@ -165,30 +166,18 @@ export const getApi = () => {
 }
 
 export const saveContact = (contactData,token) => {
-   console.log(token)
     const formData = new FormData();
     formData.append('business_id', 1);
     formData.append('name', contactData.Name);
     formData.append('designation', contactData.Designation);
     formData.append('email', contactData.Email);
     formData.append('mobile', contactData.MobileNo);
-    //formData.append('datetime', new Date());
-
-  console.log(formData)
-        axios({
+   return  axios({
         method: "POST",
         data: formData,
         url: `${baseUrl}/contacts`,
         headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
-    }).then(res => {
-        console.log(res)
-        return res.data;
     })
-        .catch(error => {
-            console.log("create contact error :", error)
-            return error;
-        })
-
 }
 
 

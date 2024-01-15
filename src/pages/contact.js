@@ -3,13 +3,12 @@ import { useState,useEffect } from 'react'
 import { VStack, FormControl, FormControlError, FormControlErrorText, Input, Heading, InputField, InputSlot, Button, ButtonText, InputIcon, EyeIcon, EyeOffIcon, ButtonSpinner } from '@gluestack-ui/themed';
 import { FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { saveContact } from "../common/apiCalls";
-import Alert from "../common/alert";
 import { useSelector, useDispatch } from 'react-redux'
 import { showAlert} from '../slices/alertSlice'
 const Contact = () => {
   const [contactData, setContactData] = useState({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo: "" });
   const loginState = useSelector((state) => state.login)
-let showAlert=false;
+  const dispatch = useDispatch()
   const handleChange = (key, value) => {
 
     let updateData = { ...contactData }
@@ -29,7 +28,7 @@ let showAlert=false;
 
   const validateData = () => {
     let updateData = { ...contactData }
-    const alert={action:'error',Title:'Error',description:'Please correct the indicated items'}
+    const alert={action:'error',title:'Error',description:'Please correct the indicated items'}
       for (var key in contactData) {
       if (contactData.hasOwnProperty(key)) {
 
@@ -64,9 +63,20 @@ let showAlert=false;
 
 
   const saveData = () => {
+    let alert={action:'success',title:'Success',description:'Successfully savedrr'}
     if(validateData())
     {
       saveContact(contactData,loginState.token)
+      .then(res => {
+       
+        dispatch(showAlert(alert))
+    })
+        .catch(error => {
+          alert={action:'error',title:'Erero',description:'Saving failed'}
+        })
+
+        dispatch(showAlert(alert))
+
     }
    
 
@@ -74,8 +84,7 @@ let showAlert=false;
 
   return (
     <VStack>
-    <Alert show={showAlert}></Alert>
-    <FormControl
+     <FormControl
       p='$4'
 
     >
