@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
 
   },
   subheading: {
-    fontFamily: 'Arial',
+    fontFamily: 'Poppins-Italic',
     fontSize: 12
   },
   fieldSetContainer: {
@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
   pageTitle: {
     paddingBottom: 20,
     paddingTop: 20,
-    fontFamily: "segoeui",
+    fontFamily:"Poppins-Italic",
     fontSize: 16
   },
   fieldLabel: {
@@ -75,21 +75,21 @@ export const styles = StyleSheet.create({
   subTitle: {
     fontSize: 15,
     fontWeight:"normal",
-    fontFamily:"Poppins",
+    fontFamily:"Poppins-Italic",
   },
   langugeHeading:{
     textAlign:"center",
     paddingBottom:50,
     paddingTop:50,
     width:"100%",
-    fontFamily:"Poppins",
+    fontFamily:"Poppins-Italic",
     fontSize:28,
     fontWeight:"normal"
   },
   mainHeading:{
     textAlign:"center",
     width:"100%",
-    fontFamily:"Poppins",
+    fontFamily:"Poppins-Italic",
     fontSize:16,
     fontWeight:"bold",
     letterSpacing:1.5,
@@ -103,19 +103,19 @@ export const styles = StyleSheet.create({
 inputLabel:{
   fontSize: 12,
   fontWeight:"normal",
-  fontFamily:"Poppins",
+  fontFamily:"Poppins-Italic",
 
 },
 inputPlaceholder:{
   fontSize: 13,
   fontWeight:"normal",
-  fontFamily:"Poppins",
+  fontFamily:"Poppins-Italic",
 
 },
 submitButtonText: {
   width: 240,
   borderRadius: 0,
-  fontFamily:"Poppins",
+  fontFamily:"Poppins-Italic",
   fontSize:13,
 },
 submitButton: {

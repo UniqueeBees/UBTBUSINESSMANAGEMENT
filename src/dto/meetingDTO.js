@@ -27,6 +27,8 @@ export const buildMeetingListItem = (meetingItem) => {
         meetingStartDate: '',
         meetingStartTime: '',
         meetingPurpose: 'purpose',
+        purposeId:meetingItem.purpose_id,
+        contactId:meetingItem.contact_id,
 
     };
 }
