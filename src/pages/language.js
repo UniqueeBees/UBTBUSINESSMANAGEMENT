@@ -12,6 +12,7 @@ import {  navigationRoutes } from '../common/navigation'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLanguage } from '../slices/languageSlice'
 import { setPage} from '../slices/initialPageSlice'
+import { styles } from "../assets/styles/theme";
 function Language (props) {
   const dispatch = useDispatch()
   const languageState = useSelector((state) => state.language)
