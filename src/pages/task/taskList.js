@@ -1,11 +1,12 @@
 import React from "react";
-
+import { useNavigation } from '@react-navigation/native';
 import {
-  VStack, HStack, Icon, ArrowRightIcon, Button, Heading, Box, Badge, BadgeText
+  VStack, HStack, Icon, ArrowRightIcon, Button, Heading, Box, Badge, BadgeText,ButtonText,AddIcon
 } from "@gluestack-ui/themed";
 import { FlatList, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-
+import { styles } from '../../assets/styles/theme'
 function TaskList(props) {
+  const navigation = useNavigation();
   const statusList = props.statusList;
   const taskLanguageDTO = props.taskLanguageDTO;
   const getTaskStatus = (task) => {
@@ -13,6 +14,7 @@ function TaskList(props) {
     const statusName = status ? status.name : '';
     const color = status ? status.color : '';
     const dueDate = `${taskLanguageDTO.dueDate}: ${task.dueDate}`;
+    
     return (
       <HStack space="md" justifyContent="flex-end">
 
@@ -38,6 +40,20 @@ function TaskList(props) {
           </VStack>
         </Box>}
       />
+      <Button 
+        size="md"
+        variant="solid"
+        action="primary"
+        isDisabled={false}
+        isFocusVisible={false}
+        
+        style={styles.shortButton }
+
+        onPress={()=>navigation.navigate("taskSetup")}
+
+      >
+     <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>    
+      </Button>
     </View>
   )
 }

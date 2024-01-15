@@ -35,7 +35,7 @@ import { getUserList } from '../../slices/userSlice';
 import { addNewTask,resetSaveRequestStatus } from '../../slices/taskSlice';
 import { requestStatusDTO } from '../../dto/statusDTO';
 import UserList from './userList';
-
+import { ArrowBigRightDash ,MoveLeft} from 'lucide-react-native';
 function TaskSetup() {
     const dispatch = useDispatch();
     const hasUser = useSelector((state) => state.user.hasUser)
@@ -90,12 +90,13 @@ function TaskSetup() {
     return (
         <VStack width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
             <VStack width="100%" mx="3" style={styles.pageHeader} >
-                <HStack space="4xl">
-                    <Icon as={ArrowLeftIcon} size="lg" style={{ marginTop: 8 }} onPress={() => { showUserList ? setUserList(false) : navigation.goBack() }} />
-                    <Heading style={styles.pageTitle}>
-                        {showUserList ? taskLanguageDTO.executiveListTitle : taskLanguageDTO.createTask}
+               
+                <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showUserList ? showUserList(false) : navigation.goBack() }} />
+                    <Heading style={styles.pageTitle1}>
+                    {showUserList ? taskLanguageDTO.executiveListTitle : taskLanguageDTO.createTask}
                     </Heading>
                 </HStack>
+
 
             </VStack>
 
@@ -177,7 +178,7 @@ function TaskSetup() {
                             onPress={() => submit()}
                         >
                             <ButtonText >{taskLanguageDTO.submit}</ButtonText>
-                            <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
+                            <ButtonIcon ml={"80%"} size={20} as={ArrowBigRightDash} />
                         </Button>
                     </VStack>
                 </ScrollView>

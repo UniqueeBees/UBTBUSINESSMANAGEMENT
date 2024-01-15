@@ -1,8 +1,12 @@
 import React from "react";
-import { FlatList, TouchableOpacity } from "react-native";
-import { HStack, VStack, Box, Badge, BadgeText, Heading, Text } from "@gluestack-ui/themed";
+import { FlatList, TouchableOpacity,View } from "react-native";
+import { HStack, VStack, Box, Badge, BadgeText, Heading, Text,Button,ButtonText,Icon,AddIcon } from "@gluestack-ui/themed";
+import { styles } from "../../assets/styles/theme";
+import { useNavigation } from "@react-navigation/native";
 function ContactList(props) {
+    const navigation = useNavigation();
     return (
+        <View>
 
         <FlatList style={{ height: "84%" }}
             data={props.contactItemList}
@@ -28,6 +32,21 @@ function ContactList(props) {
             </Box>}
         />
 
+        <Button 
+        size="md"
+        variant="solid"
+        action="primary"
+        isDisabled={false}
+        isFocusVisible={false}
+        
+        style={styles.shortButton }
+
+        onPress={()=>navigation.navigate("contact")}
+
+      >
+     <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>    
+      </Button>
+      </View>
     )
 }
 

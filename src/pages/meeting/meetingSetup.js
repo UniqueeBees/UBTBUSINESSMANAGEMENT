@@ -46,6 +46,7 @@ import { addNewMeeting,resetSaveRequestStatus } from '../../slices/meetingSlice'
 import { requestStatusDTO } from '../../dto/statusDTO';
 import ContactList from '../contacts/contactList';
 import { getCurrentDateFormated } from '../../common/datetimepicker';
+import { ArrowBigRightDash,MoveLeft } from 'lucide-react-native';
 function MeetingSetup(props) {
     const dispatch = useDispatch();
     const hasUser = useSelector((state) => state.user.hasUser)
@@ -119,10 +120,9 @@ function MeetingSetup(props) {
 
     return (
         <VStack width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
-            <VStack width="100%" mx="3" style={styles.pageHeader} >
-                <HStack space="4xl">
-                    <Icon as={ArrowLeftIcon} size="lg" style={{ marginTop: 8 }} onPress={() => { showContactList ? setContactList(false) : navigation.goBack() }} />
-                    <Heading style={styles.pageTitle}>
+            <VStack width="100%" mx="3" >
+                <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showContactList ? setContactList(false) : navigation.goBack() }} />
+                    <Heading style={styles.pageTitle1}>
                         {showContactList ? meetingLanguageDTO.contactListTitle : meetingLanguageDTO.createMeeting}
                     </Heading>
                 </HStack>
@@ -233,7 +233,7 @@ function MeetingSetup(props) {
                             onPress={() => submit()}
                         >
                             <ButtonText >{startMeeting ? meetingLanguageDTO.startMeeting : meetingLanguageDTO.scheuleMeeting}</ButtonText>
-                            <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
+                            <ButtonIcon ml={"60%"} size={20} as={ArrowBigRightDash} />
                         </Button>
 
                     </VStack>

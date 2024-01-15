@@ -153,6 +153,16 @@ overlay:{
   alignItems:"center",
  // paddingTop:200,
  
+},
+
+pageTitle1:{
+  fontFamily:"Poppins",
+  fontSize:16,
+  fontWeight:"bold",
+  letterSpacing:1.5,
+  textTransform:"uppercase",
+  marginLeft:50
+
 }
 
 });
