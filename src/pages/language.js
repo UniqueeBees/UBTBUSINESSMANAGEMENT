@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setLanguage } from '../slices/languageSlice'
 import { setPage} from '../slices/initialPageSlice'
 import { styles } from '../assets/styles/theme'
+import { MoveRight } from 'lucide-react-native';
 function Language (props) {
   const dispatch = useDispatch()
   const languageState = useSelector((state) => state.language)
@@ -76,9 +77,9 @@ function Language (props) {
         data={languageData}
         renderItem={({item}) =>
         <TouchableHighlight onPress={()=>{SetLanguage(item.code)}} underlayColor="white">
-         <HStack mb="$1" alignItems="center" height={60} backgroundColor="$white" borderRadius={30}  textAlign="left"><Text style={{width:"90%",textAlign:"left",fontSize:16}} >{item.name}</Text>
+         <HStack mb="$1" alignItems="center" height={60} backgroundColor="$white" borderRadius={30}  textAlign="left"><Text style={{width:"80%",textAlign:"left",fontSize:16}} >{item.name}</Text>
        <Icon id={item.code} size="xl"   
-         on as={ArrowRightIcon} m="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  />
+         on as={MoveRight} m="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  />
          </HStack></TouchableHighlight>
         }
       />
