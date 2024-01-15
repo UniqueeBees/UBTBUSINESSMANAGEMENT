@@ -4,10 +4,10 @@ import { VStack, FormControl, FormControlError, FormControlErrorText, Input,
   Heading, InputField, InputSlot, Button, ButtonText, 
   InputIcon, EyeIcon, EyeOffIcon, ButtonSpinner,ArrowRightIcon,ButtonIcon } from '@gluestack-ui/themed';
 import { FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import { saveContact } from "../common/apiCalls";
+import { saveContact } from "../../common/apiCalls";
 import { useSelector, useDispatch } from 'react-redux'
-import { showAlert} from '../slices/alertSlice'
-import { styles } from "../assets/styles/theme";
+import { showAlert} from '../../slices/alertSlice'
+import { styles } from "../../assets/styles/theme";
 import {  ArrowRight } from 'lucide-react-native';
 const Contact = () => {
   const [contactData, setContactData] = useState({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo: "" });
