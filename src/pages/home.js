@@ -7,8 +7,9 @@ import { sentNotification } from '../notification/appNotification'
 import { getToken, getApi, getCompany } from '../common/apiCalls'
 import {storeData,storageKeyTypes,getData} from '../common/localStorage'
 import { navigateTo, navigationRoutes, navAction } from '../common/navigation'
+import { useNavigation } from '@react-navigation/native';
 function Home(props) {
-
+    const navigation = useNavigation();
     return (
         <VStack  bg="$primary500" h="100%" >
             <Center ml={25} mt={25} mr={25} mb={50} h="80%" bg="$indigo300" rounded={50} shadow={3} >
@@ -38,6 +39,16 @@ function Home(props) {
                     navigateTo(props,navigationRoutes.contact,navAction.Same);
                 }}>
                     <Text>Create Contact</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() =>  {
+                   navigation.navigate('taskSetup');
+                }}>
+                    <Text>Create Task</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() =>  {
+                   navigation.navigate('meetingSetup');
+                }}>
+                    <Text>Create Meeting</Text>
                 </TouchableOpacity>
             </Center>
         </VStack >

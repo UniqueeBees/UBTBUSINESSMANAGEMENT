@@ -1,5 +1,6 @@
 import axios from "axios";
 export const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
+
 export const apiCallStatus={
     pending:'pending',
     fullfilled:'fullfilled',
@@ -105,6 +106,13 @@ export  const  getMeetingsByUser = async (token) => {
     })
 
 }
+export const getMeetingPurposeList=async(token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/purposes`,
+        headers: { "APITOKEN":token },
+    })
+}
 export  const  getTasksByUser = async (token,id) => {
     
    return await axios({
@@ -130,6 +138,22 @@ export  const  getUser = async (token) => {
     })
 
 }
+export  const  getUsers = async (token) => {
+    return await axios({
+         method: "POST",
+         url: `${baseUrl}/users`,
+         headers: { "APITOKEN":token },
+     })
+ 
+ }
+
+ export const getContacts=async(token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/contacts`,
+        headers: { "APITOKEN":token },
+    })
+ }
 
 export const getBusinessList=async (token)=>{
     return await axios({
@@ -155,6 +179,25 @@ export const getBusinessList=async (token)=>{
     })
 
 }
+
+export const addTask=async(token,task)=>{
+    console.log('addTaskAPI',task)
+    return await axios({
+        method: "POST",
+        data: task,
+        url: `${baseUrl}/tasks`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
+ export const addMeeting=async(token,meeting)=>{
+    console.log('addMeetingAPI',meeting)
+    return await axios({
+        method: "POST",
+        data: meeting,
+        url: `${baseUrl}/meeting`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
 //Test Call
 const baseUrl1 = "https://jsonplaceholder.typicode.com"
 export const getApi = () => {
@@ -165,30 +208,19 @@ export const getApi = () => {
 }
 
 export const saveContact = (contactData,token) => {
-   console.log(token)
     const formData = new FormData();
     formData.append('business_id', 1);
     formData.append('name', contactData.Name);
     formData.append('designation', contactData.Designation);
     formData.append('email', contactData.Email);
     formData.append('mobile', contactData.MobileNo);
-    //formData.append('datetime', new Date());
-
-  console.log(formData)
-        axios({
+   return  axios({
         method: "POST",
         data: formData,
         url: `${baseUrl}/contacts`,
         headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
-    }).then(res => {
-        console.log(res)
-        return res.data;
     })
-        .catch(error => {
-            console.log("create contact error :", error)
-            return error;
-        })
-
 }
+
 
 

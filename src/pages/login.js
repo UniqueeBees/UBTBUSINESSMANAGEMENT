@@ -111,7 +111,7 @@ function Login() {
                 {loginLanguageDTO.password}
               </Text>
               <Input variant='underlined' textAlign='center'>
-                <InputSlot pl='$3'>
+                <InputSlot>
                   {/* EyeIcon, EyeOffIcon are both imported from 'lucide-react-native' */}
                   <InputIcon as={LockIcon} />
                 </InputSlot>

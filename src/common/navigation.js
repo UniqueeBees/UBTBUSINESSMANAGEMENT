@@ -7,6 +7,7 @@ import contact from '../pages/contact'
 import Login from "../pages/login";
 import InitialPage from "../pages/initialPage";
 import Tabs from '../navigation/tabs';
+import Contact from "../pages/contact";
 const Stack = createNativeStackNavigator();
 export const navigationRoutes={
   company:"company",
@@ -51,6 +52,10 @@ export function navigateTo(props, actionFrom, navAction) {
         props.navigation.navigate(navigationRoutes.listBusiness)
       }
       break;
+    }
+    case navigationRoutes.contact :{
+      props.navigation.navigate(navigationRoutes.contact)
+
     } 
   }
 }
@@ -64,7 +69,7 @@ return (<NavigationContainer>
         <Stack.Screen name={navigationRoutes.navigationTab} component={Tabs} />
         <Stack.Screen name={navigationRoutes.language} component={language} />
         <Stack.Screen name={navigationRoutes.login} component={Login} /> 
-       
+        <Stack.Screen name={navigationRoutes.contact} component={Contact} /> 
       </Stack.Navigator>
     </NavigationContainer>)}
     export default Navigation;

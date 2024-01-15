@@ -1,15 +1,18 @@
 import React from "react";
 import { useState,useEffect } from 'react'
-import { VStack, FormControl, FormControlError, FormControlErrorText, Input, Heading, InputField, InputSlot, Button, ButtonText, InputIcon, EyeIcon, EyeOffIcon, ButtonSpinner } from '@gluestack-ui/themed';
+import { VStack, FormControl, FormControlError, FormControlErrorText, Input, 
+  Heading, InputField, InputSlot, Button, ButtonText, 
+  InputIcon, EyeIcon, EyeOffIcon, ButtonSpinner,ArrowRightIcon,ButtonIcon } from '@gluestack-ui/themed';
 import { FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { saveContact } from "../common/apiCalls";
-import Alert from "../common/alert";
 import { useSelector, useDispatch } from 'react-redux'
 import { showAlert} from '../slices/alertSlice'
+import { styles } from "../assets/styles/theme";
+import {  ArrowRight } from 'lucide-react-native';
 const Contact = () => {
   const [contactData, setContactData] = useState({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo: "" });
   const loginState = useSelector((state) => state.login)
-let showAlert=false;
+  const dispatch = useDispatch()
   const handleChange = (key, value) => {
 
     let updateData = { ...contactData }
@@ -26,10 +29,14 @@ let showAlert=false;
 
     console.log(contactData)
   }
+const clearFields=()=>{
 
+setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo: "" })
+
+}
   const validateData = () => {
     let updateData = { ...contactData }
-    const alert={action:'error',Title:'Error',description:'Please correct the indicated items'}
+    const alert={action:'error',title:'Error',description:'Please correct the indicated items'}
       for (var key in contactData) {
       if (contactData.hasOwnProperty(key)) {
 
@@ -64,9 +71,20 @@ let showAlert=false;
 
 
   const saveData = () => {
+    let alert={action:'success',title:'Success',description:'Successfully savedrr'}
     if(validateData())
     {
       saveContact(contactData,loginState.token)
+      .then(res => {
+        dispatch(showAlert(alert))
+        clearFields();
+    })
+        .catch(error => {
+          alert={action:'error',title:'Erero',description:'Saving failed'}
+        })
+
+        dispatch(showAlert(alert))
+
     }
    
 
@@ -74,25 +92,24 @@ let showAlert=false;
 
   return (
     <VStack>
-    <Alert show={showAlert}></Alert>
-    <FormControl
+     <FormControl
       p='$4'
 
     >
 
       <VStack space='xl'>
-        <Heading lineHeight='$md'>
+        <Heading lineHeight='$md' style={styles.mainHeading} >
           Create Contact
         </Heading>
 
+<VStack style={styles.outerVStack}  space="2xl">
+        <VStack space='xs' alignItems="">
 
-        <VStack space='xs'>
-
-          <FormControl isInvalid={isValid("NameError")}>
-            <Text lineHeight='$xs'>
+          <FormControl isInvalid={isValid("NameError")} isRequired>
+            <Text lineHeight='$xs' style={styles.inputLabel} >
               Name
             </Text>
-            <Input variant='underlined'>
+            <Input variant='underlined' ml="$3">
               <InputField placeholder="Enter Full Name"
                 type="text"
                 value={contactData.Name}
@@ -100,7 +117,7 @@ let showAlert=false;
               />
             </Input>
 
-            <FormControlError>
+            <FormControlError ml="$3">
               <FormControlErrorText>
                 Name is required.
               </FormControlErrorText>
@@ -109,10 +126,10 @@ let showAlert=false;
 
 
         <VStack space='xs'>
-          <Text lineHeight='$xs'>
+          <Text lineHeight='$xs' style={styles.inputLabel}>
             Designation
           </Text>
-          <Input variant='underlined'>
+          <Input variant='underlined'  ml="$3">
             <InputField placeholder="Enter Designation"
               type="text"
               value={contactData.Designation}
@@ -122,10 +139,10 @@ let showAlert=false;
         </VStack>
 
         <VStack space='xs'>
-          <Text lineHeight='$xs'>
+          <Text lineHeight='$xs' style={styles.inputLabel}>
             Email Address
           </Text>
-          <Input variant='underlined'>
+          <Input variant='underlined'  ml="$3">
             <InputField placeholder="Enter Email Address"
               type="text"
               value={contactData.Email}
@@ -135,11 +152,11 @@ let showAlert=false;
         </VStack>
 
         <VStack space='xs'>
-          <Text lineHeight='$xs'>
+          <Text lineHeight='$xs' style={styles.inputLabel}>
             Mobile No
           </Text>
-          <Input variant='underlined'>
-            <InputField placeholder="Enter Mobile No"
+          <Input variant='underlined'  ml="$3">
+            <InputField placeholder="Enter Mobile No" style={styles.inputPlaceholder}
               type="text"
               value={contactData.MobileNo}
               onChangeText={text => handleChange('MobileNo', text)}
@@ -147,10 +164,10 @@ let showAlert=false;
           </Input>
         </VStack>
         <VStack space='xs'>
-          <Text lineHeight='$xs'>
+          <Text lineHeight='$xs' style={styles.inputLabel}>
             WhatsApp No
           </Text>
-          <Input variant='underlined'>
+          <Input variant='underlined'  ml="$3">
             <InputField placeholder="Enter WhatsApp No"
               type="text"
               value={contactData.WhatsAppNo}
@@ -158,21 +175,23 @@ let showAlert=false;
             />
           </Input>
         </VStack>
+        <VStack width="100%" alignItems="center">
+        <Button style={styles.submitButton}
 
-        <Button
-
-          ml='auto'
-          size="lg"
+          ml='$0'
+          size="md"
           variant="solid"
           action="primary"
 
           onPress={saveData}
         >
-          <ButtonText color='$white'  >
+         
+          <ButtonText color='$white' style={styles.submitButtonText} >
             Submit
           </ButtonText >
-        </Button>
-
+          <ButtonIcon size={20} as={ArrowRight} maxWidth={200} />
+        </Button></VStack>
+        </VStack>
       </VStack>
     </FormControl>
     </VStack>

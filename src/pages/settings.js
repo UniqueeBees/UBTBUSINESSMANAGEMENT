@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   VStack, HStack, Icon, ArrowRightIcon, Button, Heading, Box, Badge, BadgeText, Text, Center
 } from "@gluestack-ui/themed";
-import { FlatList, View } from "react-native";
+import { FlatList, View,TouchableHighlight } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../slices/loginSlice";
 import { setPage, setPageWithParameters } from '../slices/initialPageSlice';
@@ -92,7 +92,7 @@ function Settings() {
 
     <VStack bgColor="$white" height="100%">
       <VStack bgColor="blue" height={200} pt="$10">
-        <HStack space="md" pl="$20">
+        <HStack space="md" pl="$10">
           <Avatar bgColor="$white" size="md" borderRadius="$full">
             <AvatarImage source={{
               uri: `${baseUrl}/files/${userState.userDTO.profileImage}`,
@@ -109,37 +109,41 @@ function Settings() {
           </VStack>
         </HStack>
 
-        <VStack mt="$5"  alignItems="center" >
-          <HStack  textAlign="center">
-            <Heading size="xs" width={80} textAlign="center" color="$white">Businesses</Heading>
-            <Heading size="xs" width={80} textAlign="center" color="$white">Meetings</Heading>
-            <Heading size="xs" width={80} textAlign="center" color="$white">Tasks</Heading>
+        <VStack mt="$5"  alignItems="left" pl="$10">
+          <HStack  textAlign="center" >
+            <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={12}>Businesses</Heading>
+            <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={12}>Meetings</Heading>
+            <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={12}>Tasks</Heading>
           </HStack>
         </VStack>
-        <VStack alignItems="center" >
+        <VStack alignItems="left" pl="$10">
           <HStack>
-            <Heading size="sm" width={80} textAlign="center" color="$white">{businessListItems.length}</Heading>
-            <Heading size="sm" width={80} textAlign="center" color="$white">{meetingListItems.length}</Heading>
-            <Heading size="sm" width={80} textAlign="center" color="$white">{taskListItems.length}</Heading>
+            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={18}>{businessListItems.length}</Heading>
+            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={18}>{meetingListItems.length}</Heading>
+            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={18}>{taskListItems.length}</Heading>
           </HStack>
         </VStack>
       </VStack>
       <Center mt={160} pt="$6" style={{ position: "absolute", width: "100%", height: 70 }} bg="$white" rounded={50} >
       </Center>
-      <VStack mt="$1" alignItems="center" pt="$1" bgColor="$white" >
+      
+      <VStack space="md" height="100%" alignItems="left" pl="$12" width="100%" >
         <FlatList
           data={getItems()}
-          renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
-            <VStack>
-              <HStack>
-                <Heading size="md" style={styles.subTitle} >{item.label}</Heading>
-                <Icon id={item.code} size="xl"
-                  onPress={() => { actionEvent(item) }}
-                  on as={ArrowRightIcon} m="$2" w="$4" h="$4" style={{ cursor: 'pointer' }} />
+          renderItem={({ item }) => 
+            
+            <TouchableHighlight onPress={() => { actionEvent(item) }} underlayColor="white">
+              <VStack mt="$1" alignItems="center"  bgColor="#F0FFFF" maxWidth={250} >
+              <HStack alignItems="center" m="$3" bgColor="$white" borderRadius={20} pl="$3" style={{ height:30,width:250,alignContent:"center" }} >
+                <Heading size="md" style={styles.subTitle}  >{item.label}</Heading>
+                
               </HStack>
-            </VStack>
-          </Box>}
+              </VStack>
+              </TouchableHighlight>
+            
+          }
         />
+        
       </VStack>
     </VStack>
   );
