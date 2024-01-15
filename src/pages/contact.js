@@ -1,10 +1,14 @@
 import React from "react";
 import { useState,useEffect } from 'react'
-import { VStack, FormControl, FormControlError, FormControlErrorText, Input, Heading, InputField, InputSlot, Button, ButtonText, InputIcon, EyeIcon, EyeOffIcon, ButtonSpinner } from '@gluestack-ui/themed';
+import { VStack, FormControl, FormControlError, FormControlErrorText, Input, 
+  Heading, InputField, InputSlot, Button, ButtonText, 
+  InputIcon, EyeIcon, EyeOffIcon, ButtonSpinner,ArrowRightIcon,ButtonIcon } from '@gluestack-ui/themed';
 import { FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { saveContact } from "../common/apiCalls";
 import { useSelector, useDispatch } from 'react-redux'
 import { showAlert} from '../slices/alertSlice'
+import { styles } from "../assets/styles/theme";
+import {  ArrowRight } from 'lucide-react-native';
 const Contact = () => {
   const [contactData, setContactData] = useState({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo: "" });
   const loginState = useSelector((state) => state.login)
@@ -25,7 +29,11 @@ const Contact = () => {
 
     console.log(contactData)
   }
+const clearFields=()=>{
 
+setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo: "" })
+
+}
   const validateData = () => {
     let updateData = { ...contactData }
     const alert={action:'error',title:'Error',description:'Please correct the indicated items'}
@@ -68,8 +76,8 @@ const Contact = () => {
     {
       saveContact(contactData,loginState.token)
       .then(res => {
-       
         dispatch(showAlert(alert))
+        clearFields();
     })
         .catch(error => {
           alert={action:'error',title:'Erero',description:'Saving failed'}
@@ -90,18 +98,18 @@ const Contact = () => {
     >
 
       <VStack space='xl'>
-        <Heading lineHeight='$md'>
+        <Heading lineHeight='$md' style={styles.Heading}>
           Create Contact
         </Heading>
 
 
-        <VStack space='xs'>
+        <VStack space='xs' alignItems="">
 
           <FormControl isInvalid={isValid("NameError")}>
             <Text lineHeight='$xs'>
               Name
             </Text>
-            <Input variant='underlined'>
+            <Input variant='underlined' ml="$3">
               <InputField placeholder="Enter Full Name"
                 type="text"
                 value={contactData.Name}
@@ -121,7 +129,7 @@ const Contact = () => {
           <Text lineHeight='$xs'>
             Designation
           </Text>
-          <Input variant='underlined'>
+          <Input variant='underlined'  ml="$3">
             <InputField placeholder="Enter Designation"
               type="text"
               value={contactData.Designation}
@@ -134,7 +142,7 @@ const Contact = () => {
           <Text lineHeight='$xs'>
             Email Address
           </Text>
-          <Input variant='underlined'>
+          <Input variant='underlined'  ml="$3">
             <InputField placeholder="Enter Email Address"
               type="text"
               value={contactData.Email}
@@ -147,7 +155,7 @@ const Contact = () => {
           <Text lineHeight='$xs'>
             Mobile No
           </Text>
-          <Input variant='underlined'>
+          <Input variant='underlined'  ml="$3">
             <InputField placeholder="Enter Mobile No"
               type="text"
               value={contactData.MobileNo}
@@ -159,7 +167,7 @@ const Contact = () => {
           <Text lineHeight='$xs'>
             WhatsApp No
           </Text>
-          <Input variant='underlined'>
+          <Input variant='underlined'  ml="$3">
             <InputField placeholder="Enter WhatsApp No"
               type="text"
               value={contactData.WhatsAppNo}
@@ -170,18 +178,19 @@ const Contact = () => {
 
         <Button
 
-          ml='auto'
+          ml='$0'
           size="lg"
           variant="solid"
           action="primary"
 
           onPress={saveData}
         >
-          <ButtonText color='$white'  >
+          <ButtonText color='$white' style={styles.buttonLong} >
             Submit
           </ButtonText >
+          <ButtonIcon size={20} as={ArrowRight} maxWidth={200} />
         </Button>
-
+       
       </VStack>
     </FormControl>
     </VStack>

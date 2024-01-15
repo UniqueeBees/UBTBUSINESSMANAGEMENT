@@ -85,6 +85,7 @@ export const styles = StyleSheet.create({
     width:"100%",
     fontFamily:"Poppins",
     fontSize:28,
-    fontWeight:"normal"}
+    fontWeight:"normal"
+  },
 
 });
