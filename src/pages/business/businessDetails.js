@@ -79,8 +79,8 @@ export default function BusinessDetails(props) {
             <FormControlLabelText style={styles.fieldLabel}>Type</FormControlLabelText>
           </FormControlLabel>
           <Select onValueChange={value => setData({ ...formData, type: value })} >
-            <SelectTrigger>
-              <SelectInput placeholder="Select Business Type"  value={getBusinessTypeKey(formData.type)} />
+            <SelectTrigger variant="underlined">
+              <SelectInput placeholder="Select Business Type"   value={getBusinessTypeKey(formData.type)} />
               <SelectIcon mr="$3">
                 <Icon as={ChevronDownIcon} />
               </SelectIcon>
@@ -108,7 +108,7 @@ export default function BusinessDetails(props) {
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Name</FormControlLabelText>
           </FormControlLabel>
-          <Input variant="outline"  size="md"   >
+          <Input variant="underlined"  size="md"   >
           <InputField  placeholder="Enter Business Name"  value={formData.name}   onChangeText={value => setData({ ...formData, name: value })}></InputField> 
           </Input> 
           <FormControlError>
@@ -121,7 +121,7 @@ export default function BusinessDetails(props) {
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Email Address</FormControlLabelText>
           </FormControlLabel>
-          <Input variant="outline"  size="md"   >
+          <Input variant="underlined"  size="md"   >
           <InputField placeholder="Enter Email Address" value={formData.email} onChangeText={value => setData({ ...formData, email: value })}></InputField> 
           </Input> 
          
@@ -130,7 +130,7 @@ export default function BusinessDetails(props) {
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Phone Number </FormControlLabelText>
           </FormControlLabel>
-          <Input variant="outline"  size="md"   >
+          <Input variant="underlined"  size="md"   >
           <InputField placeholder="Enter Phone Number" value={formData.phone} onChangeText={value => setData({ ...formData, phone: value })} ></InputField> 
           </Input> 
            
@@ -140,7 +140,7 @@ export default function BusinessDetails(props) {
             <FormControlLabelText style={styles.fieldLabel} >Website</FormControlLabelText>
           </FormControlLabel>
           
-          <Input variant="outline"  size="md"   >
+          <Input variant="underlined"  size="md"   >
           <InputField placeholder="Enter Website URL"  value={formData.website} onChangeText={value => setData({ ...formData, website: value })} ></InputField> 
           </Input> 
         </FormControl>
@@ -148,7 +148,7 @@ export default function BusinessDetails(props) {
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Tags</FormControlLabelText>
           </FormControlLabel>
-          <Input variant="outline"  size="md"   >
+          <Input variant="underlined"  size="md"   >
           <InputField  placeholder="Type Tags Comma Separated" value={formData.tags} onChangeText={value => setData({ ...formData, tags: value })}  ></InputField> 
           </Input>  
         </FormControl>
@@ -186,7 +186,7 @@ export default function BusinessDetails(props) {
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Landmark</FormControlLabelText>
           </FormControlLabel>
-          <Input variant="outline"  size="md"   >
+          <Input variant="underlined"  size="md"   >
           <InputField placeholder="Enter nearest landmark" value={formData.landmark} onChangeText={value => setData({ ...formData, landmark: value })}  ></InputField> 
           </Input>  
          
@@ -195,7 +195,7 @@ export default function BusinessDetails(props) {
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Street </FormControlLabelText>
           </FormControlLabel>
-          <Input variant="outline"  size="md"   >
+          <Input variant="underlined"  size="md"   >
           <InputField placeholder="Enter Street" value={formData.street} onChangeText={value => setData({ ...formData, street: value })}   ></InputField> 
           </Input> 
           
@@ -205,7 +205,7 @@ export default function BusinessDetails(props) {
             <FormControlLabelText style={styles.fieldLabel}>Area</FormControlLabelText>
           </FormControlLabel>
           
-            <Input variant="outline"  size="md"   >
+            <Input variant="underlined"  size="md"   >
           <InputField placeholder="Enter Area" value={formData.area} onChangeText={value => setData({ ...formData, area: value })}   ></InputField> 
           </Input> 
         </FormControl>
@@ -213,7 +213,7 @@ export default function BusinessDetails(props) {
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>City</FormControlLabelText>
           </FormControlLabel>
-          <Input variant="outline"  size="md"   >
+          <Input variant="underlined"  size="md"   >
           <InputField placeholder="Enter City" value={formData.city} onChangeText={value => setData({ ...formData, city: value })} ></InputField> 
           </Input> 
            
@@ -223,7 +223,7 @@ export default function BusinessDetails(props) {
             <FormControlLabelText style={styles.fieldLabel}>Country</FormControlLabelText>
           </FormControlLabel>
           <Select onValueChange={value => setData({ ...formData, country: value })} >
-            <SelectTrigger  >
+            <SelectTrigger variant="underlined" >
               <SelectInput placeholder="Enter Country" value={formData.country} />
               <SelectIcon mr="$3">
                 <Icon as={ChevronDownIcon} />
@@ -275,7 +275,15 @@ export default function BusinessDetails(props) {
         </HStack>
         </VStack>
         <Heading style={styles.pageTitle} >Location</Heading> 
-
+        <FormControl >
+          <FormControlLabel mb="$1">
+            <FormControlLabelText style={styles.fieldLabel}>Landmark</FormControlLabelText>
+          </FormControlLabel>
+          <Input variant="underlined"  size="md"   >
+          <InputField placeholder="Search Location" value={formData.landmark} onChangeText={value => setData({ ...formData, location: value })}  ></InputField> 
+          </Input>  
+         
+        </FormControl>
         <VStack mt={20} mb={50} ml={30} style={{ width: 300 }}>
           <Button
             size="md"

@@ -6,7 +6,7 @@ import {
    
 } from "@gluestack-ui/themed";
 import { styles } from '../../assets/styles/theme'
-import { Building2, ArrowRight } from 'lucide-react-native';
+import { Building2, ArrowRight, PenIcon, DeleteIcon } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import BusinessDetails from "./businessDetails";
 import BusinessCreate from "./businessCreate";
@@ -41,7 +41,15 @@ function BusinessList(props) {
         data={businessListItems}
         renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
           <VStack>
+            <HStack style={{width:100}}>
+            
             <Heading size="md" >{item.name}</Heading> 
+          
+            <HStack justifyContent="right" space="lg" style={{width:20}}> 
+            <Icon as={DeleteIcon} m="$2" w="$4" h="$4" />
+            <Icon as={PenIcon} m="$2" w="$4" h="$4" />
+            </HStack>
+            </HStack>
             <VStack  pt="$2" >
               <Badge variant="solid"  action="muted">
               {item.email?<Icon as={MailIcon} m="$2" w="$4" h="$4" />:""}<BadgeText style={{textTransform: 'capitalize'}}>{item.email}</BadgeText>

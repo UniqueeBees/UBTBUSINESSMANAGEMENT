@@ -12,6 +12,7 @@ import {  navigationRoutes } from '../common/navigation'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLanguage } from '../slices/languageSlice'
 import { setPage} from '../slices/initialPageSlice'
+import { styles } from "../assets/styles/theme";
 function Language (props) {
   const dispatch = useDispatch()
   const languageState = useSelector((state) => state.language)
@@ -73,7 +74,9 @@ function Language (props) {
       
       <FlatList 
         data={languageData}
-        renderItem={({item}) => <HStack textAlign="left"><Text style={{width:"80%",textAlign:"left",fontSize:16}}>{item.name}</Text>
+        renderItem={({item}) => 
+        <HStack textAlign="left"
+         style={styles.shadowProp}><Text style={{width:"80%",textAlign:"left",fontSize:16}}>{item.name}</Text>
        <Icon id={item.code} size="xl"
        onPress={()=>{SetLanguage(item.code)}}
          on as={ArrowRightIcon} m="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  /></HStack>}
