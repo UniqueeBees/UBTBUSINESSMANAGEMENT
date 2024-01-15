@@ -19,8 +19,7 @@ const CreateContact = () => {
   const loginState = useSelector((state) => state.login)
   const dispatch = useDispatch()
   const navigation = useNavigation();
-  const navigation = useNavigation();
-  const handleChange = (key, value) => {
+   const handleChange = (key, value) => {
 
     let updateData = { ...contactData }
     updateData[key] = value
