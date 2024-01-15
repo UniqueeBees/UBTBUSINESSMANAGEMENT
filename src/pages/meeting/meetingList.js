@@ -8,8 +8,8 @@ function MeetingList(props){
 
 return(
 
-      
-      <FlatList 
+  <View>
+      <FlatList style={{ height: "84%" }}
         data={props.meetingListItems}
         renderItem={({item}) => <Box style={{borderRadius:5}}  bgColor="$white" m="$2" p="$2" pl="$5">
           <VStack >
@@ -27,7 +27,7 @@ return(
        </VStack>
        </Box>}
       />
-    
+    </View>
     )
 }
 export default MeetingList;

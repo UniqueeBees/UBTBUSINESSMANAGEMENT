@@ -37,33 +37,35 @@ function Login() {
     if (loginState) {
       if (!userLoading) {
         dispatch(getUserProfile(token))
+        }
       }
-    }
-  }, [loginState])
-  useEffect(() => {
-    if (hasUser) {
-      dispatch(setPage(navigationRoutes.navigationTab))
-    }
-  }, [hasUser])
-
-  const handleState = () => {
-    setShowPassword((showState) => {
-      return !showState;
-    });
-  };
-  const onLoginClicked = async () => {
-    try {
-      console.log('onLoginClicked', companyState)
-      await dispatch(accountLogin({ domain: companyState.company.domain, username: username, password: password }))
-
-    }
-    catch (err) {
-      console.error('Failed to save the post: ', err)
-    }
-    finally {
-      //setAddRequestStatus('idle')
-    }
-
+    },[loginState])
+    useEffect(()=>{
+      if(hasUser && loginState){
+       dispatch(setPage(navigationRoutes.navigationTab))
+      }
+    },[hasUser])
+    
+    const handleState = () => {
+      setShowPassword((showState) => {
+        return !showState;
+      });
+    };
+    const onLoginClicked =  async() => {
+      try {
+      
+        await dispatch(accountLogin({ domain:companyState.company.domain, username:username, password :password}))
+       
+      } 
+      catch (err) 
+      {
+        console.error('Failed to save the post: ', err)
+      } 
+      finally
+       {
+        //setAddRequestStatus('idle')
+      }
+    
   }
 
   const onbackClicked = () => {

@@ -17,7 +17,8 @@ export const navigationRoutes={
   initialPage:'initialPage',
   createBusiness:'createBusiness',
   listBusiness:'listBusiness' ,
-  contact: 'contact'
+  contact: 'contact',
+  none:'none',
 }
 export const navAction = {
   Next: "next",

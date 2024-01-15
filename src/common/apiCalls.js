@@ -106,6 +106,13 @@ export  const  getMeetingsByUser = async (token) => {
     })
 
 }
+export const getMeetingPurposeList=async(token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/purposes`,
+        headers: { "APITOKEN":token },
+    })
+}
 export  const  getTasksByUser = async (token,id) => {
     
    return await axios({
@@ -131,6 +138,22 @@ export  const  getUser = async (token) => {
     })
 
 }
+export  const  getUsers = async (token) => {
+    return await axios({
+         method: "POST",
+         url: `${baseUrl}/users`,
+         headers: { "APITOKEN":token },
+     })
+ 
+ }
+
+ export const getContacts=async(token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/contacts`,
+        headers: { "APITOKEN":token },
+    })
+ }
 
 export const getBusinessList=async (token)=>{
     return await axios({
@@ -156,6 +179,25 @@ export const getBusinessList=async (token)=>{
     })
 
 }
+
+export const addTask=async(token,task)=>{
+    console.log('addTaskAPI',task)
+    return await axios({
+        method: "POST",
+        data: task,
+        url: `${baseUrl}/tasks`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
+ export const addMeeting=async(token,meeting)=>{
+    console.log('addMeetingAPI',meeting)
+    return await axios({
+        method: "POST",
+        data: meeting,
+        url: `${baseUrl}/meeting`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
 //Test Call
 const baseUrl1 = "https://jsonplaceholder.typicode.com"
 export const getApi = () => {
@@ -179,5 +221,6 @@ export const saveContact = (contactData,token) => {
         headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
     })
 }
+
 
 

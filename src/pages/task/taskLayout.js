@@ -1,6 +1,7 @@
 
 import React,{useEffect} from 'react';  
 import {Text, View} from 'react-native';
+import { Box } from '@gluestack-ui/themed';
 import TaskList from './taskList';
 import CreateTask from './createTask';
 import { selectNotCompletedTasks } from '../../slices/taskSlice';
@@ -13,6 +14,7 @@ function TaskLayout (){
     const taskStatusList=useSelector((state)=>state.task.taskStatusList);
     const token = useSelector((state) => state.login.token)
     const id = useSelector((state) => state.login.id)
+    const isTaskListRequestLoading=useSelector((state)=>state.task.loading);
     const taskListItems=useSelector(state => selectNotCompletedTasks(state, id));
     const taskLanguageDTO=useSelector((state)=>state.language.taskLanguageDTO)
     const dispatch = useDispatch()
@@ -23,7 +25,8 @@ function TaskLayout (){
     return (
      
           <View>
-          {taskListItems.length === 0 ? <CreateTask taskLanguageDTO={taskLanguageDTO} /> :<TaskList taskLanguageDTO={taskLanguageDTO} taskListItems={taskListItems} statusList={taskStatusList}/>}    
+          {(isTaskListRequestLoading && taskListItems.length === 0) ?<Box /> : taskListItems.length === 0 ? 
+          <CreateTask taskLanguageDTO={taskLanguageDTO} /> :<TaskList taskLanguageDTO={taskLanguageDTO} taskListItems={taskListItems} statusList={taskStatusList}/>}    
          </View> 
     )
 }

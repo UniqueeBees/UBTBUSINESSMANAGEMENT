@@ -17,8 +17,7 @@ export default function  providerApp(){
     
     useEffect(()=>{
        initialStorageStatus()
-        .then( (resp) => {  
-            console.log('resp',resp)
+        .then( (resp) => { 
             store.dispatch(setInitial(resp.loginDTO))
             store.dispatch(setInitialCompany(resp.companyDTO))
             store.dispatch(setInitialLanguage(resp.languageDTO))

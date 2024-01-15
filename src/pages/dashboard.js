@@ -28,6 +28,7 @@ function Dashboard (props){
         dispatch(setPage(navigationRoutes.login))
     }
    })
+   
     const meetingBgColor=isMeeting ? {}:{bgColor:'$whitesmoke'}
     const taskBgColor=!isMeeting ? {}:{bgColor:'$whitesmoke'}
     return (
@@ -49,7 +50,7 @@ function Dashboard (props){
             </Button>
             </HStack>
             </Center>
-                {isMeeting ?<MeetingLayout/> : <TaskLayout/>} 
+                {isMeeting ?<MeetingLayout  /> : <TaskLayout/>} 
             </VStack>
      </View>
     )

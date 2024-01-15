@@ -22,13 +22,15 @@ function Language (props) {
   useEffect(()=>{
     if (isInitialMount.current) {
       isInitialMount.current = false;
-   } else {
+   } else 
+   {
     if(languageState.language){
-      //props.navigation.navigate('Splash')
+      
       if(companyId === -1){
         dispatch(setPage(navigationRoutes.company))
       }
-      else{
+      else
+      {
         if(hasLogin){
           dispatch(setPage(navigationRoutes.navigationTab))
         }

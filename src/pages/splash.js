@@ -28,17 +28,28 @@ function Splash(props) {
      {
       dispatch(logout())
      }
+     else{
       dispatch(setPage(navigationRoutes.login))
+     }
+      
     }
   }
   },[companyState.status])
+
+  useEffect(()=>{
+    
+    if(!loginState && companyState.company.id > -1)
+    {
+      dispatch(setPage(navigationRoutes.login))
+    }
+  },[loginState])
 
   function onChange(text) {
     setcompanyName(text);
   }
   const onCompanyLogin = async () => {
     try {
-      console.log("company login", companyName)
+     
       await dispatch(companyLogin(companyName))
       
      
