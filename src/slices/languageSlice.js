@@ -1,48 +1,54 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loginLanguageDTO,dashboardLanguageDTO,settingsLanguageDTO,taskLanguageDTO,meetingLanguageDTO } from '../dto/languageDTO'
-import { BuildLoginLanguageDTO,BuildDashboardLanguageDTO,BuildSettingsLanguageDTO,BuildTaskLanguageDTO } from '../dto/languageDTOBuilder'
-const initialState= {
-  loginLanguageDTO:loginLanguageDTO,
-  dashboardLanguageDTO:dashboardLanguageDTO,
-  settingsLanguageDTO:settingsLanguageDTO,
-  taskLanguageDTO:taskLanguageDTO,
-  meetingLanguageDTO:meetingLanguageDTO,
+import {
+  loginLanguageDTO,
+  dashboardLanguageDTO,
+  settingsLanguageDTO,
+  taskLanguageDTO,
+  meetingLanguageDTO,
+  commonLanguageDTO
+} from '../dto/languageDTO'
+import { BuildLoginLanguageDTO, BuildDashboardLanguageDTO, BuildSettingsLanguageDTO, BuildTaskLanguageDTO } from '../dto/languageDTOBuilder'
+const initialState = {
+  loginLanguageDTO: loginLanguageDTO,
+  dashboardLanguageDTO: dashboardLanguageDTO,
+  settingsLanguageDTO: settingsLanguageDTO,
+  taskLanguageDTO: taskLanguageDTO,
+  meetingLanguageDTO: meetingLanguageDTO,
+  commonLanguageDTO:commonLanguageDTO,
 }
 export const languageSlice = createSlice({
   name: 'language',
-  initialState:initialState,  
+  initialState: initialState,
 
   reducers: {
-    setLanguage: (state,action) => {
-      
+    setLanguage: (state, action) => {
+
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes.
       // Also, no return statement is required from these functions.
       //console.log(action) 
-      state.language =action.payload
-      state.loginLanguageDTO=BuildLoginLanguageDTO(state.language.translations);
-      state.dashboardLanguageDTO=BuildDashboardLanguageDTO(state.language.translations);
-      state.settingsLanguageDTO=BuildSettingsLanguageDTO(state.language.translations);
-      state.taskLanguageDTO=BuildTaskLanguageDTO(state.language.translations);
+      state.language = action.payload
+      state.loginLanguageDTO = BuildLoginLanguageDTO(state.language.translations);
+      state.dashboardLanguageDTO = BuildDashboardLanguageDTO(state.language.translations);
+      state.settingsLanguageDTO = BuildSettingsLanguageDTO(state.language.translations);
+      state.taskLanguageDTO = BuildTaskLanguageDTO(state.language.translations);
     },
     setInitialLanguage: (state, action) => {
-      
-      if(action && action.payload.language)
-      {
-        state=action.payload.language
+
+      if (action && action.payload.language) {
+        state = action.payload.language
       }
-      else
-      {
-        state=initialState
+      else {
+        state = initialState
       }
-     
+
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setLanguage,setInitialLanguage } = languageSlice.actions
+export const { setLanguage, setInitialLanguage } = languageSlice.actions
 
 export default languageSlice.reducer

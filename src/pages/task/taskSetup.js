@@ -33,6 +33,8 @@ import DateTimePicker,{DateDisplayFormat} from '../../common/datetimepicker'
 import { useNavigation } from "@react-navigation/native";
 import { getUserList } from '../../slices/userSlice';
 import { addNewTask,resetSaveRequestStatus } from '../../slices/taskSlice';
+import { showLoading } from "../../slices/loadingSlice";
+import { showAlert } from '../../slices/alertSlice';
 import { requestStatusDTO } from '../../dto/statusDTO';
 import UserList from './userList';
 
@@ -40,6 +42,7 @@ function TaskSetup() {
     const dispatch = useDispatch();
     const hasUser = useSelector((state) => state.user.hasUser)
     const taskLanguageDTO = useSelector((state) => state.language.taskLanguageDTO)
+    const commonLanguageDTO = useSelector((state) => state.language.commonLanguageDTO)
     const taskSetup = useSelector((state) => state.task.taskSetup)
     const navigation = useNavigation();
     const userList = useSelector((state) => state.user.userList);
@@ -49,6 +52,9 @@ function TaskSetup() {
     const [formData, setData] = useState(taskSetup);
     const [showUserList, setUserList] = useState(false);
     const [executiveName, setExecutiveName] = useState('');
+    
+    const requiredFieldList = useSelector((state) => state.task.requiredFieldList);
+    const [requiredFieldSettings, setRequiredFieldSettings] = useState(requiredFieldList);
     useEffect(() => {
         if (userList.list.length === 0 && token) {
             dispatch(getUserList(token));
@@ -57,34 +63,75 @@ function TaskSetup() {
     useEffect(() => {
         if (saveRequestStatus === requestStatusDTO.fulfilled) {
             setData(taskSetup);
+            setRequiredFieldSettings(requiredFieldList);
             setExecutiveName('')
             navigation.navigate('dashboard',{screen:'dashboardLayout'})
             dispatch(resetSaveRequestStatus());
+            dispatch(showLoading(false))
+            const alert = { action: 'success', title: commonLanguageDTO.success, description: commonLanguageDTO.saveSuccessMessage }
+            dispatch(showAlert(alert))
         }
         else if (saveRequestStatus === requestStatusDTO.pending) {
-            //show busy indicator
+            dispatch(showLoading(true))
         }
         else if (saveRequestStatus === requestStatusDTO.rejected) {
             //error
             dispatch(resetSaveRequestStatus());
+            dispatch(showLoading(false))
+            const alert = { action: 'error', title: commonLanguageDTO.error, description: commonLanguageDTO.saveErrorMessage }
+            dispatch(showAlert(alert))
         }
     }, [saveRequestStatus])
-
-    const submit = () => {
-        dispatch(addNewTask({token:token, taskData:formData}))
-    }
-    const setDateValue = (value, fieldName) => {
+    const changeFormData = (fieldName, value) => {
         let formValues = { ...formData }
         formValues[fieldName] = value;
         setData(formValues);
-
+        const reqFields = requiredFieldSettings.map((item) => {
+            let reqItem={...item}
+            if (reqItem.field === fieldName) {
+                reqItem.isTouched = true;
+                reqItem.isValid = value ? true : false;
+            }
+            return reqItem;
+        })
+        setRequiredFieldSettings(reqFields)
+    }
+    const validateRequiredFieldOnSave=()=>{
+        let isValid=true;
+        const reqFields = requiredFieldSettings.map((item) => {
+            let reqItem={...item}
+            if (!formData[item.field]) {
+                reqItem.isValid = false;
+                isValid=false;
+            }
+            reqItem.isTouched = true;
+            return reqItem;
+        })
+        setRequiredFieldSettings(reqFields)
+        return isValid;
+    }
+    const isFieldStateInValid=(fieldName)=>{
+       const isInValid= requiredFieldSettings.find(reqField => reqField.field === fieldName && reqField.isTouched && !reqField.isValid);
+       return (isInValid ?  true: false);
+    }
+    const submit = () => {
+        if(validateRequiredFieldOnSave()){
+        dispatch(addNewTask({token:token, taskData:formData}))
+        }
+        else{
+            const alert = { action: 'error', title: commonLanguageDTO.error, description: commonLanguageDTO.saveValidationMessage }
+            dispatch(showAlert(alert)) 
+        }
+    }
+    const setDateValue = (value, fieldName) => {
+        changeFormData(fieldName,value)
     }
     const handleExecutiveSelect = (show) => {
         setUserList(show);
     }
     const selectExecutive = (item) => {
         setUserList(false);
-        setData({ ...formData, assignTo: item.id })
+        changeFormData('assignTo',item.id)
         setExecutiveName(item.name)
     }
     return (
@@ -102,15 +149,15 @@ function TaskSetup() {
 
             {showUserList ? <UserList selectItem={selectExecutive} userItemList={userList.list} /> :
                 <ScrollView style={styles.scrollView_withToolBar} >
-                    <FormControl isRequired>
+                   {1>2 && <FormControl >
                         <FormControlLabel mb="$1">
                             <FormControlLabelText style={styles.fieldLabel}>{taskLanguageDTO.business}</FormControlLabelText>
                         </FormControlLabel>
                         <Text variant="underlined" size="md"   >
                             {'Test business'}
                         </Text>
-                    </FormControl>
-                    <FormControl isRequired>
+                    </FormControl>}
+                    <FormControl isRequired isInvalid={isFieldStateInValid('assignTo')}>
                         <FormControlLabel mb="$1">
                             <FormControlLabelText style={styles.fieldLabel}>{taskLanguageDTO.assignTo}</FormControlLabelText>
                         </FormControlLabel>
@@ -128,13 +175,13 @@ function TaskSetup() {
                             </FormControlErrorText>
                         </FormControlError>
                     </FormControl>
-                    <FormControl isRequired>
+                    <FormControl isRequired isInvalid={isFieldStateInValid('title')}>
                         <FormControlLabel mb="$1">
                             <FormControlLabelText style={styles.fieldLabel}>{taskLanguageDTO.title}</FormControlLabelText>
                         </FormControlLabel>
                         <Input variant="underlined" size="md"   >
                             <InputField placeholder={taskLanguageDTO.titlePlaceholder} value={formData.title}
-                                onChangeText={value => setData({ ...formData, title: value })}>
+                                onChangeText={value => changeFormData('title', value )}>
                             </InputField>
                         </Input>
                         <FormControlError>
@@ -161,7 +208,7 @@ function TaskSetup() {
                         </FormControlLabel>
                         <Textarea variant="underlined" size="md"   >
                             <TextareaInput placeholder={taskLanguageDTO.descriptionPlaceholder} value={formData.description}
-                                onChangeText={value => setData({ ...formData, description: value })}>
+                                onChangeText={value => changeFormData('description', value)}>
                             </TextareaInput>
                         </Textarea>
                     </FormControl>
