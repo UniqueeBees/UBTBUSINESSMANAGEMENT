@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getMeetingsByUser,getMeetingPurposeList,addMeeting } from '../common/apiCalls';
-import { buildMeetingListItems,buildMeetingListItem, buildPurposeListItems,meetingSetupDTO } from '../dto/meetingDTO';
+import { getMeetingsByUser, getMeetingPurposeList, addMeeting } from '../common/apiCalls';
+import { buildMeetingListItems, buildMeetingListItem, buildPurposeListItems, meetingSetupDTO } from '../dto/meetingDTO';
 import { requestStatusDTO } from "../dto/statusDTO";
 const initialState = {
   listItems: [],
   purposeList: [],
-  meetingSetup:{...meetingSetupDTO},
+  meetingSetup: { ...meetingSetupDTO },
   pageCount: 0,
   pageItemCount: 10,
   fetchedItemCount: 0,
@@ -14,6 +14,11 @@ const initialState = {
   hasNewItem: false,
   hasError: false,
   saveRequestStatus: requestStatusDTO.idle,
+  requiredFieldList: [{ field: 'title', isTouched: false, isValid: false },
+                      { field: 'purposeId', isTouched: false, isValid: false },
+                      { field: 'contactId', isTouched: false, isValid: false },
+                      { field: 'scheduledAt', isTouched: false, isValid: false }
+                      ]
 }
 export const getMeetingListByUser = createAsyncThunk(
   'meeting/getlistByUser',
@@ -38,7 +43,7 @@ export const addNewMeeting = createAsyncThunk(
     formData.append('business_id', meeting.meetingData.businessId);
     formData.append('title', meeting.meetingData.title);
     formData.append('notes', meeting.meetingData.description);
-      formData.append('scheduled_at', meeting.meetingData.scheduledAt);
+    formData.append('scheduled_at', meeting.meetingData.scheduledAt);
     const response = await addMeeting(meeting.token, formData)
     return response.data
   }
@@ -130,5 +135,5 @@ export const meetingSlice = createSlice({
 
 })
 
-export const { reset,resetSaveRequestStatus } = meetingSlice.actions
+export const { reset, resetSaveRequestStatus } = meetingSlice.actions
 export default meetingSlice.reducer;

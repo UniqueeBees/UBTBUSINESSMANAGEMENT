@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getUser,getUsers,getContacts } from '../common/apiCalls';
-import { buildUserDTO, buildUserListItemDTO, userDTO ,buildContactListItemDTO} from '../dto/userDTO';
+import { buildUserDTO, buildUserListItemDTO, userDTO ,buildContactListItemDTO,buildContactItemDTO} from '../dto/userDTO';
 import { requestStatusDTO } from "../dto/statusDTO";
 const initialState = {
   userDTO: userDTO,
@@ -41,6 +41,11 @@ export const userSlice = createSlice({
       // Also, no return statement is required from these functions.
       state.userDTO = userDTO;
       state.hasUser = false;
+
+    },
+    addContactToList: (state,action) => {
+      const itemDTO=buildContactItemDTO(action.payload.contact)
+      state.contactList.list.push(itemDTO)
 
     },
   },
@@ -123,5 +128,5 @@ export const userSlice = createSlice({
 
 })
 
-export const { resetUser } = userSlice.actions
+export const { resetUser,addContactToList } = userSlice.actions
 export default userSlice.reducer;

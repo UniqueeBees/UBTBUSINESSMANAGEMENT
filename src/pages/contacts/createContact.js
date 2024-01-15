@@ -10,6 +10,7 @@ import { saveContact } from "../../common/apiCalls";
 import { useSelector, useDispatch } from 'react-redux'
 import { showAlert } from '../../slices/alertSlice'
 import { showLoading } from "../../slices/loadingSlice";
+import { addContactToList } from "../../slices/userSlice";
 import { styles } from "../../assets/styles/theme";
 import { ArrowRight,MoveLeft } from 'lucide-react-native';
 import { useNavigation } from "@react-navigation/native";
@@ -17,6 +18,7 @@ const CreateContact = () => {
   const [contactData, setContactData] = useState({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo: "" });
   const loginState = useSelector((state) => state.login)
   const dispatch = useDispatch()
+  const navigation = useNavigation();
   const navigation = useNavigation();
   const handleChange = (key, value) => {
 

@@ -15,6 +15,9 @@ const initialState = {
   hasNewItem: false,
   hasError: false,
   saveRequestStatus: requestStatusDTO.idle,
+  requiredFieldList: [{ field: 'title', isTouched: false, isValid: false },
+                      { field: 'assignTo', isTouched: false, isValid: false },
+                      ]
 }
 export const getTaskListByUser = createAsyncThunk(
   'task/getlistByUser',

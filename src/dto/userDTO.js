@@ -43,15 +43,19 @@ export const buildUserListItemDTO = (userList) => {
 }
 export const buildContactListItemDTO = (contactList) => {
     const contactItemListDTO = contactList.map((item) => {
-        return {
-            id: item.id,
-            name: item.name,
-            designation: item.designation,
-            email: item.email,
-            mobile1: item.mobile,
-            mobile2: item.mobile,
-        };
+        return buildContactItemDTO(item)
     })
     return contactItemListDTO;
+
+}
+export const buildContactItemDTO = (contact) => {
+    return {
+        id: contact.id,
+        name: contact.name,
+        designation: contact.designation,
+        email: contact.email,
+        mobile1: contact.mobile,
+        mobile2: contact.mobile,
+    };
 
 }

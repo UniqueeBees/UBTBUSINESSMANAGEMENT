@@ -59,6 +59,12 @@ export const meetingLanguageDTO = {
     meetingDateAndTimeValidationMessage:'Date & Time is required',
     scheuleMeeting:'Schedule Meeting',
     contactListTitle:'CONTACTS',
-
-
+}
+export const commonLanguageDTO={
+    success:'Success',
+    error:'Error',
+    saveSuccessMessage:'Successfully saved',
+    saveErrorMessage:'Saving failed',
+    saveValidationMessage:'Please correct the indicated items',
+    
 }
