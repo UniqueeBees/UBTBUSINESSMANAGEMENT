@@ -19,14 +19,16 @@ import Navigation from './common/navigation';
 import { GluestackUIProvider, Text } from "@gluestack-ui/themed"
 import { config } from "@gluestack-ui/config" // Optional if you w
 import Alert from "./common/alert";
+import Loading from './common/loading';
 function App() {
 
   return (
     <SafeAreaProvider>
-     
+
       <AppNotification></AppNotification>
       <GluestackUIProvider config={config}>
-      <Alert/>
+        <Alert />
+        <Loading />
         <Navigation />
 
       </GluestackUIProvider>

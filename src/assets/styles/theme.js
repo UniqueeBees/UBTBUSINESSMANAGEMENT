@@ -125,6 +125,34 @@ submitButton: {
   marginTop:10
 
 },
-
+centeredView: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: 300,
+  position:"absolute",
+  zIndex:1000
+},
+loading:{
+  position: "relative",
+  // left: 200,
+   top:200,
+  
+},
+overlay:{
+  position: "absolute",
+  top:"0px",
+  left:"0px",
+  width: "100%",
+  height: "100%",
+  background: "red",
+  opacity: .5,
+  zIndex: 999999,
+  textAlign:"center",
+  display:"flex",
+  alignItems:"center",
+ // paddingTop:200,
+ 
+}
 
 });

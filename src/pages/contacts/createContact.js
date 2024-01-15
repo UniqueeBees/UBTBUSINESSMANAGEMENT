@@ -7,9 +7,10 @@ import { FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import { saveContact } from "../../common/apiCalls";
 import { useSelector, useDispatch } from 'react-redux'
 import { showAlert} from '../../slices/alertSlice'
+import { showLoading } from "../../slices/loadingSlice";
 import { styles } from "../../assets/styles/theme";
 import {  ArrowRight } from 'lucide-react-native';
-const Contact = () => {
+const CreateContact = () => {
   const [contactData, setContactData] = useState({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo: "" });
   const loginState = useSelector((state) => state.login)
   const dispatch = useDispatch()
@@ -67,19 +68,20 @@ setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo:
 
   }
 
-
-
-
   const saveData = () => {
-    let alert={action:'success',title:'Success',description:'Successfully savedrr'}
+    
+    let alert={action:'success',title:'Success',description:'Successfully saved'}
     if(validateData())
     {
+      dispatch(showLoading(true))
       saveContact(contactData,loginState.token)
       .then(res => {
         dispatch(showAlert(alert))
+        dispatch(showLoading(false))
         clearFields();
     })
         .catch(error => {
+          dispatch(showLoading(false))
           alert={action:'error',title:'Erero',description:'Saving failed'}
         })
 
@@ -109,7 +111,7 @@ setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo:
             <Text lineHeight='$xs' style={styles.inputLabel} >
               Name
             </Text>
-            <Input variant='underlined' ml="$3">
+            <Input variant='underlined'>
               <InputField placeholder="Enter Full Name"
                 type="text"
                 value={contactData.Name}
@@ -198,4 +200,4 @@ setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo:
   );
 }
 
-export default Contact;
+export default CreateContact;

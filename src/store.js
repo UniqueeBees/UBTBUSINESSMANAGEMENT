@@ -8,6 +8,7 @@ import taskReducer from './slices/taskSlice'
 import userReducer from './slices/userSlice'
 import businessReducer from './slices/businessSlice'
 import alertReducer from './slices/alertSlice'
+import loadingReducer from './slices/loadingSlice' 
 export default configureStore({
   reducer: {
     login: loginReducer,
@@ -18,6 +19,7 @@ export default configureStore({
     task:taskReducer,
     user:userReducer,
     business:businessReducer,
-    alert:alertReducer
+    alert:alertReducer,
+    loading:loadingReducer
   },
 })
