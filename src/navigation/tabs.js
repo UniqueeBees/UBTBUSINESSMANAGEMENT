@@ -13,6 +13,7 @@ import Settings from '../pages/settings';
 import MeetingSetup from '../pages/meeting/meetingSetup';
 import TaskSetup from '../pages/task/taskSetup';
 import TaskListLayout from '../pages/task/taskListLayout';
+import CreateContact from '../pages/contacts/createContact';
 import PopperButton from '../navigation/poperButton'
 import { SettingsIcon,Icon } from '@gluestack-ui/themed';
  const TabIconSize="35";
@@ -38,6 +39,7 @@ function DashboardStackScreen() {
       <DashboardStack.Screen name="dashboardLayout" component={Dashboard} />
       <DashboardStack.Screen name="meetingSetup" component={MeetingSetup} />
       <DashboardStack.Screen name="taskSetup" component={TaskSetup} />
+      <DashboardStack.Screen name="contactSetup" component={CreateContact} />
     </DashboardStack.Navigator>
   );
 }

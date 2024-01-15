@@ -8,12 +8,15 @@ import { saveContact } from "../../common/apiCalls";
 import { useSelector, useDispatch } from 'react-redux'
 import { showAlert} from '../../slices/alertSlice'
 import { showLoading } from "../../slices/loadingSlice";
+import { addContactToList } from "../../slices/userSlice";
 import { styles } from "../../assets/styles/theme";
 import {  ArrowRight } from 'lucide-react-native';
+import { useNavigation } from '@react-navigation/native';
 const CreateContact = () => {
   const [contactData, setContactData] = useState({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo: "" });
   const loginState = useSelector((state) => state.login)
   const dispatch = useDispatch()
+  const navigation = useNavigation();
   const handleChange = (key, value) => {
 
     let updateData = { ...contactData }
@@ -78,11 +81,14 @@ setContactData({ Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo:
       .then(res => {
         dispatch(showAlert(alert))
         dispatch(showLoading(false))
+        dispatch(addContactToList({contact:res.data.contact}))
         clearFields();
+        navigation.goBack();
+        
     })
         .catch(error => {
           dispatch(showLoading(false))
-          alert={action:'error',title:'Erero',description:'Saving failed'}
+          alert={action:'error',title:'Erorr',description:'Saving failed'}
         })
 
         dispatch(showAlert(alert))
