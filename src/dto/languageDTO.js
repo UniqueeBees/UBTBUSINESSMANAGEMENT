@@ -1,6 +1,10 @@
 export const loginLanguageDTO = {
     username: 'Username or Email',
+    usernamePlaceholder:'Username',
+    userNameValidationMessage:'Username is required',
     password: 'Password',
+    passwordPlaceholder:'Password',
+    passwordValidationMessage:'Password is required',
     title: 'Login',
     submit: 'Submit',
     loginFailed: 'Authentication failed',
@@ -67,4 +71,9 @@ export const commonLanguageDTO={
     saveErrorMessage:'Saving failed',
     saveValidationMessage:'Please correct the indicated items',
     
+}
+export const businessSelectLanguageDTO = {
+    label: 'Business',
+    placeholder: 'Select Business',
+    requiredValidationMessage:'Business is required',
 }

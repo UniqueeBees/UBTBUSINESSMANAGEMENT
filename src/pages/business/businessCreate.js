@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, View} from 'react-native';
+import {Image, View,Text} from 'react-native';
 import { Center,VStack,Heading,Button,ButtonText,HStack } from '@gluestack-ui/themed';
 import { styles } from '../../assets/styles/theme';
 import { useNavigation } from '@react-navigation/native';
@@ -10,7 +10,8 @@ return(
     <Center>
     <VStack width="100%" mx="3" style={styles.pageHeader} >
         <HStack space="xs">
-         <Heading>Create Business</Heading>
+        <Text style={[styles.pageTitle,{ textAlign:"center"}]} >Create Business</Text>
+          
         </HStack>
         </VStack>
 

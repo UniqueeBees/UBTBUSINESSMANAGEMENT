@@ -5,7 +5,8 @@ import {
   settingsLanguageDTO,
   taskLanguageDTO,
   meetingLanguageDTO,
-  commonLanguageDTO
+  commonLanguageDTO,
+  businessSelectLanguageDTO,
 } from '../dto/languageDTO'
 import { BuildLoginLanguageDTO, BuildDashboardLanguageDTO, BuildSettingsLanguageDTO, BuildTaskLanguageDTO } from '../dto/languageDTOBuilder'
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   taskLanguageDTO: taskLanguageDTO,
   meetingLanguageDTO: meetingLanguageDTO,
   commonLanguageDTO:commonLanguageDTO,
+  businessSelectLanguageDTO:businessSelectLanguageDTO,
 }
 export const languageSlice = createSlice({
   name: 'language',

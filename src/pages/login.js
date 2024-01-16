@@ -11,10 +11,12 @@ import { Text, View, StatusBar, Alert } from 'react-native';
 import { storageKeyTypes } from '../common/localStorage'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { login, logout, accountLogin } from '../slices/loginSlice'
+import { resetLoginStatus, accountLogin } from '../slices/loginSlice'
 import { getUserProfile } from '../slices/userSlice';
 import { styles } from '../assets/styles/theme'
 import { setPage } from '../slices/initialPageSlice'
+import { showLoading } from '../slices/loadingSlice';
+import { showAlert } from '../slices/alertSlice';
 import { navigationRoutes } from '../common/navigation'
 import { baseUrl } from '../common/apiCalls';
 import { UserRound,ArrowRightToLine} from 'lucide-react-native';
@@ -25,6 +27,7 @@ function Login() {
   const hasUser = useSelector((state) => state.user.hasUser)
   const userLoading = useSelector((state) => state.user.loading)
   const requestStatus = useSelector((state) => state.login.reqStatus)
+  const loginAction = useSelector((state) => state.login.loginAction)
   const companyState = useSelector((state) => state.company)
   const loginLanguageDTO = useSelector((state) => state.language.loginLanguageDTO)
   const language = useSelector((state) => state.language)
@@ -38,43 +41,51 @@ function Login() {
     if (loginState) {
       if (!userLoading) {
         dispatch(getUserProfile(token))
-        }
       }
-    },[loginState])
-    useEffect(()=>{
-      if(hasUser && loginState){
-       dispatch(setPage(navigationRoutes.navigationTab))
-      }
-    },[hasUser])
-    
-    const handleState = () => {
-      setShowPassword((showState) => {
-        return !showState;
-      });
-    };
-    const onLoginClicked =  async() => {
-      try {
-      
-        await dispatch(accountLogin({ domain:companyState.company.domain, username:username, password :password}))
-       
-      } 
-      catch (err) 
-      {
-        console.error('Failed to save the post: ', err)
-      } 
-      finally
-       {
-        //setAddRequestStatus('idle')
-      }
-    
+    }
+  }, [loginState])
+  useEffect(() => {
+    if (hasUser && loginState) {
+      dispatch(setPage(navigationRoutes.navigationTab))
+    }
+  }, [hasUser])
+  useEffect(() => {
+    if (requestStatus === 'loading') {
+      dispatch(showLoading(true))
+    }
+    else {
+      dispatch(showLoading(false))
+    }
+    if (loginAction === 'failed') {
+      const alert = { action: 'error', title: loginLanguageDTO.error, description: loginLanguageDTO.loginFailed }
+      dispatch(showAlert(alert))
+      dispatch(resetLoginStatus());
+    }
+  }, [requestStatus, loginAction])
+
+
+  const handleState = () => {
+    setShowPassword((showState) => {
+      return !showState;
+    });
+  };
+  const onLoginClicked = async () => {
+    if (username && password) {
+      await dispatch(accountLogin({ domain: companyState.company.domain, username: username, password: password }))
+    }
+    else {
+      const alert = { action: 'error', title: loginLanguageDTO.error, description: loginLanguageDTO.loginFailed }
+      dispatch(showAlert(alert))
+    }
+
+
   }
 
   const onbackClicked = () => {
     navigateTo(props, navigationRoutes.Login, navAction.Previous);
   }
-  console.log(language)
   return (
-    <FormControl p='$4' mt="$20">
+    <FormControl p='$4' mt="$40">
       {(loginState && hasUser) ? <Box /> :
         <VStack space='xl' alignItems='center'>
           {/* <Heading color='$textDark800' lineHeight='$md'>
@@ -95,34 +106,37 @@ function Login() {
             />
           </Center>
           <VStack pl="$10" pr="$10" space="xl" reverse={false}>
-            <VStack space='xs'>
-              <Text color='$text500' lineHeight='$xs'>
+            <VStack space='none'>
+              <Text color='$text500' lineHeight='$xs' style={styles.fieldLabel}>
                 {loginLanguageDTO.username}
               </Text>
-              <Input variant='underlined' mt="$1">
+              <Input variant='underlined' mt="$0">
               <InputSlot>
               <InputIcon as={UserRound} size="lg" />
               </InputSlot>             
                 <InputField ml="$1"
+                 style={styles.fieldTextSBold}
                   type="text"
                   value={username}
-                  onChangeText={text => setUsername(text)} placeholder="Username"
+                  onChangeText={text => setUsername(text)} placeholder={loginLanguageDTO.usernamePlaceholder}
                 />
               </Input>
             </VStack>
-            <VStack space='xs'>
-              <Text color='$text500' lineHeight='$xs'>
+            <VStack space='none'>
+              <Text color='$text500' lineHeight='$xs' style={styles.fieldLabel}>
                 {loginLanguageDTO.password}
               </Text>
-              <Input variant='underlined' textAlign='center' mt="$1">
+              <Input variant='underlined' textAlign='center' mt="$0">
                 <InputSlot>
                   {/* EyeIcon, EyeOffIcon are both imported from 'lucide-react-native' */}
                   <InputIcon as={LockIcon} size="lg"></InputIcon>
                 </InputSlot>
 
                 <InputField ml="$1" 
+                 style={styles.fieldTextSBold}
                   type={showPassword ? 'text' : 'password'}
                   value={password}
+                  placeholder={loginLanguageDTO.passwordPlaceholder}
                   onChangeText={text => setPassword(text)}
                 />
                 <InputSlot pr='$3' onPress={handleState}>

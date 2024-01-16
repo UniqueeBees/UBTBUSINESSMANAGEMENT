@@ -32,19 +32,19 @@ function Dashboard (props){
     const meetingBgColor=isMeeting ? {}:{bgColor:'$whitesmoke'}
     const taskBgColor=!isMeeting ? {}:{bgColor:'$whitesmoke'}
     return (
-     <View  style={styles.fieldSetContainer}>
-        <VStack>
-        <Heading style={styles.pageTitle} >{companyState.company.name}</Heading>
+     <View bgColor="$white">
+        <VStack bgColor="$white">
+        <Text style={styles.pageTitle} >{companyState.company.name}</Text>
           
             <Center>
             <HStack pt="$4" pb="$4">
-                <Button ml='auto' size="md" variant="solid" action="primary" {...meetingBgColor} style={styles.buttonGeneral} onPress={onMeetingPress}>
-                    <ButtonText color={isMeeting?'$white':'$black'}  >
+                <Button ml='auto'  variant="solid" action="primary" {...meetingBgColor} style={styles.tabItemButton} onPress={onMeetingPress}>
+                    <ButtonText color={isMeeting?'$white':'$black'} style={styles.tabTitleText}  >
                         {dashboardLanguageDTO.meetings}
                     </ButtonText >
                 </Button>
-                <Button ml='auto' size="md" variant="solid" action="primary" style={styles.buttonGeneral} {...taskBgColor} onPress={onTasksPress}>
-                    <ButtonText color={!isMeeting?'$white':'$black'}  >
+                <Button ml='auto' size="md" variant="solid" action="primary" style={styles.tabItemButton} {...taskBgColor} onPress={onTasksPress}>
+                    <ButtonText color={!isMeeting?'$white':'$black'} style={styles.tabTitleText}  >
                         {dashboardLanguageDTO.tasks}
                     </ButtonText >
             </Button>

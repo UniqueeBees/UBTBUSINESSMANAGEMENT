@@ -1,12 +1,12 @@
 import { React, useState, useEffect } from "react"
-import {Dimensions} from 'react-native';
+import {Dimensions,View} from 'react-native';
 import {
   Button, VStack, Center, ButtonText, ButtonIcon,
-  Heading, Text, Image,FlatList,Box,HStack,Badge,BadgeText,Icon ,ArrowLeftIcon,MailIcon,PhoneIcon ,AddIcon
-   
+  Heading, Text, Image,FlatList,Box,HStack,Badge,BadgeText,Icon ,ArrowLeftIcon,MailIcon,PhoneIcon ,AddIcon,
+  EditIcon
 } from "@gluestack-ui/themed";
 import { styles } from '../../assets/styles/theme'
-import { Building2, ArrowRight, PenIcon, DeleteIcon } from 'lucide-react-native';
+import { Building2, ArrowRight, PenIcon, DeleteIcon, TrashIcon ,MoveLeft, AlignCenter} from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import BusinessDetails from "./businessDetails";
 import BusinessCreate from "./businessCreate";
@@ -27,39 +27,50 @@ function BusinessList(props) {
 
   function createList() {
     console.log("businessList",businessListItems)
+    const shadowStyle={
+      shadowOpacity:1
+    }
     return (
-      <VStack width="100%" mx="3" style={styles.pageHeader} >
-      <HStack space="xs" textAlign="center">
-       <Heading textAlign="center" width="100%" fontSize={16} >BUSINESSES</Heading>
-               
+      <VStack bgColor="$white">
+        <VStack width="100%" mx="3" style={styles.pageHeader} >
         
-      </HStack>
-     
-      <FlatList style={{height:Dimensions.get('window').height-170}}
+         <Text style={[styles.pageTitle,{ textAlign:"center"}]} >BUSINESSES</Text>
+         
+        </VStack> 
+        
+      <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
         data={businessListItems}
-        renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
+        renderItem={({ item }) =>
+        
+         <Box style={[styles.listContentItem,styles.boxShadow]}   m="$2" p="$2" pl="$5">
+          <View  > 
           <VStack>
-            <HStack style={{width:100}}>
-            
-            <Heading size="md" >{item.name}</Heading> 
-          
-            <HStack justifyContent="right" space="lg" style={{width:20}}> 
-            <Icon as={DeleteIcon} m="$2" w="$4" h="$4" />
-            <Icon as={PenIcon} m="$2" w="$4" h="$4" />
-            </HStack>
-            </HStack>
-            <VStack  pt="$2" >
-              <Badge variant="solid"  action="muted">
-              {item.email?<Icon as={MailIcon} m="$2" w="$4" h="$4" />:""}<BadgeText style={{textTransform: 'capitalize'}}>{item.email}</BadgeText>
-              </Badge>
-              </VStack>
+            <HStack   justifyContent="space-between"> 
+              <HStack justifyContent="right" space="lg"   > 
               <VStack>
-              <Badge variant="solid" action="muted"  >
-              {item.phone?<Icon as={PhoneIcon} m="$2" w="$4" h="$4" />:""}<BadgeText style={{textTransform: 'capitalize'}}>{item.phone}</BadgeText>
-              </Badge>
-            </VStack>
+              <Text style={styles.listHeadingMedium} >{item.name}</Text>  
+              <Text style={styles.listSubDescription} >{item.country}</Text> 
+              </VStack>
+             
+              </HStack> 
+              <HStack justifyContent="right" space="lg"   > 
+              <Icon as={TrashIcon} m="$2" w="$4" h="$4" />
+              <Icon as={EditIcon} m="$2" w="$4" h="$4" />
+              </HStack>
+            </HStack>
+            <HStack> 
+              <HStack justifyContent="flex-start">
+              {item.email?<Icon as={MailIcon} m="$1" w="$3" h="$3" />:""}<BadgeText  style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.email}</BadgeText>
+              </HStack>
+              <HStack justifyContent="left">
+              {item.phone?<Icon as={PhoneIcon} m="$1" w="$3" h="$3" />:""}<BadgeText style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.phone}</BadgeText>
+              </HStack>
+            </HStack>
           </VStack>
-        </Box>}
+          </View>
+        </Box>
+      
+        }
       />    
        
         <Button 
@@ -76,15 +87,16 @@ function BusinessList(props) {
       >
      <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>    
       </Button>
-       </VStack>
+      </VStack>
+      
        
     )
   }
   return (
 
-    <VStack>
+    <View style={{height:'95%'}}>
       {businessListItems.length === 0 ? <BusinessCreate /> : createList()}
-    </VStack>
+    </View>
   )
 }
 
