@@ -8,6 +8,7 @@ import PushNotification from "react-native-push-notification";
 import Home from '../pages/home';
 import Dashboard from '../pages/dashboard';
 import BusinessList from '../pages/business/businessList'
+import BusinessSelectList from '../pages/formBusinessList/businessSelectList';
 import BusinessDetails from '../pages/business/businessDetails'
 import Settings from '../pages/settings';
 import MeetingSetup from '../pages/meeting/meetingSetup';
@@ -41,6 +42,7 @@ function DashboardStackScreen() {
       <DashboardStack.Screen name="meetingSetup" component={MeetingSetup} />
       <DashboardStack.Screen name="taskSetup" component={TaskSetup} />
       <DashboardStack.Screen name="contactSetup" component={CreateContact} />
+      <BusinessStack.Screen name="businessSelectList" component={BusinessSelectList}/>
     </DashboardStack.Navigator>
   );
 }

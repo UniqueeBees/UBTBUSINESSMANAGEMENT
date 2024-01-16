@@ -17,7 +17,8 @@ const initialState = {
   requiredFieldList: [{ field: 'title', isTouched: false, isValid: false },
                       { field: 'purposeId', isTouched: false, isValid: false },
                       { field: 'contactId', isTouched: false, isValid: false },
-                      { field: 'scheduledAt', isTouched: false, isValid: false }
+                      { field: 'scheduledAt', isTouched: false, isValid: false },
+                      { field: 'businessId', isTouched: false, isValid: false }
                       ]
 }
 export const getMeetingListByUser = createAsyncThunk(
