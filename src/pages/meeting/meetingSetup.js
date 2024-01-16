@@ -280,7 +280,7 @@ function MeetingSetup(props) {
                             onPress={() => submit()}
                         >
                             <ButtonText >{startMeeting ? meetingLanguageDTO.startMeeting : meetingLanguageDTO.scheuleMeeting}</ButtonText>
-                            <ButtonIcon ml={"60%"} size={20} as={ArrowBigRightDash} />
+                            <ButtonIcon ml={startMeeting?"60%":"50%"} size={20} as={ArrowBigRightDash} />
                         </Button>
 
                     </VStack>
