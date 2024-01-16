@@ -48,7 +48,9 @@ import { showAlert } from '../../slices/alertSlice';
 import { requestStatusDTO } from '../../dto/statusDTO';
 import ContactList from '../contacts/contactList';
 import { getCurrentDateFormated } from '../../common/datetimepicker';
-import { ArrowBigRightDash,MoveLeft } from 'lucide-react-native';
+import { ArrowBigRightDash, MoveLeft } from 'lucide-react-native';
+import BusinessSelect from '../formBusinessList/businessSelect';
+
 function MeetingSetup(props) {
     const dispatch = useDispatch();
     const hasUser = useSelector((state) => state.user.hasUser)
@@ -100,7 +102,7 @@ function MeetingSetup(props) {
         formValues[fieldName] = value;
         setData(formValues);
         const reqFields = requiredFieldSettings.map((item) => {
-            let reqItem={...item}
+            let reqItem = { ...item }
             if (reqItem.field === fieldName) {
                 reqItem.isTouched = true;
                 reqItem.isValid = value ? true : false;
@@ -109,13 +111,13 @@ function MeetingSetup(props) {
         })
         setRequiredFieldSettings(reqFields)
     }
-    const validateRequiredFieldOnSave=()=>{
-        let isValid=true;
+    const validateRequiredFieldOnSave = () => {
+        let isValid = true;
         const reqFields = requiredFieldSettings.map((item) => {
-            let reqItem={...item}
+            let reqItem = { ...item }
             if (!formData[item.field]) {
                 reqItem.isValid = false;
-                isValid=false;
+                isValid = false;
             }
             reqItem.isTouched = true;
             return reqItem;
@@ -123,23 +125,23 @@ function MeetingSetup(props) {
         setRequiredFieldSettings(reqFields)
         return isValid;
     }
-    const isFieldStateInValid=(fieldName)=>{
-       const isInValid= requiredFieldSettings.find(reqField => reqField.field === fieldName && reqField.isTouched && !reqField.isValid);
-       return (isInValid ?  true: false);
+    const isFieldStateInValid = (fieldName) => {
+        const isInValid = requiredFieldSettings.find(reqField => reqField.field === fieldName && reqField.isTouched && !reqField.isValid);
+        return (isInValid ? true : false);
     }
     const submit = () => {
         if (startMeeting) {
             var meetingDate = getCurrentDateFormated(meetingDateFormat)
             formData.scheduledAt = meetingDate;
         }
-        if(validateRequiredFieldOnSave()){
+        if (validateRequiredFieldOnSave()) {
             dispatch(addNewMeeting({ token: token, meetingData: formData }))
         }
-        else{
+        else {
             const alert = { action: 'error', title: commonLanguageDTO.error, description: commonLanguageDTO.saveValidationMessage }
-            dispatch(showAlert(alert)) 
+            dispatch(showAlert(alert))
         }
-        
+
     }
     const setDateValue = (value, fieldName) => {
 
@@ -150,7 +152,7 @@ function MeetingSetup(props) {
     }
     const onContactSelect = (item) => {
         setContactList(false);
-        changeFormData('contactId',item.id )
+        changeFormData('contactId', item.id)
         setContactName(item.name)
     }
 
@@ -163,12 +165,20 @@ function MeetingSetup(props) {
         else { return id; }
     }
 
-
+    const setBusinessControlSettings = (fieldName) => {
+        let businessControlSettings = {};
+        businessControlSettings.isRequired = requiredFieldSettings.some(reqField => reqField.field === fieldName);
+        if (businessControlSettings.isRequired) {
+            businessControlSettings.isInvalid = requiredFieldSettings.some(reqField => reqField.field === fieldName && reqField.isTouched && !reqField.isValid);
+        }
+        businessControlSettings.fieldName=fieldName;
+        return businessControlSettings;
+    }
 
     return (
         <VStack width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
             <VStack width="100%" mx="3" >
-                <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showContactList ? setContactList(false) : navigation.goBack() }} />
+                <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl" onPress={() => { showContactList ? setContactList(false) : navigation.goBack() }} />
                     <Heading style={styles.pageTitle1}>
                         {showContactList ? meetingLanguageDTO.contactListTitle : meetingLanguageDTO.createMeeting}
                     </Heading>
@@ -177,11 +187,12 @@ function MeetingSetup(props) {
             </VStack>
             {showContactList ? <ContactList selectItem={onContactSelect} contactItemList={contactList.list} /> :
                 <ScrollView style={styles.scrollView_withToolBar} >
+                    <BusinessSelect controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeFormData} />
                     <FormControl isRequired isInvalid={isFieldStateInValid('purposeId')}>
                         <FormControlLabel mb="$1">
                             <FormControlLabelText style={styles.fieldLabel}>{meetingLanguageDTO.purpose}</FormControlLabelText>
                         </FormControlLabel>
-                        <Select onValueChange={value => changeFormData('purposeId', value )} >
+                        <Select onValueChange={value => changeFormData('purposeId', value)} >
                             <SelectTrigger variant="underlined">
                                 <SelectInput placeholder={meetingLanguageDTO.purposePlaceholder} value={getPurposeName(formData.purposeId)} />
                                 <SelectIcon mr="$3">
@@ -230,7 +241,7 @@ function MeetingSetup(props) {
                         </FormControlLabel>
                         <Input variant="underlined" size="md"   >
                             <InputField placeholder={meetingLanguageDTO.titlePlaceholder} value={formData.title}
-                                onChangeText={value => changeFormData('title', value )}>
+                                onChangeText={value => changeFormData('title', value)}>
                             </InputField>
                         </Input>
                         <FormControlError>
@@ -280,7 +291,7 @@ function MeetingSetup(props) {
                             onPress={() => submit()}
                         >
                             <ButtonText >{startMeeting ? meetingLanguageDTO.startMeeting : meetingLanguageDTO.scheuleMeeting}</ButtonText>
-                            <ButtonIcon ml={startMeeting?"60%":"50%"} size={20} as={ArrowBigRightDash} />
+                            <ButtonIcon ml={startMeeting ? "60%" : "50%"} size={20} as={ArrowBigRightDash} />
                         </Button>
 
                     </VStack>

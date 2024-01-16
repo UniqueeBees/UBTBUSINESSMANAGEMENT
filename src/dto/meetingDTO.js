@@ -12,7 +12,7 @@ export const meetingSetupDTO={
     id:0,
     title:'',
     description:'',
-    businessId:1,
+    businessId:0,
     purposeId:0,
     contactId:0,
     scheduledAt:'',

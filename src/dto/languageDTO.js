@@ -72,3 +72,8 @@ export const commonLanguageDTO={
     saveValidationMessage:'Please correct the indicated items',
     
 }
+export const businessSelectLanguageDTO = {
+    label: 'Business',
+    placeholder: 'Select Business',
+    requiredValidationMessage:'Business is required',
+}
