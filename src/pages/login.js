@@ -2,7 +2,7 @@
 import { VStack, Center, Image, Box } from '@gluestack-ui/themed';
 import {
   Input, Heading, FormControl, InputField, InputSlot, Button, ButtonText,
-  InputIcon, EyeIcon, EyeOffIcon, ButtonSpinner, AtSignIcon, LockIcon
+  InputIcon, EyeIcon, EyeOffIcon, ButtonSpinner, AtSignIcon, LockIcon,ButtonIcon
 } from '@gluestack-ui/themed';
 import React from 'react';
 import { useState, useEffect } from 'react'
@@ -19,6 +19,7 @@ import { showLoading } from '../slices/loadingSlice';
 import { showAlert } from '../slices/alertSlice';
 import { navigationRoutes } from '../common/navigation'
 import { baseUrl } from '../common/apiCalls';
+import { UserRound,ArrowRightToLine} from 'lucide-react-native';
 function Login() {
   const loginState = useSelector((state) => state.login.loginState)
   const token = useSelector((state) => state.login.token)
@@ -104,13 +105,16 @@ function Login() {
               size="xl"
             />
           </Center>
-          <VStack pl="$10" pr="$10" space='lg' reverse={false}>
+          <VStack pl="$10" pr="$10" space="xl" reverse={false}>
             <VStack space='xs'>
               <Text color='$text500' lineHeight='$xs'>
                 {loginLanguageDTO.username}
               </Text>
-              <Input variant='underlined'>
-                <InputField
+              <Input variant='underlined' mt="$1">
+              <InputSlot>
+              <InputIcon as={UserRound} size="lg" />
+              </InputSlot>             
+                <InputField ml="$1"
                   type="text"
                   value={username}
                   onChangeText={text => setUsername(text)} placeholder={loginLanguageDTO.usernamePlaceholder}
@@ -121,13 +125,13 @@ function Login() {
               <Text color='$text500' lineHeight='$xs'>
                 {loginLanguageDTO.password}
               </Text>
-              <Input variant='underlined' textAlign='center'>
+              <Input variant='underlined' textAlign='center' mt="$1">
                 <InputSlot>
                   {/* EyeIcon, EyeOffIcon are both imported from 'lucide-react-native' */}
-                  <InputIcon as={LockIcon} />
+                  <InputIcon as={LockIcon} size="lg"></InputIcon>
                 </InputSlot>
 
-                <InputField ml="$5"
+                <InputField ml="$1" 
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   placeholder={loginLanguageDTO.passwordPlaceholder}
@@ -135,7 +139,7 @@ function Login() {
                 />
                 <InputSlot pr='$3' onPress={handleState}>
                   {/* EyeIcon, EyeOffIcon are both imported from 'lucide-react-native' */}
-                  <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} color='$darkBlue500' />
+                  <InputIcon  as={showPassword ? EyeIcon : EyeOffIcon} color='$darkBlue500' />
                 </InputSlot>
               </Input>
             </VStack>
@@ -153,6 +157,7 @@ function Login() {
               <ButtonText color='$white'  >
                 {loginLanguageDTO.signIn}
               </ButtonText >
+              <ButtonIcon ml={"70%"} size={20} as={ArrowRightToLine} />
             </Button>
           </VStack>
 

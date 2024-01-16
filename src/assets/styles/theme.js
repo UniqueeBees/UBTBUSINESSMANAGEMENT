@@ -80,19 +80,20 @@ export const styles = StyleSheet.create({
   },
   langugeHeading:{
     textAlign:"center",
-    paddingBottom:50,
-    paddingTop:50,
+    paddingBottom:20,
+    paddingTop:95,
     width:"100%",
-    fontFamily:"Poppins-Italic",
-    fontSize:28,
-    fontWeight:"normal"
+    fontFamily:"Poppins",
+    fontSize:25,
+    fontWeight:"650",
+    letterSpacing:1,
   },
   mainHeading:{
     textAlign:"center",
     width:"100%",
     fontFamily:"Poppins-Italic",
     fontSize:16,
-    fontWeight:"bold",
+    fontWeight:"normal",
     letterSpacing:1.5,
     textTransform:"uppercase",
     marginTop:20
@@ -154,6 +155,16 @@ overlay:{
   alignItems:"center",
  // paddingTop:200,
  
+},
+
+pageTitle1:{
+  fontFamily:"Poppins",
+  fontSize:16,
+  fontWeight:"bold",
+  letterSpacing:1.5,
+  textTransform:"uppercase",
+  marginLeft:50
+
 }
 
 });

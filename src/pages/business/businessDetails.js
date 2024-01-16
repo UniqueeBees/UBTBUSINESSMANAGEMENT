@@ -37,6 +37,7 @@ import { styles } from '../../assets/styles/theme'
 import { useNavigation } from "@react-navigation/native";
 import { useSelector,useDispatch } from 'react-redux';
 import {businessTypes} from '../../slices/businessSlice'
+import { ArrowBigRightDash,CheckCircle2} from 'lucide-react-native';
 const wizardStageEnum = {
   basic: 1,
   advance: 2,
@@ -164,7 +165,7 @@ export default function BusinessDetails(props) {
             onPress={()=>setwizStage(wizardStageEnum.advance)}
           >
             <ButtonText >Next</ButtonText>
-            <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
+            <ButtonIcon ml={"80%"} size={20} as={ArrowBigRightDash} />
           </Button>
         </VStack>
         </ScrollView>
@@ -259,7 +260,7 @@ export default function BusinessDetails(props) {
 
           >
             <ButtonText >Next</ButtonText>
-            <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
+            <ButtonIcon ml={"80%"} size={20} as={ArrowBigRightDash} />
           </Button>
         </VStack>
 </ScrollView>
@@ -298,7 +299,7 @@ export default function BusinessDetails(props) {
 
           >
             <ButtonText >Next</ButtonText>
-            <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
+            <ButtonIcon ml={"80%"} size={20} as={ArrowBigRightDash} />
           </Button>
         </VStack>
 
@@ -329,7 +330,7 @@ export default function BusinessDetails(props) {
 
           >
             <ButtonText >Finish</ButtonText>
-            <ButtonIcon ml={"80%"} size={20} as={ArrowRight} />
+            <ButtonIcon ml={"80%"} size={20} as={CheckCircle2} />
           </Button>
         </VStack>
 

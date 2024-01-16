@@ -16,6 +16,7 @@ import TaskListLayout from '../pages/task/taskListLayout';
 import CreateContact from '../pages/contacts/createContact';
 import PopperButton from '../navigation/poperButton'
 import { SettingsIcon,Icon } from '@gluestack-ui/themed';
+import { Briefcase} from 'lucide-react-native';
  const TabIconSize="35";
  const TabIconColor="black";
 const Tab=createBottomTabNavigator();
@@ -87,8 +88,8 @@ function Tabs() {
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name="database" color={color} size={size} />
-            ), 
+              <Icon as={Briefcase} color={color} size={size} />
+              ), 
           }} ></Tab.Screen> 
           
           <Tab.Screen name="Add" component={Home}
