@@ -86,7 +86,7 @@ const CreateContact = () => {
         })
         .catch(error => {
           dispatch(showLoading(false))
-          alert = { action: 'error', title: 'Erero', description: 'Saving failed' }
+          alert = { action: 'error', title: 'Error', description: 'Saving failed' }
         })
 
       dispatch(showAlert(alert))

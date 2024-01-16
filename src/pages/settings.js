@@ -116,7 +116,7 @@ function Settings() {
             <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={10} textTransform="uppercase">Tasks</Heading>
           </HStack>
         </VStack>
-        <VStack alignItems="left" pl="$10">
+        <VStack alignItems="left" pl="$10" pt="$1">
           <HStack>
             <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={24} fontWeight="bold">{businessListItems.length}</Heading>
             <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={24} fontWeight="bold">{meetingListItems.length}</Heading>
@@ -124,7 +124,7 @@ function Settings() {
           </HStack>
         </VStack>
       </VStack>
-      <Center mt={188} style={{ position: "absolute", width: "100%", height: 70 }} bg="$white" rounded={20} >
+      <Center mt={188} style={{ position: "absolute", width: "100%", height: 70 }} bg="#f7f9fc" rounded={20} >
       </Center>
       
       <VStack space="md" height="100%" alignItems="left" pl="$8" width="100%" bgColor="#f7f9fc"  >

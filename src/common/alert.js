@@ -48,7 +48,7 @@ showToast=()=>{
  
 
   return (
- <VStack>{isShow?showToast():""}</VStack>
+ <VStack width="100%">{isShow?showToast():""}</VStack>
   )
 
 
