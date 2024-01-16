@@ -36,22 +36,22 @@ function TaskListLayout(props) {
             dispatch(setPage(navigationRoutes.login))
         }
     })
-    const meetingBgColor = isMyTask ? {} : { bgColor: '$whitesmoke' }
-    const taskBgColor = !isMyTask ? {} : { bgColor: '$whitesmoke' }
+    const meetingBgColor = isMyTask ? {} : { bgColor: '$white' }
+    const taskBgColor = !isMyTask ? {} : { bgColor: '$white' }
     return (
-        <View style={styles.fieldSetContainer}>
-            <VStack>
-                <Heading style={styles.pageTitle} >{'Tasks'}</Heading>
+        <View   bgColor="$white" >
+            <VStack  >
+                <Text style={styles.pageTitle} >Tasks</Text>
 
                 <Center>
                     <HStack pt="$4" pb="$4">
-                        <Button ml='auto' size="md" variant="solid" action="primary" {...meetingBgColor} style={styles.buttonGeneral} onPress={onMeetingPress}>
-                            <ButtonText color={isMyTask ? '$white' : '$black'}  >
+                        <Button ml='auto' size="md" variant="solid" action="primary" {...meetingBgColor}  style={styles.tabItemButton} onPress={onMeetingPress}>
+                            <ButtonText color={isMyTask ? '$white' : '$black'}  style={styles.tabTitleText} >
                                 {taskLanguageDTO.myTasks}
                             </ButtonText >
                         </Button>
-                        <Button ml='auto' size="md" variant="solid" action="primary" style={styles.buttonGeneral} {...taskBgColor} onPress={onTasksPress}>
-                            <ButtonText color={!isMyTask ? '$white' : '$black'}  >
+                        <Button ml='auto' size="md" variant="solid" action="primary"  style={styles.tabItemButton} {...taskBgColor} onPress={onTasksPress}>
+                            <ButtonText color={!isMyTask ? '$white' : '$black'}  style={styles.tabTitleText} >
                                 {taskLanguageDTO.tasks}
                             </ButtonText >
                         </Button>

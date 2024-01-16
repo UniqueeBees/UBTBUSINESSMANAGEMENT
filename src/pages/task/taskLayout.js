@@ -24,7 +24,7 @@ function TaskLayout (){
     },[token])
     return (
      
-          <View>
+          <View  bgColor="$white"> 
           {(isTaskListRequestLoading && taskListItems.length === 0) ?<Box /> : taskListItems.length === 0 ? 
           <CreateTask taskLanguageDTO={taskLanguageDTO} /> :<TaskList taskLanguageDTO={taskLanguageDTO} taskListItems={taskListItems} statusList={taskStatusList}/>}    
          </View> 

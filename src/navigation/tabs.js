@@ -23,14 +23,14 @@ import { Briefcase} from 'lucide-react-native';
 const Tab=createBottomTabNavigator();
 const styles=StyleSheet.create({
     shadow:{
-        shadowColor:'#7F5DF0',
+        shadowColor:'#red',
         shadowOffset:{
-            width:0,
-            height:0,
+            width:300,
+            height:300,
         },
         shadowOpacity:0.25,
         shadowRadius:3.5,
-        elevation:5
+        elevation:30
     }
 })
 const DashboardStack = createNativeStackNavigator();
@@ -60,28 +60,30 @@ function Tabs() {
     return ( 
       
         <Tab.Navigator
-        initialRouteName='dashboard'
+        initialRouteName='dashboard' 
         screenOptions={{
+          tabBarInactiveTintColor: '#020202',
+          tabBarActiveTintColor: '#1877F2',
             tabBarShowLabel:false,
             headerShown:false,
+            
             tabBarStyle: {  
               position:'absolute',
                 bottom:0,
                 left:0,
                 right:0,
-                elevation:0,
+                elevation:9,
                 backgroundColor:'#ffffff',
                 borderTopLeftRadius: 35, 
                 borderTopRightRadius: 35, 
-                height:100,
-                
-                ...styles.shadow
+                height:"10%",
+                ...styles.boxShadow
               },
               
           }} >  
-            <Tab.Screen name="dashboard" component={DashboardStackScreen}
+            <Tab.Screen name="dashboard"   component={DashboardStackScreen}
            options={{
-            tabBarLabel: 'Updates',
+            tabBarLabel: 'Updates', 
             tabBarIcon: ({ color, size }) => (
               <AntDesign name="home" color={color} size={size}  />
             ), 
@@ -94,12 +96,12 @@ function Tabs() {
               ), 
           }} ></Tab.Screen> 
           
-          <Tab.Screen name="Add" component={Home}
+          <Tab.Screen name="Add" component={DashboardStackScreen}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
-             // 
-             <PopperButton></PopperButton>
+              <PopperButton></PopperButton>
+             
             ), 
           }} ></Tab.Screen> 
             <Tab.Screen name="taskListLayout" component={TaskListLayout}

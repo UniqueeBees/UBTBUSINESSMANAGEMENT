@@ -1,9 +1,9 @@
-import  React, {useEffect } from "react"
+import React, { useEffect } from "react"
 import { Dimensions } from 'react-native';
 import { FlatList, TouchableOpacity } from "react-native";
 import {
     VStack,
-    Heading, Box, HStack, Badge, BadgeText, Icon, ArrowLeftIcon, MailIcon, PhoneIcon, AddIcon
+    Heading, Box, HStack, Badge, BadgeText, Icon, ArrowLeftIcon, MailIcon, PhoneIcon, AddIcon, Text
 
 } from "@gluestack-ui/themed";
 import { styles } from '../../assets/styles/theme'
@@ -18,12 +18,12 @@ function BusinessSelectList() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const selectItem = (item) => {
-        dispatch(setBusinessSelectFromForm({business:item}));
+        dispatch(setBusinessSelectFromForm({ business: item }));
         navigation.goBack();
     }
     useEffect(() => {
-        
-        if (businessListItems.length ===0 ) {
+
+        if (businessListItems.length === 0) {
             dispatch(getBusinessListItems(token))
         }
     }, [])
@@ -31,32 +31,37 @@ function BusinessSelectList() {
     function createList() {
         return (
             <VStack width="100%" mx="3" style={styles.pageHeader} >
-                <HStack space="xs" textAlign="center">
-                    <Heading textAlign="center" width="100%" fontSize={16} >BUSINESSES</Heading>
+                <VStack width="100%" mx="3" style={styles.pageHeader} >
 
+                    <Text style={[styles.pageTitle, { textAlign: "center" }]} >BUSINESSES</Text>
 
-                </HStack>
+                </VStack>
 
                 <FlatList style={{ height: Dimensions.get('window').height - 170 }}
                     data={businessListItems}
-                    renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
+                    renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$1" p="$2" pl="$5">
                         <VStack>
                             <TouchableOpacity
                                 activeOpaticy={1}
                                 onPress={() => selectItem(item)}>
-                                <HStack >
-                                    <Heading size="md" >{item.name}</Heading>
+                                <HStack justifyContent="space-between">
+                                    <HStack justifyContent="right" space="lg"   >
+                                        <VStack>
+                                            <Text style={styles.listHeadingMedium} >{item.name}</Text>
+                                            <Text style={styles.listSubDescription} >{item.country}</Text>
+                                        </VStack>
+
+                                    </HStack>
+
                                 </HStack>
-                                <VStack pt="$2" >
-                                    <Badge variant="solid" action="muted">
-                                        {item.email ? <Icon as={MailIcon} m="$2" w="$4" h="$4" /> : ""}<BadgeText style={{ textTransform: 'capitalize' }}>{item.email}</BadgeText>
-                                    </Badge>
-                                </VStack>
-                                <VStack>
-                                    <Badge variant="solid" action="muted"  >
-                                        {item.phone ? <Icon as={PhoneIcon} m="$2" w="$4" h="$4" /> : ""}<BadgeText style={{ textTransform: 'capitalize' }}>{item.phone}</BadgeText>
-                                    </Badge>
-                                </VStack>
+                                <HStack>
+                                    <HStack justifyContent="flex-start">
+                                        {item.email ? <Icon as={MailIcon} m="$1" w="$3" h="$3" /> : ""}<BadgeText style={[{ textTransform: 'capitalize', paddingTop: 0 }, styles.listSubHeading]}>{item.email}</BadgeText>
+                                    </HStack>
+                                    <HStack justifyContent="left">
+                                        {item.phone ? <Icon as={PhoneIcon} m="$1" w="$3" h="$3" /> : ""}<BadgeText style={[{ textTransform: 'capitalize', paddingTop: 0 }, styles.listSubHeading]}>{item.phone}</BadgeText>
+                                    </HStack>
+                                </HStack>
                             </TouchableOpacity>
                         </VStack>
                     </Box>}

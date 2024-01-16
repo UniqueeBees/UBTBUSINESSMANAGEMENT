@@ -7,7 +7,7 @@ function ContactList(props) {
     const navigation = useNavigation();
     return (
         <VStack>
-            <FlatList style={{ height: "84%" }}
+            <FlatList style={{ height: "84%" }} showsVerticalScrollIndicator={false}
                 data={props.contactItemList}
                 renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
                     <VStack>
