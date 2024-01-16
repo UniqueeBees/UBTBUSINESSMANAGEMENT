@@ -5,7 +5,6 @@ import {storeObjectData,storageKeyTypes,removeStoreObjectData} from '../common/l
 export const accountLogin = createAsyncThunk(
   'account/accountLogin',
   async (login) => {
-    console.log('accountloginapi')
     const response = await accountLoginAPI( login)
     return response.data
   }
@@ -17,17 +16,8 @@ export const loginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
-    login: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes.
-      // Also, no return statement is required from these functions.
-      state.loginState ='login'
-      state.id=1
-    },
-    initiated: (state) => {
-      state.loginState ='initiated'
+    resetLoginStatus: (state) => {
+      state.loginAction ='idle'
     },
     logout: (state) => {
       console.log('before logout',state)
@@ -38,13 +28,11 @@ export const loginSlice = createSlice({
       state.token=''
       state.username=''
       removeStoreObjectData(storageKeyTypes.login);
-      console.log('after logout',state)
     },
     setInitial: (state, action) => {
       
       if(action && action.payload)
       {
-        console.log('setInitial1',action)
        // state=action.payload
         state.reqStatus = action.payload.reqStatus
             state.loginAction = action.payload.loginAction
@@ -99,6 +87,6 @@ export const loginSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { login, initiated, logout,setInitial } = loginSlice.actions
+export const { resetLoginStatus, logout,setInitial } = loginSlice.actions
 
 export default loginSlice.reducer

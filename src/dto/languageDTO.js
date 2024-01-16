@@ -1,6 +1,10 @@
 export const loginLanguageDTO = {
     username: 'Username or Email',
+    usernamePlaceholder:'Username',
+    userNameValidationMessage:'Username is required',
     password: 'Password',
+    passwordPlaceholder:'Password',
+    passwordValidationMessage:'Password is required',
     title: 'Login',
     submit: 'Submit',
     loginFailed: 'Authentication failed',

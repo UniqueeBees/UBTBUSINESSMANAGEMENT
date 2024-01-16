@@ -38,6 +38,7 @@ export const styles = StyleSheet.create({
     alignItems: "stretch",
     paddingLeft: 20,
     paddingRight: 20,
+    fontFamily:"Poppins-Italic",
   },
   pageTitle: {
     paddingBottom: 20,
