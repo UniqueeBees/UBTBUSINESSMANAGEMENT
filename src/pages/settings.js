@@ -91,7 +91,7 @@ function Settings() {
   return (
 
     <VStack bgColor="$white" height="100%">
-      <VStack bgColor="blue" height={200} pt="$10">
+      <VStack bgColor="#1877F2" height={210} pt="$16">
         <HStack space="md" pl="$10">
           <Avatar bgColor="$white" size="md" borderRadius="$full">
             <AvatarImage source={{
@@ -104,41 +104,42 @@ function Settings() {
             }} />
           </Avatar>
           <VStack>
-            <Heading size="sm" color="$white">{userState.userDTO.fullName}</Heading>
-            <Text size="sm" color="$white">{userState.userDTO.designation}</Text>
+            <Heading size="sm" color="$white" fontSize={18}>{userState.userDTO.fullName}</Heading>
+            <Text size="sm" color="$white" fontSize={12}>{userState.userDTO.designation}</Text>
           </VStack>
         </HStack>
 
         <VStack mt="$5"  alignItems="left" pl="$10">
           <HStack  textAlign="center" >
-            <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={12}>Businesses</Heading>
-            <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={12}>Meetings</Heading>
-            <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={12}>Tasks</Heading>
+            <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={10} textTransform="uppercase">Businesses</Heading>
+            <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={10} textTransform="uppercase">Meetings</Heading>
+            <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={10} textTransform="uppercase">Tasks</Heading>
           </HStack>
         </VStack>
         <VStack alignItems="left" pl="$10">
           <HStack>
-            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={18}>{businessListItems.length}</Heading>
-            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={18}>{meetingListItems.length}</Heading>
-            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={18}>{taskListItems.length}</Heading>
+            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={24} fontWeight="bold">{businessListItems.length}</Heading>
+            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={24} fontWeight="bold">{meetingListItems.length}</Heading>
+            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={24} fontWeight="bold">{taskListItems.length}</Heading>
           </HStack>
         </VStack>
       </VStack>
-      <Center mt={160} pt="$6" style={{ position: "absolute", width: "100%", height: 70 }} bg="$white" rounded={50} >
+      <Center mt={188} style={{ position: "absolute", width: "100%", height: 70 }} bg="$white" rounded={20} >
       </Center>
       
-      <VStack space="md" height="100%" alignItems="left" pl="$12" width="100%" >
+      <VStack space="md" height="100%" alignItems="left" pl="$8" width="100%" bgColor="#f7f9fc"  >
         <FlatList
           data={getItems()}
           renderItem={({ item }) => 
             
             <TouchableHighlight onPress={() => { actionEvent(item) }} underlayColor="white">
-              <VStack mt="$1" alignItems="center"  bgColor="#F0FFFF" maxWidth={250} >
-              <HStack alignItems="center" m="$3" bgColor="$white" borderRadius={20} pl="$3" style={{ height:30,width:250,alignContent:"center" }} >
+              
+              <HStack alignItems="center" m="$3"  borderRadius={20}  style={{ height:30,width:250,alignContent:"center" }} >
+              <Badge size="md" height={30} m="$2" variant="solid" borderRadius="$xl" action="muted" bgColor="$white" width="100%">
                 <Heading size="md" style={styles.subTitle}  >{item.label}</Heading>
-                
+                </Badge>
               </HStack>
-              </VStack>
+             
               </TouchableHighlight>
             
           }

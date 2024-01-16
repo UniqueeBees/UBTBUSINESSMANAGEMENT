@@ -73,9 +73,11 @@ export const styles = StyleSheet.create({
 
   },
   subTitle: {
-    fontSize: 15,
-    fontWeight:"normal",
-    fontFamily:"Poppins-Italic",
+    fontSize: 13,
+    fontWeight:"bold",
+    fontFamily:"Poppins",
+    color:"#807777",
+    letterSpacing:.1,
   },
   langugeHeading:{
     textAlign:"center",
