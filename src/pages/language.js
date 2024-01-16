@@ -77,6 +77,7 @@ function Language(props) {
       <VStack space="md" width="100%" pl={85} pr={65} pt="$0" >
         <VStack space="4xl" >
           <FlatList
+          showsVerticalScrollIndicator={false}
             data={languageData}
             renderItem={({ item }) =>
               <TouchableHighlight onPress={() => { SetLanguage(item.code) }} underlayColor="white">

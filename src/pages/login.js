@@ -74,7 +74,7 @@ function Login() {
   }
   console.log(language)
   return (
-    <FormControl p='$4' mt="$20">
+    <FormControl p='$4' mt="$40">
       {(loginState && hasUser) ? <Box /> :
         <VStack space='xl' alignItems='center'>
           {/* <Heading color='$textDark800' lineHeight='$md'>
@@ -95,32 +95,34 @@ function Login() {
             />
           </Center>
           <VStack pl="$10" pr="$10" space="xl" reverse={false}>
-            <VStack space='xs'>
-              <Text color='$text500' lineHeight='$xs'>
+            <VStack space='none'>
+              <Text color='$text500' lineHeight='$xs' style={styles.fieldLabel}>
                 {loginLanguageDTO.username}
               </Text>
-              <Input variant='underlined' mt="$1">
+              <Input variant='underlined' mt="$0">
               <InputSlot>
               <InputIcon as={UserRound} size="lg" />
               </InputSlot>             
                 <InputField ml="$1"
+                 style={styles.fieldTextSBold}
                   type="text"
                   value={username}
                   onChangeText={text => setUsername(text)} placeholder="Username"
                 />
               </Input>
             </VStack>
-            <VStack space='xs'>
-              <Text color='$text500' lineHeight='$xs'>
+            <VStack space='none'>
+              <Text color='$text500' lineHeight='$xs' style={styles.fieldLabel}>
                 {loginLanguageDTO.password}
               </Text>
-              <Input variant='underlined' textAlign='center' mt="$1">
+              <Input variant='underlined' textAlign='center' mt="$0">
                 <InputSlot>
                   {/* EyeIcon, EyeOffIcon are both imported from 'lucide-react-native' */}
                   <InputIcon as={LockIcon} size="lg"></InputIcon>
                 </InputSlot>
 
                 <InputField ml="$1" 
+                 style={styles.fieldTextSBold}
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChangeText={text => setPassword(text)}

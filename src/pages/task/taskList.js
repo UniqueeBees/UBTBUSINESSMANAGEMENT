@@ -18,11 +18,11 @@ function TaskList(props) {
     return (
       <HStack space="md" justifyContent="flex-end">
 
-        <Badge size="md" variant="solid" backgroundColor={color} borderRadius="$xl" action="muted" >
-          <BadgeText color="$white">{statusName}</BadgeText>
+        <Badge style={styles.listBadge} variant="solid" backgroundColor={color} action="muted" >
+          <BadgeText color="$white" style={styles.listBadgeItem}>{statusName}</BadgeText>
         </Badge>
-        <Badge size="md" variant="solid" borderRadius="$xl" action="muted" >
-          <BadgeText >{dueDate}</BadgeText>
+        <Badge style={styles.listBadge}  variant="solid" action="muted" >
+          <BadgeText style={styles.listBadgeItem} >{dueDate}</BadgeText>
         </Badge>
       </HStack>
     )
@@ -30,12 +30,12 @@ function TaskList(props) {
   return (
 
     <View>
-      <FlatList style={{ height: "84%" }}
+      <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
         data={props.taskListItems}
         renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
           <VStack>
-            <Heading size="md" >{item.title}</Heading>
-            {item.description && <Text>{item.description}</Text>}
+             <Text  style={styles.listHeading}>{item.title}</Text> 
+            {item.description && <Text style={styles.listSubHeading} >{item.description}</Text>}
             {getTaskStatus(item)}
           </VStack>
         </Box>}
@@ -52,7 +52,7 @@ function TaskList(props) {
         onPress={()=>navigation.navigate("taskSetup")}
 
       >
-     <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>    
+     <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$6" h="$6" /></ButtonText>    
       </Button>
     </View>
   )

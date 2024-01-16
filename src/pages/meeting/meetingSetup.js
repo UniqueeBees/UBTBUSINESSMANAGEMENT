@@ -169,9 +169,9 @@ function MeetingSetup(props) {
         <VStack width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
             <VStack width="100%" mx="3" >
                 <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showContactList ? setContactList(false) : navigation.goBack() }} />
-                    <Heading style={styles.pageTitle1}>
+                    <Text style={styles.pageTitle1}>
                         {showContactList ? meetingLanguageDTO.contactListTitle : meetingLanguageDTO.createMeeting}
-                    </Heading>
+                    </Text>
                 </HStack>
 
             </VStack>

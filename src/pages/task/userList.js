@@ -4,7 +4,7 @@ import { HStack, VStack, Box, Badge, BadgeText, Heading, Text } from "@gluestack
 function UserList(props) {
     return (
 
-        <FlatList style={{ height: "84%" }}
+        <FlatList style={{ height: "84%" }} showsVerticalScrollIndicator={false}
             data={props.userItemList}
             renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
                 <VStack>

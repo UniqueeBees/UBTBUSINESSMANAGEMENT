@@ -19,6 +19,19 @@ export const styles = StyleSheet.create({
     margin: 2,
     borderBottomWidth: 1,
     padding: 10,
+  }, 
+  fieldTextSBold:{
+    fontFamily: 'Poppins-Regular',
+    fontSize:16, 
+    color:"#171717",  
+    height:45,
+    fontWeight:'400',
+  },
+  fieldText:{
+    fontFamily: 'Poppins-Regular',
+    fontSize:12, 
+    color:"#171717",  
+    height:45
   },
   buttonLong: {
     width: 300,
@@ -42,12 +55,19 @@ export const styles = StyleSheet.create({
   pageTitle: {
     paddingBottom: 20,
     paddingTop: 20,
-    fontFamily:"Poppins-Italic",
-    fontSize: 16
+     fontFamily:'Poppins-SemiBold', 
+    fontSize: 20,
+    color:"#171717",
+    textTransform:"uppercase",
+    marginLeft:20
+     
   },
   fieldLabel: {
-    paddingVertical: 10,
-    justifyContent: "space-between",
+    paddingVertical: 10, 
+    fontFamily:'Poppins-Regular',
+    fontSize:12,
+    justifyContent:'left',
+    color:"#8F92A1"
   },
   pageHeader: {
     paddingTop: 10,
@@ -59,17 +79,29 @@ export const styles = StyleSheet.create({
     color: "black",
     fontSize: 200
   },
+  tabPageContent:{
+    height: "87%"
+  },
+
+  tabTitleText:{
+    fontFamily:'Poppins-Regular',
+    fontSize:14,
+  },
+  tabItemButton:{
+    height:29,
+    borderRadius: 0,
+  },
   buttonGeneral: {
     borderRadius: 0,
   },
   shortButton: {
     marginRight: 10,
     marginLeft: "auto",
-    borderRadius:25,
+    borderRadius:10,
     zIndex:2,
     position:"absolute",
     right:0,
-    bottom:0
+    bottom:50
 
   },
   subTitle: {
@@ -164,6 +196,43 @@ pageTitle1:{
   textTransform:"uppercase",
   marginLeft:50
 
+},
+listHeading:{
+  fontFamily:"Poppins-Regular",
+  fontSize:12, 
+  color:"black"
+},
+listSubHeading:{
+  fontFamily:"Poppins-Regular",
+  fontSize:9.9,
+  color:"#171717"
+},
+listSubDescription:{
+  fontFamily:"Poppins-Regular",
+  fontSize:9.9,
+  color:"#171717",
+  opacity:.5
+},
+listBadgeSection:{
+  paddingTop:3
+},
+listBadge:{
+   borderRadius:5,
+   height:18,  
+    
+},
+listBadgeItem:{
+  fontFamily:"Poppins-Regular",
+  fontSize:9,
+  color:"black",
+  textTransform:"capitalize"
+},
+listContentItem:{
+borderRadius:5,
+shadowOffset: {width: -2, height: 4},  
+shadowColor: 'red',  
+shadowOpacity: 0.2,  
+shadowRadius: 3,  
 }
+})
 
-});

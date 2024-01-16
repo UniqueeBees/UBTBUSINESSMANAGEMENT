@@ -22,14 +22,14 @@ import { Briefcase} from 'lucide-react-native';
 const Tab=createBottomTabNavigator();
 const styles=StyleSheet.create({
     shadow:{
-        shadowColor:'#7F5DF0',
+        shadowColor:'#red',
         shadowOffset:{
-            width:0,
-            height:0,
+            width:300,
+            height:300,
         },
         shadowOpacity:0.25,
         shadowRadius:3.5,
-        elevation:5
+        elevation:30
     }
 })
 const DashboardStack = createNativeStackNavigator();
@@ -58,26 +58,26 @@ function Tabs() {
     return ( 
       
         <Tab.Navigator
-        initialRouteName='dashboard'
+        initialRouteName='dashboard' 
         screenOptions={{
             tabBarShowLabel:false,
             headerShown:false,
+            tabBarOptions: { style: {				 borderTopWidth: 0, elevation: 8 } },
             tabBarStyle: {  
               position:'absolute',
                 bottom:0,
                 left:0,
                 right:0,
-                elevation:0,
+                elevation:9,
                 backgroundColor:'#ffffff',
                 borderTopLeftRadius: 35, 
                 borderTopRightRadius: 35, 
-                height:100,
-                
+                height:"10%",
                 ...styles.shadow
               },
               
           }} >  
-            <Tab.Screen name="dashboard" component={DashboardStackScreen}
+            <Tab.Screen name="dashboard"   component={DashboardStackScreen}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (

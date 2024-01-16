@@ -129,6 +129,7 @@ function Settings() {
       
       <VStack space="md" height="100%" alignItems="left" pl="$12" width="100%" >
         <FlatList
+        showsVerticalScrollIndicator={false}
           data={getItems()}
           renderItem={({ item }) => 
             

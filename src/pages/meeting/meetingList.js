@@ -10,19 +10,25 @@ function MeetingList(props){
 return(
 
   <View>
-      <FlatList style={{ height: "84%" }}
+      <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
         data={props.meetingListItems}
-        renderItem={({item}) => <Box style={{borderRadius:5}}  bgColor="$white" m="$2" p="$2" pl="$5">
+        renderItem={({item}) => 
+        <Box style={styles.listContentItem}  bgColor="$white" m="$1.5" p="$2" pl="$5">
           <VStack >
-          <Heading size="md" >{item.title}</Heading>
-          {item.description && <Text>{item.description}</Text>}
-          <HStack space="md" justifyContent="flex-end" >
+          <Text  style={styles.listHeading}>{item.title}</Text>
+          <HStack space="md" justifyContent= "flex-start">
+          <Text style={styles.listSubHeading} >User</Text> 
+          <Text style={styles.listSubHeading} >Business</Text> 
+          </HStack>
+        
+          {item.description && <Text style={styles.listSubDescription} >{item.description}</Text>}
+          <HStack space="md" justifyContent="flex-end" style={styles.listBadgeSection} >
 
-            <Badge size="md" variant="solid" borderRadius="$xl" action="muted" bgColor={item.meetingPurpose ? "#dadada":""}  >
-              <BadgeText style={{textTransform: 'capitalize'}}>{item.meetingPurpose}</BadgeText>
+            <Badge  style={styles.listBadge}   action="muted" bgColor={item.meetingPurpose ? "#dadada":""}  >
+              <BadgeText style={styles.listBadgeItem}>{item.meetingPurpose}</BadgeText>
             </Badge>
-            <Badge size="md" variant="solid" borderRadius="$xl" action="muted" backgroundColor={item.scheduledAt ? "#dadada":""}  width={130}>
-              <BadgeText >{item.scheduledAt}</BadgeText>
+            <Badge  style={styles.listBadge}   variant="solid"   action="muted" backgroundColor={item.scheduledAt ? "#dadada":""} minWidth={110} maxWidth={110} >
+              <BadgeText style={styles.listBadgeItem}>{item.scheduledAt}</BadgeText>
             </Badge>
           </HStack>
        </VStack>
@@ -41,7 +47,7 @@ return(
         onPress={()=>navigation.navigate("meetingSetup")}
 
       >
-     <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>    
+     <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$6" h="$6" /></ButtonText>    
       </Button>
     </View>
     )
