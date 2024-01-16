@@ -29,7 +29,7 @@ function TaskList(props) {
   }
   return (
 
-    <View>
+    <View style={{marginBottom:100}}>
       <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
         data={props.taskListItems}
         renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">

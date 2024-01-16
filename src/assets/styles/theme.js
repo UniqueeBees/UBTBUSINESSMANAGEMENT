@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 10, 
     fontFamily:'Poppins-Regular',
     fontSize:12,
-    justifyContent:'left',
+    justifyContent:'flex-start',
     color:"#8F92A1"
   },
   pageHeader: {
@@ -101,9 +101,9 @@ export const styles = StyleSheet.create({
     zIndex:2,
     position:"absolute",
     right:0,
-    bottom:50
+    bottom:15
 
-  },
+  }, 
   subTitle: {
     fontSize: 15,
     fontWeight:"normal",

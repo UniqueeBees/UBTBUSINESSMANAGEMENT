@@ -2,11 +2,11 @@ import { React, useState, useEffect } from "react"
 import {Dimensions,View} from 'react-native';
 import {
   Button, VStack, Center, ButtonText, ButtonIcon,
-  Heading, Text, Image,FlatList,Box,HStack,Badge,BadgeText,Icon ,ArrowLeftIcon,MailIcon,PhoneIcon ,AddIcon
-   
+  Heading, Text, Image,FlatList,Box,HStack,Badge,BadgeText,Icon ,ArrowLeftIcon,MailIcon,PhoneIcon ,AddIcon,
+  EditIcon
 } from "@gluestack-ui/themed";
 import { styles } from '../../assets/styles/theme'
-import { Building2, ArrowRight, PenIcon, DeleteIcon } from 'lucide-react-native';
+import { Building2, ArrowRight, PenIcon, DeleteIcon, TrashIcon } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import BusinessDetails from "./businessDetails";
 import BusinessCreate from "./businessCreate";
@@ -37,24 +37,22 @@ function BusinessList(props) {
         data={businessListItems}
         renderItem={({ item }) => <Box style={styles.listContentItem}  bgColor="$white" m="$2" p="$2" pl="$5">
           <VStack>
-            <HStack style={{width:100}}>
-            
-            <Heading size="md" >{item.name}</Heading> 
-          
-            <HStack justifyContent="right" space="lg" style={{width:20}} > 
-            <Icon as={DeleteIcon} m="$2" w="$4" h="$4" />
-            <Icon as={PenIcon} m="$2" w="$4" h="$4" />
-            </HStack>
+            <HStack   justifyContent="space-between"> 
+              <HStack justifyContent="right" space="lg"   > 
+              <Heading  >{item.name}</Heading>  
+              </HStack>
+              <HStack justifyContent="right" space="lg"   > 
+              <Icon as={TrashIcon} m="$2" w="$4" h="$4" />
+              <Icon as={EditIcon} m="$2" w="$4" h="$4" />
+              </HStack>
             </HStack>
             <VStack    >
-              <Badge variant="solid"  action="muted">
-              {item.email?<Icon as={MailIcon} m="$2" w="$4" h="$4" />:""}<BadgeText style={{textTransform: 'capitalize'}}>{item.email}</BadgeText>
-              </Badge>
-              </VStack>
-              <VStack>
-              <Badge variant="solid" action="muted"  >
-              {item.phone?<Icon as={PhoneIcon} m="$2" w="$4" h="$4" />:""}<BadgeText style={{textTransform: 'capitalize'}}>{item.phone}</BadgeText>
-              </Badge>
+              <HStack>
+              {item.email?<Icon as={MailIcon} m="$2" w="$4" h="$4" />:""}<BadgeText style={{textTransform: 'capitalize',paddingTop:4}}>{item.email}</BadgeText>
+              </HStack>
+              <HStack>
+              {item.phone?<Icon as={PhoneIcon} m="$2" w="$4" h="$4" />:""}<BadgeText style={{textTransform: 'capitalize',paddingTop:4}}>{item.phone}</BadgeText>
+              </HStack>
             </VStack>
           </VStack>
         </Box>}

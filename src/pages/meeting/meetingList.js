@@ -9,11 +9,11 @@ function MeetingList(props){
   const navigation = useNavigation();
 return(
 
-  <View>
-      <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
+  <View style={{marginBottom:100}}>
+      <FlatList style={styles.tabPageContent}  showsVerticalScrollIndicator={false}
         data={props.meetingListItems}
         renderItem={({item}) => 
-        <Box style={styles.listContentItem}  bgColor="$white" m="$1.5" p="$2" pl="$5">
+        <Box style={styles.listContentItem}  bgColor="$white" m="$1.5" p="$2" pl="$5" >
           <VStack >
           <Text  style={styles.listHeading}>{item.title}</Text>
           <HStack space="md" justifyContent= "flex-start">
@@ -41,13 +41,13 @@ return(
         action="primary"
         isDisabled={false}
         isFocusVisible={false}
-        
+     
         style={styles.shortButton }
-
+       
         onPress={()=>navigation.navigate("meetingSetup")}
 
       >
-     <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$6" h="$6" /></ButtonText>    
+     <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>    
       </Button>
     </View>
     )
