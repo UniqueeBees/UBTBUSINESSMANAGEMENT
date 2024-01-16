@@ -36,6 +36,7 @@ import { addNewTask,resetSaveRequestStatus } from '../../slices/taskSlice';
 import { showLoading } from "../../slices/loadingSlice";
 import { showAlert } from '../../slices/alertSlice';
 import { requestStatusDTO } from '../../dto/statusDTO';
+import BusinessSelect from '../formBusinessList/businessSelect';
 import UserList from './userList';
 import { ArrowBigRightDash ,MoveLeft} from 'lucide-react-native';
 function TaskSetup() {
@@ -134,6 +135,15 @@ function TaskSetup() {
         changeFormData('assignTo',item.id)
         setExecutiveName(item.name)
     }
+    const setBusinessControlSettings = (fieldName) => {
+        let businessControlSettings = {};
+        businessControlSettings.isRequired = requiredFieldSettings.some(reqField => reqField.field === fieldName);
+        if (businessControlSettings.isRequired) {
+            businessControlSettings.isInvalid = requiredFieldSettings.some(reqField => reqField.field === fieldName && reqField.isTouched && !reqField.isValid);
+        }
+        businessControlSettings.fieldName=fieldName;
+        return businessControlSettings;
+    }
     return (
         <VStack width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
             <VStack width="100%" mx="3" style={styles.pageHeader} >
@@ -158,6 +168,7 @@ function TaskSetup() {
                             {'Test business'}
                         </Text>
                     </FormControl>}
+                    <BusinessSelect controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeFormData} />
                     <FormControl isRequired isInvalid={isFieldStateInValid('assignTo')}>
                         <FormControlLabel mb="$1">
                             <FormControlLabelText style={styles.fieldLabel}>{taskLanguageDTO.assignTo}</FormControlLabelText>

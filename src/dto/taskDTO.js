@@ -8,6 +8,7 @@ export const taskListItemDTO={
 }
 export const taskSetupDTO={
     id:0,
+    businessId:0,
     title:'',
     description:'',
     assignTo:0,

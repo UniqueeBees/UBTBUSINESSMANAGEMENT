@@ -43,6 +43,9 @@ export const addNewTask = createAsyncThunk(
     if (task.taskData.dueDate) {
       formData.append('due_date', task.taskData.dueDate);
     }
+    if (task.taskData.businessId) {
+      formData.append('business_id', task.taskData.businessId);
+    }
     formData.append("status", 1)
     const response = await addTask(task.token, formData)
     return response.data

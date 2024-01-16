@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getBusinessListItems, setBusinessSelectFromForm } from '../../slices/businessSlice';
 
 
-function BusinessSelectList(props) {
+function BusinessSelectList() {
     const businessListItems = useSelector((state) => state.business.businessList);
     const token = useSelector((state) => state.login.token)
     const navigation = useNavigation();
