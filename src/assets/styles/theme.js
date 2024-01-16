@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'white'
+    //backgroundColor: 'red'
   },
   logo: {
     width: 200,
@@ -43,24 +43,34 @@ export const styles = StyleSheet.create({
     fontSize: 12
   },
   fieldSetContainer: {
-    //backgroundColor: 'smokewhiter',
+    //backgroundColor: 'red',
     paddingTop: 0,
     paddingVertical: 100,
     paddingHorizontal: 5,
     justifyContent: "space-between",
     alignItems: "stretch",
-    paddingLeft: 20,
-    paddingRight: 20,
+     paddingLeft: 20,
+     paddingRight: 20,
     fontFamily:"Poppins-Italic",
   },
   pageTitle: {
     paddingBottom: 20,
     paddingTop: 20,
-     fontFamily:'Poppins-SemiBold', 
+     fontFamily:'Poppins-Regular', 
     fontSize: 20,
     color:"#171717",
     textTransform:"uppercase",
     marginLeft:20
+     
+  },
+  pageTitleMedium: {
+    paddingBottom: 20,
+    paddingTop: 30,
+     fontFamily:'Poppins-Medium', 
+    fontSize: 14,
+    color:"#171717",
+    textTransform:"uppercase",
+    marginLeft:0
      
   },
   fieldLabel: {
@@ -81,12 +91,14 @@ export const styles = StyleSheet.create({
     fontSize: 200
   },
   tabPageContent:{
-    height: "87%"
+    height: "87%",
+    paddingLeft:15,
+    paddingRight:15
   },
 
   tabTitleText:{
     fontFamily:'Poppins-Regular',
-    fontSize:14,
+    fontSize:14, 
   },
   tabItemButton:{
     height:29,
@@ -96,7 +108,7 @@ export const styles = StyleSheet.create({
     borderRadius: 0,
   },
   shortButton: {
-    marginRight: 10,
+    marginRight: 22,
     marginLeft: "auto",
     borderRadius:10,
     zIndex:2,
@@ -117,9 +129,10 @@ export const styles = StyleSheet.create({
     paddingBottom:20,
     paddingTop:95,
     width:"100%",
-    fontFamily:"Poppins",
-    fontSize:25,
-    fontWeight:"650",
+    fontFamily:"Poppins-Regular",
+    fontSize:32,
+    color:"black",
+    //fontWeight:"650",
     letterSpacing:1,
   },
   mainHeading:{
@@ -202,8 +215,34 @@ pageTitle1:{
 },
 listHeading:{
   fontFamily:"Poppins-Regular",
-  fontSize:12, 
+  fontSize:16, 
   color:"black"
+},
+listHeadingMedium:{
+  fontFamily:"Poppins-Medium",
+  fontSize:16, 
+  color:"black",
+  
+},
+titleMedium18:{
+  fontFamily:"Poppins-Medium",
+  fontSize:18,  
+  
+},
+titleMedium12:{
+  fontFamily:"Poppins-Medium",
+  fontSize:12,  
+  
+},
+textMedium13:{
+  fontFamily:"Poppins-Medium",
+  fontSize:13,  
+  color:"#171717"
+  
+},
+subtitleRegular8:{
+  fontFamily:"Poppins-Regular",
+  fontSize:8, 
 },
 listSubHeading:{
   fontFamily:"Poppins-Regular",
@@ -228,14 +267,36 @@ listBadgeItem:{
   fontFamily:"Poppins-Regular",
   fontSize:9,
   color:"black",
-  textTransform:"capitalize"
+  textTransform:"capitalize",
+  minWidth:90,
+  textAlign:"center"
+},
+listBadgeItemSmall:{
+  fontFamily:"Poppins-Regular",
+  fontSize:9,
+  color:"black",
+  textTransform:"capitalize",
+  minWidth:50,
+   
+  textAlign:"center"
+
 },
 listContentItem:{
 borderRadius:5,
-shadowOffset: {width: -2, height: 4},  
-shadowColor: 'red',  
-shadowOpacity: 0.2,  
-shadowRadius: 3,  
+  
+},
+buttonText:{
+  fontFamily:"Poppins-semiBold",
+  fontSize:15 
+},
+ 
+boxShadow:{
+  shadowColor: '#6495ED',
+  shadowOpacity: 0.26,
+  shadowOffset: { width: 0, height: 1},
+  shadowRadius: 5,
+  elevation: 8,
+  backgroundColor: 'white'
 }
 })
 

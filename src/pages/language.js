@@ -14,6 +14,7 @@ import { setLanguage } from '../slices/languageSlice'
 import { setPage } from '../slices/initialPageSlice'
 import { styles } from '../assets/styles/theme'
 import { MoveRight } from 'lucide-react-native';
+
 function Language(props) {
   const dispatch = useDispatch()
   const languageState = useSelector((state) => state.language)
@@ -72,9 +73,9 @@ function Language(props) {
          </HStack> */}
 
   return (
-    <VStack height="100%" bgColor="#f7f9fc">
-      <Heading size="lg" style={styles.langugeHeading}>Choose Language</Heading>
-      <VStack space="md" width="100%" pl={85} pr={65} pt="$0" >
+    <VStack height="100%"  >
+      <Text size="lg" style={styles.langugeHeading}>Choose Language</Text>
+      <VStack space="md" width="100%" pl={40} pr={40} pt="$0" >
         <VStack space="4xl" >
           <FlatList
           showsVerticalScrollIndicator={false}
@@ -82,10 +83,10 @@ function Language(props) {
             renderItem={({ item }) =>
               <TouchableHighlight onPress={() => { SetLanguage(item.code) }} underlayColor="white">
 
-                <HStack space="md" mt="$4" >
+                <HStack space="md" mt="$4"   style={[styles.boxShadow,styles.listBadge, {height:50,alignContent:"center"}] }>
                   <Badge size="md" height={30} m="$2" variant="solid" borderRadius="$xl" action="muted" bgColor="$white" >
 
-                    <Text style={{ width: "83%", textAlign: "left", fontSize: 12 }} >{item.name}</Text><Icon id={item.code} size="md"
+                    <Text style={[styles.textMedium13,{ width: "90%", textAlign: "left" }]} >{item.name}</Text><Icon id={item.code} size="md"
                       on as={MoveRight} m="$2" w="$4" h="$4" style={{ cursor: 'pointer' }} />
 
                   </Badge>

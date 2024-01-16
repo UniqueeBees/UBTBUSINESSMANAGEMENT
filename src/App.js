@@ -23,7 +23,7 @@ import Loading from './common/loading';
 function App() {
 
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider  >
 
       <AppNotification></AppNotification>
       <GluestackUIProvider config={config}>

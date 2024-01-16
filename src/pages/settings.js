@@ -104,8 +104,8 @@ function Settings() {
             }} />
           </Avatar>
           <VStack>
-            <Heading size="sm" color="$white" fontSize={18}>{userState.userDTO.fullName}</Heading>
-            <Text size="sm" color="$white" fontSize={12}>{userState.userDTO.designation}</Text>
+            <Heading size="sm" color="$white" style={styles.titleMedium18}>{userState.userDTO.fullName}</Heading>
+            <Text size="sm" color="$white" style={styles.titleMedium12}>{userState.userDTO.designation}</Text>
           </VStack>
         </HStack>
 
@@ -124,10 +124,10 @@ function Settings() {
           </HStack>
         </VStack>
       </VStack>
-      <Center mt={188} style={{ position: "absolute", width: "100%", height: 70 }} bg="$white" rounded={20} >
+      <Center mt={188} style={{ position: "absolute", width: "100%", height: 70 }} bg="$white" rounded={5} >
       </Center>
       
-      <VStack space="md" height="100%" alignItems="left" pl="$8" width="100%" bgColor="#f7f9fc"  >
+      <VStack space="sm" height="100%" alignItems="left" pl="$8" width="100%"   >
         <FlatList
         showsVerticalScrollIndicator={false}
           data={getItems()}
@@ -135,9 +135,9 @@ function Settings() {
             
             <TouchableHighlight onPress={() => { actionEvent(item) }} underlayColor="white">
               
-              <HStack alignItems="center" m="$3"  borderRadius={20}  style={{ height:30,width:250,alignContent:"center" }} >
-              <Badge size="md" height={30} m="$2" variant="solid" borderRadius="$xl" action="muted" bgColor="$white" width="100%">
-                <Heading size="md" style={styles.subTitle}  >{item.label}</Heading>
+              <HStack alignItems="center" m="$2"  borderRadius={0}  style={[styles.boxShadow,styles.listBadge, {height:50,width:300,alignContent:"center"}] } >
+              <Badge size="md" height={30} m="$2"   action="muted" bgColor="$white" width="100%">
+                <Text size="md" style={styles.tabTitleText}  >{item.label}</Text>
                 </Badge>
               </HStack>
              

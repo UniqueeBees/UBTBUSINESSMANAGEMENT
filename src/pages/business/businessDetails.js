@@ -29,6 +29,7 @@ import {
   HStack,
   ArrowLeftIcon,
   ScrollView,
+  Text
 
 } from "@gluestack-ui/themed"
 import { ArrowRight } from 'lucide-react-native';
@@ -38,6 +39,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector,useDispatch } from 'react-redux';
 import {businessTypes} from '../../slices/businessSlice'
 import { ArrowBigRightDash,CheckCircle2} from 'lucide-react-native';
+import { MoveLeft} from 'lucide-react-native';
 const wizardStageEnum = {
   basic: 1,
   advance: 2,
@@ -68,12 +70,12 @@ export default function BusinessDetails(props) {
     return (
       <VStack width="100%" mx="3"  height ="100%" style={styles.fieldSetContainer}>
         <VStack width="100%" mx="3" style={styles.pageHeader} >
-        <HStack space="4xl">
-        <Icon as={ArrowLeftIcon} size="lg" style={{marginTop:8}}  onPress={()=>navigation.navigate('businessList')}/><Heading   >Create Business</Heading>
+        <HStack space="4xl" style={{marginTop:8}} >
+        <Icon as={MoveLeft} size="lg"  onPress={()=>navigation.navigate('businessList')}/><Text style={styles.listHeadingMedium} >Create Business</Text>
         </HStack>
         
         </VStack>
-        <Heading style={styles.pageTitle}>Basic Details</Heading>
+        <Text style={styles.pageTitleMedium}>Basic Details</Text>
         <ScrollView style={styles.scrollView_withToolBar} >
         <FormControl isRequired>
           <FormControlLabel mb="$1">
@@ -164,7 +166,7 @@ export default function BusinessDetails(props) {
             style={styles.buttonLong}
             onPress={()=>setwizStage(wizardStageEnum.advance)}
           >
-            <ButtonText >Next</ButtonText>
+            <ButtonText style={styles.buttonText}>Next</ButtonText>
             <ButtonIcon ml={"80%"} size={20} as={ArrowBigRightDash} />
           </Button>
         </VStack>
@@ -178,10 +180,11 @@ export default function BusinessDetails(props) {
       <VStack width="100%" mx="3"  style={styles.fieldSetContainer}>
          <VStack width="100%" mx="3" style={styles.pageHeader} >
         <HStack space="4xl">
-        <Icon as={ArrowLeftIcon} size="lg" style={{marginTop:8}}  onPress={()=>setwizStage(wizardStageEnum.basic)}/><Heading   >Create Business</Heading>
+        <Icon as={MoveLeft} size="lg"   onPress={()=>setwizStage(wizardStageEnum.basic)}/><Text  style={styles.listHeadingMedium} >Create Business</Text>
         </HStack>
         </VStack>
-        <Heading style={styles.pageTitle} >Additional Informations</Heading>
+        <Text style={styles.pageTitleMedium}>Additional Informations</Text>
+      
         <ScrollView style={styles.scrollView_withToolBar} >
         <FormControl >
           <FormControlLabel mb="$1">
@@ -259,7 +262,7 @@ export default function BusinessDetails(props) {
             onPress={()=>setwizStage(wizardStageEnum.location)}
 
           >
-            <ButtonText >Next</ButtonText>
+            <ButtonText style={styles.buttonText}>Next</ButtonText>
             <ButtonIcon ml={"80%"} size={20} as={ArrowBigRightDash} />
           </Button>
         </VStack>
@@ -272,10 +275,10 @@ export default function BusinessDetails(props) {
       <VStack width="100%" mx="3"  style={styles.fieldSetContainer}>
          <VStack width="100%" mx="3" style={styles.pageHeader} >
         <HStack space="4xl">
-        <Icon as={ArrowLeftIcon} size="lg" style={{marginTop:8}}  onPress={()=>setwizStage(wizardStageEnum.advance)}/><Heading >Create Business</Heading>
+        <Icon as={MoveLeft} size="lg"   onPress={()=>setwizStage(wizardStageEnum.advance)}/><Text style={styles.listHeadingMedium} >Create Business</Text>
         </HStack>
-        </VStack>
-        <Heading style={styles.pageTitle} >Location</Heading> 
+        </VStack> 
+        <Text style={styles.pageTitleMedium}>Location</Text>
         <FormControl >
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Landmark</FormControlLabelText>
@@ -298,7 +301,7 @@ export default function BusinessDetails(props) {
             onPress={()=>setwizStage(wizardStageEnum.files)}
 
           >
-            <ButtonText >Next</ButtonText>
+            <ButtonText style={styles.buttonText}>Next</ButtonText>
             <ButtonIcon ml={"80%"} size={20} as={ArrowBigRightDash} />
           </Button>
         </VStack>
@@ -311,11 +314,10 @@ export default function BusinessDetails(props) {
       <VStack width="100%" mx="3"  style={styles.fieldSetContainer}>
          <VStack width="100%" mx="3" style={styles.pageHeader} >
         <HStack space="4xl">
-        <Icon as={ArrowLeftIcon} size="lg" style={{marginTop:8}}  onPress={()=>setwizStage(wizardStageEnum.location)}/><Heading >Create Business</Heading>
+        <Icon as={MoveLeft} size="lg"    onPress={()=>setwizStage(wizardStageEnum.location)}/><Text style={styles.listHeadingMedium}>Create Business</Text>
         </HStack>
-        </VStack>
-        <Heading style={styles.pageTitle} >Upload Photos</Heading> 
-
+        </VStack> 
+        <Text style={styles.pageTitleMedium}>Upload Photos</Text>
         <VStack mt={20} mb={50} ml={30} style={{ width: 300 }}>
           <Button
             size="md"
@@ -329,7 +331,7 @@ export default function BusinessDetails(props) {
             onPress={()=>createBusiness()}
 
           >
-            <ButtonText >Finish</ButtonText>
+            <ButtonText style={styles.buttonText}>Finish</ButtonText>
             <ButtonIcon ml={"80%"} size={20} as={CheckCircle2} />
           </Button>
         </VStack>

@@ -62,9 +62,11 @@ function Tabs() {
         <Tab.Navigator
         initialRouteName='dashboard' 
         screenOptions={{
+          tabBarInactiveTintColor: '#020202',
+          tabBarActiveTintColor: '#1877F2',
             tabBarShowLabel:false,
             headerShown:false,
-            tabBarOptions: { style: {				 borderTopWidth: 0, elevation: 8 } },
+            
             tabBarStyle: {  
               position:'absolute',
                 bottom:0,
@@ -75,13 +77,13 @@ function Tabs() {
                 borderTopLeftRadius: 35, 
                 borderTopRightRadius: 35, 
                 height:"10%",
-                ...styles.shadow
+                ...styles.boxShadow
               },
               
           }} >  
             <Tab.Screen name="dashboard"   component={DashboardStackScreen}
            options={{
-            tabBarLabel: 'Updates',
+            tabBarLabel: 'Updates', 
             tabBarIcon: ({ color, size }) => (
               <AntDesign name="home" color={color} size={size}  />
             ), 
@@ -94,12 +96,12 @@ function Tabs() {
               ), 
           }} ></Tab.Screen> 
           
-          <Tab.Screen name="Add" component={Home}
+          <Tab.Screen name="Add" component={DashboardStackScreen}
            options={{
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
-             // 
-             <PopperButton></PopperButton>
+              <PopperButton></PopperButton>
+             
             ), 
           }} ></Tab.Screen> 
             <Tab.Screen name="taskListLayout" component={TaskListLayout}

@@ -179,7 +179,7 @@ function MeetingSetup(props) {
         <VStack width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
             <VStack width="100%" mx="3" >
                 <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showContactList ? setContactList(false) : navigation.goBack() }} />
-                    <Text style={styles.pageTitle1}>
+                    <Text style={styles.listHeadingMedium}>
                         {showContactList ? meetingLanguageDTO.contactListTitle : meetingLanguageDTO.createMeeting}
                     </Text>
                 </HStack>
@@ -290,7 +290,7 @@ function MeetingSetup(props) {
                             style={styles.buttonLong}
                             onPress={() => submit()}
                         >
-                            <ButtonText >{startMeeting ? meetingLanguageDTO.startMeeting : meetingLanguageDTO.scheuleMeeting}</ButtonText>
+                            <ButtonText style={styles.buttonText}>{startMeeting ? meetingLanguageDTO.startMeeting : meetingLanguageDTO.scheuleMeeting}</ButtonText>
                             <ButtonIcon ml={startMeeting ? "60%" : "50%"} size={20} as={ArrowBigRightDash} />
                         </Button>
 

@@ -135,7 +135,7 @@ function TaskSetup() {
         setExecutiveName(item.name)
     }
     return (
-        <VStack width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
+        <VStack width="100%" mx="3" height="100%"  style={styles.fieldSetContainer}>
             <VStack width="100%" mx="3" style={styles.pageHeader} >
                
                 <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showUserList ? showUserList(false) : navigation.goBack() }} />

@@ -6,7 +6,7 @@ import {
   EditIcon
 } from "@gluestack-ui/themed";
 import { styles } from '../../assets/styles/theme'
-import { Building2, ArrowRight, PenIcon, DeleteIcon, TrashIcon } from 'lucide-react-native';
+import { Building2, ArrowRight, PenIcon, DeleteIcon, TrashIcon ,MoveLeft, AlignCenter} from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import BusinessDetails from "./businessDetails";
 import BusinessCreate from "./businessCreate";
@@ -27,35 +27,50 @@ function BusinessList(props) {
 
   function createList() {
     console.log("businessList",businessListItems)
+    const shadowStyle={
+      shadowOpacity:1
+    }
     return (
-      <VStack>
-      <HStack space="xs" textAlign="center">
-       <Heading textAlign="center" width="100%" fontSize={16} >BUSINESSES</Heading> 
-      </HStack>
-     
+      <VStack bgColor="$white">
+        <VStack width="100%" mx="3" style={styles.pageHeader} >
+        
+         <Text style={[styles.pageTitle,{ textAlign:"center"}]} >BUSINESSES</Text>
+         
+        </VStack> 
+        
       <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
         data={businessListItems}
-        renderItem={({ item }) => <Box style={styles.listContentItem}  bgColor="$white" m="$2" p="$2" pl="$5">
+        renderItem={({ item }) =>
+        
+         <Box style={[styles.listContentItem,styles.boxShadow]}   m="$2" p="$2" pl="$5">
+          <View  > 
           <VStack>
             <HStack   justifyContent="space-between"> 
               <HStack justifyContent="right" space="lg"   > 
-              <Heading  >{item.name}</Heading>  
-              </HStack>
+              <VStack>
+              <Text style={styles.listHeadingMedium} >{item.name}</Text>  
+              <Text style={styles.listSubDescription} >{item.country}</Text> 
+              </VStack>
+             
+              </HStack> 
               <HStack justifyContent="right" space="lg"   > 
               <Icon as={TrashIcon} m="$2" w="$4" h="$4" />
               <Icon as={EditIcon} m="$2" w="$4" h="$4" />
               </HStack>
             </HStack>
-            <VStack    >
-              <HStack>
-              {item.email?<Icon as={MailIcon} m="$2" w="$4" h="$4" />:""}<BadgeText style={{textTransform: 'capitalize',paddingTop:4}}>{item.email}</BadgeText>
+            <HStack> 
+              <HStack justifyContent="flex-start">
+              {item.email?<Icon as={MailIcon} m="$1" w="$3" h="$3" />:""}<BadgeText  style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.email}</BadgeText>
               </HStack>
-              <HStack>
-              {item.phone?<Icon as={PhoneIcon} m="$2" w="$4" h="$4" />:""}<BadgeText style={{textTransform: 'capitalize',paddingTop:4}}>{item.phone}</BadgeText>
+              <HStack justifyContent="left">
+              {item.phone?<Icon as={PhoneIcon} m="$1" w="$3" h="$3" />:""}<BadgeText style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.phone}</BadgeText>
               </HStack>
-            </VStack>
+            </HStack>
           </VStack>
-        </Box>}
+          </View>
+        </Box>
+      
+        }
       />    
        
         <Button 
@@ -79,7 +94,7 @@ function BusinessList(props) {
   }
   return (
 
-    <View style={{height:'100%'}}>
+    <View style={{height:'95%'}}>
       {businessListItems.length === 0 ? <BusinessCreate /> : createList()}
     </View>
   )

@@ -9,11 +9,11 @@ function MeetingList(props){
   const navigation = useNavigation();
 return(
 
-  <View style={{marginBottom:100}}>
+  <View style={{marginBottom:100}} bgColor="$white">
       <FlatList style={styles.tabPageContent}  showsVerticalScrollIndicator={false}
         data={props.meetingListItems}
         renderItem={({item}) => 
-        <Box style={styles.listContentItem}  bgColor="$white" m="$1.5" p="$2" pl="$5" >
+        <Box style={[styles.listContentItem,styles.boxShadow]}    bgColor="$white" m="$2" p="$2" pl="$5" >
           <VStack >
           <Text  style={styles.listHeading}>{item.title}</Text>
           <HStack space="md" justifyContent= "flex-start">
@@ -25,7 +25,7 @@ return(
           <HStack space="md" justifyContent="flex-end" style={styles.listBadgeSection} >
 
             <Badge  style={styles.listBadge}   action="muted" bgColor={item.meetingPurpose ? "#dadada":""}  >
-              <BadgeText style={styles.listBadgeItem}>{item.meetingPurpose}</BadgeText>
+              <BadgeText style={styles.listBadgeItemSmall}>{item.meetingPurpose}</BadgeText>
             </Badge>
             <Badge  style={styles.listBadge}   variant="solid"   action="muted" backgroundColor={item.scheduledAt ? "#dadada":""} minWidth={110} maxWidth={110} >
               <BadgeText style={styles.listBadgeItem}>{item.scheduledAt}</BadgeText>
