@@ -185,8 +185,8 @@ function MeetingSetup(props) {
     }
 
     return (
-        <VStack width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
-            <VStack width="100%" mx="3" >
+        <VStack   style={styles.fieldSetContainer}>
+            <VStack   >
                 <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showContactList ? setContactList(false) : navigation.goBack() }} />
                     <Text style={styles.listHeadingMedium}>
                         {showContactList ? meetingLanguageDTO.contactListTitle : meetingLanguageDTO.createMeeting}
@@ -194,7 +194,8 @@ function MeetingSetup(props) {
                 </HStack>
 
             </VStack>
-            {showContactList ? <ContactList selectItem={onContactSelect} contactItemList={contactList.list} /> :
+            {showContactList ?
+             <ContactList selectItem={onContactSelect} contactItemList={contactList.list} /> :
                 <ScrollView style={styles.scrollView_withToolBar} >
                     <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />
                     <FormControl isRequired isInvalid={isFieldStateInValid('purposeId')}>

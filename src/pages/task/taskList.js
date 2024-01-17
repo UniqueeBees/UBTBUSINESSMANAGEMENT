@@ -29,12 +29,12 @@ function TaskList(props) {
   }
   return (
 
-    <View  style={{marginBottom:210}}   bgColor="$white" >
-      <FlatList style={styles.tabPageContent}  showsVerticalScrollIndicator={false}
+    <View style={{height:"87%"}}  >
+      <FlatList  showsVerticalScrollIndicator={false}
         data={props.taskListItems}
-        renderItem={({ item }) => <Box style={[styles.listContentItem, styles.boxShadow]} bgColor="$white" m="$2" p="$2" pl="$5">
+        renderItem={({ item }) => <Box style={[styles.listContentItem, styles.boxShadow]}   m="$2" p="$2" pl="$5">
           <VStack >
-             <Text  style={styles.listHeading}>{item.title}</Text> 
+             <Text numberOfLines={1} ellipsizeMode="tail"  style={styles.listHeading}>{item.title}</Text> 
             {item.description && <Text style={styles.listSubHeading} >{item.description}</Text>}
             {getTaskStatus(item)}
           </VStack>

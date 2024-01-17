@@ -4,9 +4,9 @@ import { HStack, VStack, Box, Badge, BadgeText, Heading, Text } from "@gluestack
 function UserList(props) {
     return (
 
-        <FlatList style={{ height: "84%" }} showsVerticalScrollIndicator={false}
+        <FlatList  showsVerticalScrollIndicator={false}
             data={props.userItemList}
-            renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
+            renderItem={({ item }) => <Box style={{ borderRadius: 5 }}   m="$2" p="$2" pl="$5">
                 <VStack>
                 <TouchableOpacity
                 activeOpaticy={1}

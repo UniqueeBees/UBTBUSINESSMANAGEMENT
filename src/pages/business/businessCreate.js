@@ -8,7 +8,7 @@ function CreateBusiness(){
   const navigation = useNavigation();
 return(
   
-<View style={{backgroundColor:"white"}} height="100%" >
+<View  height="100%" >
     <Center>
     <VStack width="100%" mx="3" style={styles.pageHeader} >
         <HStack space="xs">

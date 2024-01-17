@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   }, 
   fieldTextSBold:{
     fontFamily: 'Poppins-Regular',
-    fontSize:16, 
+    fontSize:14, 
     color:"#171717",  
     height:45,
     fontWeight:'400',
@@ -57,18 +57,18 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingTop: 20,
      fontFamily:'Poppins-Regular', 
-    fontSize: 16,
-     
+    fontSize: 14, 
     textTransform:"uppercase",
-    marginLeft:20
+    marginLeft:20,
+    color:"black"
      
   },
   pageTitleMedium: {
     paddingBottom: 20,
     paddingTop: 30,
      fontFamily:'Poppins-Medium', 
-    fontSize: 14,
-     
+    fontSize: 13,
+    color:"black",
     textTransform:"uppercase",
     marginLeft:0
      
@@ -91,6 +91,11 @@ export const styles = StyleSheet.create({
     fontSize: 200
   },
   tabPageContent:{
+    height:"95%",
+    paddingLeft:15,
+    paddingRight:15
+  },
+  tabPageContent_small:{
     height:"95%",
     paddingLeft:15,
     paddingRight:15
@@ -140,7 +145,7 @@ export const styles = StyleSheet.create({
     textAlign:"center",
     width:"100%",
     fontFamily:"Poppins-Italic",
-    fontSize:16,
+    fontSize:14,
     fontWeight:"normal",
     letterSpacing:1.5,
     textTransform:"uppercase",
@@ -156,7 +161,7 @@ inputLabel:{
    paddingVertical: 10, 
     fontFamily:'Poppins-Regular',
     justifyContent:'flex-start',
-    color:"#8F92A1"
+    //color:"#8F92A1"
 
 },
 inputPlaceholder:{
@@ -220,12 +225,15 @@ pageTitle1:{
 listHeading:{
   fontFamily:"Poppins-Regular",
   fontSize:16, 
-  color:"black"
+  color:"black",
+  width: 250,
 },
 listHeadingMedium:{
   fontFamily:"Poppins-Medium",
   fontSize:16, 
   color:"black",
+  width: 250,
+   
   
 },
 titleMedium18:{
@@ -244,19 +252,26 @@ textMedium13:{
   color:"#171717"
   
 },
+textRegular14:{
+  fontFamily:"Poppins-Regular",
+  fontSize:14,   
+  fontWeight:"600"
+  
+},
 subtitleRegular8:{
   fontFamily:"Poppins-Regular",
   fontSize:8, 
+  color:"black",
 },
 listSubHeading:{
   fontFamily:"Poppins-Regular",
   fontSize:9.9,
- // color:"#171717"
+  color:"#171717"
 },
 listSubDescription:{
   fontFamily:"Poppins-Regular",
   fontSize:9.9,
-  //color:"#171717",
+   color:"#171717",
   opacity:.5
 },
 listBadgeSection:{

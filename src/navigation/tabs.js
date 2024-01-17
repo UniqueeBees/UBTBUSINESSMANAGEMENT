@@ -89,8 +89,15 @@ function Tabs() {
               ), 
           }} ></Tab.Screen> 
           
-          <Tab.Screen name="Add" component={DashboardStackScreen}
+          <Tab.Screen name="Add"  component={DashboardStackScreen}
+          listeners={{
+            tabPress: e => {
+              // Prevent default action
+              e.preventDefault();
+            },
+          }}
            options={{
+            
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
               <PopperButton></PopperButton>

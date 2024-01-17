@@ -9,13 +9,13 @@ function MeetingList(props){
   const navigation = useNavigation();
 return(
 
-  <View   bgColor="$white">
-      <FlatList style={styles.tabPageContent}  showsVerticalScrollIndicator={false}
+  <VStack  style={{height:"87%"}} >
+      <FlatList    showsVerticalScrollIndicator={false}
         data={props.meetingListItems}
         renderItem={({item}) => 
-        <Box style={[styles.listContentItem,styles.boxShadow]}    bgColor="$white" m="$2" p="$2" pl="$5" >
+        <Box style={[styles.boxShadow]}    m="$2" p="$2" pl="$5" >
           <VStack >
-          <Text  style={styles.listHeading}>{item.title}</Text>
+          <Text numberOfLines={1} ellipsizeMode="tail"  style={styles.listHeading}>{item.title}</Text>
           <HStack space="md" justifyContent= "flex-start">
           <Text style={styles.listSubHeading} >User</Text> 
           <Text style={styles.listSubHeading} >Business</Text> 
@@ -49,7 +49,7 @@ return(
       >
      <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>    
       </Button>
-    </View>
+    </VStack>
     )
 }
 export default MeetingList;

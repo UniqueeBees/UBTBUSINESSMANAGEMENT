@@ -48,14 +48,14 @@ function BusinessList(props) {
             <HStack   justifyContent="space-between"> 
               <HStack justifyContent="right" space="lg"   > 
               <VStack>
-              <Text style={styles.listHeadingMedium} >{item.name}</Text>  
+              <Text  numberOfLines={1} ellipsizeMode="tail" style={styles.listHeadingMedium} >{item.name}</Text>  
               <Text style={styles.listSubDescription} >{item.country}</Text> 
               </VStack>
              
               </HStack> 
               <HStack justifyContent="right" space="lg"   > 
-              <Icon as={TrashIcon} m="$2" w="$4" h="$4" />
-              <Icon as={EditIcon} m="$2" w="$4" h="$4" />
+              <Icon as={TrashIcon} m="$1" w="$3" h="$3" />
+              <Icon as={EditIcon} m="$1" w="$4" h="$4" />
               </HStack>
             </HStack>
             <HStack> 

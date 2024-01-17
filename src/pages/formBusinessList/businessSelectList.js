@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native';
 import { FlatList, TouchableOpacity } from "react-native";
 import {
     VStack,
-    Heading, Box, HStack, Badge, BadgeText, Icon, MailIcon, PhoneIcon, Text
+    Heading, Box, HStack, Badge, BadgeText, Icon, MailIcon, PhoneIcon, Text,View
 
 } from "@gluestack-ui/themed";
 import { MoveLeft } from "lucide-react-native";
@@ -31,22 +31,17 @@ function BusinessSelectList() {
 
     function createList() {
         return (
-            <VStack width="100%" mx="3" style={styles.pageHeader} >
-                
-
+            <VStack width="100%" mx="3" style={styles.tabPageContent} >
                 <VStack width="100%" mx="3" style={styles.pageHeader} >
-               
-                <HStack space="4xl" height="$20" alignItems='center'>
-                    <Icon as={MoveLeft} size="xl"  onPress={() =>  navigation.goBack() } />
-                <Text style={[styles.pageTitle, { textAlign: "center" }]} >BUSINESSES</Text>
-                </HStack>
-
-
-            </VStack>
-
-                <FlatList style={{ height: Dimensions.get('window').height - 170 }}
+                    <HStack space="4xl" height="$20" alignItems='center'>
+                        <Icon as={MoveLeft} size="xl" onPress={() => navigation.goBack()} />
+                        <Text style={[styles.pageTitle, { textAlign: "center" }]} >BUSINESSES</Text>
+                    </HStack>
+                </VStack>
+                <FlatList showsVerticalScrollIndicator={false}
                     data={businessListItems}
-                    renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$1" p="$2" pl="$5">
+                    renderItem={({ item }) => <Box style={[styles.listContentItem,styles.boxShadow]}  m="$1" p="$2" pl="$5">
+                        <View  > 
                         <VStack>
                             <TouchableOpacity
                                 activeOpaticy={1}
@@ -54,12 +49,10 @@ function BusinessSelectList() {
                                 <HStack justifyContent="space-between">
                                     <HStack justifyContent="right" space="lg"   >
                                         <VStack>
-                                            <Text style={styles.listHeadingMedium} >{item.name}</Text>
+                                            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.listHeadingMedium} >{item.name}</Text>
                                             <Text style={styles.listSubDescription} >{item.country}</Text>
-                                        </VStack>
-
-                                    </HStack>
-
+                                        </VStack> 
+                                    </HStack>  
                                 </HStack>
                                 <HStack>
                                     <HStack justifyContent="flex-start">
@@ -71,6 +64,7 @@ function BusinessSelectList() {
                                 </HStack>
                             </TouchableOpacity>
                         </VStack>
+                        </View>
                     </Box>}
                 />
 

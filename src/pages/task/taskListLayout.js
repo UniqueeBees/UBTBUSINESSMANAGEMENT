@@ -39,7 +39,7 @@ function TaskListLayout(props) {
     const meetingBgColor = isMyTask ? {} : { bgColor: '$white' }
     const taskBgColor = !isMyTask ? {} : { bgColor: '$white' }
     return (
-        <View   bgColor="$white" >
+        <VStack style={styles.tabPageContent}>
             <VStack  >
                 <Text style={styles.pageTitle} >Tasks</Text>
 
@@ -57,10 +57,12 @@ function TaskListLayout(props) {
                         </Button>
                     </HStack>
                 </Center>
+                <View>
                 {isMyTask ? <TaskList taskLanguageDTO={taskLanguageDTO} taskListItems={myTaskListItems} statusList={taskStatusList} />
                     : <TaskList taskLanguageDTO={taskLanguageDTO} taskListItems={taskListItems} statusList={taskStatusList} />}
+                    </View>
             </VStack>
-        </View>
+        </VStack>
     )
 }
 export default TaskListLayout;
