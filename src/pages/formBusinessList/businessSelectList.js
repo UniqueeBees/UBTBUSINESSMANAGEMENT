@@ -3,9 +3,10 @@ import { Dimensions } from 'react-native';
 import { FlatList, TouchableOpacity } from "react-native";
 import {
     VStack,
-    Heading, Box, HStack, Badge, BadgeText, Icon, ArrowLeftIcon, MailIcon, PhoneIcon, AddIcon, Text
+    Heading, Box, HStack, Badge, BadgeText, Icon, MailIcon, PhoneIcon, Text
 
 } from "@gluestack-ui/themed";
+import { MoveLeft } from "lucide-react-native";
 import { styles } from '../../assets/styles/theme'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -31,11 +32,17 @@ function BusinessSelectList() {
     function createList() {
         return (
             <VStack width="100%" mx="3" style={styles.pageHeader} >
+                
+
                 <VStack width="100%" mx="3" style={styles.pageHeader} >
+               
+                <HStack space="4xl" height="$20" alignItems='center'>
+                    <Icon as={MoveLeft} size="xl"  onPress={() =>  navigation.goBack() } />
+                <Text style={[styles.pageTitle, { textAlign: "center" }]} >BUSINESSES</Text>
+                </HStack>
 
-                    <Text style={[styles.pageTitle, { textAlign: "center" }]} >BUSINESSES</Text>
 
-                </VStack>
+            </VStack>
 
                 <FlatList style={{ height: Dimensions.get('window').height - 170 }}
                     data={businessListItems}
