@@ -13,7 +13,7 @@ return(
       <FlatList    showsVerticalScrollIndicator={false}
         data={props.meetingListItems}
         renderItem={({item}) => 
-        <Box style={[styles.boxShadow]}    m="$2" p="$2" pl="$5" >
+        <Box style={[styles.listContentItem, styles.boxShadow]}  m="$2" p="$2" pl="$5" >
           <VStack >
           <Text numberOfLines={1} ellipsizeMode="tail"  style={styles.listHeading}>{item.title}</Text>
           <HStack space="md" justifyContent= "flex-start">
