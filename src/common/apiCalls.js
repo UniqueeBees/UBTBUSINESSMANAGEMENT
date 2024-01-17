@@ -209,7 +209,10 @@ export const getApi = () => {
 
 export const saveContact = (contactData,token) => {
     const formData = new FormData();
-    formData.append('business_id', 1);
+    if(contactData.businessId){
+        formData.append('business_id', contactData.businessId);
+    }
+    
     formData.append('name', contactData.Name);
     formData.append('designation', contactData.Designation);
     formData.append('email', contactData.Email);

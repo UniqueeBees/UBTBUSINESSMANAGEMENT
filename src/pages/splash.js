@@ -12,6 +12,8 @@ import { companyLogin } from '../slices/companySlice'
 import { logout } from '../slices/loginSlice';
 import { setPage} from '../slices/initialPageSlice'
 import {apiCallStatus} from '../common/apiCalls'
+import { showLoading } from '../slices/loadingSlice';
+import { showAlert } from '../slices/alertSlice';
 function Splash(props) {
   const dispatch = useDispatch()
   const companyState = useSelector((state) => state.company)
@@ -22,8 +24,10 @@ function Splash(props) {
   useEffect(()=>{
     if (isInitialMount.current) {
       isInitialMount.current = false;
-   } else {
+   } 
+   else {
     if (companyState.company.id > -1 && companyState.status === apiCallStatus.fullfilled ) {
+      dispatch(showLoading(false))
      if(loginState)
      {
       dispatch(logout())
@@ -32,6 +36,15 @@ function Splash(props) {
       dispatch(setPage(navigationRoutes.login))
      }
       
+    }
+    else if(companyState.status === apiCallStatus.pending ){
+      dispatch(showLoading(true))
+    }
+    else if(companyState.status === apiCallStatus.rejected ){
+      dispatch(showLoading(false))
+    }
+    else{
+      dispatch(showLoading(false))
     }
   }
   },[companyState.status])
@@ -55,7 +68,10 @@ function Splash(props) {
      
     }
     catch (err) {
+      dispatch(showLoading(false))
       console.error('Failed to save the post: ', err)
+      alert = { action: 'error', title: 'Error', description: 'Company login failed' }
+      dispatch(showAlert(alert))
       navigateTo(props, navigationRoutes.company, navAction.Same);
     }
     finally {

@@ -50,6 +50,7 @@ import ContactList from '../contacts/contactList';
 import { getCurrentDateFormated } from '../../common/datetimepicker';
 import { ArrowBigRightDash, MoveLeft } from 'lucide-react-native';
 import BusinessSelect from '../formBusinessList/businessSelect';
+import { resetBusinessName } from '../../slices/businessSlice';
 
 function MeetingSetup(props) {
     const dispatch = useDispatch();
@@ -65,6 +66,7 @@ function MeetingSetup(props) {
     const [formData, setData] = useState(meetingSetup);
     const [showContactList, setContactList] = useState(false);
     const [contactName, setContactName] = useState('');
+    const [businessName, setBusinessName] = useState('');
     const [startMeeting, setStartMeeting] = useState(true);
     const purposeList = useSelector((state) => state.meeting.purposeList);
     const meetingDateFormat = "YYYY-MM-DD HH:MM";
@@ -82,6 +84,7 @@ function MeetingSetup(props) {
             setContactName('')
             navigation.navigate('dashboard', { screen: 'dashboardLayout' })
             dispatch(resetSaveRequestStatus());
+            //dispatch(resetBusinessName());
             dispatch(showLoading(false))
             const alert = { action: 'success', title: commonLanguageDTO.success, description: commonLanguageDTO.saveSuccessMessage }
             dispatch(showAlert(alert))
@@ -100,6 +103,7 @@ function MeetingSetup(props) {
     const changeFormData = (fieldName, value) => {
         let formValues = { ...formData }
         formValues[fieldName] = value;
+        console.log('changeFormData',formValues,fieldName)
         setData(formValues);
         const reqFields = requiredFieldSettings.map((item) => {
             let reqItem = { ...item }
@@ -110,6 +114,11 @@ function MeetingSetup(props) {
             return reqItem;
         })
         setRequiredFieldSettings(reqFields)
+    }
+    const changeBusiness = (fieldName, item) => {
+        
+        changeFormData(fieldName,item.id)
+        setBusinessName(item.name)
     }
     const validateRequiredFieldOnSave = () => {
         let isValid = true;
@@ -187,7 +196,7 @@ function MeetingSetup(props) {
             </VStack>
             {showContactList ? <ContactList selectItem={onContactSelect} contactItemList={contactList.list} /> :
                 <ScrollView style={styles.scrollView_withToolBar} >
-                    <BusinessSelect controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeFormData} />
+                    <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />
                     <FormControl isRequired isInvalid={isFieldStateInValid('purposeId')}>
                         <FormControlLabel mb="$1">
                             <FormControlLabelText style={styles.fieldLabel}>{meetingLanguageDTO.purpose}</FormControlLabelText>

@@ -37,6 +37,7 @@ import { showLoading } from "../../slices/loadingSlice";
 import { showAlert } from '../../slices/alertSlice';
 import { requestStatusDTO } from '../../dto/statusDTO';
 import BusinessSelect from '../formBusinessList/businessSelect';
+import { resetBusinessName } from '../../slices/businessSlice';
 import UserList from './userList';
 import { ArrowBigRightDash ,MoveLeft} from 'lucide-react-native';
 function TaskSetup() {
@@ -53,7 +54,7 @@ function TaskSetup() {
     const [formData, setData] = useState(taskSetup);
     const [showUserList, setUserList] = useState(false);
     const [executiveName, setExecutiveName] = useState('');
-    
+    const [businessName, setBusinessName] = useState('');
     const requiredFieldList = useSelector((state) => state.task.requiredFieldList);
     const [requiredFieldSettings, setRequiredFieldSettings] = useState(requiredFieldList);
     useEffect(() => {
@@ -68,6 +69,7 @@ function TaskSetup() {
             setExecutiveName('')
             navigation.navigate('dashboard',{screen:'dashboardLayout'})
             dispatch(resetSaveRequestStatus());
+            dispatch(resetBusinessName());
             dispatch(showLoading(false))
             const alert = { action: 'success', title: commonLanguageDTO.success, description: commonLanguageDTO.saveSuccessMessage }
             dispatch(showAlert(alert))
@@ -96,6 +98,11 @@ function TaskSetup() {
             return reqItem;
         })
         setRequiredFieldSettings(reqFields)
+    }
+    const changeBusiness = (fieldName, item) => {
+        
+        changeFormData(fieldName,item.id)
+        setBusinessName(item.name)
     }
     const validateRequiredFieldOnSave=()=>{
         let isValid=true;
@@ -148,7 +155,7 @@ function TaskSetup() {
         <VStack width="100%" mx="3" height="100%"  style={styles.fieldSetContainer}>
             <VStack width="100%" mx="3" style={styles.pageHeader} >
                
-                <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showUserList ? showUserList(false) : navigation.goBack() }} />
+                <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showUserList ? setUserList(false) : navigation.goBack() }} />
                     <Heading style={styles.pageTitle1}>
                     {showUserList ? taskLanguageDTO.executiveListTitle : taskLanguageDTO.createTask}
                     </Heading>
@@ -168,7 +175,7 @@ function TaskSetup() {
                             {'Test business'}
                         </Text>
                     </FormControl>}
-                    <BusinessSelect controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeFormData} />
+                    <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />
                     <FormControl isRequired isInvalid={isFieldStateInValid('assignTo')}>
                         <FormControlLabel mb="$1">
                             <FormControlLabelText style={styles.fieldLabel}>{taskLanguageDTO.assignTo}</FormControlLabelText>
