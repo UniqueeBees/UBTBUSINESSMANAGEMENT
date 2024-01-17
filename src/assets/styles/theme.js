@@ -98,7 +98,8 @@ export const styles = StyleSheet.create({
 
   tabTitleText:{
     fontFamily:'Poppins-Regular',
-    fontSize:14, 
+    fontSize:12, 
+    textTransform:"capitalize",
   },
   tabItemButton:{
     height:29,
@@ -152,7 +153,10 @@ export const styles = StyleSheet.create({
 inputLabel:{
   fontSize: 12,
   fontWeight:"normal",
-  fontFamily:"Poppins-Italic",
+   paddingVertical: 10, 
+    fontFamily:'Poppins-Regular',
+    justifyContent:'flex-start',
+    color:"#8F92A1"
 
 },
 inputPlaceholder:{

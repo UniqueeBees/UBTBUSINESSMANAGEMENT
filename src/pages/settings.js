@@ -118,26 +118,25 @@ function Settings() {
         </VStack>
         <VStack alignItems="left" pl="$10" pt="$1">
           <HStack>
-            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={24} fontWeight="bold">{businessListItems.length}</Heading>
-            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={24} fontWeight="bold">{meetingListItems.length}</Heading>
-            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={24} fontWeight="bold">{taskListItems.length}</Heading>
+            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={20} fontWeight="bold">{businessListItems.length}</Heading>
+            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={20} fontWeight="bold">{meetingListItems.length}</Heading>
+            <Heading size="sm" width={100} textAlign="center" color="$white" fontSize={20} fontWeight="bold">{taskListItems.length}</Heading>
           </HStack>
         </VStack>
       </VStack>
       <Center mt={188} style={{ position: "absolute", width: "100%", height: 70 }} bg="$white" rounded={5} >
       </Center>
       
-      <VStack space="sm" height="100%" alignItems="left" pl="$8" width="100%"   >
+      <VStack space="sm" height="100%" alignItems="left" pl="$8"pr="$8" width="100%"   >
         <FlatList
         showsVerticalScrollIndicator={false}
           data={getItems()}
           renderItem={({ item }) => 
             
             <TouchableHighlight onPress={() => { actionEvent(item) }} underlayColor="white">
-              
-              <HStack alignItems="center" m="$2"  borderRadius={0}  style={[styles.boxShadow,styles.listBadge, {height:50,width:300,alignContent:"center"}] } >
-              <Badge size="md" height={30} m="$2"   action="muted" bgColor="$white" width="100%">
-                <Text size="md" style={styles.tabTitleText}  >{item.label}</Text>
+              <HStack alignItems="center" pr={"$4"} style={[styles.boxShadow,styles.listBadge, {height:50,width:"100%"}] } >
+              <Badge size="md" height={30}  action="muted"  width="100%" borderRadius="$xl">
+                <BadgeText style={styles.tabTitleText}>{item.label}</BadgeText>
                 </Badge>
               </HStack>
              

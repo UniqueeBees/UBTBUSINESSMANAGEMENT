@@ -101,7 +101,7 @@ function Splash(props) {
               value={companyName} />
           </Input>
         </VStack>
-        <VStack mt={100} style={{ width: 300 }}>
+        <VStack mt={80} style={{ width: 300 }}>
           <Button
             size="md"
             variant="solid"
