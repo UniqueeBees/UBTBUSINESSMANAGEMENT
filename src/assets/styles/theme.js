@@ -232,8 +232,6 @@ listHeadingMedium:{
   fontFamily:"Poppins-Medium",
   fontSize:16, 
   color:"black",
-  width: 250,
-   
   
 },
 titleMedium18:{
