@@ -51,6 +51,7 @@ export const buildContactListItemDTO = (contactList) => {
 export const buildContactItemDTO = (contact) => {
     return {
         id: contact.id,
+        businessId:contact.business_id,
         name: contact.name,
         designation: contact.designation,
         email: contact.email,

@@ -13,12 +13,12 @@ function BusinessSelect(props) {
     const businessSelectLanguageDTO = useSelector((state) => state.language.businessSelectLanguageDTO)
     const selectedBusinessItem = useSelector((state) => state.business.businessSelectedFromForm)
     const controlSettings = props.controlSettings;
-    const[businessName,setBusinessName]=useState('');
+    const[businessName,setBusinessName]=useState(props.businessName);
     const dispatch=useDispatch();
     useEffect(() => {
         if (selectedBusinessItem.id) {
             setBusinessName(selectedBusinessItem.name)
-            props.setDatasource(controlSettings.fieldName,selectedBusinessItem.id)
+            props.setDatasource(controlSettings.fieldName,selectedBusinessItem)
             dispatch(resetBusinessName());
         }
     }, [selectedBusinessItem])
