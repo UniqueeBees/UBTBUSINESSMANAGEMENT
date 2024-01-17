@@ -134,8 +134,8 @@ function Settings() {
           renderItem={({ item }) => 
             
             <TouchableHighlight onPress={() => { actionEvent(item) }} underlayColor="white">
-              <HStack alignItems="center" pr={"$4"} style={[styles.boxShadow,styles.listBadge, {height:50,width:"100%",bgColor:"red"}] } >
-              <Badge size="md" height={30} bgColor="red"  action="muted"  width="100%" borderRadius="$xl">
+              <HStack alignItems="center" pr={"$4"} style={[styles.boxShadow,styles.listBadge, {height:50,width:"100%"}] } >
+              <Badge size="md" height={30}  action="muted"  width="100%" borderRadius="$xl">
                 <BadgeText style={styles.tabTitleText}>{item.label}</BadgeText>
                 </Badge>
               </HStack>
