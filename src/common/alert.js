@@ -36,9 +36,9 @@ showToast=()=>{
     render: ({ id }) => {
       const toastId = "toast-" + id
       return (
-        <Toast nativeID={toastId} variant="accent" action={alertState.alert.action} width="100%">
+        <Toast nativeID={toastId} variant="accent" action={alertState.alert.action}  minWidth={300} alignItems="center" maxHeight={50} >
           <VStack space="xs"><ToastTitle >{alertState.alert.title}</ToastTitle>
-            <ToastDescription>{alertState.alert.description}</ToastDescription></VStack>
+            <ToastDescription alignItems="center">{alertState.alert.description}</ToastDescription></VStack>
         </Toast>
       )
     },
