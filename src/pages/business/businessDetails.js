@@ -156,7 +156,7 @@ export default function BusinessDetails(props) {
           </Input>  
         </FormControl>
 
-        <VStack mt={20} mb={50} ml={30} style={{ width: 300 }}>
+        <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
           <Button
             size="md"
             variant="solid"
@@ -249,7 +249,7 @@ export default function BusinessDetails(props) {
           </Select>
         </FormControl>
 
-        <VStack mt={20} mb={50} ml={30} style={{ width: 300 }}>
+        <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
           <Button
             size="md"
             variant="solid"
@@ -288,7 +288,7 @@ export default function BusinessDetails(props) {
           </Input>  
          
         </FormControl>
-        <VStack mt={20} mb={50} ml={30} style={{ width: 300 }}>
+        <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
           <Button
             size="md"
             variant="solid"
@@ -318,7 +318,7 @@ export default function BusinessDetails(props) {
         </HStack>
         </VStack> 
         <Text style={styles.pageTitleMedium}>Upload Photos</Text>
-        <VStack mt={20} mb={50} ml={30} style={{ width: 300 }}>
+        <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
           <Button
             size="md"
             variant="solid"
