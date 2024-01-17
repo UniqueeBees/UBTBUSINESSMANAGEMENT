@@ -31,7 +31,7 @@ function TaskList(props) {
   }
   return (
 
-    <View style={{ height: "85%" }}  >
+    <View style={{ height: "86.5%" }}  >
       {props.taskListItems.length > 0 ?
         <FlatList showsVerticalScrollIndicator={false}
           data={props.taskListItems}

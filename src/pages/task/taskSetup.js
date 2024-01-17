@@ -156,9 +156,10 @@ function TaskSetup() {
             <VStack width="100%" mx="3" style={styles.pageHeader} >
                
                 <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showUserList ? setUserList(false) : navigation.goBack() }} />
-                    <Heading style={styles.pageTitle1}>
-                    {showUserList ? taskLanguageDTO.executiveListTitle : taskLanguageDTO.createTask}
-                    </Heading>
+                <Text  style={[styles.pageTitle,{ textAlign:"center"}]}>
+                {showUserList ? taskLanguageDTO.executiveListTitle : taskLanguageDTO.createTask}
+              </Text>
+                 
                 </HStack>
 
 

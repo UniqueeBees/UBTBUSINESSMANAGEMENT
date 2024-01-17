@@ -281,7 +281,7 @@ function MeetingSetup(props) {
                         dataSourceFormat={meetingDateFormat}
                         value={formData.scheduledAt} />
                     }
-                    <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
+                    <VStack mt={20} mb={100} alignItems="center" style={{ width: "100%" }}>
                         {startMeeting && <Button
                             size="md"
                             variant="link"

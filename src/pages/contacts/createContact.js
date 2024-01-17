@@ -143,9 +143,10 @@ const setBusinessControlSettings = (fieldName) => {
         <VStack space='xl'>
           <VStack width="100%" mx="3" >
             <HStack space="2xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl" onPress={() => { navigation.goBack() }} />
-              <Heading style={styles.pageTitle1}>
+            
+              <Text  style={[styles.pageTitle,{ textAlign:"center"}]}>
                 Create Contact
-              </Heading>
+              </Text>
             </HStack></VStack>
           <VStack style={styles.outerVStack} space="2xl">
             <VStack space='xs' alignItems="">

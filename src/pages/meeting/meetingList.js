@@ -9,7 +9,7 @@ function MeetingList(props){
   const navigation = useNavigation();
 return(
 
-  <VStack  style={{height:"85%"}} >
+  <VStack  style={{height:"86.5%"}} >
       <FlatList    showsVerticalScrollIndicator={false}
         data={props.meetingListItems}
         renderItem={({item}) => 
