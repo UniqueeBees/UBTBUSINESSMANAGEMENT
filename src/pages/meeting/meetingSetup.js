@@ -196,7 +196,7 @@ function MeetingSetup(props) {
             </VStack>
             {showContactList ?
              <ContactList selectItem={onContactSelect} contactItemList={contactList.list} /> :
-                <ScrollView style={styles.scrollView_withToolBar} >
+                <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false}>
                     <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />
                     <FormControl isRequired isInvalid={isFieldStateInValid('purposeId')}>
                         <FormControlLabel mb="$1">

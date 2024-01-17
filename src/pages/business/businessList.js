@@ -60,7 +60,7 @@ function BusinessList(props) {
             </HStack>
             <HStack> 
               <HStack justifyContent="flex-start">
-              {item.email?<Icon as={MailIcon} m="$1" w="$3" h="$3" />:""}<BadgeText  style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.email}</BadgeText>
+              {item.email?<Icon as={MailIcon} m="$1" w="$3" h="$3" ml="$0" />:""}<BadgeText  style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.email}</BadgeText>
               </HStack>
               <HStack justifyContent="left">
               {item.phone?<Icon as={PhoneIcon} m="$1" w="$3" h="$3" />:""}<BadgeText style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.phone}</BadgeText>

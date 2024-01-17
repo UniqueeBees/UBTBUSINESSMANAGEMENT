@@ -127,13 +127,13 @@ function Settings() {
       </VStack>
       <Box mt={188} style={{ position: "absolute", width: "100%", height: 30,backgroundColor:"white" ,borderTopLeftRadius:10,borderTopRightRadius:10 }}   >
       </Box>
-
-      <VStack space="lg"pt="$10" height="100%" width="100%" style={styles.tabPageContent}  >
+      <Center>
+      <VStack space="lg"pt="$5"   width="90%"  style={styles.tabPageContent}  >
         <FlatList
           showsVerticalScrollIndicator={false}
           data={getItems()}
           renderItem={({ item }) =>
-          <View    style={[ styles.listBadge,styles.boxShadow ,{ height: 40,marginTop:20,paddingTop:10 }]}>
+          <View    style={[ styles.listBadge,styles.boxShadow ,{ height: 50,marginTop:20,paddingTop:15 }]}>
             <TouchableOpacity onPress={() => { actionEvent(item) }}  >
               <VStack   style={[  { height: 40 }]} >  
                 <HStack alignItems="center"  >
@@ -146,6 +146,7 @@ function Settings() {
         />
 
       </VStack>
+      </Center>
     </VStack>
   );
 }

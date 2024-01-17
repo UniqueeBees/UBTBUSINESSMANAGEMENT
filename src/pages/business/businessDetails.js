@@ -76,7 +76,7 @@ export default function BusinessDetails(props) {
         
         </VStack>
         <Text style={styles.pageTitleMedium}>Basic Details</Text>
-        <ScrollView style={styles.scrollView_withToolBar} >
+        <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false} >
         <FormControl isRequired>
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Type</FormControlLabelText>
@@ -185,7 +185,7 @@ export default function BusinessDetails(props) {
         </VStack>
         <Text style={styles.pageTitleMedium}>Additional Informations</Text>
       
-        <ScrollView style={styles.scrollView_withToolBar} >
+        <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false}>
         <FormControl >
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Landmark</FormControlLabelText>

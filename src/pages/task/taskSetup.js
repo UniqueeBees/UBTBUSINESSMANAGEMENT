@@ -166,7 +166,7 @@ function TaskSetup() {
 
 
             {showUserList ? <UserList selectItem={selectExecutive} userItemList={userList.list} /> :
-                <ScrollView style={styles.scrollView_withToolBar} >
+                <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false}>
                    {1>2 && <FormControl >
                         <FormControlLabel mb="$1">
                             <FormControlLabelText style={styles.fieldLabel}>{taskLanguageDTO.business}</FormControlLabelText>
