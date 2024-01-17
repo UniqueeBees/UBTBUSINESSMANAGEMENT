@@ -136,13 +136,13 @@ const setBusinessControlSettings = (fieldName) => {
     <VStack width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
       <ScrollView style={styles.scrollView_withToolBar} >
       <FormControl
-        p='$4'
+        p='$3'
 
       >
 
         <VStack space='xl'>
           <VStack width="100%" mx="3" >
-            <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl" onPress={() => { navigation.goBack() }} />
+            <HStack space="2xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl" onPress={() => { navigation.goBack() }} />
               <Heading style={styles.pageTitle1}>
                 Create Contact
               </Heading>
@@ -155,7 +155,7 @@ const setBusinessControlSettings = (fieldName) => {
                   Name
                 </Text>
                 <Input variant='underlined'>
-                  <InputField placeholder="  Enter Full Name"
+                  <InputField placeholder="Enter Full Name"
                     type="text"
                     value={contactData.Name}
                     onChangeText={text => handleChange('Name', text)}
@@ -175,7 +175,7 @@ const setBusinessControlSettings = (fieldName) => {
                 Designation
               </Text>
               <Input variant='underlined'>
-                <InputField placeholder="  Enter Designation"
+                <InputField placeholder="Enter Designation"
                   type="text"
                   value={contactData.Designation}
                   onChangeText={text => handleChange('Designation', text)}
@@ -188,7 +188,7 @@ const setBusinessControlSettings = (fieldName) => {
                 Email Address
               </Text>
               <Input variant='underlined'>
-                <InputField placeholder="  Enter Email Address"
+                <InputField placeholder="Enter Email Address"
                   type="text"
                   value={contactData.Email}
                   onChangeText={text => handleChange('Email', text)}
@@ -201,7 +201,7 @@ const setBusinessControlSettings = (fieldName) => {
                 Mobile No
               </Text>
               <Input variant='underlined' >
-                <InputField placeholder="  Enter Mobile No" style={styles.inputPlaceholder}
+                <InputField placeholder="Enter Mobile No" 
                   type="text"
                   value={contactData.MobileNo}
                   onChangeText={text => handleChange('MobileNo', text)}
@@ -213,7 +213,7 @@ const setBusinessControlSettings = (fieldName) => {
                 WhatsApp No
               </Text>
               <Input variant='underlined' >
-                <InputField placeholder="  Enter WhatsApp No"
+                <InputField placeholder="Enter WhatsApp No"
                   type="text"
                   value={contactData.WhatsAppNo}
                   onChangeText={text => handleChange('WhatsAppNo', text)}
@@ -231,10 +231,10 @@ const setBusinessControlSettings = (fieldName) => {
                 onPress={saveData}
               >
 
-                <ButtonText color='$white' style={styles.submitButtonText} >
+                <ButtonText color='$white' style={styles.buttonText} >
                   Submit
                 </ButtonText >
-                <ButtonIcon size={20} as={ArrowRight} maxWidth={200} />
+                <ButtonIcon ml={"80%"} size={20} as={ArrowRight} maxWidth={200} />
               </Button></VStack>
           </VStack>
         </VStack>

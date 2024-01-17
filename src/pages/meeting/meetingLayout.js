@@ -10,7 +10,7 @@ import {
 } from "@gluestack-ui/themed";
 function MeetingLayout(props) {
 
-    const meetingListItems = useSelector((state) => state.meeting.listItems);
+    const meetingListItems =useSelector((state) => state.meeting.listItems);
     const purposeList = useSelector((state) => state.meeting.purposeList);
     const token = useSelector((state) => state.login.token)
     const dispatch = useDispatch()
@@ -21,8 +21,6 @@ function MeetingLayout(props) {
 
 
     return (
-
-
         <VStack space="md" width="100%" bgColor="$white">
             {meetingListItems.length === 0 ? <CreateMeeting purposeList={purposeList} /> : 
             <MeetingList 

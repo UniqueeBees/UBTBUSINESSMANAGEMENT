@@ -147,7 +147,7 @@ function Login() {
             </VStack>
 
             <Button
-              mt="$20"
+              mt="$16"
               ml="$0"
               size="md"
               variant="solid"

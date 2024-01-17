@@ -15,7 +15,7 @@ import { getBusinessListItems } from '../../slices/businessSlice';
  
 
 function BusinessList(props) {
-  const businessListItems = useSelector((state) => state.business.businessList);
+  const businessListItems =useSelector((state) => state.business.businessList);
   const token = useSelector((state) => state.login.token)
   const dispatch = useDispatch()
   const navigation = useNavigation();
