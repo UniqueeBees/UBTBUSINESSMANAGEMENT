@@ -31,14 +31,14 @@ function BusinessList(props) {
       shadowOpacity:1
     }
     return (
-      <VStack bgColor="$white">
+      <VStack style={styles.tabPageContent}>
         <VStack width="100%" mx="3" style={styles.pageHeader} >
         
          <Text style={[styles.pageTitle,{ textAlign:"center"}]} >BUSINESSES</Text>
          
         </VStack> 
         
-      <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
+      <FlatList  showsVerticalScrollIndicator={false}
         data={businessListItems}
         renderItem={({ item }) =>
         
@@ -94,7 +94,7 @@ function BusinessList(props) {
   }
   return (
 
-    <View style={{height:'95%'}}>
+    <View  >
       {businessListItems.length === 0 ? <BusinessCreate /> : createList()}
     </View>
   )

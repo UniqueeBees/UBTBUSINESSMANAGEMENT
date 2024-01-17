@@ -9,7 +9,7 @@ function MeetingList(props){
   const navigation = useNavigation();
 return(
 
-  <View style={{marginBottom:100}} bgColor="$white">
+  <View   bgColor="$white">
       <FlatList style={styles.tabPageContent}  showsVerticalScrollIndicator={false}
         data={props.meetingListItems}
         renderItem={({item}) => 

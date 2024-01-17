@@ -1,7 +1,7 @@
 
-import React from 'react';
-import { StyleSheet } from 'react-native';
-
+import  react from 'react';
+import { StyleSheet,Dimensions } from 'react-native';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 export const styles = StyleSheet.create({
   root: {
@@ -57,8 +57,8 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingTop: 20,
      fontFamily:'Poppins-Regular', 
-    fontSize: 20,
-    color:"#171717",
+    fontSize: 16,
+     
     textTransform:"uppercase",
     marginLeft:20
      
@@ -68,7 +68,7 @@ export const styles = StyleSheet.create({
     paddingTop: 30,
      fontFamily:'Poppins-Medium', 
     fontSize: 14,
-    color:"#171717",
+     
     textTransform:"uppercase",
     marginLeft:0
      
@@ -78,7 +78,7 @@ export const styles = StyleSheet.create({
     fontFamily:'Poppins-Regular',
     fontSize:12,
     justifyContent:'flex-start',
-    color:"#8F92A1"
+   // color:"#8F92A1"
   },
   pageHeader: {
     paddingTop: 10,
@@ -87,11 +87,11 @@ export const styles = StyleSheet.create({
   tabBarIcon: {
     width: 60,
     height: 60,
-    color: "black",
+   // color: "black",
     fontSize: 200
   },
   tabPageContent:{
-    height: "87%",
+    height:"95%",
     paddingLeft:15,
     paddingRight:15
   },
@@ -114,14 +114,14 @@ export const styles = StyleSheet.create({
     zIndex:2,
     position:"absolute",
     right:0,
-    bottom:15
+    bottom:20
 
   }, 
   subTitle: {
     fontSize: 13,
     fontWeight:"bold",
     fontFamily:"Poppins",
-    color:"#807777",
+    //color:"#807777",
     letterSpacing:.1,
   },
   langugeHeading:{
@@ -131,7 +131,7 @@ export const styles = StyleSheet.create({
     width:"100%",
     fontFamily:"Poppins-Regular",
     fontSize:32,
-    color:"black",
+   // color:"black",
     //fontWeight:"650",
     letterSpacing:1,
   },
@@ -247,12 +247,12 @@ subtitleRegular8:{
 listSubHeading:{
   fontFamily:"Poppins-Regular",
   fontSize:9.9,
-  color:"#171717"
+ // color:"#171717"
 },
 listSubDescription:{
   fontFamily:"Poppins-Regular",
   fontSize:9.9,
-  color:"#171717",
+  //color:"#171717",
   opacity:.5
 },
 listBadgeSection:{
@@ -266,7 +266,7 @@ listBadge:{
 listBadgeItem:{
   fontFamily:"Poppins-Regular",
   fontSize:9,
-  color:"black",
+ // color:"black",
   textTransform:"capitalize",
   minWidth:90,
   textAlign:"center"
@@ -274,7 +274,7 @@ listBadgeItem:{
 listBadgeItemSmall:{
   fontFamily:"Poppins-Regular",
   fontSize:9,
-  color:"black",
+ // color:"black",
   textTransform:"capitalize",
   minWidth:50,
    

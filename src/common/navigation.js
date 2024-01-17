@@ -1,5 +1,7 @@
 import React from "react"
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,DefaultTheme,
+  DarkTheme } from '@react-navigation/native';
+  import { useColorScheme } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from '../pages/splash';
 import language from '../pages/language';
@@ -59,8 +61,8 @@ export function navigateTo(props, actionFrom, navAction) {
   }
 }
  function Navigation(props){
-  
-return (<NavigationContainer>     
+  const scheme = useColorScheme();
+return (<NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>     
       <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName={navigationRoutes.initialPage}>
         <Stack.Screen name={navigationRoutes.initialPage} component={InitialPage} />
         <Stack.Screen name={navigationRoutes.company} component={Splash} />
