@@ -1,9 +1,0 @@
-const Company ={
-    name:"",
-    logo:""
-}
-
-export function setCompanyDTO (company){
-      //set to Company
-      //
-}
