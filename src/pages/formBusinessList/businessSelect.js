@@ -38,7 +38,7 @@ function BusinessSelect(props) {
             </Input>
             <FormControlError>
                 <FormControlErrorText>
-                    {businessSelectLanguageDTO.validationMessage}
+                    {businessSelectLanguageDTO.requiredValidationMessage}
                 </FormControlErrorText>
             </FormControlError>
         </FormControl>

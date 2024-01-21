@@ -271,6 +271,8 @@ function MeetingSetup(props) {
                     {!startMeeting && <DateTimePicker
                         label={meetingLanguageDTO.meetingDateAndTime}
                         fieldName='scheduledAt'
+                        isRequired 
+                        isInvalid={isFieldStateInValid('scheduledAt')}
                         mode={'datetime'}
                         placeholder={meetingLanguageDTO.meetingDateAndTimePlaceholder}
                         errorMessage={meetingLanguageDTO.meetingDateAndTimeValidationMessage}
