@@ -8,6 +8,7 @@ import {
 import { FlatList, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { getLanguage, getLanguageLabel } from "../common/apiCalls";
 import { storeObjectData, storageKeyTypes, getObjectData } from '../common/localStorage'
+import { showLoading } from '../slices/loadingSlice';
 import { navigationRoutes } from '../common/navigation'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLanguage } from '../slices/languageSlice'
@@ -46,10 +47,44 @@ function Language(props) {
 
 
   const [languageData, setData] = React.useState()
+  function objectsAreSame(x, y) {
+    var objectsAreSame = true;
+    for (var propertyName in x) {
+      if (x[propertyName] !== y[propertyName]) {
+        objectsAreSame = false;
+        break;
+      }
+    }
+    return objectsAreSame;
+  }
+  const arraysEqual = (a1, a2) =>
+    a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
 
   const fetchInfo = async () => {
+    console.log('fetchInfo',storageKeyTypes)
+    const languageList = await getObjectData(storageKeyTypes.languageList);
+    
+    if (languageList) {
+      setData(languageList);
+    }
+    else {
+      dispatch(showLoading(true))
+    }
     const response = await getLanguage();
-    setData(response.languages)
+    const status = response.status;
+    dispatch(showLoading(false))
+    if (status) {
+      if (!languageList || languageList.length !== languageList.length) {
+        setData(response.languages)
+        storeObjectData(storageKeyTypes.languageList, response.languages)
+      }
+      else {
+        if (!arraysEqual(languageList, response.languages)) {
+          setData(response.languages)
+          storeObjectData(storageKeyTypes.languageList, data)
+        }
+      }
+    }
 
   }
 
@@ -66,11 +101,7 @@ function Language(props) {
   React.useEffect(() => {
     fetchInfo();
   }, []);
-  //#F0FFFF
-  {/* <HStack mb="$1" alignItems="center" height={60} backgroundColor="$white" borderRadius={30}  textAlign="left">
-          <Text style={{width:"80%",textAlign:"left",fontSize:16}} >{item.name}</Text><Icon id={item.code} size="md"   
-         on as={MoveRight} m="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  />
-         </HStack> */}
+
 
   return (
     <VStack height="100%"  >
@@ -78,15 +109,15 @@ function Language(props) {
       <VStack space="md" width="100%" pl={40} pr={40} pt="$0" >
         <VStack space="4xl" >
           <FlatList
-          showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             data={languageData}
             renderItem={({ item }) =>
               <TouchableHighlight onPress={() => { SetLanguage(item.code) }} underlayColor="white">
 
-                <HStack space="md" mt="$4"   style={[styles.boxShadow,styles.listBadge, {height:50,alignContent:"center"}] }>
+                <HStack space="md" mt="$4" style={[styles.boxShadow, styles.listBadge, { height: 50, alignContent: "center" }]}>
                   <Badge size="md" height={30} m="$2" variant="solid" borderRadius="$xl" action="muted" bgColor="$white" >
 
-                    <Text style={[styles.textMedium13,{ width: "90%", textAlign: "left" }]} >{item.name}</Text><Icon id={item.code} size="md"
+                    <Text style={[styles.textMedium13, { width: "90%", textAlign: "left" }]} >{item.name}</Text><Icon id={item.code} size="md"
                       on as={MoveRight} m="$2" w="$4" h="$4" style={{ cursor: 'pointer' }} />
 
                   </Badge>
