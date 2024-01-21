@@ -58,10 +58,10 @@ function Language(props) {
     return objectsAreSame;
   }
   const arraysEqual = (a1, a2) =>
-    a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
+    a1.length === a2.length && a1.every((o, idx) => objectsAreSame(o, a2[idx]));
 
   const fetchInfo = async () => {
-    console.log('fetchInfo',storageKeyTypes)
+    
     const languageList = await getObjectData(storageKeyTypes.languageList);
     
     if (languageList) {
@@ -70,7 +70,8 @@ function Language(props) {
     else {
       dispatch(showLoading(true))
     }
-    const response = await getLanguage();
+    
+    let response = await getLanguage();
     const status = response.status;
     dispatch(showLoading(false))
     if (status) {
@@ -91,7 +92,6 @@ function Language(props) {
   const SetLanguage = async (code) => {
 
     const response = await getLanguageLabel(code);
-
     const data = { code: code, translations: response.translations }
 
     storeObjectData(storageKeyTypes.language, data)
