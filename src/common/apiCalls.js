@@ -228,7 +228,7 @@ export const changePassword = (passwordData,token) => {
     const formData = new FormData(); 
     formData.append('current_Password', passwordData.currentPassword); 
     formData.append('password', passwordData.newPassword);
-    formData.append('confirm_password', contactData.confirmPassword); 
+    formData.append('confirm_password', passwordData.confirmPassword); 
    return  axios({
         method: "PATCH",
         data: formData,

@@ -26,34 +26,34 @@ import { useSelector, useDispatch } from 'react-redux'
 import { showAlert } from '../../slices/alertSlice'
 import { showLoading } from "../../slices/loadingSlice";
 import { MoveLeft,ArrowRightToLine} from 'lucide-react-native';
-
-
-function submitChangePassword(formData){
  
-const dispatch = useDispatch()
-const token= useSelector((state) => state.login.token) 
-const navigation = useNavigation();
-console.log("formdata",formData)
-console.log("token",token)
-    changePassword(formData,token) 
-    .then(res => { 
-      if(res.data && res.data.status){ 
-        navigation.navigate("login")
-      }
-      else{
-        dispatch(showLoading(false))
-      alert = { action: 'error', title: 'Error', description: 'Password changing failed' }
-      }
-    })
-    .catch(error => {
-      dispatch(showLoading(false))
-      alert = { action: 'error', title: 'Error', description: 'password changing failed' }
-    })
-    dispatch(showAlert(alert));
-}
 
-function ChangePassowrd() {
+function ChangePassword() {
   const [formData, setData] = React.useState({currentPassword:"",newPassword:"",confirmPassword:""})
+  const dispatch = useDispatch()
+    const token= useSelector((state) => state.login.token) 
+    const navigation = useNavigation();
+  const submitChangePassword=(formData)=>{
+ 
+    let alert = { action: 'success', title: 'success', description: 'Success' }
+    console.log("formdata",formData)
+    console.log("token",token)
+        changePassword(formData,token) 
+        .then(res => { 
+          if(res.data && res.data.status){ 
+            navigation.navigate("login")
+          }
+          else{
+            dispatch(showLoading(false))
+          alert = { action: 'error', title: 'Error', description: 'Password changing failed' }
+          }
+        })
+        .catch(error => {
+          dispatch(showLoading(false))
+          alert = { action: 'error', title: 'Error', description: 'password changing failed' }
+        })
+        dispatch(showAlert(alert));
+    }
   return (
     <VStack width="100%" mx="3"  style={styles.fieldSetContainer}>
          <VStack width="100%" mx="3" style={styles.pageHeader} >
@@ -110,13 +110,4 @@ function ChangePassowrd() {
         </VStack>
         )
 } 
-export default () => {
-  return ( 
-    <VStack width="100%">
-      
-        <ChangePassowrd />
-     
-      </VStack>
-    
-  )
-}
+export default ChangePassword;
