@@ -7,6 +7,7 @@ import Login from "../pages/login";
 import InitialPage from "../pages/initialPage";
 import Tabs from '../navigation/tabs';
 import CreateContact from "../pages/contacts/createContact";
+import ChangePassword  from "../pages/settings/changePassword";
 const Stack = createNativeStackNavigator();
 export const navigationRoutes={
   company:"company",
@@ -18,47 +19,10 @@ export const navigationRoutes={
   listBusiness:'listBusiness' ,
   contact: 'contact',
   none:'none',
-}
-export const navAction = {
-  Next: "next",
-  Previous: "previous",
-  Same: "same"
-}
-export function navigateTo(props, actionFrom, navAction) {
-  switch (actionFrom) {
-    case navigationRoutes.splash: {
-      props.navigation.navigate(navigationRoutes.login)
-      break;
-    }
-    case navigationRoutes.login: {
-      console.log("nav route login", navAction)
-      // props.navigation.navigate(navigationRoutes.Splash)
-      if (navAction.Next) {
-        props.navigation.navigate(navigationRoutes.login)
-      } else if (navAction.Previous) {
-        console.log("nav route login previous")
-        props.navigation.navigate(navigationRoutes.company)
-      }
-      break;
-    }
-    case navigationRoutes.listBusiness :{
-      console.log("nav route login",navAction) 
-      if(navAction.Next){
-      props.navigation.navigate(navigationRoutes.createBusiness)
-      } else if (navAction.Previous)
-      {
-        console.log("nav route login previous")
-        props.navigation.navigate(navigationRoutes.listBusiness)
-      }
-      break;
-    }
-    case navigationRoutes.contact :{
-      props.navigation.navigate(navigationRoutes.contact)
+  changePassword:'changePassword',
+} 
 
-    } 
-  }
-}
- function Navigation(props){
+function Navigation(props){
   
 return (<NavigationContainer>     
       <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName={navigationRoutes.initialPage}>
@@ -68,6 +32,7 @@ return (<NavigationContainer>
         <Stack.Screen name={navigationRoutes.language} component={language} />
         <Stack.Screen name={navigationRoutes.login} component={Login} /> 
         <Stack.Screen name={navigationRoutes.contact} component={CreateContact} /> 
+        <Stack.Screen name={navigationRoutes.changePassword} component={ChangePassword} /> 
       </Stack.Navigator>
     </NavigationContainer>)}
     export default Navigation;

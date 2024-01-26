@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { StyleSheet } from 'react-native';
+ 
 
 
 export const styles = StyleSheet.create({
@@ -301,6 +302,25 @@ boxShadow:{
   shadowRadius: 5,
   elevation: 8,
   backgroundColor: 'white'
+},
+notificationIconContainer:{
+ 
+  width:51.18,
+  height:41.03,
+  backgroundColor: '#FFFFF',
+  borderRadius: 50,
+  transform: [{ scaleX: 1 }],
+  borderColor: '#808080',//#EEF0F6',
+  borderWidth: 1,
+  alignItems: 'center',
+    
+    justifyContent: 'center'
+  
+ },
+notificationIcon:{
+  width:22.5,
+  height:22.51,
+ opacity:.5,
 }
 })
 

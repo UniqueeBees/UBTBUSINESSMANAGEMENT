@@ -40,6 +40,7 @@ import { useSelector,useDispatch } from 'react-redux';
 import {businessTypes} from '../../slices/businessSlice'
 import { ArrowBigRightDash,CheckCircle2} from 'lucide-react-native';
 import { MoveLeft} from 'lucide-react-native';
+import PageHeader from "../pageHeader";
 const wizardStageEnum = {
   basic: 1,
   advance: 2,
@@ -69,14 +70,9 @@ export default function BusinessDetails(props) {
 
     return (
       <VStack width="100%" mx="3"  height ="100%" style={styles.fieldSetContainer}>
-        <VStack width="100%" mx="3" style={styles.pageHeader} >
-        <HStack space="4xl" style={{marginTop:8}} >
-        <Icon as={MoveLeft} size="lg"  onPress={()=>navigation.navigate('businessList')}/><Text style={styles.listHeadingMedium} >Create Business</Text>
-        </HStack>
-        
-        </VStack>
+        <PageHeader goBack="businessList" heading="Create Business" showNotifi={false}></PageHeader>
         <Text style={styles.pageTitleMedium}>Basic Details</Text>
-        <ScrollView style={styles.scrollView_withToolBar} >
+        <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false}>
         <FormControl isRequired>
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Type</FormControlLabelText>

@@ -32,11 +32,7 @@ function BusinessList(props) {
     }
     return (
       <VStack bgColor="$white">
-        <VStack width="100%" mx="3" style={styles.pageHeader} >
-        
-         <Text style={[styles.pageTitle,{ textAlign:"center"}]} >BUSINESSES</Text>
-         
-        </VStack> 
+       <PageHeader   heading="BUSINESSES" showNotifi={true}></PageHeader> 
         
       <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
         data={businessListItems}

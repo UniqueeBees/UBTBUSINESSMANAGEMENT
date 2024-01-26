@@ -1,5 +1,5 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
-import {accountLoginAPI}from '../common/apiCalls'
+import {accountLoginAPI,changePassword}from '../common/apiCalls'
 import{loginDTO} from '../dto/loginDTO'
 import {storeObjectData,storageKeyTypes,removeStoreObjectData} from '../common/localStorage'
 export const accountLogin = createAsyncThunk(
@@ -9,6 +9,7 @@ export const accountLogin = createAsyncThunk(
     return response.data
   }
 )
+ 
 const initialState= {
   ...loginDTO
 }
@@ -82,6 +83,7 @@ export const loginSlice = createSlice({
           state.reqStatus = 'completed'
           state.error = action.error.message
         })
+        
     },
   
 })

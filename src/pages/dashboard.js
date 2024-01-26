@@ -33,9 +33,8 @@ function Dashboard (props){
     const taskBgColor=!isMeeting ? {}:{bgColor:'$whitesmoke'}
     return (
      <View bgColor="$white">
-        <VStack bgColor="$white">
-        <Text style={styles.pageTitle} >{companyState.company.name}</Text>
-          
+        <VStack bgColor="$white"> 
+        <PageHeader   heading={companyState.company.name} showNotifi={true}></PageHeader>
             <Center>
             <HStack pt="$4" pb="$4">
                 <Button ml='auto'  variant="solid" action="primary" {...meetingBgColor} style={styles.tabItemButton} onPress={onMeetingPress}>

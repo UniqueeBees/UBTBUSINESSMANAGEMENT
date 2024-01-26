@@ -33,16 +33,8 @@ function BusinessSelectList() {
         return (
             <VStack width="100%" mx="3" style={styles.pageHeader} >
                 
-
-                <VStack width="100%" mx="3" style={styles.pageHeader} >
-               
-                <HStack space="4xl" height="$20" alignItems='center'>
-                    <Icon as={MoveLeft} size="xl"  onPress={() =>  navigation.goBack() } />
-                <Text style={[styles.pageTitle, { textAlign: "center" }]} >BUSINESSES</Text>
-                </HStack>
-
-
-            </VStack>
+                <PageHeader goBack="goBack" heading="Create Business" showNotifi={false}></PageHeader>
+            
 
                 <FlatList style={{ height: Dimensions.get('window').height - 170 }}
                     data={businessListItems}

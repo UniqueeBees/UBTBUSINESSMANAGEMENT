@@ -2,23 +2,23 @@ import React, { useEffect, useState } from "react";
 import {
   VStack, HStack, Icon, ArrowRightIcon, Button, Heading, Box, Badge, BadgeText, Text, Center
 } from "@gluestack-ui/themed";
-import { FlatList, View,TouchableHighlight } from "react-native";
+import { FlatList,Linking, View,TouchableHighlight } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../slices/loginSlice";
-import { setPage, setPageWithParameters } from '../slices/initialPageSlice';
-import { resetUser } from "../slices/userSlice";
-import { navigationRoutes } from '../common/navigation';
-import { getMeetingListByUser } from '../slices/meetingSlice';
-import { getTaskListByUser } from '../slices/taskSlice';
-import { getBusinessListItems } from '../slices/businessSlice';
+import { logout } from "../../slices/loginSlice";
+import { setPage, setPageWithParameters } from '../../slices/initialPageSlice';
+import { resetUser } from "../../slices/userSlice";
+import { navigationRoutes } from '../../common/navigation';
+import { getMeetingListByUser } from '../../slices/meetingSlice';
+import { getTaskListByUser } from '../../slices/taskSlice';
+import { getBusinessListItems } from '../../slices/businessSlice';
 import {
   Avatar,
   AvatarBadge,
   AvatarFallbackText,
   AvatarImage, AvatarGroup
 } from "@gluestack-ui/themed"
-import { baseUrl, getProfile } from '../common/apiCalls';
-import { styles } from '../assets/styles/theme';
+import { baseUrl, getProfile } from '../../common/apiCalls';
+import { styles } from '../../assets/styles/theme';
 function Settings() {
 
   const dispatch = useDispatch();
@@ -72,6 +72,13 @@ function Settings() {
     }
     else if (item.key === "company") {
       dispatch(setPageWithParameters({ page: navigationRoutes.company, routeParameters: { skipEffectNav: true } }))
+    }
+    else if (item.key === "helpLine") {
+      var phoneNumber="9745140025"
+      Linking.openURL(`tel:${phoneNumber}`)
+    }
+    else if (item.key === "password") {
+      dispatch(setPage(navigationRoutes.changePassword))
     }
   }
   const getItems = () => {

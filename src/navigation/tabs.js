@@ -10,7 +10,7 @@ import Dashboard from '../pages/dashboard';
 import BusinessList from '../pages/business/businessList'
 import BusinessSelectList from '../pages/formBusinessList/businessSelectList';
 import BusinessDetails from '../pages/business/businessDetails'
-import Settings from '../pages/settings';
+import Settings from '../pages/settings/settings';
 import MeetingSetup from '../pages/meeting/meetingSetup';
 import TaskSetup from '../pages/task/taskSetup';
 import TaskListLayout from '../pages/task/taskListLayout';
