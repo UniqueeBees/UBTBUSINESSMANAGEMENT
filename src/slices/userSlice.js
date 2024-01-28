@@ -7,6 +7,7 @@ const initialState = {
   userList: { list: [], requestStatus: requestStatusDTO.idle },
   contactList: { list: [], requestStatus: requestStatusDTO.idle },
   hasUser: false,
+  isAuthInvalid: false,
 }
 export const getUserProfile = createAsyncThunk(
   'user/getUser',
@@ -79,6 +80,9 @@ export const userSlice = createSlice({
         state.hasError = true;
         state.loading = false;
         state.hasUser = false;
+        if (action.error && action.error.message === 'Request failed with status code 401') {
+          state.isAuthInvalid = true;
+        }
 
       })
       .addCase(getUserList.pending, (state, action) => {
@@ -101,6 +105,9 @@ export const userSlice = createSlice({
       })
       .addCase(getUserList.rejected, (state, action) => {
         state.userList = { list: [], requestStatus: requestStatusDTO.rejected };
+        if (action.error && action.error.message === 'Request failed with status code 401') {
+          state.isAuthInvalid = true;
+        }
       })
       .addCase(getContactList.pending, (state, action) => {
         state.contactList = { list: [], requestStatus: requestStatusDTO.pending };
@@ -123,6 +130,9 @@ export const userSlice = createSlice({
       .addCase(getContactList.rejected, (state, action) => {
         console.log('getContactList-rejected', action)
         state.contactList = { list: [], requestStatus: requestStatusDTO.rejected };
+        if (action.error && action.error.message === 'Request failed with status code 401') {
+          state.isAuthInvalid = true;
+        }
       })
   },
 

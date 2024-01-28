@@ -194,7 +194,7 @@ function MeetingSetup(props) {
                 </HStack>
 
             </VStack>
-            {showContactList ? <ContactList selectItem={onContactSelect} contactItemList={contactList.list} /> :
+            {showContactList ? <ContactList selectItem={onContactSelect} contactItemList={contactList.list} languageDTO={meetingLanguageDTO} /> :
                 <ScrollView style={styles.scrollView_withToolBar} >
                     <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />
                     <FormControl isRequired isInvalid={isFieldStateInValid('purposeId')}>

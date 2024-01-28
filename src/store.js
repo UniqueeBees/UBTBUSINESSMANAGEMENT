@@ -9,6 +9,7 @@ import userReducer from './slices/userSlice'
 import businessReducer from './slices/businessSlice'
 import alertReducer from './slices/alertSlice'
 import loadingReducer from './slices/loadingSlice' 
+import listEditContextMenuReducer from './slices/listEditContextMenuSlice'
 export default configureStore({
   reducer: {
     login: loginReducer,
@@ -20,6 +21,7 @@ export default configureStore({
     user:userReducer,
     business:businessReducer,
     alert:alertReducer,
-    loading:loadingReducer
+    loading:loadingReducer,
+    listContextMenu:listEditContextMenuReducer,
   },
 })

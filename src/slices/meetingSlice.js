@@ -3,6 +3,7 @@ import { getMeetingsByUser, getMeetingPurposeList, addMeeting } from '../common/
 import { buildMeetingListItems, buildMeetingListItem, buildPurposeListItems, meetingSetupDTO } from '../dto/meetingDTO';
 import { requestStatusDTO } from "../dto/statusDTO";
 const initialState = {
+  isAuthInvalid: false,
   listItems: [],
   purposeList: [],
   meetingSetup: { ...meetingSetupDTO },
@@ -15,11 +16,11 @@ const initialState = {
   hasError: false,
   saveRequestStatus: requestStatusDTO.idle,
   requiredFieldList: [{ field: 'title', isTouched: false, isValid: false },
-                      { field: 'purposeId', isTouched: false, isValid: false },
-                      { field: 'contactId', isTouched: false, isValid: false },
-                      { field: 'scheduledAt', isTouched: false, isValid: false },
-                      { field: 'businessId', isTouched: false, isValid: false }
-                      ]
+  { field: 'purposeId', isTouched: false, isValid: false },
+  { field: 'contactId', isTouched: false, isValid: false },
+  { field: 'scheduledAt', isTouched: false, isValid: false },
+  { field: 'businessId', isTouched: false, isValid: false }
+  ]
 }
 export const getMeetingListByUser = createAsyncThunk(
   'meeting/getlistByUser',
@@ -90,6 +91,9 @@ export const meetingSlice = createSlice({
 
       })
       .addCase(getMeetingListByUser.rejected, (state, action) => {
+        if (action.error && action.error.message === 'Request failed with status code 401') {
+          state.isAuthInvalid = true;
+        }
         console.log('meetingListError', action)
         state.hasError = true;
         state.loading = false;
@@ -129,6 +133,9 @@ export const meetingSlice = createSlice({
       .addCase(addNewMeeting.rejected, (state, action) => {
         console.log('addNewMeeting-rejected', action)
         state.saveRequestStatus = requestStatusDTO.rejected;
+        if (action.error && action.error.message === 'Request failed with status code 401') {
+          state.isAuthInvalid = true;
+        }
 
       })
     //

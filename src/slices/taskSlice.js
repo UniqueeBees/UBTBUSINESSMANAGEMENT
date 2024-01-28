@@ -4,6 +4,7 @@ import { buildTaskListItems, buildTaskStatusList, buildTaskListItem, taskSetupDT
 import { requestStatusDTO } from "../dto/statusDTO";
 
 const initialState = {
+  isAuthInvalid:false,
   listItems: [],
   taskStatusList: [],
   taskSetup: { ...taskSetupDTO },
@@ -96,6 +97,9 @@ export const taskSlice = createSlice({
         console.log('taskListError', action)
         state.hasError = true;
         state.loading = false;
+        if (action.error && action.error.message === 'Request failed with status code 401') {
+          state.isAuthInvalid = true;
+        }
 
       })
       .addCase(getTaskStatusList.fulfilled, (state, action) => {
@@ -128,7 +132,9 @@ export const taskSlice = createSlice({
       })
       .addCase(addNewTask.rejected, (state, action) => {
         state.saveRequestStatus = requestStatusDTO.rejected;
-
+        if (action.error && action.error.message === 'Request failed with status code 401') {
+          state.isAuthInvalid = true;
+        }
       })
 
   },

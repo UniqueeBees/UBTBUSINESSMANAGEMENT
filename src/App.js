@@ -20,6 +20,8 @@ import { GluestackUIProvider, Text } from "@gluestack-ui/themed"
 import { config } from "@gluestack-ui/config" // Optional if you w
 import Alert from "./common/alert";
 import Loading from './common/loading';
+import SessionExpire from './common/sessionExpire';
+import ListEditContextMenu from './common/listEditContextMenu/listEditContextMenu';
 function App() {
 
   return (
@@ -29,8 +31,9 @@ function App() {
       <GluestackUIProvider config={config}>
         <Alert />
         <Loading />
+        <SessionExpire />
         <Navigation />
-
+        <ListEditContextMenu/>
       </GluestackUIProvider>
     </SafeAreaProvider>
   )

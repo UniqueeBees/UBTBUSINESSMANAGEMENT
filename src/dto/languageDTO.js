@@ -41,7 +41,7 @@ export const taskLanguageDTO = {
     descriptionPlaceholder: 'Enter Task Description',
     submit: 'Submit',
     executiveListTitle: 'EXECUTIVES',
-
+    executiveSearchPlaceholder:'Search Executive',
 }
 export const meetingLanguageDTO = {
     createMeeting: 'Create Meeting',
@@ -63,6 +63,7 @@ export const meetingLanguageDTO = {
     meetingDateAndTimeValidationMessage:'Date & Time is required',
     scheuleMeeting:'Schedule Meeting',
     contactListTitle:'CONTACTS',
+    contactSearchPlaceholder:'Search Contact',
 }
 export const commonLanguageDTO={
     success:'Success',

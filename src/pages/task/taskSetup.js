@@ -165,16 +165,9 @@ function TaskSetup() {
             </VStack>
 
 
-            {showUserList ? <UserList selectItem={selectExecutive} userItemList={userList.list} /> :
+            {showUserList ? <UserList selectItem={selectExecutive} userItemList={userList.list} languageDTO={taskLanguageDTO} /> :
                 <ScrollView style={styles.scrollView_withToolBar} >
-                   {1>2 && <FormControl >
-                        <FormControlLabel mb="$1">
-                            <FormControlLabelText style={styles.fieldLabel}>{taskLanguageDTO.business}</FormControlLabelText>
-                        </FormControlLabel>
-                        <Text variant="underlined" size="md"   >
-                            {'Test business'}
-                        </Text>
-                    </FormControl>}
+                  
                     <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />
                     <FormControl isRequired isInvalid={isFieldStateInValid('assignTo')}>
                         <FormControlLabel mb="$1">
