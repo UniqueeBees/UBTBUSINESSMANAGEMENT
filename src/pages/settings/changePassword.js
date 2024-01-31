@@ -30,6 +30,7 @@ import { MoveLeft,ArrowRightToLine} from 'lucide-react-native';
 
 function ChangePassword() {
   const [formData, setData] = React.useState({currentPassword:"",newPassword:"",confirmPassword:""})
+  const [passwordMatches, setPasswordMatch] = React.useState(false)
   const dispatch = useDispatch()
     const token= useSelector((state) => state.login.token) 
     const navigation = useNavigation();
@@ -54,6 +55,21 @@ function ChangePassword() {
         })
         dispatch(showAlert(alert));
     }
+    const isValid = (name) => {
+      if (formData[name]) {
+  
+        return true;
+      } else {
+        return false;
+      }
+  
+    }
+    const isPasswordMatches=()=>{
+      if((formData["newPassword"]!=formData["confirmPassword"])&& formData["newPassword"]!=""){
+        setPasswordMatch(false);
+      }
+      setPasswordMatch(true);
+    }
   return (
     <VStack width="100%" mx="3"  style={styles.fieldSetContainer}>
          <VStack width="100%" mx="3" style={styles.pageHeader} >
@@ -62,32 +78,45 @@ function ChangePassword() {
         </HStack>
         </VStack>
         <ScrollView style={styles.scrollView_withToolBar} >
-        <FormControl >
+        <FormControl isInvalid={isValid("currentPassword")} isRequired>
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Current Password</FormControlLabelText>
           </FormControlLabel>
-          <Input variant="underlined"  size="md"   >
+          <Input variant="underlined" isRequired={true}  type="password" size="md"   >
           <InputField placeholder="Enter your current password" value={formData.currentPassword} onChangeText={value => setData({ ...formData, currentPassword: value })}  ></InputField> 
           </Input>  
-         
+          <FormControlError>
+                  <FormControlErrorText>
+                    Current password is required.
+                  </FormControlErrorText>
+                </FormControlError> 
         </FormControl>
-        <FormControl >
+        <FormControl isInvalid={isValid("newPassword")||isPasswordMatches()}  isRequired>
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>New Password </FormControlLabelText>
           </FormControlLabel>
-          <Input variant="underlined"  size="md"   >
+          <Input variant="underlined" isRequired={true} type="password" size="md"   >
           <InputField placeholder="Enter new password" value={formData.newPassword} onChangeText={value => setData({ ...formData, newPassword: value })}   ></InputField> 
           </Input> 
-          
+          <FormControlError>
+                  <FormControlErrorText>
+                    {!isPasswordMatches()?"":"New password is required."}
+                  </FormControlErrorText>
+                </FormControlError> 
         </FormControl>
-        <FormControl >
+        <FormControl isInvalid={isValid("confirmPassword")||isPasswordMatches()}  isRequired>
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Confirm Password</FormControlLabelText>
           </FormControlLabel>
           
-            <Input variant="underlined"  size="md"   >
+            <Input variant="underlined" isRequired={true} type="password" size="md"   >
           <InputField placeholder="Retype Password" value={formData.confirmPassword} onChangeText={value => setData({ ...formData, confirmPassword: value })}   ></InputField> 
           </Input> 
+          <FormControlError>
+                  <FormControlErrorText>
+                  {!isPasswordMatches()?"":"Confirm password is required."} 
+                  </FormControlErrorText>
+                </FormControlError> 
         </FormControl> 
         <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
           <Button
@@ -96,12 +125,9 @@ function ChangePassword() {
             action="primary"
             isDisabled={false}
             isFocusVisible={false}
-
             style={styles.buttonLong}
-
             onPress={()=>submitChangePassword(formData)}
-
-          >
+                      >
             <ButtonText style={styles.buttonText}>Submit</ButtonText>
             <ButtonIcon ml={"80%"} size={20} as={ArrowRightToLine} />
           </Button>
