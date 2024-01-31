@@ -134,7 +134,7 @@ const setBusinessControlSettings = (fieldName) => {
   return (
     
     <VStack width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
-      <ScrollView style={styles.scrollView_withToolBar} >
+      <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false} >
       <FormControl
         p='$3'
 

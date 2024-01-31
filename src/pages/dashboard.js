@@ -52,7 +52,7 @@ function Dashboard (props){
             </Center>
                 {isMeeting ?<MeetingLayout  /> : <TaskLayout/>} 
             </VStack>
-     </View>
+     </VStack>
     )
 }
 export default Dashboard;

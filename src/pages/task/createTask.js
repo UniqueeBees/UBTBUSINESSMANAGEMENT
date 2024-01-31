@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 function CreateTask(){
   const navigation = useNavigation();
 return(
-<View style={{backgroundColor:"white"}} height="100%" >
+<View  height="100%" >
 <Center>
     <VStack alignItems='center' pt="$24" space="md">
     <Icon as={SmilePlus} size={120} color="grey" />

@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native';
 import { FlatList, TouchableOpacity } from "react-native";
 import {
     VStack,
-    Heading, Box, HStack, Badge, BadgeText, Icon, MailIcon, PhoneIcon, Text
+    Heading, Box, HStack, Badge, BadgeText, Icon, MailIcon, PhoneIcon, Text,View
 
 } from "@gluestack-ui/themed";
 import { MoveLeft } from "lucide-react-native";
@@ -38,7 +38,8 @@ function BusinessSelectList() {
 
                 <FlatList style={{ height: Dimensions.get('window').height - 170 }}
                     data={businessListItems}
-                    renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$1" p="$2" pl="$5">
+                    renderItem={({ item }) => <Box style={[styles.listContentItem,styles.boxShadow]}  m="$1" p="$2" pl="$5">
+                        <View  > 
                         <VStack>
                             <TouchableOpacity
                                 activeOpaticy={1}
@@ -46,12 +47,10 @@ function BusinessSelectList() {
                                 <HStack justifyContent="space-between">
                                     <HStack justifyContent="right" space="lg"   >
                                         <VStack>
-                                            <Text style={styles.listHeadingMedium} >{item.name}</Text>
+                                            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.listHeadingMedium} >{item.name}</Text>
                                             <Text style={styles.listSubDescription} >{item.country}</Text>
-                                        </VStack>
-
-                                    </HStack>
-
+                                        </VStack> 
+                                    </HStack>  
                                 </HStack>
                                 <HStack>
                                     <HStack justifyContent="flex-start">
@@ -63,6 +62,7 @@ function BusinessSelectList() {
                                 </HStack>
                             </TouchableOpacity>
                         </VStack>
+                        </View>
                     </Box>}
                 />
 

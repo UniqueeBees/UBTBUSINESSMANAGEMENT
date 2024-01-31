@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StyleSheet ,View,Text,Image} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator ,BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import PushNotification from "react-native-push-notification";
@@ -21,18 +21,7 @@ import { Briefcase} from 'lucide-react-native';
  const TabIconSize="35";
  const TabIconColor="black";
 const Tab=createBottomTabNavigator();
-const styles=StyleSheet.create({
-    shadow:{
-        shadowColor:'#red',
-        shadowOffset:{
-            width:300,
-            height:300,
-        },
-        shadowOpacity:0.25,
-        shadowRadius:3.5,
-        elevation:30
-    }
-})
+import { styles } from '../assets/styles/theme'
 const DashboardStack = createNativeStackNavigator();
 const BusinessStack=createNativeStackNavigator();
 function DashboardStackScreen() {
@@ -59,16 +48,16 @@ function Tabs() {
     
     return ( 
       
-        <Tab.Navigator
+        <Tab.Navigator 
         initialRouteName='dashboard' 
         screenOptions={{
           tabBarInactiveTintColor: '#020202',
           tabBarActiveTintColor: '#1877F2',
             tabBarShowLabel:false,
             headerShown:false,
-            
+            tabBarHideOnKeyboard:true,
             tabBarStyle: {  
-              position:'absolute',
+           position:'absolute',
                 bottom:0,
                 left:0,
                 right:0,
@@ -81,7 +70,11 @@ function Tabs() {
               },
               
           }} >  
-            <Tab.Screen name="dashboard"   component={DashboardStackScreen}
+            <Tab.Screen name="dashboard"  
+             component={
+              
+              DashboardStackScreen
+            }
            options={{
             tabBarLabel: 'Updates', 
             tabBarIcon: ({ color, size }) => (
@@ -96,8 +89,15 @@ function Tabs() {
               ), 
           }} ></Tab.Screen> 
           
-          <Tab.Screen name="Add" component={DashboardStackScreen}
+          <Tab.Screen name="Add"  component={DashboardStackScreen}
+          listeners={{
+            tabPress: e => {
+              // Prevent default action
+              e.preventDefault();
+            },
+          }}
            options={{
+            
             tabBarLabel: 'Updates',
             tabBarIcon: ({ color, size }) => (
               <PopperButton></PopperButton>
