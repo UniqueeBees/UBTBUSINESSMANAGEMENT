@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { businessDTO, buildDTO, buildBusinessListItems, buildBusinessTypes } from '../dto/businessDTO'
-import { getBusinessTypes, getBusinessList, createBusiness, apiCallStatus } from '../common/apiCalls'
+import { getBusinessTypes, getBusinessList, createBusiness, apiCallStatus,getCountryList } from '../common/apiCalls'
 const initialState = {
   businessList: [],
   businessTypes: [],
@@ -8,7 +8,8 @@ const initialState = {
   status: "idle",
   loading: false,
   hasError: false,
-  businessSelectedFromForm: {}
+  businessSelectedFromForm: {},
+  countries:[],
 }
 export const businessTypes = createAsyncThunk(
   'business/businessTypes',
@@ -31,6 +32,14 @@ export const createNewBusiness = createAsyncThunk(
   async (token, businessDTO) => {
     console.log('create')
     const response = await createBusiness(token, businessDTO)
+    return response.data
+  }
+)
+export const getCountries =createAsyncThunk(
+  'business/getCountries',
+  async(token)=>{
+    const response =await getCountryList(token);
+    console.log("getCountries data",response);
     return response.data
   }
 )
@@ -99,6 +108,30 @@ export const businessSlice = createSlice({
         state.status = apiCallStatus.rejected
         state.error = action.error.message
         state.businessTypes = []
+      })
+      //Business Countries
+      .addCase(getCountries.pending, (state, action) => {
+        console.log(apiCallStatus.pending)
+        state.status = apiCallStatus.pending
+
+      })
+      .addCase(getCountries.fulfilled, (state, action) => {
+        console.log('getCountries', action)
+        state.loading = false;
+        const resp = action.payload;
+        if (resp.status) {
+          state.hasError = false;
+          state.countries =resp.countries
+        }
+        else {
+          state.hasError = true;
+        }
+      })
+      .addCase(getCountries.rejected, (state, action) => {
+        console.log(apiCallStatus.rejected, action)
+        state.status = apiCallStatus.rejected
+        state.error = action.error.message
+        state.countries = []
       })
   },
 })

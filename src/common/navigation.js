@@ -26,7 +26,7 @@ export const navigationRoutes={
 
  function Navigation(props){
   const scheme = useColorScheme();
- <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>     
+ return(<NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>     
       <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName={navigationRoutes.initialPage}>
         <Stack.Screen name={navigationRoutes.initialPage} component={InitialPage} />
         <Stack.Screen name={navigationRoutes.company} component={Splash} />
@@ -36,5 +36,5 @@ export const navigationRoutes={
         <Stack.Screen name={navigationRoutes.contact} component={CreateContact} /> 
         <Stack.Screen name={navigationRoutes.changePassword} component={ChangePassword} /> 
       </Stack.Navigator>
-    </NavigationContainer>}
+    </NavigationContainer>)}
     export default Navigation;

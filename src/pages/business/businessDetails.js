@@ -29,7 +29,7 @@ import {
   HStack,
   ArrowLeftIcon,
   ScrollView,
-  Text
+  Text,Box, Image,
 
 } from "@gluestack-ui/themed"
 import { ArrowRight } from 'lucide-react-native';
@@ -37,10 +37,11 @@ import { businessDTO } from "../../dto/businessDTO"
 import { styles } from '../../assets/styles/theme'
 import { useNavigation } from "@react-navigation/native";
 import { useSelector,useDispatch } from 'react-redux';
-import {businessTypes} from '../../slices/businessSlice'
-import { ArrowBigRightDash,CheckCircle2} from 'lucide-react-native';
+import {businessTypes,getCountries} from '../../slices/businessSlice'
+import { ArrowBigRightDash,CheckCircle2,Camera,XCircle} from 'lucide-react-native';
 import { MoveLeft} from 'lucide-react-native';
 import PageHeader from "../pageHeader";
+import { launchImageLibrary,launchCamera } from 'react-native-image-picker';
 const wizardStageEnum = {
   basic: 1,
   advance: 2,
@@ -50,22 +51,74 @@ const wizardStageEnum = {
 
 export default function BusinessDetails(props) {
   const [formData, setData] = React.useState(businessDTO)
-  const [wizardStage, setwizStage] = React.useState(wizardStageEnum.basic)
+  const [wizardStage, setwizStage] = React.useState(wizardStageEnum.files)
   const navigation = useNavigation();
   const businessTypeList = useSelector((state) => state.business.businessTypes);
+  const countries =useSelector((state)=>state.business.countries);
   const dispatch = useDispatch()
   const token = useSelector((state) => state.login.token)
+  const [errors, setErrors] = React.useState({}); 
+  
   useEffect(()=>{
      if(businessTypeList.length===0){
       dispatch(businessTypes(token))
      }
-  },businessTypes)
+     if(countries.length===0){
+      dispatch(getCountries(token)) 
+     }
+  },businessTypes,countries)
   function getBusinessTypeKey(key){
     let bType= businessTypeList.find(e=>e.key==key);
     if(bType){
       return bType.value;
     }else{ return key;}
   }
+  function getBusinessCountryKey(id){
+    let bType= countries.find(e=>e.id==id);
+    if(bType){
+      return bType.name;
+    }else{ return id;}
+  }
+  const isValid = (name) => {
+    if (formData[name]) {  
+      return true;
+    } else {
+      return false;
+    }
+
+  } 
+  const validateForm = () => { 
+    let errors = {};  
+    
+    if (!formData.type && wizardStage===wizardStageEnum.basic) { 
+        errors.type = 'Business type is required.'; 
+    }  
+     
+    if (!formData.name && wizardStage===wizardStageEnum.basic) { 
+        errors.name = 'Business name is required.'; 
+    }    
+    if (!formData.country && wizardStage===wizardStageEnum.advance) { 
+        errors.country = 'Country is required.';  
+    }  
+    // Set the errors and update form validity 
+    
+    setErrors(errors); 
+    return Object.keys(errors).length === 0;
+     
+}; 
+
+const handleChoosePhoto = () => {
+  console.log("handleChoose");
+  launchCamera();
+  /*launchCamera((response) => {
+    // console.log(response);
+    if (response) {
+      //setPhoto(response);
+     console.log(response);
+    }
+  });*/
+};
+ 
   function BusinessDetails_W1() {
 
     return (
@@ -73,8 +126,8 @@ export default function BusinessDetails(props) {
         <PageHeader goBack="businessList" heading="Create Business" showNotifi={false}></PageHeader>
         <Text style={styles.pageTitleMedium}>Basic Details</Text>
         <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false} >
-        <FormControl isRequired>
-          <FormControlLabel mb="$1">
+        <FormControl isRequired isInvalid={!isValid("type")}>
+          <FormControlLabel>
             <FormControlLabelText style={styles.fieldLabel}>Type</FormControlLabelText>
           </FormControlLabel>
           <Select onValueChange={value => setData({ ...formData, type: value })} >
@@ -98,26 +151,26 @@ export default function BusinessDetails(props) {
           </Select>
           <FormControlError>
             <FormControlErrorText>
-              At least 6 characters are required.
+              {errors.type}
             </FormControlErrorText>
           </FormControlError>
         </FormControl>
 
-        <FormControl isRequired>
-          <FormControlLabel mb="$1">
+        <FormControl isRequired  isInvalid={!isValid("name")}>
+          <FormControlLabel >
             <FormControlLabelText style={styles.fieldLabel}>Name</FormControlLabelText>
           </FormControlLabel>
           <Input variant="underlined"  size="md"   >
           <InputField  placeholder="Enter Business Name"  value={formData.name}   onChangeText={value => setData({ ...formData, name: value })}></InputField> 
-          </Input> 
+          </Input>  
           <FormControlError>
             <FormControlErrorText>
-              At least 6 characters are required.
+             {errors.name}
             </FormControlErrorText>
-          </FormControlError>
+          </FormControlError> 
         </FormControl>
         <FormControl >
-          <FormControlLabel mb="$1">
+          <FormControlLabel>
             <FormControlLabelText style={styles.fieldLabel}>Email Address</FormControlLabelText>
           </FormControlLabel>
           <Input variant="underlined"  size="md"   >
@@ -126,7 +179,7 @@ export default function BusinessDetails(props) {
          
         </FormControl>
         <FormControl >
-          <FormControlLabel mb="$1">
+          <FormControlLabel>
             <FormControlLabelText style={styles.fieldLabel}>Phone Number </FormControlLabelText>
           </FormControlLabel>
           <Input variant="underlined"  size="md"   >
@@ -135,7 +188,7 @@ export default function BusinessDetails(props) {
            
         </FormControl>
         <FormControl >
-          <FormControlLabel mb="$1">
+          <FormControlLabel>
             <FormControlLabelText style={styles.fieldLabel} >Website</FormControlLabelText>
           </FormControlLabel>
           
@@ -144,7 +197,7 @@ export default function BusinessDetails(props) {
           </Input> 
         </FormControl>
         <FormControl >
-          <FormControlLabel mb="$1">
+          <FormControlLabel>
             <FormControlLabelText style={styles.fieldLabel}>Tags</FormControlLabelText>
           </FormControlLabel>
           <Input variant="underlined"  size="md"   >
@@ -160,7 +213,7 @@ export default function BusinessDetails(props) {
             isDisabled={false}
             isFocusVisible={false}
             style={styles.buttonLong}
-            onPress={()=>setwizStage(wizardStageEnum.advance)}
+            onPress={()=>validateForm()?setwizStage(wizardStageEnum.advance):""}
           >
             <ButtonText style={styles.buttonText}>Next</ButtonText>
             <ButtonIcon ml={"80%"} size={20} as={ArrowBigRightDash} />
@@ -171,7 +224,7 @@ export default function BusinessDetails(props) {
     )
   }
   function BusinessDetails_W2() {
-
+  
     return (
       <VStack width="100%" mx="3"  style={styles.fieldSetContainer}>
          <VStack width="100%" mx="3" style={styles.pageHeader} >
@@ -218,13 +271,13 @@ export default function BusinessDetails(props) {
           </Input> 
            
         </FormControl>
-        <FormControl >
+        <FormControl isRequired  isInvalid={!isValid("country")}>
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Country</FormControlLabelText>
           </FormControlLabel>
           <Select onValueChange={value => setData({ ...formData, country: value })} >
             <SelectTrigger variant="underlined" >
-              <SelectInput placeholder="Enter Country" value={formData.country} />
+              <SelectInput placeholder="Enter Country" value={getBusinessCountryKey(formData.country)} />
               <SelectIcon mr="$3">
                 <Icon as={ChevronDownIcon} />
               </SelectIcon>
@@ -235,14 +288,15 @@ export default function BusinessDetails(props) {
                 <SelectDragIndicatorWrapper>
                   <SelectDragIndicator />
                 </SelectDragIndicatorWrapper>
-                <SelectItem label="Red" value="red"  />
-                <SelectItem label="Blue" value="blue" />
-                <SelectItem label="Black" value="black" />
-                <SelectItem label="Pink" value="pink" isDisabled={true} />
-                <SelectItem label="Green" value="green" />
+                {countries.map((country)=>{  return <SelectItem label={`${country.code}-${country.name}`} value={country.id}  /> }) }
               </SelectContent>
             </SelectPortal>
           </Select>
+          <FormControlError>
+            <FormControlErrorText>
+            {errors.country}
+            </FormControlErrorText>
+          </FormControlError>
         </FormControl>
 
         <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
@@ -255,7 +309,7 @@ export default function BusinessDetails(props) {
 
             style={styles.buttonLong}
 
-            onPress={()=>setwizStage(wizardStageEnum.location)}
+            onPress={()=>validateForm()?setwizStage(wizardStageEnum.location):""}
 
           >
             <ButtonText style={styles.buttonText}>Next</ButtonText>
@@ -305,7 +359,19 @@ export default function BusinessDetails(props) {
       </VStack>
     )
   }
+  const uploadImgRender =(img)=>{
+    return (
+     <Box style={{paddingTop:30,paddingLeft:40,paddingBottom:10}}>
+        <Icon style={{alignSelf:"flex-end" ,position:"relative" }} as={XCircle}size="xl"></Icon>
+        <Image  borderRadius="$md" size="xl" source={{uri:img.value}}></Image>
+     </Box>
+    )
+  }
   function BusinessDetails_W4() { 
+    const uImages=[
+      {key:"img1" ,value:"https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"},
+      {key:"img2" ,value:"https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"}
+    ]
     return (
       <VStack width="100%" mx="3"  style={styles.fieldSetContainer}>
          <VStack width="100%" mx="3" style={styles.pageHeader} >
@@ -314,6 +380,31 @@ export default function BusinessDetails(props) {
         </HStack>
         </VStack> 
         <Text style={styles.pageTitleMedium}>Upload Photos</Text>
+        <Box style={styles.boxWithRadius}>
+          <HStack >
+           { uImages.map((img)=>{
+              return uploadImgRender(img);
+           })}
+          </HStack>
+       <Center>
+        <Button
+            size="md"
+            variant="solid"
+            action="primary"
+            isDisabled={false}
+            isFocusVisible={false}
+
+            style={[styles.longButtonRounded,{marginTop:20,marginBottom:20}]}
+
+            onPress={()=>handleChoosePhoto()}
+
+          >
+              <ButtonIcon mr={10} size={20} as={Camera} />
+            <ButtonText style={styles.buttonText}>Upload Photo</ButtonText>
+          
+          </Button>
+          </Center>  
+        </Box>
         <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
           <Button
             size="md"
@@ -337,7 +428,6 @@ export default function BusinessDetails(props) {
   }
 
   function createBusiness (){
-    
     //setwizStage(wizardStageEnum.basic);
       console.log("Business Created",formData)
       navigation.navigate('businessList');

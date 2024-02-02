@@ -155,6 +155,7 @@ export  const  getUsers = async (token) => {
     })
  }
 
+ //Business 
 export const getBusinessList=async (token)=>{
     return await axios({
         method: "GET",
@@ -179,6 +180,14 @@ export const getBusinessList=async (token)=>{
     })
 
 }
+export const getCountryList=async(token)=>{
+    return await axios({
+        method:"GET",
+        url:`${baseUrl}/business/countries`,
+        headers:{"APITOKEN":token},
+    })
+}
+//
 
 export const addTask=async(token,task)=>{
     console.log('addTaskAPI',task)

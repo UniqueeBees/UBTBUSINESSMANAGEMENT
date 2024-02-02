@@ -38,6 +38,11 @@ export const styles = StyleSheet.create({
     borderRadius: 0,
 
   },
+  longButtonRounded:{
+    width: 300,
+    borderRadius: 20,
+  },
+
   subheading: {
     fontFamily: 'Poppins-Italic',
     fontSize: 12
@@ -74,7 +79,7 @@ export const styles = StyleSheet.create({
      
   },
   fieldLabel: {
-    paddingVertical: 10, 
+    paddingVertical: 2, 
     fontFamily:'Poppins-Regular',
     fontSize:12,
     justifyContent:'flex-start',
@@ -120,7 +125,7 @@ export const styles = StyleSheet.create({
     zIndex:2,
     position:"absolute",
     right:0,
-    bottom:20
+    bottom:300
 
   }, 
   subTitle: {
@@ -334,6 +339,14 @@ notificationIcon:{
   width:22.5,
   height:22.51,
  opacity:.5,
+},
+boxWithRadius:{
+  borderRadius:20,
+  backgroundColor:"white",
+  minHeight:200,
+},
+imageUploadContainer:{
+ paddingTop:300
 }
 })
 
