@@ -67,7 +67,7 @@ function TaskListLayout(props) {
 
                     </View>
             </VStack>
-        </VStack>
+        </View>
     )
 }
 export default TaskListLayout;
