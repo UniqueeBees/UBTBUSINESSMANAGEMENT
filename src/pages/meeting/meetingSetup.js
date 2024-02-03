@@ -41,8 +41,8 @@ import { styles } from '../../assets/styles/theme';
 import { View, Text } from 'react-native';
 import DateTimePicker, { DateDisplayFormat } from '../../common/datetimepicker'
 import { useNavigation } from "@react-navigation/native";
-import { getContactList } from '../../slices/userSlice';
-import { addNewMeeting, resetSaveRequestStatus } from '../../slices/meetingSlice';
+import { getContactList, getContactById } from '../../slices/userSlice';
+import { addUpdateMeeting, resetSaveRequestStatus } from '../../slices/meetingSlice';
 import { showLoading } from "../../slices/loadingSlice";
 import { showAlert } from '../../slices/alertSlice';
 import { requestStatusDTO } from '../../dto/statusDTO';
@@ -50,7 +50,7 @@ import ContactList from '../contacts/contactList';
 import { getCurrentDateFormated } from '../../common/datetimepicker';
 import { ArrowBigRightDash, MoveLeft } from 'lucide-react-native';
 import BusinessSelect from '../formBusinessList/businessSelect';
-import { resetBusinessName } from '../../slices/businessSlice';
+import { resetBusinessName, setBusinessSelectFromForm, getBusinessById } from '../../slices/businessSlice';
 
 function MeetingSetup(props) {
     const dispatch = useDispatch();
@@ -72,11 +72,37 @@ function MeetingSetup(props) {
     const meetingDateFormat = "YYYY-MM-DD HH:MM";
     const requiredFieldList = useSelector((state) => state.meeting.requiredFieldList);
     const [requiredFieldSettings, setRequiredFieldSettings] = useState(requiredFieldList);
+    const contact = useSelector(state => getContactById(state, meetingSetup.contactId));
+    const business = useSelector(state => getBusinessById(state, meetingSetup.businessId));
     useEffect(() => {
         if (contactList.list.length === 0 && token) {
             dispatch(getContactList(token));
         }
     }, [token])
+    useEffect(() => {
+        if (meetingSetup.contactId) {
+            const contact = contactList.list.find(contact => contact.id === meetingSetup.contactId)
+            if (contact) {
+                setContactName(contact.name)
+            }
+        }
+    }, [contactList.list.length])
+    useEffect(() => {
+        if (meetingSetup.id) {
+            if (contact) {
+                setContactName(contact.name)
+            }
+            if (business) {
+                dispatch(setBusinessSelectFromForm({ business: business }))
+            }
+            else {
+                dispatch(setBusinessSelectFromForm({ business: { id: meetingSetup.businessId, name: '' } }))
+            }
+        }
+        else {
+            setContactName('')
+        }
+    }, [meetingSetup.id])
     useEffect(() => {
         if (saveRequestStatus === requestStatusDTO.fulfilled) {
             setData(meetingSetup);
@@ -103,7 +129,7 @@ function MeetingSetup(props) {
     const changeFormData = (fieldName, value) => {
         let formValues = { ...formData }
         formValues[fieldName] = value;
-        console.log('changeFormData',formValues,fieldName)
+        console.log('changeFormData', formValues, fieldName)
         setData(formValues);
         const reqFields = requiredFieldSettings.map((item) => {
             let reqItem = { ...item }
@@ -116,8 +142,8 @@ function MeetingSetup(props) {
         setRequiredFieldSettings(reqFields)
     }
     const changeBusiness = (fieldName, item) => {
-        
-        changeFormData(fieldName,item.id)
+
+        changeFormData(fieldName, item.id)
         setBusinessName(item.name)
     }
     const validateRequiredFieldOnSave = () => {
@@ -144,7 +170,8 @@ function MeetingSetup(props) {
             formData.scheduledAt = meetingDate;
         }
         if (validateRequiredFieldOnSave()) {
-            dispatch(addNewMeeting({ token: token, meetingData: formData }))
+            formData.id = meetingSetup.id;
+            dispatch(addUpdateMeeting({ token: token, meetingData: formData }))
         }
         else {
             const alert = { action: 'error', title: commonLanguageDTO.error, description: commonLanguageDTO.saveValidationMessage }
@@ -180,14 +207,14 @@ function MeetingSetup(props) {
         if (businessControlSettings.isRequired) {
             businessControlSettings.isInvalid = requiredFieldSettings.some(reqField => reqField.field === fieldName && reqField.isTouched && !reqField.isValid);
         }
-        businessControlSettings.fieldName=fieldName;
+        businessControlSettings.fieldName = fieldName;
         return businessControlSettings;
     }
 
     return (
-        <VStack   style={styles.fieldSetContainer}>
+        <VStack style={styles.fieldSetContainer}>
             <VStack   >
-                <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showContactList ? setContactList(false) : navigation.goBack() }} />
+                <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl" onPress={() => { showContactList ? setContactList(false) : navigation.goBack() }} />
                     <Text style={styles.listHeadingMedium}>
                         {showContactList ? meetingLanguageDTO.contactListTitle : meetingLanguageDTO.createMeeting}
                     </Text>
@@ -195,7 +222,7 @@ function MeetingSetup(props) {
 
             </VStack>
             {showContactList ?
-             <ContactList selectItem={onContactSelect} contactItemList={contactList.list} languageDTO={meetingLanguageDTO} /> :
+                <ContactList selectItem={onContactSelect} contactItemList={contactList.list} languageDTO={meetingLanguageDTO} /> :
                 <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false}>
                     <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />
                     <FormControl isRequired isInvalid={isFieldStateInValid('purposeId')}>
@@ -272,7 +299,7 @@ function MeetingSetup(props) {
                     {!startMeeting && <DateTimePicker
                         label={meetingLanguageDTO.meetingDateAndTime}
                         fieldName='scheduledAt'
-                        isRequired 
+                        isRequired
                         isInvalid={isFieldStateInValid('scheduledAt')}
                         mode={'datetime'}
                         placeholder={meetingLanguageDTO.meetingDateAndTimePlaceholder}

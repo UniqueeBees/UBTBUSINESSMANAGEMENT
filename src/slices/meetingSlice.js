@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getMeetingsByUser, getMeetingPurposeList, addMeeting } from '../common/apiCalls';
-import { buildMeetingListItems, buildMeetingListItem, buildPurposeListItems, meetingSetupDTO } from '../dto/meetingDTO';
+import { getMeetingsByUser, getMeetingPurposeList, addMeeting, updateMeeting } from '../common/apiCalls';
+import { buildMeetingListItems, buildMeetingListItem, buildPurposeListItems, meetingSetupDTO, buildMeetingSetUpDTO } from '../dto/meetingDTO';
 import { requestStatusDTO } from "../dto/statusDTO";
+import { resetValidationObject } from "../common/utility";
 const initialState = {
   isAuthInvalid: false,
   listItems: [],
@@ -36,8 +37,8 @@ export const getPurposeList = createAsyncThunk(
     return response.data
   }
 )
-export const addNewMeeting = createAsyncThunk(
-  'meeting/addMeeting',
+export const addUpdateMeeting = createAsyncThunk(
+  'meeting/addUpdateMeeting',
   async (meeting) => {
     const formData = new FormData();
     formData.append('purpose_id', meeting.meetingData.purposeId);
@@ -46,7 +47,7 @@ export const addNewMeeting = createAsyncThunk(
     formData.append('title', meeting.meetingData.title);
     formData.append('notes', meeting.meetingData.description);
     formData.append('scheduled_at', meeting.meetingData.scheduledAt);
-    const response = await addMeeting(meeting.token, formData)
+    const response = meeting.meetingData.id ? await updateMeeting(meeting.token, formData, meeting.meetingData.id) : await addMeeting(meeting.token, formData)
     return response.data
   }
 )
@@ -59,9 +60,16 @@ export const meetingSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes.
-      // Also, no return statement is required from these functions.
+      // Also, no return statement is required from these functions. 
       state.listItems = []
 
+    },
+    getMeetingByIdFromList: (state, action) => {
+      const meeting = state.listItems.find(meeting => meeting.id === action.payload.id)
+      if (meeting) {
+        state.meetingSetup = buildMeetingSetUpDTO(meeting);
+        state.requiredFieldList = resetValidationObject(state.requiredFieldList, state.meetingSetup)
+      }
     },
     resetSaveRequestStatus: (state) => {
       state.saveRequestStatus = requestStatusDTO.idle;
@@ -112,25 +120,32 @@ export const meetingSlice = createSlice({
           state.hasError = true;
         }
 
-      }).addCase(addNewMeeting.pending, (state, action) => {
+      }).addCase(addUpdateMeeting.pending, (state, action) => {
         state.saveRequestStatus = requestStatusDTO.pending;
 
 
       })
-      .addCase(addNewMeeting.fulfilled, (state, action) => {
+      .addCase(addUpdateMeeting.fulfilled, (state, action) => {
         console.log('addNewMeeting-fulfilled', action)
         const resp = action.payload;
         if (resp.status) {
           state.saveRequestStatus = requestStatusDTO.fulfilled;
-          const newMeeting = buildMeetingListItem(resp.meeting);
-          state.listItems.push(newMeeting);
+          if (resp.message === 'created') {
+            const newMeeting = buildMeetingListItem(resp.meeting);
+            state.listItems.push(newMeeting);
+          }
+          else if (resp.message === 'updated') {
+            const modifiedMeeting = buildMeetingListItem(resp.meeting);
+            const index = state.listItems.findIndex(meeting => meeting.id === modifiedMeeting.id)
+            state.listItems[index] = modifiedMeeting;
+          }
         }
         else {
           state.saveRequestStatus = requestStatusDTO.rejected;
         }
 
       })
-      .addCase(addNewMeeting.rejected, (state, action) => {
+      .addCase(addUpdateMeeting.rejected, (state, action) => {
         console.log('addNewMeeting-rejected', action)
         state.saveRequestStatus = requestStatusDTO.rejected;
         if (action.error && action.error.message === 'Request failed with status code 401') {
@@ -143,5 +158,5 @@ export const meetingSlice = createSlice({
 
 })
 
-export const { reset, resetSaveRequestStatus } = meetingSlice.actions
+export const { reset, resetSaveRequestStatus, getMeetingByIdFromList } = meetingSlice.actions
 export default meetingSlice.reducer;

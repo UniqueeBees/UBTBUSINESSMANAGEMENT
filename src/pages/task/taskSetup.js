@@ -65,6 +65,15 @@ function TaskSetup() {
             dispatch(getUserList(token));
         }
     }, [token])
+
+    useEffect(() => {
+        if (taskSetup.assignTo) {
+            const user = userList.list.find(user => user.id === taskSetup.assignTo)
+            if (user) {
+                setExecutiveName(user.name)
+            }
+        }
+    }, [userList.list.length])
     useEffect(() => {
         if (taskSetup.id) {
             if (user) {

@@ -196,7 +196,6 @@ export const getBusinessList=async (token)=>{
 }
 
 export const addTask=async(token,task)=>{
-    console.log('addTaskAPI',task)
     return await axios({
         method: "POST",
         data: task,
@@ -205,7 +204,6 @@ export const addTask=async(token,task)=>{
     })
  }
  export const updateTask=async(token,task,id)=>{
-    console.log('updateTaskAPI',task)
     task.append('_method', 'PATCH');
     return await axios({
         method: "POST",
@@ -220,6 +218,16 @@ export const addTask=async(token,task)=>{
         method: "POST",
         data: meeting,
         url: `${baseUrl}/meeting`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
+ export const updateMeeting=async(token,meeting,id)=>{
+    console.log('updateMeetingAPI',meeting)
+    meeting.append('_method', 'PATCH');
+    return await axios({
+        method: "POST",
+        data: meeting,
+        url: `${baseUrl}/meeting/${id}`,
         headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
     })
  }
