@@ -27,7 +27,8 @@ function UserList(props) {
     />
 </Input>
         <FlatList showsVerticalScrollIndicator={false}
-            data={props.userItemList}
+            data={userList.list}
+            ref={flatListRef}
             renderItem={({ item }) => <Box style={[styles.listContentItem,styles.boxShadow]} m="$1" p="$2" pl="$5">
                 <VStack>
                     <TouchableOpacity
@@ -50,6 +51,7 @@ function UserList(props) {
                 </VStack>
             </Box>}
         />
+        </VStack>
 
     )
 }

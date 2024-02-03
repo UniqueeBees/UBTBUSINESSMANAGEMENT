@@ -9,7 +9,7 @@ import ListEditContextMenuLauncher from "../../common/listEditContextMenu/listEd
 function MeetingList(props) {
   const navigation = useNavigation();
   return (
-
+<View>
   <VStack  style={{height:"86.5%"}} >
       <FlatList    showsVerticalScrollIndicator={false}
         data={props.meetingListItems}
@@ -56,6 +56,7 @@ function MeetingList(props) {
       >
         <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>
       </Button>
+      </VStack>
     </View>
   )
 }
