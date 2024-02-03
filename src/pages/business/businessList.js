@@ -31,14 +31,14 @@ function BusinessList(props) {
       shadowOpacity:1
     }
     return (
-      <VStack bgColor="$white">
+      <VStack style={styles.tabPageContent}>
         <VStack width="100%" mx="3" style={styles.pageHeader} >
         
          <Text style={[styles.pageTitle,{ textAlign:"center"}]} >BUSINESSES</Text>
          
         </VStack> 
         
-      <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
+      <FlatList  showsVerticalScrollIndicator={false}
         data={businessListItems}
         renderItem={({ item }) =>
         
@@ -46,24 +46,24 @@ function BusinessList(props) {
           <View  > 
           <VStack>
             <HStack   justifyContent="space-between"> 
-              <HStack justifyContent="right" space="lg"   > 
+              <HStack justifyContent="right" space="lg"  width="80%" > 
               <VStack>
-              <Text style={styles.listHeadingMedium} >{item.name}</Text>  
+              <Text  numberOfLines={1} ellipsizeMode="tail" style={styles.listHeadingMedium} >{item.name}</Text>  
               <Text style={styles.listSubDescription} >{item.country}</Text> 
               </VStack>
              
               </HStack> 
-              <HStack justifyContent="right" space="lg"   > 
-              <Icon as={TrashIcon} m="$2" w="$4" h="$4" />
-              <Icon as={EditIcon} m="$2" w="$4" h="$4" />
+              <HStack justifyContent="right" space="lg"  width="20%" > 
+              <Icon as={TrashIcon} m="$1" w="$3" h="$3" />
+              <Icon as={EditIcon} m="$1" w="$4" h="$4" />
               </HStack>
             </HStack>
             <HStack> 
               <HStack justifyContent="flex-start">
-              {item.email?<Icon as={MailIcon} m="$1" w="$3" h="$3" />:""}<BadgeText  style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.email}</BadgeText>
+              {item.email?<Icon as={MailIcon} m="$1" w="$3" h="$3" ml="$0" />:""}<BadgeText  style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.email}</BadgeText>
               </HStack>
               <HStack justifyContent="left">
-              {item.phone?<Icon as={PhoneIcon} m="$1" w="$3" h="$3" />:""}<BadgeText style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.phone}</BadgeText>
+              {item.phone?<Icon as={PhoneIcon} m="$1" w="$3" h="$3" ml={item.email?"$3":"$0"}/>:""}<BadgeText style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.phone}</BadgeText>
               </HStack>
             </HStack>
           </VStack>
@@ -94,7 +94,7 @@ function BusinessList(props) {
   }
   return (
 
-    <View style={{height:'95%'}}>
+    <View  >
       {businessListItems.length === 0 ? <BusinessCreate /> : createList()}
     </View>
   )

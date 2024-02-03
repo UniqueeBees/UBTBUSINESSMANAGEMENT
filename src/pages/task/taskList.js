@@ -1,11 +1,13 @@
 import React from "react";
 import { useNavigation } from '@react-navigation/native';
 import {
-  VStack, HStack, Icon, Button, Heading, Box, Badge, BadgeText, ButtonText, AddIcon
+  VStack, HStack, Icon, Button, Heading, Box, Badge, BadgeText,  ButtonText,  AddIcon
 } from "@gluestack-ui/themed";
 import { FlatList, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import ListEditContextMenuLauncher from "../../common/listEditContextMenu/listEditContextMenuLauncher";
 import { styles } from '../../assets/styles/theme'
+ 
+import { SmilePlus} from 'lucide-react-native';
 function TaskList(props) {
   const navigation = useNavigation();
   const statusList = props.statusList;
@@ -36,7 +38,7 @@ function TaskList(props) {
         renderItem={({ item }) => <Box style={[styles.listContentItem, styles.boxShadow]} bgColor="$white" m="$2" p="$2" pl="$5">
           <VStack >
             <HStack>
-              <Text style={styles.listHeading} width={'93%'}>{item.title}</Text>
+              <Text numberOfLines={1} ellipsizeMode="tail" style={styles.listHeading} width={'93%'}>{item.title}</Text>
               <HStack justifyContent="flex-end">
                 <ListEditContextMenuLauncher type="task" id={item.id} />
               </HStack>
@@ -63,6 +65,7 @@ function TaskList(props) {
       </Button>
       }
     </View>
+
   )
 }
 export default TaskList;

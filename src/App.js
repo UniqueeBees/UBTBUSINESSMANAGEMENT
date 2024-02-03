@@ -24,7 +24,7 @@ import SessionExpire from './common/sessionExpire';
 function App() {
 
   return (
-    <SafeAreaProvider  >
+    <SafeAreaProvider   >
 
       <AppNotification></AppNotification>
       <GluestackUIProvider config={config}>

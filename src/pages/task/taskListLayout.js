@@ -45,7 +45,7 @@ function TaskListLayout(props) {
     const taskList = isMyTask ? myTaskListItems : taskListItems;
     return (
         <View bgColor="$white" >
-            <VStack  >
+            <VStack style={styles.tabPageContent} >
                 <Text style={styles.pageTitle} >Tasks</Text>
 
                 <Center>
@@ -62,10 +62,12 @@ function TaskListLayout(props) {
                         </Button>
                     </HStack>
                 </Center>
+                <View>
                 <TaskList showAdd={true}  resetTaskSetUp={resetTaskSetUpDTO} taskLanguageDTO={taskLanguageDTO} taskListItems={taskList} statusList={taskStatusList} />
 
+                    </View>
             </VStack>
-        </View>
+        </VStack>
     )
 }
 export default TaskListLayout;

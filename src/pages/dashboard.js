@@ -32,8 +32,8 @@ function Dashboard (props){
     const meetingBgColor=isMeeting ? {}:{bgColor:'$whitesmoke'}
     const taskBgColor=!isMeeting ? {}:{bgColor:'$whitesmoke'}
     return (
-     <View bgColor="$white">
-        <VStack bgColor="$white">
+     <VStack style={styles.tabPageContent} >
+        <VStack   >
         <Text style={styles.pageTitle} >{companyState.company.name}</Text>
           
             <Center>
@@ -52,7 +52,7 @@ function Dashboard (props){
             </Center>
                 {isMeeting ?<MeetingLayout  /> : <TaskLayout/>} 
             </VStack>
-     </View>
+     </VStack>
     )
 }
 export default Dashboard;

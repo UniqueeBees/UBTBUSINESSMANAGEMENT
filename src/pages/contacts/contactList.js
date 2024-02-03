@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { FlatList, TouchableOpacity, Pressable } from "react-native";
-import { HStack, VStack, Box, Badge, BadgeText, Heading, Text, Button, ButtonText, Icon, AddIcon, Input, InputField } from "@gluestack-ui/themed";
+import { HStack, VStack, Box, Badge, BadgeText, Heading, Text, Button, ButtonText, Icon, AddIcon, Input, InputField ,View,MailIcon,PhoneIcon,MessageCircleIcon} from "@gluestack-ui/themed";
 import { styles } from "../../assets/styles/theme";
 import { useNavigation } from '@react-navigation/native';
 import ListEditContextMenuLauncher from "../../common/listEditContextMenu/listEditContextMenuLauncher";
@@ -29,35 +29,39 @@ function ContactList(props) {
                 />
             </Input>
 
-            <FlatList style={{ height: "84%" }} showsVerticalScrollIndicator={false}
+            <FlatList style={{ height: "90%" }} showsVerticalScrollIndicator={false}
                 ref={flatListRef}
                 data={contactList.list}
-                renderItem={({ item }) => <Box style={{ borderRadius: 5 }} bgColor="$white" m="$2" p="$2" pl="$5">
+                renderItem={({ item }) => <Box style={[styles.listContentItem,styles.boxShadow]}  m="$1" p="$2" pl="$5">
+                    <View>
                     <VStack>
                         <TouchableOpacity
                             activeOpaticy={1}
                             onPress={() => props.selectItem(item)}>
                             <HStack>
-                                <Heading size="md" width={'93%'} >{item.name}</Heading>
+                                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.listHeadingMedium} width={'93%'} >{item.name}</Text>
                                 <HStack justifyContent="flex-end">
                                     <ListEditContextMenuLauncher type="contact" id={item.id} />
 
                                 </HStack>
                             </HStack>
 
-                            {item.designation && <Text>{item.designation}</Text>}
-                            {item.email && <Text>{item.email}</Text>}
-                            <HStack space="md" justifyContent="flex-end">
-
-                                <Badge size="md" variant="solid" borderRadius="$xl" action="muted" >
-                                    <BadgeText color="$white">{item.mobile1}</BadgeText>
-                                </Badge>
-                                <Badge size="md" variant="solid" borderRadius="$xl" action="muted" >
-                                    <BadgeText >{item.mobile2}</BadgeText>
-                                </Badge>
-                            </HStack>
+                            {item.designation && <Text style={styles.listSubDescription}>{item.designation}</Text>} 
+                            <HStack justifyContent="flex-start">
+                                        {item.email ? <Icon as={MailIcon} m="$1" w="$3" h="$3" ml="$0"/> : ""}<Text style={styles.listSubDescription}>{item.email}</Text>
+                                    </HStack>
+                            <HStack justifyContent="space-between"  >
+                                    <HStack  justifyContent="flex-start">
+                                        {item.mobile1 ? <Icon as={PhoneIcon} m="$1" w="$3" h="$3" ml="$0"/> : ""}<Text style={styles.listSubDescription}>{item.mobile1}</Text>
+                                    </HStack>
+                                    <HStack justifyContent="flex-end">
+                                        {item.mobile2 ? <Icon as={MessageCircleIcon} m="$1" w="$3" h="$3" /> : ""}<Text style={styles.listSubDescription}>{item.mobile2}</Text>
+                                    </HStack>
+                                </HStack> 
+                           
                         </TouchableOpacity>
                     </VStack>
+                    </View>
                 </Box>}
             />
             <Button
@@ -72,7 +76,7 @@ function ContactList(props) {
                 onPress={() => navigation.navigate("contactSetup")}
 
             >
-                <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>
+                <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$6" h="$6" /></ButtonText>
             </Button></VStack>
 
     )

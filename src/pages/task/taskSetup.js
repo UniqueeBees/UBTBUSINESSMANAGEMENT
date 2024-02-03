@@ -170,9 +170,10 @@ function TaskSetup() {
             <VStack width="100%" mx="3" style={styles.pageHeader} >
                
                 <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showUserList ? setUserList(false) : navigation.goBack() }} />
-                    <Heading style={styles.pageTitle1}>
-                    {showUserList ? taskLanguageDTO.executiveListTitle : taskLanguageDTO.createTask}
-                    </Heading>
+                <Text  style={[styles.pageTitle,{ textAlign:"center"}]}>
+                {showUserList ? taskLanguageDTO.executiveListTitle : taskLanguageDTO.createTask}
+              </Text>
+                 
                 </HStack>
 
 
@@ -180,7 +181,7 @@ function TaskSetup() {
 
 
             {showUserList ? <UserList selectItem={selectExecutive} userItemList={userList.list} languageDTO={taskLanguageDTO} /> :
-                <ScrollView style={styles.scrollView_withToolBar} >
+                <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false}>
                   
                    {formData.id===0 && <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />}
                     <FormControl isRequired isInvalid={isFieldStateInValid('assignTo')}>

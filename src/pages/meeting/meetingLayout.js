@@ -21,7 +21,7 @@ function MeetingLayout(props) {
 
 
     return (
-        <VStack space="md" width="100%" bgColor="$white">
+        <VStack  >
             {meetingListItems.length === 0 ? <CreateMeeting purposeList={purposeList} /> : 
             <MeetingList 
              purposeList={purposeList}

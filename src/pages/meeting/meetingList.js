@@ -10,14 +10,14 @@ function MeetingList(props) {
   const navigation = useNavigation();
   return (
 
-    <View style={{ marginBottom: 100 }} bgColor="$white">
-      <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
+  <VStack  style={{height:"86.5%"}} >
+      <FlatList    showsVerticalScrollIndicator={false}
         data={props.meetingListItems}
         renderItem={({ item }) =>
           <Box style={[styles.listContentItem, styles.boxShadow]} bgColor="$white" m="$2" p="$2" pl="$5" >
             <VStack >
               <HStack>
-                <Text style={styles.listHeading} width={'93%'}>{item.title}</Text>
+                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.listHeading} width={'93%'}>{item.title}</Text>
                 <HStack justifyContent="flex-end">
                   <ListEditContextMenuLauncher type="meeting" id={item.id} />
                 </HStack>

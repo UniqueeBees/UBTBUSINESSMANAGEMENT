@@ -7,7 +7,7 @@ import CreateTask from './createTask';
 import { selectNotCompletedTasks } from '../../slices/taskSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTaskListByUser, getTaskStatusList } from '../../slices/taskSlice';
-
+import { styles } from '../../assets/styles/theme';
 function TaskLayout() {
 
 
@@ -24,7 +24,7 @@ function TaskLayout() {
     }, [token])
     return (
 
-        <View bgColor="$white">
+        <View  >
             {(isTaskListRequestLoading && taskListItems.length === 0) ? <Box /> : taskListItems.length === 0 ?
                 <CreateTask taskLanguageDTO={taskLanguageDTO} /> :
                 <TaskList showAdd={false} taskLanguageDTO={taskLanguageDTO} taskListItems={taskListItems} statusList={taskStatusList} />}
