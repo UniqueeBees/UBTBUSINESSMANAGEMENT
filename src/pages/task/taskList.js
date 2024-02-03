@@ -40,7 +40,7 @@ function TaskList(props) {
             <HStack>
               <Text numberOfLines={1} ellipsizeMode="tail" style={styles.listHeading} width={'93%'}>{item.title}</Text>
               <HStack justifyContent="flex-end">
-                <ListEditContextMenuLauncher type="task" id={item.id} />
+                <ListEditContextMenuLauncher source={props.source} type="task" id={item.id} />
               </HStack>
             </HStack>
             {item.description && <Text style={styles.listSubHeading} >{item.description}</Text>}

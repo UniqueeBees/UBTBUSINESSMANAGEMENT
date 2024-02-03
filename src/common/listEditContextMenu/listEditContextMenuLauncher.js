@@ -15,7 +15,7 @@ function ListEditContextMenuLauncher(props) {
             dispatch(showContextMenu({ 
                 show: true, 
                 position: { x: pageX, y: pageY },
-                settings:{type:props.type,id:props.id}, 
+                settings:{type:props.type,id:props.id,launchSource:props.source}, 
             }))
         })
     }

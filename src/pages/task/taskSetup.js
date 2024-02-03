@@ -20,7 +20,7 @@ import {
     FormControlErrorText,
     Heading,
     Icon,
-    HStack, 
+    HStack,
     ArrowLeftIcon,
     ScrollView,
     Box,
@@ -29,17 +29,17 @@ import {
 import { ArrowRight, ChevronRight } from 'lucide-react-native';
 import { styles } from '../../assets/styles/theme';
 import { View, Text } from 'react-native';
-import DateTimePicker,{DateDisplayFormat} from '../../common/datetimepicker'
+import DateTimePicker, { DateDisplayFormat } from '../../common/datetimepicker'
 import { useNavigation } from "@react-navigation/native";
-import { getUserList,getUserById } from '../../slices/userSlice';
-import { addUpdateTask,resetSaveRequestStatus,resetTaskSetUp } from '../../slices/taskSlice';
+import { getUserList, getUserById } from '../../slices/userSlice';
+import { addUpdateTask, resetSaveRequestStatus, resetTaskSetUp } from '../../slices/taskSlice';
 import { showLoading } from "../../slices/loadingSlice";
 import { showAlert } from '../../slices/alertSlice';
 import { requestStatusDTO } from '../../dto/statusDTO';
 import BusinessSelect from '../formBusinessList/businessSelect';
 import { resetBusinessName } from '../../slices/businessSlice';
 import UserList from './userList';
-import { ArrowBigRightDash ,MoveLeft} from 'lucide-react-native';
+import { ArrowBigRightDash, MoveLeft } from 'lucide-react-native';
 function TaskSetup() {
     const dispatch = useDispatch();
     const hasUser = useSelector((state) => state.user.hasUser)
@@ -57,30 +57,31 @@ function TaskSetup() {
     const [businessName, setBusinessName] = useState('');
     const requiredFieldList = useSelector((state) => state.task.requiredFieldList);
     const [requiredFieldSettings, setRequiredFieldSettings] = useState(requiredFieldList);
-    const user = useSelector(state => getUserById(state, taskSetup.assignTo)); 
+    const user = useSelector(state => getUserById(state, taskSetup.assignTo));
+    const taskSetUpLaunchSource = useSelector((state) => state.task.taskSetUpLaunchSource);
 
-    
     useEffect(() => {
         if (userList.list.length === 0 && token) {
             dispatch(getUserList(token));
         }
     }, [token])
     useEffect(() => {
-        if ( taskSetup.id) {
-            if(user){
-                setExecutiveName(user.name) 
+        if (taskSetup.id) {
+            if (user) {
+                setExecutiveName(user.name)
             }
         }
-        else{
+        else {
             setExecutiveName('')
         }
-    }, [taskSetup.id ])
+    }, [taskSetup.id])
     useEffect(() => {
         if (saveRequestStatus === requestStatusDTO.fulfilled) {
             setData(taskSetup);
             setRequiredFieldSettings(requiredFieldList);
             setExecutiveName('')
-            navigation.navigate('dashboard',{screen:'dashboardLayout'})
+            navigateBack();
+            // navigation.navigate('dashboard', { screen: 'dashboardLayout' })
             dispatch(resetSaveRequestStatus());
             dispatch(resetBusinessName());
             dispatch(showLoading(false))
@@ -98,12 +99,21 @@ function TaskSetup() {
             dispatch(showAlert(alert))
         }
     }, [saveRequestStatus])
+    const navigateBack = () => {
+        if (taskSetUpLaunchSource === "dashboard") {
+            navigation.goBack()
+        }
+        else {
+            navigation.goBack()
+            navigation.navigate("taskListLayout")
+        }
+    }
     const changeFormData = (fieldName, value) => {
         let formValues = { ...formData }
         formValues[fieldName] = value;
         setData(formValues);
         const reqFields = requiredFieldSettings.map((item) => {
-            let reqItem={...item}
+            let reqItem = { ...item }
             if (reqItem.field === fieldName) {
                 reqItem.isTouched = true;
                 reqItem.isValid = value ? true : false;
@@ -113,17 +123,17 @@ function TaskSetup() {
         setRequiredFieldSettings(reqFields)
     }
     const changeBusiness = (fieldName, item) => {
-        
-        changeFormData(fieldName,item.id)
+
+        changeFormData(fieldName, item.id)
         setBusinessName(item.name)
     }
-    const validateRequiredFieldOnSave=()=>{
-        let isValid=true;
+    const validateRequiredFieldOnSave = () => {
+        let isValid = true;
         const reqFields = requiredFieldSettings.map((item) => {
-            let reqItem={...item}
+            let reqItem = { ...item }
             if (!formData[item.field]) {
                 reqItem.isValid = false;
-                isValid=false;
+                isValid = false;
             }
             reqItem.isTouched = true;
             return reqItem;
@@ -131,29 +141,29 @@ function TaskSetup() {
         setRequiredFieldSettings(reqFields)
         return isValid;
     }
-    const isFieldStateInValid=(fieldName)=>{
-       const isInValid= requiredFieldSettings.find(reqField => reqField.field === fieldName && reqField.isTouched && !reqField.isValid);
-       return (isInValid ?  true: false);
+    const isFieldStateInValid = (fieldName) => {
+        const isInValid = requiredFieldSettings.find(reqField => reqField.field === fieldName && reqField.isTouched && !reqField.isValid);
+        return (isInValid ? true : false);
     }
     const submit = () => {
-        if(validateRequiredFieldOnSave()){
-            formData.id=taskSetup.id;
-        dispatch(addUpdateTask({token:token, taskData:formData}))
+        if (validateRequiredFieldOnSave()) {
+            formData.id = taskSetup.id;
+            dispatch(addUpdateTask({ token: token, taskData: formData }))
         }
-        else{
+        else {
             const alert = { action: 'error', title: commonLanguageDTO.error, description: commonLanguageDTO.saveValidationMessage }
-            dispatch(showAlert(alert)) 
+            dispatch(showAlert(alert))
         }
     }
     const setDateValue = (value, fieldName) => {
-        changeFormData(fieldName,value)
+        changeFormData(fieldName, value)
     }
     const handleExecutiveSelect = (show) => {
         setUserList(show);
     }
     const selectExecutive = (item) => {
         setUserList(false);
-        changeFormData('assignTo',item.id)
+        changeFormData('assignTo', item.id)
         setExecutiveName(item.name)
     }
     const setBusinessControlSettings = (fieldName) => {
@@ -162,18 +172,21 @@ function TaskSetup() {
         if (businessControlSettings.isRequired) {
             businessControlSettings.isInvalid = requiredFieldSettings.some(reqField => reqField.field === fieldName && reqField.isTouched && !reqField.isValid);
         }
-        businessControlSettings.fieldName=fieldName;
+        businessControlSettings.fieldName = fieldName;
         return businessControlSettings;
     }
     return (
-        <VStack width="100%" mx="3" height="100%"  style={styles.fieldSetContainer}>
+        <VStack width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
             <VStack width="100%" mx="3" style={styles.pageHeader} >
-               
-                <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl"  onPress={() => { showUserList ? setUserList(false) : navigation.goBack() }} />
-                <Text  style={[styles.pageTitle,{ textAlign:"center"}]}>
-                {showUserList ? taskLanguageDTO.executiveListTitle : taskLanguageDTO.createTask}
-              </Text>
-                 
+
+                <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl" onPress={() => {
+                    showUserList ? setUserList(false) : navigateBack()
+
+                }} />
+                    <Text style={[styles.pageTitle, { textAlign: "center" }]}>
+                        {showUserList ? taskLanguageDTO.executiveListTitle : taskLanguageDTO.createTask}
+                    </Text>
+
                 </HStack>
 
 
@@ -182,8 +195,8 @@ function TaskSetup() {
 
             {showUserList ? <UserList selectItem={selectExecutive} userItemList={userList.list} languageDTO={taskLanguageDTO} /> :
                 <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false}>
-                  
-                   {formData.id===0 && <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />}
+
+                    {formData.id === 0 && <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />}
                     <FormControl isRequired isInvalid={isFieldStateInValid('assignTo')}>
                         <FormControlLabel mb="$1">
                             <FormControlLabelText style={styles.fieldLabel}>{taskLanguageDTO.assignTo}</FormControlLabelText>
@@ -208,7 +221,7 @@ function TaskSetup() {
                         </FormControlLabel>
                         <Input variant="underlined" size="md"   >
                             <InputField placeholder={taskLanguageDTO.titlePlaceholder} value={formData.title}
-                                onChangeText={value => changeFormData('title', value )}>
+                                onChangeText={value => changeFormData('title', value)}>
                             </InputField>
                         </Input>
                         <FormControlError>

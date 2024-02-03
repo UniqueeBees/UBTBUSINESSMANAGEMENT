@@ -19,7 +19,8 @@ const initialState = {
   saveRequestStatus: requestStatusDTO.idle,
   requiredFieldList: [{ field: 'title', isTouched: false, isValid: false },
   { field: 'assignTo', isTouched: false, isValid: false },
-  ]
+  ],
+  taskSetUpLaunchSource:"taskListLayout",
 }
 export const getTaskListByUser = createAsyncThunk(
   'task/getlistByUser',
@@ -74,6 +75,7 @@ export const taskSlice = createSlice({
     },
     resetTaskSetUp: (state) => {
       state.taskSetup = initialState.taskSetup;
+      state.taskSetUpLaunchSource="taskListLayout";
       state.saveRequestStatus = requestStatusDTO.idle;
     },
     resetSaveRequestStatus: (state, action) => {
@@ -85,6 +87,7 @@ export const taskSlice = createSlice({
       if (task) {
         state.taskSetup = buildTaskSetupDTOFromTaskListItem(task);
         state.requiredFieldList = resetValidationObject(state.requiredFieldList, state.taskSetup)
+        state.taskSetUpLaunchSource=action.payload.launchSource
       }
     },
   },

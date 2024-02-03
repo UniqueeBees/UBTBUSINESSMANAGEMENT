@@ -23,7 +23,7 @@ const ListEditContextMenu = (props) => {
 
                 }
                 else if (settings.type === 'task') {
-                    dispatch(getTaskByIdFromList({id:settings.id}));
+                    dispatch(getTaskByIdFromList({id:settings.id,launchSource:settings.launchSource}));
                     navigation.navigate("taskSetup");
                 }
                 else if (settings.type === 'contact') {
