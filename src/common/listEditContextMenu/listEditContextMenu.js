@@ -7,11 +7,14 @@ import {
 } from '@gluestack-ui/themed';
 import { useSelector, useDispatch } from 'react-redux';
 import { showContextMenu } from '../../slices/listEditContextMenuSlice';
+import { getTaskByIdFromList } from '../../slices/taskSlice';
+import { useNavigation } from '@react-navigation/native';
 const ListEditContextMenu = (props) => {
     const showAlertDialog = useSelector((state) => state.listContextMenu.show)
     const position = useSelector((state) => state.listContextMenu.position)
     const settings = useSelector((state) => state.listContextMenu.settings)
     const dispatch = useDispatch();
+    const navigation=useNavigation();
     const menuAction = (action) => {
         dispatch(showContextMenu(false));
         if (settings) {
@@ -20,7 +23,8 @@ const ListEditContextMenu = (props) => {
 
                 }
                 else if (settings.type === 'task') {
-
+                    dispatch(getTaskByIdFromList({id:settings.id}));
+                    navigation.navigate("taskSetup");
                 }
                 else if (settings.type === 'contact') {
 

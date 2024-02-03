@@ -16,6 +16,19 @@ export const taskSetupDTO={
     status:0,
     duedate:'',
 }
+export const buildTaskSetupDTOFromTaskListItem=(taskListItem)=>{
+    return {
+        id:taskListItem.id,
+        businessId:0,
+        title:taskListItem.title,
+        description:taskListItem.description,
+        status:taskListItem.status,
+        assignTo:taskListItem.assignedTo,
+        userId:taskListItem.userId,
+        dueDate:taskListItem.dueDate,
+    
+    };
+}
 export const buildTaskListItem=(taskListItem)=>{
     return {
         id:taskListItem.id,

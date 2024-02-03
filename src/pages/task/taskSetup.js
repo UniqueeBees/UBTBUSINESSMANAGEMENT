@@ -31,8 +31,8 @@ import { styles } from '../../assets/styles/theme';
 import { View, Text } from 'react-native';
 import DateTimePicker,{DateDisplayFormat} from '../../common/datetimepicker'
 import { useNavigation } from "@react-navigation/native";
-import { getUserList } from '../../slices/userSlice';
-import { addNewTask,resetSaveRequestStatus } from '../../slices/taskSlice';
+import { getUserList,getUserById } from '../../slices/userSlice';
+import { addUpdateTask,resetSaveRequestStatus,resetTaskSetUp } from '../../slices/taskSlice';
 import { showLoading } from "../../slices/loadingSlice";
 import { showAlert } from '../../slices/alertSlice';
 import { requestStatusDTO } from '../../dto/statusDTO';
@@ -57,11 +57,24 @@ function TaskSetup() {
     const [businessName, setBusinessName] = useState('');
     const requiredFieldList = useSelector((state) => state.task.requiredFieldList);
     const [requiredFieldSettings, setRequiredFieldSettings] = useState(requiredFieldList);
+    const user = useSelector(state => getUserById(state, taskSetup.assignTo)); 
+
+    
     useEffect(() => {
         if (userList.list.length === 0 && token) {
             dispatch(getUserList(token));
         }
     }, [token])
+    useEffect(() => {
+        if ( taskSetup.id) {
+            if(user){
+                setExecutiveName(user.name) 
+            }
+        }
+        else{
+            setExecutiveName('')
+        }
+    }, [taskSetup.id ])
     useEffect(() => {
         if (saveRequestStatus === requestStatusDTO.fulfilled) {
             setData(taskSetup);
@@ -124,7 +137,8 @@ function TaskSetup() {
     }
     const submit = () => {
         if(validateRequiredFieldOnSave()){
-        dispatch(addNewTask({token:token, taskData:formData}))
+            formData.id=taskSetup.id;
+        dispatch(addUpdateTask({token:token, taskData:formData}))
         }
         else{
             const alert = { action: 'error', title: commonLanguageDTO.error, description: commonLanguageDTO.saveValidationMessage }
@@ -168,7 +182,7 @@ function TaskSetup() {
             {showUserList ? <UserList selectItem={selectExecutive} userItemList={userList.list} languageDTO={taskLanguageDTO} /> :
                 <ScrollView style={styles.scrollView_withToolBar} >
                   
-                    <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />
+                   {formData.id===0 && <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />}
                     <FormControl isRequired isInvalid={isFieldStateInValid('assignTo')}>
                         <FormControlLabel mb="$1">
                             <FormControlLabelText style={styles.fieldLabel}>{taskLanguageDTO.assignTo}</FormControlLabelText>

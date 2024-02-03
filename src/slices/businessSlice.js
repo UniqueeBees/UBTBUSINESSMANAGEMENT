@@ -105,5 +105,5 @@ export const businessSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { reset,setBusinessSelectFromForm,resetBusinessName } = businessSlice.actions
-
+export const getBusinessById = (state, businessId) => state.businessList.find(item => item.id === businessId)
 export default businessSlice.reducer

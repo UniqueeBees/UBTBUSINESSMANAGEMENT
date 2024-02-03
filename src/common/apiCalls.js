@@ -137,6 +137,14 @@ export  const  getTaskStatusListAPI = async (token) => {
      })
  
  }
+ export  const  getTaskById = async (token,id) => {
+    return await axios({
+         method: "GET",
+         url: `${baseUrl}/task/${id}`,
+         headers: { "APITOKEN":token },
+     })
+ 
+ }
 export  const  getUser = async (token) => {
    return await axios({
         method: "POST",
@@ -193,6 +201,16 @@ export const addTask=async(token,task)=>{
         method: "POST",
         data: task,
         url: `${baseUrl}/tasks`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
+ export const updateTask=async(token,task,id)=>{
+    console.log('updateTaskAPI',task)
+    task.append('_method', 'PATCH');
+    return await axios({
+        method: "POST",
+        data: task,
+        url: `${baseUrl}/tasks/${id}`,
         headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
     })
  }

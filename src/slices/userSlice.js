@@ -139,4 +139,6 @@ export const userSlice = createSlice({
 })
 
 export const { resetUser,addContactToList } = userSlice.actions
+export const getUserById = (state, userId) => state.user.userList.list.find(item => item.id === userId)
+export const getContactById = (state, contactId) => state.user.contactList.list.find(item => item.id === contactId)
 export default userSlice.reducer;
