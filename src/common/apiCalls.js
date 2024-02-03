@@ -245,6 +245,19 @@ export const changePassword = (passwordData,token) => {
         headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
     })
 }
+export const addAttachments=(attachmentData,token)=>{
+    const formData = new FormData(); 
+    formData.append('businessId', attachmentData.business_id); 
+    formData.append('identifier', attachmentData.identifier);
+    formData.append('name', attachmentData.name); 
+    formData.append('file', attachmentData.file); 
+   return  axios({
+        method: "PATCH",
+        data: formData,
+        url: `${baseUrl}/user/password`,
+        headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
+    })
+}
 
 
 

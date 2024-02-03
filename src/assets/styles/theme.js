@@ -42,7 +42,10 @@ export const styles = StyleSheet.create({
     width: 300,
     borderRadius: 20,
   },
-
+  shortButtonRounded:{
+    width: 100,
+    borderRadius: 20,
+  },
   subheading: {
     fontFamily: 'Poppins-Italic',
     fontSize: 12
@@ -347,6 +350,7 @@ boxWithRadius:{
 },
 imageUploadContainer:{
  paddingTop:300
-}
+},
+
 })
 

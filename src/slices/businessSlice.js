@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { businessDTO, buildDTO, buildBusinessListItems, buildBusinessTypes } from '../dto/businessDTO'
+import { attachmentDTO } from '../dto/attachmentDTO'
 import { getBusinessTypes, getBusinessList, createBusiness, apiCallStatus,getCountryList } from '../common/apiCalls'
 const initialState = {
   businessList: [],
@@ -29,10 +30,16 @@ export const getBusinessListItems = createAsyncThunk(
 )
 export const createNewBusiness = createAsyncThunk(
   'business/createNewBusiness',
-  async (token, businessDTO) => {
-    console.log('create')
+  async (token, businessDTO,attachmentDTO) => {
+    console.log('create business')
     const response = await createBusiness(token, businessDTO)
-    return response.data
+    let crData= response.data
+    if(crData.status){
+      console.log('upload business attch')
+    attachmentDTO.business_id=crData.business.id;
+    const attachRespo=await uploadBusinessImages(token,attachmentDTO)
+    } 
+
   }
 )
 export const getCountries =createAsyncThunk(
@@ -40,6 +47,14 @@ export const getCountries =createAsyncThunk(
   async(token)=>{
     const response =await getCountryList(token);
     console.log("getCountries data",response);
+    return response.data
+  }
+)
+export const uploadBusinessImages = createAsyncThunk(
+  'attachments',
+  async (token, attachmentDTO) => {
+    console.log('uploadBusinessImages')
+    const response = await uploadBusinessImages(token, attachmentDTO)
     return response.data
   }
 )
@@ -132,6 +147,30 @@ export const businessSlice = createSlice({
         state.status = apiCallStatus.rejected
         state.error = action.error.message
         state.countries = []
+      })
+      //Create business
+      .addCase(createNewBusiness.pending, (state, action) => {
+        console.log(apiCallStatus.pending)
+        state.status = apiCallStatus.pending
+
+      })
+      .addCase(createNewBusiness.fulfilled, (state, action) => {
+        console.log('createNewBusiness', action)
+        state.loading = false;
+        const resp = action.payload;
+        if (resp.status) {
+          state.hasError = false;
+          //state.countries =resp.countries
+        }
+        else {
+          state.hasError = true;
+        }
+      })
+      .addCase(createNewBusiness.rejected, (state, action) => {
+        console.log(apiCallStatus.rejected, action)
+        state.status = apiCallStatus.rejected
+        state.error = action.error.message
+        //state.business = businessDTO
       })
   },
 })
