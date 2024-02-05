@@ -77,18 +77,18 @@ function Language(props) {
       <VStack style={styles.langugeHeadingContainer} alignItems="center" >
       <Text style={styles.langugeHeading}>Choose Language</Text></VStack>
       <VStack space="md" width="100%" pb={15} pl={80} pr={78} pt="$0" mt="40px" >
-        <VStack space="4xl" >
+        <VStack space="4xl" pt="$2">
           <FlatList
           showsVerticalScrollIndicator={false}
             data={languageData}
             renderItem={({ item }) =>
               <TouchableOpacity  onPress={() => { SetLanguage(item.code) }} underlayColor="white">
 
-                <HStack space="md" mt="$4" pr={8}  style={[styles.boxShadow,styles.listBadge, {height:50,alignContent:"center"}] }>
+                <HStack space="md" mt="$2" pr={8}  style={[styles.boxShadow,styles.listBadge, {height:50,alignContent:"center"}] }>
                   <Badge size="md" height={30} m="$2" variant="solid" borderRadius="$xl" action="muted" bgColor="$white" >
 
-                    <Text style={[styles.textMedium13,{ width: "90%", textAlign: "left",paddingRight:20 }]} >{item.name}</Text><Icon id={item.code} size="lg"
-                      on as={MoveRight} m="$2" w="$4" h="$4" style={{ cursor: 'pointer' }} />
+                    <Text style={[styles.textMedium13,{ width: "93%", textAlign: "left"}]} >{item.name}</Text><Icon id={item.code} size="xl"
+                      on as={MoveRight}  w="$10" h="$4" style={{ cursor: 'pointer'}} />
 
                   </Badge>
                 </HStack>
