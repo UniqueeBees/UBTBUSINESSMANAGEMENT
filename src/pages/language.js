@@ -76,7 +76,7 @@ function Language(props) {
     <VStack height="100%" bgColor="$white">
       <VStack style={styles.langugeHeadingContainer} alignItems="center" >
       <Text style={styles.langugeHeading}>Choose Language</Text></VStack>
-      <VStack space="md" width="100%" pb={15} pl={80} pr={78} pt="$0" mt="40px" >
+      <VStack space="md" width="100%" pb={15} pl={80} pr={70} pt="$0" mt="40px" >
         <VStack space="4xl" pt="$2">
           <FlatList
           showsVerticalScrollIndicator={false}
@@ -87,7 +87,7 @@ function Language(props) {
                 <HStack space="md" mt="$2" pr={8}  style={[styles.boxShadow,styles.listBadge, {height:50,alignContent:"center"}] }>
                   <Badge size="md" height={30} m="$2" variant="solid" borderRadius="$xl" action="muted" bgColor="$white" >
 
-                    <Text style={[styles.textMedium13,{ width: "93%", textAlign: "left"}]} >{item.name}</Text><Icon id={item.code} size="xl"
+                    <Text style={[styles.textMedium13,{ width: "92%", textAlign: "left"}]} >{item.name}</Text><Icon id={item.code} size="xl"
                       on as={MoveRight}  w="$10" h="$4" style={{ cursor: 'pointer'}} />
 
                   </Badge>
