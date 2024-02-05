@@ -131,16 +131,27 @@ export const styles = StyleSheet.create({
     letterSpacing:.1,
   },
   langugeHeading:{
-    textAlign:"center",
-    paddingBottom:20,
-    paddingTop:95,
-    width:"100%",
+    
     fontFamily:"Poppins-Regular",
-    fontSize:32,
+    fontSize:28,
    // color:"black",
-    //fontWeight:"650",
-    letterSpacing:1,
+    fontWeight:"680",
+    letterSpacing:0,
+    color:"black",
+    textAlign:"center",
+    height:"45px",
+        
   },
+
+  langugeHeadingContainer:{
+    width:"100%",
+    height:"45px",
+    paddingBottom:10,
+    marginTop:90,
+               
+  },
+
+
   mainHeading:{
     textAlign:"center",
     width:"100%",
@@ -240,9 +251,16 @@ titleMedium18:{
   fontSize:18,  
   
 },
+
 titleMedium12:{
   fontFamily:"Poppins-Medium",
   fontSize:12,  
+  
+},
+textMedium10:{
+  fontFamily:"Poppins-Medium",
+  fontSize:10,  
+  color:"#171717"
   
 },
 textMedium13:{

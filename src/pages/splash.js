@@ -82,9 +82,9 @@ function Splash(props) {
 
   return (
     /*bg="$primary500"*/
-    <VStack h="100%" >
+    <VStack h="100%" bgColor='white'>
       <Center h="100%" shadow={3} >
-        <VStack>
+        <VStack width="100%" alignItems='center'>
           <Image source={require('../assets/images/Logofile.png')} style={styles.logo} />
         </VStack>
         <VStack mt={50} style={{ width: 300 }} >
