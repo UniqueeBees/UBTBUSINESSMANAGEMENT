@@ -147,7 +147,7 @@ export const styles = StyleSheet.create({
     width:"100%",
     height:"45px",
     paddingBottom:10,
-    marginTop:136,
+    marginTop:145,
                
   },
 
