@@ -9,7 +9,7 @@ import Login from "../pages/login";
 import InitialPage from "../pages/initialPage";
 import Tabs from '../navigation/tabs';
 import CreateContact from "../pages/contacts/createContact";
-import ChangePassword  from "../pages/settings/changePassword";
+import ChangePassword  from "../pages/changePassword";
 const Stack = createNativeStackNavigator();
 export const navigationRoutes={
   company:"company",

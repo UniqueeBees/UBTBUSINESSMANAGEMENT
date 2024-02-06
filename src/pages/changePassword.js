@@ -22,12 +22,12 @@ import {
   Text
 
 } from "@gluestack-ui/themed"
-import { styles } from '../../assets/styles/theme';
-import {changePassword } from '../../common/apiCalls';
+import { styles } from '../assets/styles/theme';
+import {changePassword } from '../common/apiCalls';
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from 'react-redux'
-import { showAlert } from '../../slices/alertSlice'
-import { showLoading } from "../../slices/loadingSlice";
+import { showAlert } from '../slices/alertSlice'
+import { showLoading } from "../slices/loadingSlice";
 import { MoveLeft,ArrowRightToLine} from 'lucide-react-native';
  
 

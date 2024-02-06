@@ -4,21 +4,21 @@ import {
 } from "@gluestack-ui/themed";
 import { FlatList,Linking, View,TouchableHighlight } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../slices/loginSlice";
-import { setPage, setPageWithParameters } from '../../slices/initialPageSlice';
-import { resetUser } from "../../slices/userSlice";
-import { navigationRoutes } from '../../common/navigation';
-import { getMeetingListByUser } from '../../slices/meetingSlice';
-import { getTaskListByUser } from '../../slices/taskSlice';
-import { getBusinessListItems } from '../../slices/businessSlice';
+import { logout } from "../slices/loginSlice";
+import { setPage, setPageWithParameters } from '../slices/initialPageSlice';
+import { resetUser } from "../slices/userSlice";
+import { navigationRoutes } from '../common/navigation';
+import { getMeetingListByUser } from '../slices/meetingSlice';
+import { getTaskListByUser } from '../slices/taskSlice';
+import { getBusinessListItems } from '../slices/businessSlice';
 import {
   Avatar,
   AvatarBadge,
   AvatarFallbackText,
   AvatarImage, AvatarGroup
 } from "@gluestack-ui/themed"
-import { baseUrl, getProfile } from '../../common/apiCalls';
-import { styles } from '../../assets/styles/theme';
+import { baseUrl, getProfile } from '../common/apiCalls';
+import { styles } from '../assets/styles/theme';
 function Settings() {
 
   const dispatch = useDispatch();
