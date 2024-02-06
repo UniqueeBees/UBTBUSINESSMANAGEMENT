@@ -2,10 +2,12 @@ import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import {accountLoginAPI,changePassword}from '../common/apiCalls'
 import{loginDTO} from '../dto/loginDTO'
 import {storeObjectData,storageKeyTypes,removeStoreObjectData} from '../common/localStorage'
-export const accountLogin = createAsyncThunk(
+export const accountLogin = createAsyncThunk( 
   'account/accountLogin',
   async (login) => {
+    debugger;
     const response = await accountLoginAPI( login)
+    debugger;
     return response.data
   }
 )

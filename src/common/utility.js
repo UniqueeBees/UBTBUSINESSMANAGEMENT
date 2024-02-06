@@ -1,5 +1,10 @@
 import { storageKeyTypes, getObjectData } from './localStorage';
 import {navigationRoutes} from './navigation';
+import {
+
+    PermissionsAndroid,
+  
+  } from 'react-native';
 export const initialStorageStatus = async () => {
     const initialAppState = { startPage: navigationRoutes.language, loginDTO: false, languageDTO: false, companyDTO: false }
     const login = await getObjectData(storageKeyTypes.login)
@@ -61,4 +66,28 @@ else
     console.log('initialAppState', initialAppState)
     return initialAppState;
 }
+
+export const requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: "App Camera Permission",
+          message: "App needs access to your camera ",
+          buttonNeutral: "Ask Me Later",
+          buttonNegative: "Cancel",
+          buttonPositive: "OK"
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("Camera permission given");
+        return true;
+      } else {
+        console.log("Camera permission denied");
+        return false;
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
 

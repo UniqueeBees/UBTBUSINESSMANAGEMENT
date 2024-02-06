@@ -1,9 +1,5 @@
 import React, { useEffect } from "react"
-import {
 
-  PermissionsAndroid,
-
-} from 'react-native';
 import {
   VStack,
   FormControl,
@@ -43,11 +39,15 @@ import { attachmentDTO } from "../../dto/attachmentDTO"
 import { styles } from '../../assets/styles/theme'
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from 'react-redux';
-import { businessTypes, getCountries,createNewBusiness } from '../../slices/businessSlice'
-import { ArrowBigRightDash, CheckCircle2, Camera, XCircle,FolderUp  } from 'lucide-react-native';
+import { businessTypes, getCountries, createNewBusiness } from '../../slices/businessSlice'
+import { ArrowBigRightDash, CheckCircle2, Camera, XCircle, FolderUp } from 'lucide-react-native';
 import { MoveLeft } from 'lucide-react-native';
 import PageHeader from "../pageHeader";
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
+import { requestCameraPermission } from '../../common/utility'
+import { requestStatusDTO } from '../../dto/statusDTO'
+import { showAlert } from '../../slices/alertSlice';
+
 const wizardStageEnum = {
   basic: 1,
   advance: 2,
@@ -57,15 +57,17 @@ const wizardStageEnum = {
 
 export default function BusinessDetails(props) {
   const [formData, setData] = React.useState(businessDTO)
-  const [wizardStage, setwizStage] = React.useState(wizardStageEnum.basic)
+  const [wizardStage, setwizStage] = React.useState(wizardStageEnum.file)
   const navigation = useNavigation();
   const businessTypeList = useSelector((state) => state.business.businessTypes);
   const countries = useSelector((state) => state.business.countries);
   const dispatch = useDispatch()
   const token = useSelector((state) => state.login.token)
   const [errors, setErrors] = React.useState({});
-  const [uploadImages, setUplodimages] = React.useState([attachmentDTO])
- 
+  const [uploadImages, setUplodimages] = React.useState([])
+  const businessState = useSelector((state) => state.business)
+  const actionStatus = useSelector((state) => state.business.actionStatus)
+
   //React.useState([{ key: "img1", value: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" }]);
   useEffect(() => {
     if (businessTypeList.length === 0) {
@@ -74,7 +76,23 @@ export default function BusinessDetails(props) {
     if (countries.length === 0) {
       dispatch(getCountries(token))
     }
-  }, businessTypes, countries)
+
+  }, [businessTypes, countries])
+
+  useEffect(() => {
+    debugger;
+    if (businessState.status !== requestStatusDTO.pending) {
+      if (actionStatus === requestStatusDTO.failed) {
+
+        const alert = { action: 'error', title: "Saving Failed", description: businessState.error }
+        dispatch(showAlert(alert))
+      } else if (actionStatus === requestStatusDTO.success) {
+        const alert = { action: 'success', title: "Success", description: businessState.error }
+        dispatch(showAlert(alert))
+      }
+    }
+  }, [actionStatus])
+
   function getBusinessTypeKey(key) {
     let bType = businessTypeList.find(e => e.key == key);
     if (bType) {
@@ -114,29 +132,7 @@ export default function BusinessDetails(props) {
     return Object.keys(errors).length === 0;
 
   };
-  const requestCameraPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: "App Camera Permission",
-          message: "App needs access to your camera ",
-          buttonNeutral: "Ask Me Later",
-          buttonNegative: "Cancel",
-          buttonPositive: "OK"
-        }
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("Camera permission given");
-        return true;
-      } else {
-        console.log("Camera permission denied");
-        return false;
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
+
   const handleChoosePhoto = async (camera) => {
     console.log("handleChoose");
     if (camera) {
@@ -161,27 +157,31 @@ export default function BusinessDetails(props) {
             const assets = resp.assets[0];
             const uri = assets.uri;
 
-            if (uri) { 
-            //  console.log(uri);
-              let atchDTO =new attachmentDTO();
-              atchDTO.id=uploadImages.length;
-              atchDTO.business_id=-1;
-              atchDTO.identifier="landmark";
-              atchDTO.file=uri; 
-               //console.log(JSON.stringify(atchDTO))
+            if (uri) {
+              //  console.log(uri);
+              debugger;
+              let atchDTO = { ...attachmentDTO };
+              atchDTO.id = uploadImages.length;
+              atchDTO.business_id = -1;
+              atchDTO.identifier = "landmark";
+              atchDTO.file = uri;
+              //console.log(JSON.stringify(atchDTO))
               // setData({ ...formData, type: value })}
-              setUplodimages([...uploadImages, {atchDTO}])
+              //setUplodimages([...uploadImages, atchDTO])
+              //uploadImages.push(atchDTO);  
+              var upImgs = [...uploadImages, atchDTO];
+              setUplodimages(upImgs)
             } else {
               console.log('No hay una imagen valida');
             }
-           
+
 
           } catch (error) {
             console.log(error)
           }
         },
       );
-    }else{
+    } else {
       await launchImageLibrary(
         {
           includeBase64: false,
@@ -203,12 +203,14 @@ export default function BusinessDetails(props) {
             const uri = assets.uri;
 
             if (uri) {
-              let atchDTO = attachmentDTO;
-              atchDTO.id=uploadImages.length;
-              atchDTO.business_id=-1;
-              atchDTO.identifier="landmark";
-              atchDTO.file=uri;  
-              setUplodimages([...uploadImages, {atchDTO}])
+              debugger;
+              let atchDTO = { ...attachmentDTO };
+              atchDTO.id = uploadImages.length;
+              atchDTO.business_id = -1;
+              atchDTO.identifier = "landmark";
+              atchDTO.file = uri;
+              var upImgs = [...uploadImages, atchDTO];
+              setUplodimages(upImgs)
               //setUplodimages([...uploadImages, { key: "img1", value: uri }])
             } else {
               console.log('No hay una imagen valida');
@@ -392,7 +394,7 @@ export default function BusinessDetails(props) {
                   <SelectDragIndicatorWrapper>
                     <SelectDragIndicator />
                   </SelectDragIndicatorWrapper>
-                  {countries.map((country) => { return <SelectItem label={`${country.code}-${country.name}`} value={country.id} /> })}
+                  {countries.map((country) => { return <SelectItem label={`${country.code}-${country.name}`} value={country.name} /> })}
                 </SelectContent>
               </SelectPortal>
             </Select>
@@ -485,45 +487,46 @@ export default function BusinessDetails(props) {
           <HStack >
             {uploadImages.map((img) => {
               console.log(img)
-              if(img.file){
-              return uploadImgRender(img);
+
+              if (img.file) {
+                return uploadImgRender(img);
               }
             })}
           </HStack>
           <Center>
             <HStack>
-            <Button
-              size="md"
-              variant="solid"
-              action="primary"
-              isDisabled={false}
-              isFocusVisible={false}
+              <Button
+                size="md"
+                variant="solid"
+                action="primary"
+                isDisabled={false}
+                isFocusVisible={false}
 
-              style={[styles.shortButtonRounded, { width:60, marginTop: 20, marginBottom: 20 }]}
-              onPress={() => handleChoosePhoto(true)}
+                style={[styles.shortButtonRounded, { width: 60, marginTop: 20, marginBottom: 20 }]}
+                onPress={() => handleChoosePhoto(true)}
 
-            >
-              <ButtonIcon   size={20} as={Camera} /> 
+              >
+                <ButtonIcon size={20} as={Camera} />
 
-            </Button>
-            <Button
-              size="md"
-              variant="solid"
-              action="primary"
-              isDisabled={false}
-              isFocusVisible={false}
+              </Button>
+              <Button
+                size="md"
+                variant="solid"
+                action="primary"
+                isDisabled={false}
+                isFocusVisible={false}
 
-              style={[styles.longButtonRounded, { width:200, marginTop: 20, marginBottom: 20,marginLeft:30 }]}
+                style={[styles.longButtonRounded, { width: 200, marginTop: 20, marginBottom: 20, marginLeft: 30 }]}
 
-              onPress={() => handleChoosePhoto(false)}
+                onPress={() => handleChoosePhoto(false)}
 
-            >
-              <ButtonIcon mr={10} size={20} as={FolderUp} />
-              <ButtonText style={styles.buttonText}>Upload Photo</ButtonText>
+              >
+                <ButtonIcon mr={10} size={20} as={FolderUp} />
+                <ButtonText style={styles.buttonText}>Upload Photo</ButtonText>
 
-            </Button>
+              </Button>
             </HStack>
-            
+
           </Center>
         </Box>
         <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
@@ -549,10 +552,11 @@ export default function BusinessDetails(props) {
   }
 
   function createBusiness() {
-    dispatch(createNewBusiness(token,formData,uploadImages))
-    
+    let businessData = { token: token, formData: formData, uploadImages: uploadImages }
+    dispatch(createNewBusiness(businessData))
+
     console.log("Business Created", formData)
-    navigation.navigate('businessList');
+    //navigation.navigate('businessList');
   }
 
   function loadComponent() {

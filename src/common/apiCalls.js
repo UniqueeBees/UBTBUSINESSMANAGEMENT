@@ -8,6 +8,7 @@ export const apiCallStatus={
 
 }
 export  const  accountLoginAPI = async (login) => {
+    debugger;
     console.log("get Token",login)
     const formData = new FormData();
     formData.append('domain', login.domain);
@@ -165,11 +166,13 @@ export const getBusinessList=async (token)=>{
 
 }
  export const createBusiness=async(_token,_business)=>{
+    debugger;
     return await axios({
+    
         method: "POST",
         data: _business,
         url: `${baseUrl}/business`,
-        headers: { "APITOKEN":token },
+        headers: { "APITOKEN":_token },
     })
  }
  export const getBusinessTypes=async (token)=>{

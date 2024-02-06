@@ -70,6 +70,7 @@ function Login() {
     });
   };
   const onLoginClicked = async () => {
+ 
     if (username && password) {
       await dispatch(accountLogin({ domain: companyState.company.domain, username: username, password: password }))
     }
