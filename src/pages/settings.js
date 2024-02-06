@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   VStack, HStack, Icon, ArrowRightIcon, Button, Heading, Box, Badge, BadgeText, Text, Center
 } from "@gluestack-ui/themed";
-import { FlatList,Linking, View,TouchableHighlight } from "react-native";
+import { FlatList, View, TouchableHighlight, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../slices/loginSlice";
 import { setPage, setPageWithParameters } from '../slices/initialPageSlice';
@@ -19,6 +19,7 @@ import {
 } from "@gluestack-ui/themed"
 import { baseUrl, getProfile } from '../common/apiCalls';
 import { styles } from '../assets/styles/theme';
+
 function Settings() {
 
   const dispatch = useDispatch();
@@ -68,17 +69,10 @@ function Settings() {
     else if (item.key === "language") {
       console.log('settingds dispatch', item.key)
       dispatch(setPage(navigationRoutes.language))
-     // dispatch(setPage(navigationRoutes.none))
+      // dispatch(setPage(navigationRoutes.none))
     }
     else if (item.key === "company") {
       dispatch(setPageWithParameters({ page: navigationRoutes.company, routeParameters: { skipEffectNav: true } }))
-    }
-    else if (item.key === "helpLine") {
-      var phoneNumber="9745140025"
-      Linking.openURL(`tel:${phoneNumber}`)
-    }
-    else if (item.key === "password") {
-      dispatch(setPage(navigationRoutes.changePassword))
     }
   }
   const getItems = () => {
@@ -97,7 +91,7 @@ function Settings() {
 
   return (
 
-    <VStack bgColor="$white" height="100%">
+    <VStack height="100%">
       <VStack bgColor="#1877F2" height={210} pt="$16">
         <HStack space="md" pl="$10">
           <Avatar bgColor="$white" size="md" borderRadius="$full">
@@ -116,8 +110,8 @@ function Settings() {
           </VStack>
         </HStack>
 
-        <VStack mt="$5"  alignItems="left" pl="$10">
-          <HStack  textAlign="center" >
+        <VStack mt="$5" alignItems="left" pl="$10">
+          <HStack textAlign="center" >
             <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={10} textTransform="uppercase">Businesses</Heading>
             <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={10} textTransform="uppercase">Meetings</Heading>
             <Heading size="xs" width={100} textAlign="center" color="$white" fontSize={10} textTransform="uppercase">Tasks</Heading>
@@ -131,28 +125,28 @@ function Settings() {
           </HStack>
         </VStack>
       </VStack>
-      <Center mt={188} style={{ position: "absolute", width: "100%", height: 70 }} bg="$white" rounded={5} >
-      </Center>
-      
-      <VStack space="sm" height="100%" alignItems="left" pl="$8"pr="$8" width="100%"   >
+      <Box mt={188} style={{ position: "absolute", width: "100%", height: 30,backgroundColor:"white" ,borderTopLeftRadius:10,borderTopRightRadius:10 }}   >
+      </Box>
+      <Center>
+      <VStack space="lg"pt="$5"   width="90%"  style={styles.tabPageContent}  >
         <FlatList
-        showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           data={getItems()}
-          renderItem={({ item }) => 
-            
-            <TouchableHighlight onPress={() => { actionEvent(item) }} underlayColor="white">
-              <HStack alignItems="center" pr={"$4"} style={[styles.boxShadow,styles.listBadge, {height:50,width:"100%"}] } >
-              <Badge size="md" height={30}  action="muted"  width="100%" borderRadius="$xl">
-                <BadgeText style={styles.tabTitleText}>{item.label}</BadgeText>
-                </Badge>
-              </HStack>
-             
-              </TouchableHighlight>
-            
+          renderItem={({ item }) =>
+          <View    style={[ styles.listBadge,styles.boxShadow ,{ height: 50,marginTop:20,paddingTop:15 }]}>
+            <TouchableOpacity onPress={() => { actionEvent(item) }}  >
+              <VStack   style={[  { height: 40 }]} >  
+                <HStack alignItems="center"  >
+                  <Text style={[styles.textRegular14, { paddingLeft: 15 }]}>{item.label}</Text>
+                </HStack>
+              </VStack>
+            </TouchableOpacity>
+            </View>
           }
         />
-        
+
       </VStack>
+      </Center>
     </VStack>
   );
 }
