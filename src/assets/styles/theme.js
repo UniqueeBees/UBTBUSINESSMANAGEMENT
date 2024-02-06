@@ -133,7 +133,7 @@ export const styles = StyleSheet.create({
   langugeHeading:{
     
     fontFamily:"Poppins-Regular",
-    fontSize:28,
+    fontSize:29,
    // color:"black",
     fontWeight:"680",
     letterSpacing:0,
@@ -147,7 +147,7 @@ export const styles = StyleSheet.create({
     width:"100%",
     height:"45px",
     paddingBottom:10,
-    marginTop:90,
+    marginTop:136,
                
   },
 
