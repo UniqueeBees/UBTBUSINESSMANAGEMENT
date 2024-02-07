@@ -4,7 +4,7 @@ import { Text,Image} from 'react-native';
 import { Button, VStack, Center, ButtonText, ButtonIcon, Input, InputSlot, InputIcon, InputField } from "@gluestack-ui/themed";
 import { styles } from '../assets/styles/theme'
 import { storageKeyTypes, getData} from '../common/localStorage'
-import { Building2, ArrowRight } from 'lucide-react-native';
+import { Building2, ArrowRight, Bold } from 'lucide-react-native';
 import { navigateTo, navigationRoutes, navAction } from '../common/navigation'
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,6 +14,7 @@ import { setPage} from '../slices/initialPageSlice'
 import {apiCallStatus} from '../common/apiCalls'
 import { showLoading } from '../slices/loadingSlice';
 import { showAlert } from '../slices/alertSlice';
+import { black } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 function Splash(props) {
   const dispatch = useDispatch()
   const companyState = useSelector((state) => state.company)
@@ -84,17 +85,17 @@ function Splash(props) {
     /*bg="$primary500"*/
     <VStack h="100%" bgColor='white'>
       <Center h="100%" shadow={3} >
-        <VStack width="100%" alignItems='center'>
+        <VStack width="100%" alignItems='center' mt={35}>
           <Image source={require('../assets/images/Logofile.png')} style={styles.logo} />
         </VStack>
         <VStack mt={50} style={{ width: 300 }} >
-          <Text style={styles.titleMedium12}>Company Username </Text>
+          <Text style={styles.titleMedium14}>Company Username</Text>
           <Input variant={"underlined"} size="sm" mt={10}>
             <InputSlot pl="$0" pr="$4">
               <InputIcon size={25} as={Building2} />
             </InputSlot>
-            <InputField placeholder="Company Username"
-            style={styles.fieldTextSBold}
+            <InputField placeholder="Company Username" placeholderTextColor="black"
+            style={styles.textRegular16}
               width="200"
               maxLength={200}
               onChangeText={text => onChange(text)}

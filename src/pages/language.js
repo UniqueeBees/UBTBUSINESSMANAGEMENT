@@ -74,27 +74,26 @@ function Language(props) {
 
   return (
     <VStack height="100%" bgColor="$white">
-     <VStack style={styles.langugeHeadingContainer} alignItems="center" >
-      <Text style={styles.langugeHeading}>Choose Language</Text>
+      <VStack style={styles.langugeHeadingContainer} alignItems="center" >
+        <Text style={styles.langugeHeading}>Choose Language</Text>
       </VStack>
-      <VStack space="md" width="100%" pb={15} pl={65} pr={68} pt="$0" mt="40px" >
-    
-      
-        <VStack space="4xl" mt={32} pb="$1" pl="$1" pr="$1">
+      <VStack space="md" width="100%" pb={15} alignItems="center" mt="40px" >
+
+
+        <VStack space="1xl" mt={32} pl={40} pr={40} Width="200px">
           <FlatList
-          showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             data={languageData}
             renderItem={({ item }) =>
-              <TouchableOpacity  onPress={() => { SetLanguage(item.code) }} underlayColor="white">
 
-                <HStack pt={15} space="md" mt="$1" pr={10}  style={[styles.boxShadow,styles.listBadge, {height:80,alignContent:"center"}] }>
-                  <Badge size="md" height={30} m="$2" variant="solid" borderRadius="$xl" action="muted" bgColor="$white" >
+              <TouchableOpacity onPress={() => { SetLanguage(item.code) }} underlayColor="white">
+                <Box ml="$3" mr="$3" mb="$3" mt="$4" pl="$4" pt="$1.5"  style={[styles.boxShadow, styles.listBadge,{ height: 35,borderRadius:25 }]}  bgColor="$white" >
+                  <HStack>
+                    <Text style={[styles.textMedium13, { fontFamily:"NeueHaasDisplayBold",width: "85%", textAlign: "left" }]} >{item.name}</Text><Icon id={item.code} size="xl"
+                      on as={MoveRight} w="$10"  style={{ cursor: 'pointer', fontWeight: "bold" }} />
+                  </HStack>
+                </Box>
 
-                    <Text style={[styles.textMedium13,{ width: "92%", textAlign: "left"}]} >{item.name}</Text><Icon id={item.code} size="xl"
-                      on as={MoveRight}  w="$10" h="$4" style={{ cursor: 'pointer',fontWeight:"bold"}} />
-
-                  </Badge>
-                </HStack>
 
 
               </TouchableOpacity >

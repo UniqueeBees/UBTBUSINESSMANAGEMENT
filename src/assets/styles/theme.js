@@ -21,11 +21,10 @@ export const styles = StyleSheet.create({
     padding: 10,
   }, 
   fieldTextSBold:{
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'NeueHaasDisplayMediu',
     fontSize:14, 
-    color:"#171717",  
-    height:45,
-    fontWeight:'400',
+    //color:"#171717",  
+    height:45,    
   },
   fieldText:{
     fontFamily: 'Poppins-Regular',
@@ -36,8 +35,8 @@ export const styles = StyleSheet.create({
   buttonLong: {
     width: 300,
     borderRadius: 0,
-
-  },
+    height:50,
+     },
   subheading: {
     fontFamily: 'Poppins-Italic',
     fontSize: 12
@@ -75,10 +74,10 @@ export const styles = StyleSheet.create({
   },
   fieldLabel: {
     paddingVertical: 10, 
-    fontFamily:'Poppins-Regular',
+    fontFamily:'NeueHaasDisplayMediu',
     fontSize:12,
     justifyContent:'flex-start',
-   // color:"#8F92A1"
+    color:"#8F92A1"
   },
   pageHeader: {
     paddingTop: 10,
@@ -133,7 +132,7 @@ export const styles = StyleSheet.create({
   langugeHeading:{
     
     fontFamily:"Poppins-Regular",
-    fontSize:29,
+    fontSize:30,
    // color:"black",
     fontWeight:"680",
     letterSpacing:0,
@@ -147,7 +146,7 @@ export const styles = StyleSheet.create({
     width:"100%",
     height:"45px",
     paddingBottom:10,
-    marginTop:145,
+    marginTop:90,
                
   },
 
@@ -253,9 +252,9 @@ titleMedium18:{
 },
 
 titleMedium12:{
-  fontFamily:"Poppins-Medium",
+  fontFamily:"NeueHaasDisplayMediu",
   fontSize:12,  
-  
+  color:"#8F92A1"
 },
 textMedium10:{
   fontFamily:"Poppins-Medium",
@@ -266,14 +265,20 @@ textMedium10:{
 textMedium13:{
   fontFamily:"Poppins-Medium",
   fontSize:13,  
-  color:"#171717"
-  
+  color:"#171717",
+  height:45,
 },
 textRegular14:{
-  fontFamily:"Poppins-Regular",
+  fontFamily:"NeueHaasDisplayMediu",
   fontSize:14,   
   fontWeight:"600"
   
+},
+textRegular16:{
+  fontFamily:"NeueHaasDisplayMediu",
+  fontSize:16,   
+  fontWeight:"600",
+  height:45
 },
 subtitleRegular8:{
   fontFamily:"Poppins-Regular",
@@ -327,12 +332,13 @@ buttonText:{
 },
  
 boxShadow:{
-  shadowColor: '#6495ED',
+  shadowColor: '#90CAF9',
   shadowOpacity: 0.26,
   shadowOffset: { width: 0, height: 1},
   shadowRadius: 5,
-  elevation: 8,
-  backgroundColor: 'white'
+  elevation: 10,
+  backgroundColor: 'white',
+  
 }
 })
 
