@@ -114,7 +114,7 @@ function Login() {
               <InputSlot>
               <InputIcon as={UserRound} size="lg" />
               </InputSlot>             
-                <InputField ml="$1"
+                <InputField ml="$3" placeholderTextColor="black"
                  style={styles.fieldTextSBold}
                   type="text"
                   value={username}
@@ -132,8 +132,8 @@ function Login() {
                   <InputIcon as={LockIcon} size="lg"></InputIcon>
                 </InputSlot>
 
-                <InputField ml="$1" 
-                 style={styles.fieldTextSBold}
+                <InputField ml="$3" placeholderTextColor="black"        
+                  style={styles.fieldTextSBold}
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   placeholder={loginLanguageDTO.passwordPlaceholder}

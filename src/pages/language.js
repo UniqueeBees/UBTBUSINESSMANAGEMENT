@@ -77,20 +77,18 @@ function Language(props) {
       <VStack style={styles.langugeHeadingContainer} alignItems="center" >
         <Text style={styles.langugeHeading}>Choose Language</Text>
       </VStack>
-      <VStack space="md" width="100%" pb={15} alignItems="center" mt="40px" >
-
-
-        <VStack space="1xl" mt={32} pl={40} pr={40} Width="200px">
+      <VStack space="md" width="100%" pb={15} alignItems="center" mt="40px"  >
+        <VStack space="1xl" mt={40.62} pl={48} pr={40} >
           <FlatList
             showsVerticalScrollIndicator={false}
             data={languageData}
             renderItem={({ item }) =>
 
               <TouchableOpacity onPress={() => { SetLanguage(item.code) }} underlayColor="white">
-                <Box ml="$3" mr="$3" mb="$3" mt="$4" pl="$4" pt="$1.5"  style={[styles.boxShadow, styles.listBadge,{ height: 35,borderRadius:25 }]}  bgColor="$white" >
+                <Box ml="$3" mr="$3" mb="$1" mt="$2" pl="$4" pt="$4"  style={[styles.boxShadow, styles.listBadge,{ height: 55,width:300 }]}  bgColor="$white" >
                   <HStack>
-                    <Text style={[styles.textMedium13, { fontFamily:"NeueHaasDisplayBold",width: "85%", textAlign: "left" }]} >{item.name}</Text><Icon id={item.code} size="xl"
-                      on as={MoveRight} w="$10"  style={{ cursor: 'pointer', fontWeight: "bold" }} />
+                    <Text style={[styles.textMedium13, { fontFamily:"Neue-Haas-Grotesk-Display-Pro-75-Bold",width: "85%", textAlign: "left" }]} >{item.name}</Text><Icon id={item.code} size="xl"
+                      on as={MoveRight} style={{ cursor: 'pointer',fontWeight: "bold" }} />
                   </HStack>
                 </Box>
 

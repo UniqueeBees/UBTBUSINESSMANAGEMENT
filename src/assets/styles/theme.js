@@ -132,13 +132,13 @@ export const styles = StyleSheet.create({
   langugeHeading:{
     
     fontFamily:"Poppins-Regular",
-    fontSize:30,
-   // color:"black",
+    fontSize:32,
+    color:"#171717",
     fontWeight:"680",
-    letterSpacing:0,
+    characterSpacing:0,
     color:"black",
-    textAlign:"center",
-    height:"45px",
+    lineSpacing:48
+    
         
   },
 
@@ -146,7 +146,7 @@ export const styles = StyleSheet.create({
     width:"100%",
     height:"45px",
     paddingBottom:10,
-    marginTop:90,
+    marginTop:65.38,
                
   },
 
@@ -263,7 +263,6 @@ textMedium10:{
   
 },
 textMedium13:{
-  fontFamily:"Poppins-Medium",
   fontSize:13,  
   color:"#171717",
   height:45,
@@ -332,7 +331,7 @@ buttonText:{
 },
  
 boxShadow:{
-  shadowColor: '#90CAF9',
+  shadowColor: '##EFF5FF',
   shadowOpacity: 0.26,
   shadowOffset: { width: 0, height: 1},
   shadowRadius: 5,
