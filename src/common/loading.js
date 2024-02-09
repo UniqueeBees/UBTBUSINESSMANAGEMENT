@@ -1,6 +1,5 @@
 import React from "react";
 import { useToast, Center, VStack, Spinner, HStack } from "@gluestack-ui/themed";
-import { Text, View } from "lucide-react-native";
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { showLoading } from '../slices/loadingSlice'

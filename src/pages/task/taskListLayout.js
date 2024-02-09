@@ -7,7 +7,7 @@ import { styles } from '../../assets/styles/theme';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPage } from '../../slices/initialPageSlice';
 import { navigationRoutes } from '../../common/navigation';
-import { selectMyTasks, getTaskStatusList, getTaskListByUser } from '../../slices/taskSlice';
+import { selectMyTasks, getTaskStatusList, getTaskListByUser,resetTaskSetUp } from '../../slices/taskSlice';
 
 function TaskListLayout(props) {
     const [isMyTask, setIsMyTask] = useState(true);
@@ -36,33 +36,38 @@ function TaskListLayout(props) {
             dispatch(setPage(navigationRoutes.login))
         }
     })
+
+    const resetTaskSetUpDTO = () => {
+        dispatch(resetTaskSetUp());
+    }
     const meetingBgColor = isMyTask ? {} : { bgColor: '$white' }
     const taskBgColor = !isMyTask ? {} : { bgColor: '$white' }
+    const taskList = isMyTask ? myTaskListItems : taskListItems;
     return (
-        <VStack style={styles.tabPageContent}>
-            <VStack  >
+        <View bgColor="$white" >
+            <VStack style={styles.tabPageContent} >
                 <Text style={styles.pageTitle} >Tasks</Text>
 
                 <Center>
                     <HStack pt="$4" pb="$4">
-                        <Button ml='auto' size="md" variant="solid" action="primary" {...meetingBgColor}  style={styles.tabItemButton} onPress={onMeetingPress}>
-                            <ButtonText color={isMyTask ? '$white' : '$black'}  style={styles.tabTitleText} >
+                        <Button ml='auto' size="md" variant="solid" action="primary" {...meetingBgColor} style={styles.tabItemButton} onPress={onMeetingPress}>
+                            <ButtonText color={isMyTask ? '$white' : '$black'} style={styles.tabTitleText} >
                                 {taskLanguageDTO.myTasks}
                             </ButtonText >
                         </Button>
-                        <Button ml='auto' size="md" variant="solid" action="primary"  style={styles.tabItemButton} {...taskBgColor} onPress={onTasksPress}>
-                            <ButtonText color={!isMyTask ? '$white' : '$black'}  style={styles.tabTitleText} >
+                        <Button ml='auto' size="md" variant="solid" action="primary" style={styles.tabItemButton} {...taskBgColor} onPress={onTasksPress}>
+                            <ButtonText color={!isMyTask ? '$white' : '$black'} style={styles.tabTitleText} >
                                 {taskLanguageDTO.tasks}
                             </ButtonText >
                         </Button>
                     </HStack>
                 </Center>
                 <View>
-                {isMyTask ? <TaskList taskLanguageDTO={taskLanguageDTO} taskListItems={myTaskListItems} statusList={taskStatusList} />
-                    : <TaskList taskLanguageDTO={taskLanguageDTO} taskListItems={taskListItems} statusList={taskStatusList} />}
+                <TaskList showAdd={true} source={"taskListLayout"}  resetTaskSetUp={resetTaskSetUpDTO} taskLanguageDTO={taskLanguageDTO} taskListItems={taskList} statusList={taskStatusList} />
+
                     </View>
             </VStack>
-        </VStack>
+        </View>
     )
 }
 export default TaskListLayout;

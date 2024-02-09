@@ -6,6 +6,7 @@ import {useEffect} from 'react'
 import { View,Text} from 'react-native';
 import {  navigationRoutes } from '../common/navigation'
 import { setPage } from '../slices/initialPageSlice';
+import ListEditContextMenu from '../common/listEditContextMenu/listEditContextMenu';
 function InitialPage (props){
     const initialPage = useSelector((state) => state.initialPage)
     const isFocused = useIsFocused();
@@ -36,6 +37,7 @@ function InitialPage (props){
     return (
      <View style={{ height:'100%'}}>
        <Text>{' '}</Text>    
+       <ListEditContextMenu/>
      </View>
     )
 }

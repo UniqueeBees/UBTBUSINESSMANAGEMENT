@@ -113,6 +113,13 @@ export const getMeetingPurposeList=async(token)=>{
         headers: { "APITOKEN":token },
     })
 }
+export const getMeetingById=async(token,id)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/purposes`,
+        headers: { "APITOKEN":token },
+    })
+}
 export  const  getTasksByUser = async (token,id) => {
     
    return await axios({
@@ -126,6 +133,14 @@ export  const  getTaskStatusListAPI = async (token) => {
     return await axios({
          method: "GET",
          url: `${baseUrl}/tasks/status`,
+         headers: { "APITOKEN":token },
+     })
+ 
+ }
+ export  const  getTaskById = async (token,id) => {
+    return await axios({
+         method: "GET",
+         url: `${baseUrl}/task/${id}`,
          headers: { "APITOKEN":token },
      })
  
@@ -181,11 +196,19 @@ export const getBusinessList=async (token)=>{
 }
 
 export const addTask=async(token,task)=>{
-    console.log('addTaskAPI',task)
     return await axios({
         method: "POST",
         data: task,
         url: `${baseUrl}/tasks`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
+ export const updateTask=async(token,task,id)=>{
+    task.append('_method', 'PATCH');
+    return await axios({
+        method: "POST",
+        data: task,
+        url: `${baseUrl}/tasks/${id}`,
         headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
     })
  }
@@ -195,6 +218,16 @@ export const addTask=async(token,task)=>{
         method: "POST",
         data: meeting,
         url: `${baseUrl}/meeting`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
+ export const updateMeeting=async(token,meeting,id)=>{
+    console.log('updateMeetingAPI',meeting)
+    meeting.append('_method', 'PATCH');
+    return await axios({
+        method: "POST",
+        data: meeting,
+        url: `${baseUrl}/meeting/${id}`,
         headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
     })
  }

@@ -8,6 +8,7 @@ import {
 import { FlatList, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { getLanguage, getLanguageLabel } from "../common/apiCalls";
 import { storeObjectData, storageKeyTypes, getObjectData } from '../common/localStorage'
+import { showLoading } from '../slices/loadingSlice';
 import { navigationRoutes } from '../common/navigation'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLanguage } from '../slices/languageSlice'
@@ -46,17 +47,51 @@ function Language(props) {
 
 
   const [languageData, setData] = React.useState()
+  function objectsAreSame(x, y) {
+    var objectsAreSame = true;
+    for (var propertyName in x) {
+      if (x[propertyName] !== y[propertyName]) {
+        objectsAreSame = false;
+        break;
+      }
+    }
+    return objectsAreSame;
+  }
+  const arraysEqual = (a1, a2) =>
+    a1.length === a2.length && a1.every((o, idx) => objectsAreSame(o, a2[idx]));
 
   const fetchInfo = async () => {
-    const response = await getLanguage();
-    setData(response.languages)
+    
+    const languageList = await getObjectData(storageKeyTypes.languageList);
+    
+    if (languageList) {
+      setData(languageList);
+    }
+    else {
+      dispatch(showLoading(true))
+    }
+    
+    let response = await getLanguage();
+    const status = response.status;
+    dispatch(showLoading(false))
+    if (status) {
+      if (!languageList || languageList.length !== languageList.length) {
+        setData(response.languages)
+        storeObjectData(storageKeyTypes.languageList, response.languages)
+      }
+      else {
+        if (!arraysEqual(languageList, response.languages)) {
+          setData(response.languages)
+          storeObjectData(storageKeyTypes.languageList, data)
+        }
+      }
+    }
 
   }
 
   const SetLanguage = async (code) => {
 
     const response = await getLanguageLabel(code);
-
     const data = { code: code, translations: response.translations }
 
     storeObjectData(storageKeyTypes.language, data)
@@ -66,11 +101,7 @@ function Language(props) {
   React.useEffect(() => {
     fetchInfo();
   }, []);
-  //#F0FFFF
-  {/* <HStack mb="$1" alignItems="center" height={60} backgroundColor="$white" borderRadius={30}  textAlign="left">
-          <Text style={{width:"80%",textAlign:"left",fontSize:16}} >{item.name}</Text><Icon id={item.code} size="md"   
-         on as={MoveRight} m="$2" w="$4" h="$4" style={{cursor: 'pointer'}}  />
-         </HStack> */}
+
 
   return (
     <VStack height="100%" bgColor="$white">
@@ -80,6 +111,7 @@ function Language(props) {
       <VStack space="md" width="100%" pb={15} alignItems="center" mt="40px"  >
         <VStack space="1xl" mt={40.62} pl={48} pr={40} >
           <FlatList
+            showsVerticalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             data={languageData}
             renderItem={({ item }) =>

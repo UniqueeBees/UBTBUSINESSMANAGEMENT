@@ -10,16 +10,16 @@ import InitialPage from "../pages/initialPage";
 import Tabs from '../navigation/tabs';
 import CreateContact from "../pages/contacts/createContact";
 const Stack = createNativeStackNavigator();
-export const navigationRoutes={
-  company:"company",
-  navigationTab:"navigationTab",
-  language:"language",
-  login:"login",
-  initialPage:'initialPage',
-  createBusiness:'createBusiness',
-  listBusiness:'listBusiness' ,
+export const navigationRoutes = {
+  company: "company",
+  navigationTab: "navigationTab",
+  language: "language",
+  login: "login",
+  initialPage: 'initialPage',
+  createBusiness: 'createBusiness',
+  listBusiness: 'listBusiness',
   contact: 'contact',
-  none:'none',
+  none: 'none',
 }
 export const navAction = {
   Next: "next",
@@ -43,21 +43,20 @@ export function navigateTo(props, actionFrom, navAction) {
       }
       break;
     }
-    case navigationRoutes.listBusiness :{
-      console.log("nav route login",navAction) 
-      if(navAction.Next){
-      props.navigation.navigate(navigationRoutes.createBusiness)
-      } else if (navAction.Previous)
-      {
+    case navigationRoutes.listBusiness: {
+      console.log("nav route login", navAction)
+      if (navAction.Next) {
+        props.navigation.navigate(navigationRoutes.createBusiness)
+      } else if (navAction.Previous) {
         console.log("nav route login previous")
         props.navigation.navigate(navigationRoutes.listBusiness)
       }
       break;
     }
-    case navigationRoutes.contact :{
+    case navigationRoutes.contact: {
       props.navigation.navigate(navigationRoutes.contact)
 
-    } 
+    }
   }
 }
  function Navigation(props){

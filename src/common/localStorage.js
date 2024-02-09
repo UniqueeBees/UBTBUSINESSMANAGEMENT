@@ -11,6 +11,7 @@ export const storeData = async (key,value) => {
     language:'languagekey',
     company:"companykey",
     login:'loginkey',
+    languageList:'languageList',
 }
 
 export const getData = async (key) => {
