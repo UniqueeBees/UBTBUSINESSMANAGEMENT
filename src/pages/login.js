@@ -115,7 +115,7 @@ function Login() {
               <InputIcon as={UserRound} size="lg" />
               </InputSlot>             
                 <InputField ml="$3" placeholderTextColor="black"
-                 style={styles.fieldTextSBold}
+                 style={styles.textRegular16}
                   type="text"
                   value={username}
                   onChangeText={text => setUsername(text)} placeholder={loginLanguageDTO.usernamePlaceholder}
@@ -132,8 +132,8 @@ function Login() {
                   <InputIcon as={LockIcon} size="lg"></InputIcon>
                 </InputSlot>
 
-                <InputField ml="$3" placeholderTextColor="black"        
-                  style={styles.fieldTextSBold}
+                <InputField ml="$3" placeholderTextColor="black" width={222}       
+                  style={styles.textRegular16}
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   placeholder={loginLanguageDTO.passwordPlaceholder}
@@ -147,7 +147,7 @@ function Login() {
             </VStack>
 
             <Button
-              mt="$16"
+              mt="$20"
               ml="$0"
               size="md"
               variant="solid"

@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     //backgroundColor: 'red'
   },
   logo: {
-    width: 200,
+    width: 145,
     height: 200,
   },
   input: {
@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
   fieldLabel: {
     paddingVertical: 10, 
     fontFamily:'NeueHaasDisplayMediu',
-    fontSize:12,
+    fontSize:16,
     justifyContent:'flex-start',
     color:"#8F92A1"
   },
@@ -274,7 +274,7 @@ textRegular14:{
   
 },
 textRegular16:{
-  fontFamily:"NeueHaasDisplayMediu",
+  fontFamily:"neue-haas-grotesk-text-pro-65-medium",
   fontSize:16,   
   fontWeight:"600",
   height:45
@@ -331,12 +331,12 @@ buttonText:{
 },
  
 boxShadow:{
-  shadowColor: '##EFF5FF',
+  shadowColor: 'red',
   shadowOpacity: 0.26,
   shadowOffset: { width: 0, height: 1},
   shadowRadius: 5,
-  elevation: 10,
-  backgroundColor: 'white',
+  elevation: 3,
+  backgroundColor: '#white',
   
 }
 })

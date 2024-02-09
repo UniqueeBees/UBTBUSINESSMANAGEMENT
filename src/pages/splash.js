@@ -89,7 +89,7 @@ function Splash(props) {
           <Image source={require('../assets/images/Logofile.png')} style={styles.logo} />
         </VStack>
         <VStack mt={50} style={{ width: 300 }} >
-          <Text style={styles.titleMedium14}>Company Username</Text>
+          <Text style={[styles.titleMedium14,{width:302}]}>Company Username</Text>
           <Input variant={"underlined"} size="sm" mt={10}>
             <InputSlot pl="$0" pr="$4">
               <InputIcon size={25} as={Building2} />
