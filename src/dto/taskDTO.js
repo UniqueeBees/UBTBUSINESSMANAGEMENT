@@ -15,6 +15,7 @@ export const taskSetupDTO={
     userId:0,
     status:0,
     duedate:'',
+    createdDate:'',
 }
 export const buildTaskSetupDTOFromTaskListItem=(taskListItem)=>{
     return {
@@ -26,6 +27,7 @@ export const buildTaskSetupDTOFromTaskListItem=(taskListItem)=>{
         assignTo:taskListItem.assignedTo,
         userId:taskListItem.userId,
         dueDate:taskListItem.dueDate,
+        createdDate:taskListItem.createdDate
     
     };
 }
@@ -39,11 +41,14 @@ export const buildTaskListItem=(taskListItem)=>{
         assignedTo:taskListItem.assigned_to,
         userId:taskListItem.user_id,
         dueDate:taskListItem.due_date,
+        createdDate:taskListItem.created_at,
     
     };
 }
 export const buildTaskListItems=(taskList)=>{
+   
     const taskListItemsDTO=taskList.map((item)=>{
+        console.log('buildTaskListItems',item)
         return buildTaskListItem(item);
     });
     return taskListItemsDTO;

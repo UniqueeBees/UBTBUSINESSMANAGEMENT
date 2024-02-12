@@ -27,7 +27,8 @@ export const settingsLanguageDTO = {
 export const taskLanguageDTO = {
     myTasks: 'MyTasks',
     tasks: 'Tasks',
-    dueDate: 'DueDate',
+    dueDate: 'Due Date',
+    createDate: 'Create Date',
     createTask: 'Create Task',
     business: 'Business',
     assignTo: 'Assign To',
@@ -37,11 +38,14 @@ export const taskLanguageDTO = {
     titlePlaceholder: 'Enter Task Title',
     titleValidationMessage: 'Title is required',
     dueDatePlaceholder: 'Enter Due Date',
+    createDatePlaceholder: 'Enter Create Date',
     description: 'Description',
     descriptionPlaceholder: 'Enter Task Description',
     submit: 'Submit',
     executiveListTitle: 'EXECUTIVES',
+    executive:'Executive',
     executiveSearchPlaceholder:'Search Executive',
+    taskSearchPlaceholder:'Search Task',
 }
 export const meetingLanguageDTO = {
     createMeeting: 'Create Meeting',
@@ -71,6 +75,14 @@ export const commonLanguageDTO={
     saveSuccessMessage:'Successfully saved',
     saveErrorMessage:'Saving failed',
     saveValidationMessage:'Please correct the indicated items',
+    filterActionHeading:'FILTER & SORT',
+    filterCaption:'FILTERS',
+    sortCaption:'Sort',
+    sortRecent:'Recently Added',
+    sortAscending:'A to Z',
+    sortDescending:'Z to A',
+    clear:'Clear',
+    apply:'Apply',
     
 }
 export const businessSelectLanguageDTO = {
