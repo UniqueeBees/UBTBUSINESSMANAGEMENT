@@ -18,6 +18,7 @@ import CreateContact from '../pages/contacts/createContact';
 import PopperButton from '../navigation/poperButton'
 import { SettingsIcon,Icon } from '@gluestack-ui/themed';
 import { Briefcase} from 'lucide-react-native';
+import FeedAttacher from '../../src/pages/business/feeds/feedAttacher';
  const TabIconSize="35";
  const TabIconColor="black";
 const Tab=createBottomTabNavigator();
@@ -89,13 +90,8 @@ function Tabs() {
               ), 
           }} ></Tab.Screen> 
           
-          <Tab.Screen name="Add"  component={DashboardStackScreen}
-          listeners={{
-            tabPress: e => {
-              // Prevent default action
-              e.preventDefault();
-            },
-          }}
+          <Tab.Screen name="Add"  component={FeedAttacher}
+         
            options={{
             
             tabBarLabel: 'Updates',

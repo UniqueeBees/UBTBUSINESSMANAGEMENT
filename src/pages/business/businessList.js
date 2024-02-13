@@ -12,7 +12,7 @@ import BusinessDetails from "./businessDetails";
 import BusinessCreate from "./businessCreate";
 import { useSelector,useDispatch } from 'react-redux';
 import { getBusinessListItems } from '../../slices/businessSlice';
- 
+
 
 function BusinessList(props) {
   const businessListItems =useSelector((state) => state.business.businessList);
@@ -66,6 +66,7 @@ function BusinessList(props) {
               {item.phone?<Icon as={PhoneIcon} m="$1" w="$3" h="$3" ml={item.email?"$3":"$0"}/>:""}<BadgeText style={[{textTransform: 'capitalize',paddingTop:0},styles.listSubHeading]}>{item.phone}</BadgeText>
               </HStack>
             </HStack>
+           
           </VStack>
           </View>
         </Box>
