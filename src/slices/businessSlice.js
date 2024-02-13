@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { businessDTO, buildDTO, buildBusinessListItems, buildBusinessTypes } from '../dto/businessDTO'
-import { getBusinessTypes, getBusinessList, createBusiness, apiCallStatus } from '../common/apiCalls'
+import { businessDTO, buildDTO, buildBusinessListItems, buildBusinessTypes,buildCityList } from '../dto/businessDTO'
+import { getBusinessTypes, getBusinessList, createBusiness, apiCallStatus,getCityListAPI } from '../common/apiCalls'
 const initialState = {
   businessList: [],
   businessTypes: [],
@@ -8,7 +8,8 @@ const initialState = {
   status: "idle",
   loading: false,
   hasError: false,
-  businessSelectedFromForm: {}
+  businessSelectedFromForm: {},
+  cities:[],
 }
 export const businessTypes = createAsyncThunk(
   'business/businessTypes',
@@ -31,6 +32,13 @@ export const createNewBusiness = createAsyncThunk(
   async (token, businessDTO) => {
     console.log('create')
     const response = await createBusiness(token, businessDTO)
+    return response.data
+  }
+)
+export const getCityList = createAsyncThunk(
+  'business/cities',
+  async (token) => {
+    const response = await getCityListAPI(token)
     return response.data
   }
 )
@@ -99,6 +107,14 @@ export const businessSlice = createSlice({
         state.status = apiCallStatus.rejected
         state.error = action.error.message
         state.businessTypes = []
+      })
+      .addCase(getCityList.fulfilled, (state, action) => {
+        const resp = action.payload;
+        if (resp.status) {
+          state.hasError = false;
+          state.cities = buildCityList(resp.cities);
+        }
+        
       })
   },
 })

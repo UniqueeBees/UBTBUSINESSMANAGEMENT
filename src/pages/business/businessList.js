@@ -14,6 +14,7 @@ import BusinessCreate from "./businessCreate";
 import { useSelector, useDispatch } from 'react-redux';
 import { getBusinessListItems } from '../../slices/businessSlice';
 import { sortObjectArray } from '../../common/utility';
+import BusinessFilterSort from "./businessFilterSort";
 
 function BusinessList(props) {
   const businessListItems = useSelector((state) => state.business.businessList);
@@ -25,7 +26,7 @@ function BusinessList(props) {
   const [search, setSearch] = useState('');
   const [filterOptions, setFilterOptions] = useState({});
   const [listItems, setListItems] = useState(businessListItems);
-
+  const [showActionsheet, setShowActionsheet] = useState(false)
   useEffect(() => {
     dispatch(getBusinessListItems(token))
   }, [token])
@@ -33,25 +34,30 @@ function BusinessList(props) {
   useEffect(() => {
     setListItems(businessListItems)
   }, [businessListItems.length])
-
-
+  useEffect(() => {
+    searchItems(search, true);
+  }, [filterOptions])
+  const handleActionClose = () => setShowActionsheet(!showActionsheet)
   const applyFilterOnItem = (item, searchValue, hasSearch, filterParams) => {
+
     let searchResult = true;
-    let filterResult = true;
+    let filterResult = false;
     if (hasSearch) {
       const itemData = `${item.name.toUpperCase()}`;
       const searchData = searchValue.toUpperCase();
 
       searchResult = itemData.indexOf(searchData) >= 0;
     }
-    if (filterParams.length > 0) { }
-    filterResult = filterParams.every(field => {
-      if (item[field] === filterOptions[field]) {
-        return false // "break"
-      }
-      return true // must return true if doesn't break
-    });
-    return (searchResult && filterResult);
+    if (filterParams.length > 0) {
+      filterResult = filterParams.every(field => {
+        if (item[field] === filterOptions[field]) {
+          return false // "break"
+        }
+        return true // must return true if doesn't break
+      });
+    }
+    
+    return (searchResult && !filterResult);
   }
 
   const searchItems = (searchValue, fromFilter) => {
@@ -92,8 +98,8 @@ function BusinessList(props) {
       }
     }
     else {
-     // sortedListItem = [...newBusinessListItems].sort(sortByDate);
-     sortedListItem = [...newBusinessListItems].sort(sortObjectArray('createDate', true))
+      // sortedListItem = [...newBusinessListItems].sort(sortByDate);
+      sortedListItem = [...newBusinessListItems].sort(sortObjectArray('createDate', true))
 
     }
 
@@ -102,8 +108,12 @@ function BusinessList(props) {
     setSearch(searchValue);
 
   }
-  const handleFilterOptions=()=>{
-    
+  const handleFilterOptions = () => {
+    handleActionClose();
+  }
+  const filterAction = (filterOptions) => {
+    setFilterOptions(filterOptions)
+    handleActionClose()
   }
   function createList() {
     const shadowStyle = {
@@ -111,6 +121,12 @@ function BusinessList(props) {
     }
     return (
       <VStack style={styles.tabPageContent}>
+        <BusinessFilterSort show={showActionsheet}
+          handleFilterOptions={handleFilterOptions}
+          taskLanguageDTO={taskLanguageDTO}
+          commonLanguageDTO={commonLanguageDTO}
+          filterAction={filterAction}
+          token={token} />
         <VStack width="100%" mx="3" style={styles.pageHeader} >
 
           <Text style={[styles.pageTitle, { textAlign: "center" }]} >BUSINESSES</Text>
@@ -138,7 +154,7 @@ function BusinessList(props) {
                     <HStack justifyContent="right" space="lg" width="80%" >
                       <VStack>
                         <Text numberOfLines={1} ellipsizeMode="tail" style={styles.listHeadingMedium} >{item.name}</Text>
-                        <Text style={styles.listSubDescription} >{item.country}</Text>
+                        <Text style={styles.listSubDescription} >{item.city}</Text>
                       </VStack>
 
                     </HStack>

@@ -257,6 +257,13 @@ export const saveContact = (contactData,token) => {
         headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
     })
 }
+export const getCityListAPI=async (token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/business/cities`,
+        headers: { "APITOKEN":token },
+    })
 
+}
 
 

@@ -21,10 +21,10 @@ export function buildDTO(business) {
     cDTO.email = business.email;
     cDTO.phone = business.phone;
     cDTO.id = business.id;
-    cDTO.street=business.street;
-    cDTO.area=business.area;
-    cDTO.city=business.city;
-    cDTO.country=business.country
+    cDTO.street = business.street;
+    cDTO.area = business.area;
+    cDTO.city = business.city;
+    cDTO.country = business.country
     return cDTO;
 }
 export const buildBusinessListItems = (businessList) => {
@@ -43,4 +43,9 @@ export const buildBusinessTypes = (businessType) => {
         }
     }
     return Type;
+}
+export const buildCityList = (cities) => {
+    return cities.map((item, index) => {
+        return { id: index, name: item }
+    })
 }
