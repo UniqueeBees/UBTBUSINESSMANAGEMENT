@@ -3,4 +3,6 @@ export const requestStatusDTO={
     pending:'pending',
     fulfilled:'fulfilled',
     rejected:'rejected',
+    success:'success',
+    failed:'failed'
 }

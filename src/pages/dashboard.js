@@ -9,6 +9,7 @@ import { styles } from '../assets/styles/theme';
 import { useSelector,useDispatch } from 'react-redux';
 import { setPage } from '../slices/initialPageSlice';
 import { navigationRoutes } from '../common/navigation';
+import PageHeader from "./pageHeader";
 
 function Dashboard (props){
     const [isMeeting,setIsMeeting]=useState(true);
@@ -32,10 +33,9 @@ function Dashboard (props){
     const meetingBgColor=isMeeting ? {}:{bgColor:'$whitesmoke'}
     const taskBgColor=!isMeeting ? {}:{bgColor:'$whitesmoke'}
     return (
-     <VStack style={styles.tabPageContent} >
-        <VStack   >
-        <Text style={styles.pageTitle} >{companyState.company.name}</Text>
-          
+     <View bgColor="$white">
+        <VStack bgColor="$white"> 
+        <PageHeader   heading={companyState.company.name} showNotifi={true}></PageHeader>
             <Center>
             <HStack pt="$4" pb="$4">
                 <Button ml='auto'  variant="solid" action="primary" {...meetingBgColor} style={styles.tabItemButton} onPress={onMeetingPress}>
@@ -52,7 +52,7 @@ function Dashboard (props){
             </Center>
                 {isMeeting ?<MeetingLayout  /> : <TaskLayout/>} 
             </VStack>
-     </VStack>
+      </View>
     )
 }
 export default Dashboard;

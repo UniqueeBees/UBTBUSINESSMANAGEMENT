@@ -8,6 +8,7 @@ export const apiCallStatus={
 
 }
 export  const  accountLoginAPI = async (login) => {
+    debugger;
     console.log("get Token",login)
     const formData = new FormData();
     formData.append('domain', login.domain);
@@ -170,6 +171,7 @@ export  const  getUsers = async (token) => {
     })
  }
 
+ //Business 
 export const getBusinessList=async (token)=>{
     return await axios({
         method: "GET",
@@ -179,11 +181,13 @@ export const getBusinessList=async (token)=>{
 
 }
  export const createBusiness=async(_token,_business)=>{
+    debugger;
     return await axios({
+    
         method: "POST",
         data: _business,
         url: `${baseUrl}/business`,
-        headers: { "APITOKEN":token },
+        headers: { "APITOKEN":_token },
     })
  }
  export const getBusinessTypes=async (token)=>{
@@ -194,6 +198,14 @@ export const getBusinessList=async (token)=>{
     })
 
 }
+export const getCountryList=async(token)=>{
+    return await axios({
+        method:"GET",
+        url:`${baseUrl}/business/countries`,
+        headers:{"APITOKEN":token},
+    })
+}
+//
 
 export const addTask=async(token,task)=>{
     return await axios({
@@ -264,6 +276,32 @@ export const getCityListAPI=async (token)=>{
         headers: { "APITOKEN":token },
     })
 
+}export const changePassword = (passwordData,token) => {
+    const formData = new FormData(); 
+    formData.append('current_Password', passwordData.currentPassword); 
+    formData.append('password', passwordData.newPassword);
+    formData.append('confirm_password', passwordData.confirmPassword); 
+   return  axios({
+        method: "PATCH",
+        data: formData,
+        url: `${baseUrl}/user/password`,
+        headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
+    })
 }
+export const addAttachments=(attachmentData,token)=>{
+    const formData = new FormData(); 
+    formData.append('businessId', attachmentData.business_id); 
+    formData.append('identifier', attachmentData.identifier);
+    formData.append('name', attachmentData.name); 
+    formData.append('file', attachmentData.file); 
+   return  axios({
+        method: "PATCH",
+        data: formData,
+        url: `${baseUrl}/user/password`,
+        headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
+    })
+}
+
+
 
 

@@ -1,4 +1,11 @@
 {
   "name": "TASWIQAPP",
-  "displayName": "TASWIQAPP"
+  "displayName": "TASWIQAPP",
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "c06f9223-d6da-4e97-b064-ee17185ce866"
+      }
+    }
+  }
 }

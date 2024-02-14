@@ -49,3 +49,5 @@ export const buildCityList = (cities) => {
         return { id: index, name: item }
     })
 }
+
+ 

@@ -1,7 +1,7 @@
-
 import  react from 'react';
 import { StyleSheet,Dimensions } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+
 
 export const styles = StyleSheet.create({
   root: {
@@ -37,6 +37,14 @@ export const styles = StyleSheet.create({
     width: 300,
     borderRadius: 0,
 
+  },
+  longButtonRounded:{
+    width: 300,
+    borderRadius: 20,
+  },
+  shortButtonRounded:{
+    width: 100,
+    borderRadius: 20,
   },
   subheading: {
     fontFamily: 'Poppins-Italic',
@@ -74,7 +82,7 @@ export const styles = StyleSheet.create({
      
   },
   fieldLabel: {
-    paddingVertical: 10, 
+    paddingVertical: 2, 
     fontFamily:'Poppins-Regular',
     fontSize:12,
     justifyContent:'flex-start',
@@ -120,7 +128,7 @@ export const styles = StyleSheet.create({
     zIndex:2,
     position:"absolute",
     right:0,
-    bottom:20
+    bottom:300
 
   }, 
   subTitle: {
@@ -315,6 +323,34 @@ boxShadow:{
   shadowRadius: 5,
   elevation: 8,
   backgroundColor: 'white'
-}
+},
+notificationIconContainer:{
+ 
+  width:51.18,
+  height:41.03,
+  backgroundColor: '#FFFFF',
+  borderRadius: 50,
+  transform: [{ scaleX: 1 }],
+  borderColor: '#808080',//#EEF0F6',
+  borderWidth: 1,
+  alignItems: 'center',
+    
+    justifyContent: 'center'
+  
+ },
+notificationIcon:{
+  width:22.5,
+  height:22.51,
+ opacity:.5,
+},
+boxWithRadius:{
+  borderRadius:20,
+  backgroundColor:"white",
+  minHeight:200,
+},
+imageUploadContainer:{
+ paddingTop:300
+},
+
 })
 
