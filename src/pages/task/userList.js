@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { FlatList, VirtualizedList, SafeAreaView } from "react-native";
+import { VirtualizedList, SafeAreaView } from "react-native";
 import { VStack, Input, InputField } from "@gluestack-ui/themed";
 import UserListItem from "./userListItem";
 function UserList(props) {
@@ -18,8 +18,8 @@ function UserList(props) {
     };
     const getItem = (_data, index) => ({
         ...userList.list[index]
-      });
-      const getItemCount = _data => userList.list.length;
+    });
+    const getItemCount = _data => userList.list.length;
     return (
         <VStack space="2xl" >
 
@@ -30,20 +30,15 @@ function UserList(props) {
                     onChangeText={value => searchItems(value)}
                 />
             </Input>
-            {1 > 2 && <FlatList showsVerticalScrollIndicator={false}
-                data={userList.list}
-                ref={flatListRef}
-                renderItem={({ item }) => <UserListItem source={props.source} item={item} selectItem={props.selectItem} />}
-            />
-            }
+
             <SafeAreaView>
                 <VirtualizedList
-                ref={flatListRef}
-                initialNumToRender={15}
-                renderItem={({item}) => <UserListItem selectedList={props.selectedList} source={props.source} item={item} selectItem={props.selectItem} />}
-                keyExtractor={item => item.id}
-                getItemCount={getItemCount}
-                getItem={getItem}
+                    ref={flatListRef}
+                    initialNumToRender={15}
+                    renderItem={({ item }) => <UserListItem selectedList={props.selectedList} source={props.source} item={item} selectItem={props.selectItem} />}
+                    keyExtractor={item => item.id}
+                    getItemCount={getItemCount}
+                    getItem={getItem}
                 />
             </SafeAreaView>
 

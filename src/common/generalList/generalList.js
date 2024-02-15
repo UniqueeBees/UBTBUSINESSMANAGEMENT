@@ -18,7 +18,7 @@ function GeneralList(props) {
         flatListRef.current.scrollToOffset({ animated: true, offset: 0 })
     };
     const selectItem = (item) => {
-        props.selectItem(item[listSettings.valueField],listSettings.sourceFieldName, true)
+        props.selectItem(item[listSettings.valueField], listSettings.sourceFieldName, true)
     }
     const getItem = (_data, index) => ({
         ...generalList.list[index]
@@ -27,13 +27,14 @@ function GeneralList(props) {
     return (
         <VStack space="2xl" >
 
-            <Input size="lg" borderRadius="$2xl" >
+            {props.showSearch && <Input size="lg" borderRadius="$2xl" >
                 <InputField
-                    placeholder={props.languageDTO.executiveSearchPlaceholder}
+                    placeholder={props.searchPlaceholder}
                     value={generalList.search}
                     onChangeText={value => searchItems(value)}
                 />
             </Input>
+            }
             <SafeAreaView>
                 <VirtualizedList
                     ref={flatListRef}

@@ -8,7 +8,6 @@ export const apiCallStatus={
 
 }
 export  const  accountLoginAPI = async (login) => {
-    debugger;
     console.log("get Token",login)
     const formData = new FormData();
     formData.append('domain', login.domain);
@@ -276,7 +275,8 @@ export const getCityListAPI=async (token)=>{
         headers: { "APITOKEN":token },
     })
 
-}export const changePassword = (passwordData,token) => {
+}
+export const changePassword = (passwordData,token) => {
     const formData = new FormData(); 
     formData.append('current_Password', passwordData.currentPassword); 
     formData.append('password', passwordData.newPassword);

@@ -5,9 +5,7 @@ import {storeObjectData,storageKeyTypes,removeStoreObjectData} from '../common/l
 export const accountLogin = createAsyncThunk( 
   'account/accountLogin',
   async (login) => {
-    debugger;
     const response = await accountLoginAPI( login)
-    debugger;
     return response.data
   }
 )

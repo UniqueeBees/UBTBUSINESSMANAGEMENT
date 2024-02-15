@@ -9,18 +9,33 @@ import { KeyboardAvoidingView, Platform, Pressable } from 'react-native';
 import { styles } from '../../assets/styles/theme';
 import GeneralList from '../../common/generalList/generalList';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCityList } from '../../slices/businessSlice';
+import { getCityList, getCountries, businessTypes } from '../../slices/businessSlice';
 function BusinessFilterSort(props) {
     const sortOptions = { RecentlyAdded: 1, TitleByAscending: 2, TitleByDescending: 3 }
-    const filterDataDef = { businessType: 0, city: '', country: '', sortOption: sortOptions.RecentlyAdded }
+    const filterDataDef = { type: '', city: '', country: '', sortOption: sortOptions.RecentlyAdded }
     const [filterData, setFilterData] = useState(filterDataDef);
+
+    const businessTypeList = useSelector((state) => state.business.businessTypes);
+    const [showBusinessTypeList, setShowBusinessTypeList] = useState(false);
+
     const cities = useSelector((state) => state.business.cities);
     const [showCityList, setShowCityList] = useState(false);
     const [cityList, setCityList] = useState(cities);
+
+    const countries = useSelector((state) => state.business.countries);
+    const [showCountryList, setShowCountryList] = useState(false);
+    const [countryList, setCountryList] = useState(countries);
+
     const dispatch = useDispatch();
     useEffect(() => {
         if (cities.length === 0 && props.token) {
             dispatch(getCityList(props.token));
+        }
+        if (countries.length === 0 && props.token) {
+            dispatch(getCountries(props.token));
+        }
+        if (businessTypeList.length === 0) {
+            dispatch(businessTypes(props.token))
         }
     }, [props.token])
 
@@ -28,8 +43,19 @@ function BusinessFilterSort(props) {
         setCityList(cities)
     }, [cities.length])
 
+    useEffect(() => {
+        setCountryList(countries)
+    }, [countries.length])
+
+    const handleBusinessTypeSelect = () => {
+        setShowBusinessTypeList(!showBusinessTypeList);
+    }
+
     const handleCitySelect = () => {
         setShowCityList(!showCityList);
+    }
+    const handleCountrySelect = () => {
+        setShowCountryList(!showCountryList);
     }
     const setSortOptions = (value) => {
         setFilterData({ ...filterData, sortOption: value })
@@ -40,36 +66,66 @@ function BusinessFilterSort(props) {
         setFilterData(modifiedFilter)
         if (hideList) {
             setShowCityList(false);
+            setShowCountryList(false);
+            setShowBusinessTypeList(false);
         }
     }
-    
+    const getBusinessTypeName = (key) => {
+        if (businessTypeList) {
+            const type = businessTypeList.find(type => type.key === key)
+            if (type) {
+                return type.value;
+            }
+            return key;
+        }
+        return key;
+    }
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
             <Actionsheet isOpen={props.show} >
                 <ActionsheetBackdrop />
-                <ActionsheetContent height={showCityList ? '100%' : '82%'} >
-                    {showCityList ? <VStack w="$full" >
+                <ActionsheetContent height={(showCityList || showCountryList || showBusinessTypeList) ? '100%' : '82%'} >
+                    {(showCityList || showCountryList || showBusinessTypeList) ? <VStack w="$full" >
                         <VStack width="100%" mx="3" style={styles.pageHeader} >
 
                             <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl" onPress={() => {
                                 setShowCityList(false)
-
+                                setShowCountryList(false);
+                                setShowBusinessTypeList(false);
                             }} />
                                 <Text style={[styles.pageTitle, { textAlign: "center" }]}>
-                                    {props.taskLanguageDTO.executiveListTitle}
+                                    {showCityList ? props.businessLanguageDTO.cityListTitle :
+                                        showCountryList ? props.businessLanguageDTO.countryListTitle :
+                                            props.businessLanguageDTO.businessTypeListTitle
+                                    }
                                 </Text>
 
                             </HStack>
 
 
                         </VStack>
-                        <GeneralList
+                        {showCityList && <GeneralList
+                            showSearch={true}
                             selectItem={setFilterField}
                             list={cityList}
-                            listSettings={{ searchField: 'name', displayField: 'name',valueField:'name',sourceFieldName:'city' }}
-                            languageDTO={props.taskLanguageDTO} />
+                            listSettings={{ searchField: 'name', displayField: 'name', valueField: 'name', sourceFieldName: 'city' }}
+                            searchPlaceholder={props.businessLanguageDTO.citySearchPlaceholder} />
+                        }
+                        {showCountryList && <GeneralList
+                            showSearch={true}
+                            selectItem={setFilterField}
+                            list={countryList}
+                            listSettings={{ searchField: 'name', displayField: 'name', valueField: 'name', sourceFieldName: 'country' }}
+                            searchPlaceholder={props.businessLanguageDTO.countrySearchPlaceholder} />
+                        }
+                        {showBusinessTypeList && <GeneralList
+                            showSearch={false}
+                            selectItem={setFilterField}
+                            list={businessTypeList}
+                            listSettings={{ searchField: 'value', displayField: 'value', valueField: 'key', sourceFieldName: 'type' }}
+                            searchPlaceholder={props.businessLanguageDTO.countrySearchPlaceholder} />}
                     </VStack>
                         :
                         <VStack w="$full" spacing="$3" p={10}>
@@ -99,12 +155,28 @@ function BusinessFilterSort(props) {
                             <Text>
                                 {props.commonLanguageDTO.filterCaption}
                             </Text>
+
                             <FormControl>
                                 <FormControlLabel mb="$1">
-                                    <FormControlLabelText style={styles.fieldLabel}>{props.taskLanguageDTO.executive}</FormControlLabelText>
+                                    <FormControlLabelText style={styles.fieldLabel}>{props.businessLanguageDTO.filterTypeLabel}</FormControlLabelText>
                                 </FormControlLabel>
                                 <Input variant="underlined" size="md"    >
-                                    <InputField placeholder={props.taskLanguageDTO.assignToPlaceholder}
+                                    <InputField placeholder={props.businessLanguageDTO.filterTypePlaceholder}
+                                        value={getBusinessTypeName(filterData.type)}
+                                        editable={false}>
+                                    </InputField>
+                                    <InputSlot pr='$3' onPress={() => handleBusinessTypeSelect(true)}>
+                                        <InputIcon as={ChevronDown} size="lg" />
+                                    </InputSlot>
+                                </Input>
+                            </FormControl>
+
+                            <FormControl>
+                                <FormControlLabel mb="$1">
+                                    <FormControlLabelText style={styles.fieldLabel}>{props.businessLanguageDTO.filterCityLabel}</FormControlLabelText>
+                                </FormControlLabel>
+                                <Input variant="underlined" size="md"    >
+                                    <InputField placeholder={props.businessLanguageDTO.filterCityPlaceholder}
                                         value={filterData.city}
                                         editable={false}>
                                     </InputField>
@@ -113,7 +185,20 @@ function BusinessFilterSort(props) {
                                     </InputSlot>
                                 </Input>
                             </FormControl>
-
+                            <FormControl>
+                                <FormControlLabel mb="$1">
+                                    <FormControlLabelText style={styles.fieldLabel}>{props.businessLanguageDTO.filterCountryLabel}</FormControlLabelText>
+                                </FormControlLabel>
+                                <Input variant="underlined" size="md"    >
+                                    <InputField placeholder={props.businessLanguageDTO.filterCountryPlaceholder}
+                                        value={filterData.country}
+                                        editable={false}>
+                                    </InputField>
+                                    <InputSlot pr='$3' onPress={() => handleCountrySelect(true)}>
+                                        <InputIcon as={ChevronDown} size="lg" />
+                                    </InputSlot>
+                                </Input>
+                            </FormControl>
 
                             <Box paddingTop={'$10'} width='$full'>
                                 <Text>{props.commonLanguageDTO.sortCaption}</Text>

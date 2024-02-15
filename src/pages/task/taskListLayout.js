@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View,Keyboard } from 'react-native';
 import { Button, ButtonText, Center, HStack, VStack, Input, InputField, InputIcon, InputSlot } from '@gluestack-ui/themed';
 import TaskList from './taskList';
 import { styles } from '../../assets/styles/theme';
@@ -183,7 +183,9 @@ function TaskListLayout(props) {
                         value={search}
                         onChangeText={value => searchItems(value)}
                     />
-                    <InputSlot pr='$3' onPress={() => handleFilterOptions(true)}>
+                    <InputSlot pr='$3' onPress={() =>{ 
+                        Keyboard.dismiss()
+                        handleFilterOptions(true)}}>
                         <InputIcon as={SlidersHorizontal} size="lg" />
                     </InputSlot>
                 </Input>

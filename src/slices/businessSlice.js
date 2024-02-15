@@ -11,7 +11,7 @@ const initialState = {
   loading: false,
   hasError: false,
   businessSelectedFromForm: {},
-  cities:[],,
+  cities:[],
   countries:[], 
   actionStatus:requestStatusDTO.idle,
   error:"",
@@ -29,6 +29,14 @@ export const getBusinessListItems = createAsyncThunk(
   async (token) => {
     console.log('getBusiness')
     const response = await getBusinessList(token)
+    return response.data
+  }
+)
+export const getCityList = createAsyncThunk(
+  'business/getCityList',
+  async (token) => {
+    console.log('getBusiness')
+    const response = await getCityListAPI(token)
     return response.data
   }
 )
@@ -169,6 +177,17 @@ export const businessSlice = createSlice({
         state.status = apiCallStatus.rejected
         state.error = action.error.message
         state.countries = []
+      })
+      .addCase(getCityList.fulfilled, (state, action) => {
+        state.loading = false;
+        const resp = action.payload;
+        if (resp.status) {
+          state.hasError = false;
+          state.cities =buildCityList(resp.cities)
+        }
+        else {
+          state.hasError = true;
+        }
       })
       //Create business
       .addCase(createNewBusiness.pending, (state, action) => {

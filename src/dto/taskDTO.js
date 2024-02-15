@@ -48,7 +48,6 @@ export const buildTaskListItem=(taskListItem)=>{
 export const buildTaskListItems=(taskList)=>{
    
     const taskListItemsDTO=taskList.map((item)=>{
-        console.log('buildTaskListItems',item)
         return buildTaskListItem(item);
     });
     return taskListItemsDTO;

@@ -90,3 +90,17 @@ export const businessSelectLanguageDTO = {
     placeholder: 'Select Business',
     requiredValidationMessage:'Business is required',
 }
+export const businessLanguageDTO={
+    filterTypeLabel:'Business Type',
+    filterTypePlaceholder:'Select Type',
+    filterCityLabel:'Business City',
+    filterCityPlaceholder:'Select City',
+    filterCountryLabel:'Business Country',
+    filterCountryPlaceholder:'Select Country',
+    cityListTitle:'CITIES',
+    countryListTitle:'COUNTRIES',
+    countrySearchPlaceholder:'Search Countries',
+    citySearchPlaceholder:'Search Cities',
+    businessSearchPlaceholder:'Search Business',
+    businessTypeListTitle:'Select Business Type',
+}
