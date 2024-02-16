@@ -23,6 +23,7 @@ import FeedAttacher from '../../src/pages/business/feeds/feedAttacher';
  const TabIconColor="black";
 const Tab=createBottomTabNavigator();
 import { styles } from '../assets/styles/theme'
+import Feeds from '../pages/business/feeds/feeds';
 const DashboardStack = createNativeStackNavigator();
 const BusinessStack=createNativeStackNavigator();
 function DashboardStackScreen() {
@@ -90,7 +91,7 @@ function Tabs() {
               ), 
           }} ></Tab.Screen> 
           
-          <Tab.Screen name="Add"  component={FeedAttacher}
+          <Tab.Screen name="Add"  component={Feeds}
          
            options={{
             

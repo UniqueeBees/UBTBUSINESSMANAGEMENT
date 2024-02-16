@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useRef} from "react"
+import React, { useEffect, useState, useRef } from "react"
 import {
   VStack,
   FormControl,
@@ -35,8 +35,9 @@ import {
   PopoverBackdrop,
   PopoverContent,
   PopoverBody,
- 
- 
+  FlatList,
+
+
 
 } from "@gluestack-ui/themed"
 import { ArrowRight } from 'lucide-react-native';
@@ -44,48 +45,75 @@ import { styles } from '../../../assets/styles/theme'
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from 'react-redux';
 import { ArrowBigRightDash, CheckCircle2, SendHorizontal, PlusSquare } from 'lucide-react-native';
+import Modal from "react-native-modal";
 
+import { View, TouchableOpacity,TouchableWithoutFeedback } from "react-native";
 
-import { View ,TouchableOpacity} from "react-native";
-
-function FeedAttacher() {
+function FeedAttacher(props) {
 
   const [openPopper, setOpenPopper] = useState(false);
-  const refPop=useRef(null); 
+  const refPop = useRef(null);
   const handleOutsideClick = (e) => {
     if (newRef.current && !newRef.current.contains(e.target)) {
       setOpenPopper(false);
     }
   };
   useEffect(() => {
-  
-  }); 
+
+  });
+  function callAction (objectName){
+     props.onSelect(objectName);
+     setOpenPopper(false);
+  }
+  const popItems = [{ name: props.objEnum.createmeeting, description: "Create Meeting", icon: PlusSquare  },
+  { name: props.objEnum.recording, description: "Recording", icon: PlusSquare },
+  { name: props.objEnum.contacts, description: "Contacts", icon: PlusSquare },
+  { name: props.objEnum.attachments, description: "Attachments", icon: PlusSquare },
+  { name: props.objEnum.createTasks, description: "Create Tasks", icon: PlusSquare },
+  { name: "starttravel", description: "Start Travel", icon: PlusSquare },
+  { name: "cancel", description: "Cancel", icon: PlusSquare },
+  ];
   return (
-    <View style={{ marginTop: 200 }}>
-      <View width="100%" mx="3" height="100%" style={styles.fieldSetContainer}>
+    <View style={{ bottom:"3%" } }>
+      <View style={{height:"86%"}}></View>
+      <View width="100%" mx="3" height="1%" style={styles.fieldSetContainer}>
         <VStack >
-        {openPopper &&
-              <VStack style={styles.attachmentPopper} id="popBlock" ref={refPop}>
-                <HStack space="md" style={[styles.boxShadow,styles.popUpNode]} >                
-                <Icon  as={PlusSquare} size={20}></Icon>
-                <Text  style={{paddingBottom:"10"}}>Create Meeting</Text>
-                </HStack>
-              </VStack>} 
-          <HStack>  
-           
+          <HStack> 
             <Button
               mt="$1"
               mr="$1"
               size="md"
               variant="solid"
-              action="primary" 
-            
-              onPress={e=>setOpenPopper(!openPopper)}
-            > 
+              action="primary"
+              onPress={e => setOpenPopper(!openPopper)}
+            >
               <ButtonIcon size={20} as={PlusSquare} />
             </Button>
-            
-            <FormControl mt="$1"  style={{ width: "70%" }}> 
+            <View style={{ flex:1 , width:"100%"}} >
+            <Modal isVisible={openPopper} coverScreen={false} hasBackdrop={false} animationIn="fadeIn" animationOut="fadeOut"  >
+              
+        <View  style={{
+            width: 400,height: 400,bottom:300,right:98,paddingLeft:20,paddingBottom:0,paddingTop:20,backgroundColor:"white",borderRadius:20}}>
+              
+         <FlatList
+         data={popItems}
+         renderItem={({item})=>(
+          <Center>
+            <HStack space="md">
+            <TouchableOpacity style={styles.touchableButton} onPress={()=>callAction(item.name)}>
+            <Text style={styles.popperButton}>{item.description}</Text>
+            </TouchableOpacity>
+            </HStack>
+            </Center>
+         )}
+         >
+
+         </FlatList> 
+          
+        </View>
+      </Modal>
+</View>
+            <FormControl mt="$1" style={{ width: "70%" }}>
               <Input     >
                 <InputField placeholder="Enter Business Name1"    ></InputField>
               </Input>
