@@ -3,7 +3,7 @@ import { Popover, Button, VStack, Select, CheckIcon, Box, Center ,IconButton} fr
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import {Text, View,StatusBar,Alert} from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
- 
+
 
 /*function PopButton() {
   const [position, setPosition] = useState("top");
@@ -30,6 +30,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
          
             <Center flex={1} px="3">
                  <AntDesign name="plussquareo" color={"$whitesmoke"} size={25}   />
+                 
             </Center>
          
         );

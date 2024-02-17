@@ -322,7 +322,31 @@ boxShadow:{
   shadowOffset: { width: 0, height: 1},
   shadowRadius: 5,
   elevation: 8,
-  backgroundColor: 'white'
+  backgroundColor:"white"
+},
+attachmentPopper:{
+  width:"100%",height:"100%",backgroundColor:"red",bottom:45,position:"absolute", zIndex:2000,
+  borderRadius:20
+},
+popUpNode:{
+  width:"100%",height:44,backgroundColor:"#1877F2",  position:"absolute",
+  borderRadius:20, paddingTop:14,  paddingLeft:20, 
+},
+touchableButton: {
+  alignItems: 'center',
+  backgroundColor: '#1877F2',
+  padding: 10,
+  width:300,
+  marginBottom:10,
+  borderRadius:20,
+  color:"white"
+},
+popperButton:{
+  color:"white"
+},
+roundIconButton:{
+  width: 20,
+  borderRadius: 50,
 },
 notificationIconContainer:{
  

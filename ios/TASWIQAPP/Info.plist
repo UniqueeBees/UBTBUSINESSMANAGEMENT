@@ -79,5 +79,17 @@
     <key>NSCameraUsageDescription</key> 
     <string>$(PRODUCT_NAME) would like to use your camera</string> 
     <key>NSPhotoLibraryAddUsageDescription</key>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>Location is used to track your movements.</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>Location is used to track your movements.</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Location is used to track your movements.</string>
+<key>UIBackgroundModes</key>
+<array>
+  <string>fetch</string>
+  <string>remote-notification</string>
+  <string>location</string>
+</array>
 </dict>
 </plist>
