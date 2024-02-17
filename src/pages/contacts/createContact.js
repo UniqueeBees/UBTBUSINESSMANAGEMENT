@@ -14,7 +14,7 @@ import { addContactToList } from "../../slices/userSlice";
 import { styles } from "../../assets/styles/theme";
 import { ArrowRight,MoveLeft } from 'lucide-react-native';
 import { useNavigation } from "@react-navigation/native";
-
+import PageHeader from "../pageHeader";
 import BusinessSelect from '../formBusinessList/businessSelect';
 const CreateContact = () => {
   const [contactData, setContactData] = useState({businessId:1, Name: "", Designation: "", Email: "", MobileNo: "", WhatsAppNo: "" });
@@ -141,13 +141,7 @@ const setBusinessControlSettings = (fieldName) => {
       >
 
         <VStack space='xl'>
-          <VStack width="100%" mx="3" >
-            <HStack space="2xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl" onPress={() => { navigation.goBack() }} />
-            
-              <Text  style={[styles.pageTitle,{ textAlign:"center"}]}>
-                Create Contact
-              </Text>
-            </HStack></VStack>
+        <PageHeader goBack="goback"  heading="Create Contact" showNotifi={false}></PageHeader>  
           <VStack style={styles.outerVStack} space="2xl">
             <VStack space='xs' alignItems="">
             <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />

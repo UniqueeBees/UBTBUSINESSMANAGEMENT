@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getTasksByUser, getTaskStatusListAPI, addTask, updateTask } from '../common/apiCalls';
 import { buildTaskListItems, buildTaskStatusList, buildTaskListItem, taskSetupDTO, buildTaskSetupDTOFromTaskListItem } from '../dto/taskDTO';
 import { requestStatusDTO } from "../dto/statusDTO";
-import { resetValidationObject } from "../common/utility";
+import { resetValidationObject,getCurrentDateTime } from "../common/utility";
 
 const initialState = {
   isAuthInvalid: false,
@@ -20,7 +20,8 @@ const initialState = {
   requiredFieldList: [{ field: 'title', isTouched: false, isValid: false },
   { field: 'assignTo', isTouched: false, isValid: false },
   ],
-  taskSetUpLaunchSource:"taskListLayout",
+  taskSetUpLaunchSource: "taskListLayout",
+  deleteOptions: { initiated: false, id: 0,status:requestStatusDTO.idle },
 }
 export const getTaskListByUser = createAsyncThunk(
   'task/getlistByUser',
@@ -59,7 +60,16 @@ export const addUpdateTask = createAsyncThunk(
     return response.data
   }
 )
-
+export const deleteTask = createAsyncThunk(
+  'task/deleteTask',
+  async (task) => {
+    const formData = new FormData();
+    const currenDateTime=getCurrentDateTime();
+    formData.append('deleted_at', currenDateTime);
+    const response = await updateTask(task.token, formData, task.id)
+    return response.data
+  }
+)
 export const taskSlice = createSlice({
   name: 'task',
   initialState,
@@ -75,7 +85,7 @@ export const taskSlice = createSlice({
     },
     resetTaskSetUp: (state) => {
       state.taskSetup = initialState.taskSetup;
-      state.taskSetUpLaunchSource="taskListLayout";
+      state.taskSetUpLaunchSource = "taskListLayout";
       state.saveRequestStatus = requestStatusDTO.idle;
     },
     resetSaveRequestStatus: (state, action) => {
@@ -87,8 +97,14 @@ export const taskSlice = createSlice({
       if (task) {
         state.taskSetup = buildTaskSetupDTOFromTaskListItem(task);
         state.requiredFieldList = resetValidationObject(state.requiredFieldList, state.taskSetup)
-        state.taskSetUpLaunchSource=action.payload.launchSource
+        state.taskSetUpLaunchSource = action.payload.launchSource
       }
+    },
+    setTaskDeleteOptions: (state, action) => {
+      state.deleteOptions = action.payload;
+    },
+    resetTaskDeleteOptions: (state, action) => {
+      state.deleteOptions = { initiated: false, id: 0,status:requestStatusDTO.idle };
     },
   },
   extraReducers(builder) {
@@ -165,6 +181,29 @@ export const taskSlice = createSlice({
           state.isAuthInvalid = true;
         }
       })
+      .addCase(deleteTask.pending, (state, action) => {
+        state.deleteOptions.status = requestStatusDTO.pending;
+      })
+      .addCase(deleteTask.fulfilled, (state, action) => {
+        const resp = action.payload;
+        if (resp.status) {
+          state.deleteOptions.status = requestStatusDTO.fulfilled;
+          const deletedTask=resp.task;
+          const index = state.listItems.findIndex(task => task.id === deletedTask.id)
+          state.listItems.splice(index,1);
+        }
+        else 
+        {
+          state.deleteOptions.status = requestStatusDTO.rejected;
+        }
+
+      })
+      .addCase(deleteTask.rejected, (state, action) => {
+        state.deleteOptions.status = requestStatusDTO.rejected;
+        if (action.error && action.error.message === 'Request failed with status code 401') {
+          state.isAuthInvalid = true;
+        }
+      })
 
 
   },
@@ -175,5 +214,5 @@ export const selectNotCompletedTasks = (state, userId) => state.task.listItems.f
   && item.assignedTo === userId)
 export const selectMyTasks = (state, userId) => state.task.listItems.filter(item => item.assignedTo === userId)
 
-export const { reset, resetSaveRequestStatus, getTaskByIdFromList, resetTaskSetUp } = taskSlice.actions
+export const { reset, resetSaveRequestStatus, getTaskByIdFromList, resetTaskSetUp, setTaskDeleteOptions,resetTaskDeleteOptions } = taskSlice.actions
 export default taskSlice.reducer;

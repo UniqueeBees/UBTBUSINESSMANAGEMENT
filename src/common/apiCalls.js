@@ -170,6 +170,7 @@ export  const  getUsers = async (token) => {
     })
  }
 
+ //Business 
 export const getBusinessList=async (token)=>{
     return await axios({
         method: "GET",
@@ -179,11 +180,13 @@ export const getBusinessList=async (token)=>{
 
 }
  export const createBusiness=async(_token,_business)=>{
+    debugger;
     return await axios({
+    
         method: "POST",
         data: _business,
         url: `${baseUrl}/business`,
-        headers: { "APITOKEN":token },
+        headers: { "APITOKEN":_token },
     })
  }
  export const getBusinessTypes=async (token)=>{
@@ -194,6 +197,14 @@ export const getBusinessList=async (token)=>{
     })
 
 }
+export const getCountryList=async(token)=>{
+    return await axios({
+        method:"GET",
+        url:`${baseUrl}/business/countries`,
+        headers:{"APITOKEN":token},
+    })
+}
+//
 
 export const addTask=async(token,task)=>{
     return await axios({
@@ -231,6 +242,16 @@ export const addTask=async(token,task)=>{
         headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
     })
  }
+ export const updateBusiness=async(token,business,id)=>{
+    console.log('updateBusinessAPI',business)
+    business.append('_method', 'PATCH');
+    return await axios({
+        method: "POST",
+        data: business,
+        url: `${baseUrl}/business/${id}`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
 //Test Call
 const baseUrl1 = "https://jsonplaceholder.typicode.com"
 export const getApi = () => {
@@ -257,6 +278,40 @@ export const saveContact = (contactData,token) => {
         headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
     })
 }
+export const getCityListAPI=async (token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/business/cities`,
+        headers: { "APITOKEN":token },
+    })
+
+}
+export const changePassword = (passwordData,token) => {
+    const formData = new FormData(); 
+    formData.append('current_Password', passwordData.currentPassword); 
+    formData.append('password', passwordData.newPassword);
+    formData.append('confirm_password', passwordData.confirmPassword); 
+   return  axios({
+        method: "PATCH",
+        data: formData,
+        url: `${baseUrl}/user/password`,
+        headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
+    })
+}
+export const addAttachments=(attachmentData,token)=>{
+    const formData = new FormData(); 
+    formData.append('businessId', attachmentData.business_id); 
+    formData.append('identifier', attachmentData.identifier);
+    formData.append('name', attachmentData.name); 
+    formData.append('file', attachmentData.file); 
+   return  axios({
+        method: "PATCH",
+        data: formData,
+        url: `${baseUrl}/user/password`,
+        headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
+    })
+}
+
 
 
 

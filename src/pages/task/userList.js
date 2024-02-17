@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
-import { FlatList, TouchableOpacity } from "react-native";
-import { styles } from '../../assets/styles/theme'
-import { HStack, VStack, Box, Badge, BadgeText, Heading, Text, Input, InputField,Icon, MailIcon, PhoneIcon, MessageCircleIcon } from "@gluestack-ui/themed";
+import { VirtualizedList, SafeAreaView } from "react-native";
+import { VStack, Input, InputField } from "@gluestack-ui/themed";
+import UserListItem from "./userListItem";
 function UserList(props) {
     const [userList, setUserList] = useState({ list: props.userItemList, search: '' });
     const flatListRef = useRef()
@@ -16,41 +16,32 @@ function UserList(props) {
         setUserList({ list: newData, search: text })
         flatListRef.current.scrollToOffset({ animated: true, offset: 0 })
     };
+    const getItem = (_data, index) => ({
+        ...userList.list[index]
+    });
+    const getItemCount = _data => userList.list.length;
     return (
-<VStack space="2xl" >
+        <VStack space="2xl" >
 
-<Input size="lg" borderRadius="$2xl" >
-    <InputField
-        placeholder={props.languageDTO.executiveSearchPlaceholder}
-        value={userList.search}
-        onChangeText={value => searchItems(value)}
-    />
-</Input>
-        <FlatList showsVerticalScrollIndicator={false}
-            data={userList.list}
-            ref={flatListRef}
-            renderItem={({ item }) => <Box style={[styles.listContentItem,styles.boxShadow]} m="$1" p="$2" pl="$5">
-                <VStack>
-                    <TouchableOpacity
-                        activeOpaticy={1}
-                        onPress={() => props.selectItem(item)}>
-                        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.listHeading} >{item.name}</Text>
-                        {item.designation && <Text style={styles.listSubHeading}>{item.designation}</Text>} 
-                        <HStack justifyContent="flex-start">
-                            {item.email ? <Icon as={MailIcon} m="$1" w="$3" h="$3" ml="$0" /> : ""}<Text style={styles.listSubDescription}>{item.email}</Text>
-                        </HStack>
-                        <HStack justifyContent="space-between"  >
-                            <HStack justifyContent="flex-start">
-                                {item.mobile1 ? <Icon as={PhoneIcon} m="$1" w="$3" h="$3" ml="$0" /> : ""}<Text style={styles.listSubDescription}>{item.mobile1}</Text>
-                            </HStack>
-                            <HStack justifyContent="flex-end">
-                                {item.mobile2 ? <Icon as={MessageCircleIcon} m="$1" w="$3" h="$3" /> : ""}<Text style={styles.listSubDescription}>{item.mobile2}</Text>
-                            </HStack>
-                        </HStack>
-                    </TouchableOpacity>
-                </VStack>
-            </Box>}
-        />
+            <Input size="lg" borderRadius="$2xl" >
+                <InputField
+                    placeholder={props.languageDTO.executiveSearchPlaceholder}
+                    value={userList.search}
+                    onChangeText={value => searchItems(value)}
+                />
+            </Input>
+
+            <SafeAreaView>
+                <VirtualizedList
+                    ref={flatListRef}
+                    initialNumToRender={15}
+                    renderItem={({ item }) => <UserListItem selectedList={props.selectedList} source={props.source} item={item} selectItem={props.selectItem} />}
+                    keyExtractor={item => item.id}
+                    getItemCount={getItemCount}
+                    getItem={getItem}
+                />
+            </SafeAreaView>
+
         </VStack>
 
     )

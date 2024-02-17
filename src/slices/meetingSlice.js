@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getMeetingsByUser, getMeetingPurposeList, addMeeting, updateMeeting } from '../common/apiCalls';
 import { buildMeetingListItems, buildMeetingListItem, buildPurposeListItems, meetingSetupDTO, buildMeetingSetUpDTO } from '../dto/meetingDTO';
 import { requestStatusDTO } from "../dto/statusDTO";
-import { resetValidationObject } from "../common/utility";
+import { resetValidationObject,getCurrentDateTime } from "../common/utility";
 const initialState = {
   isAuthInvalid: false,
   listItems: [],
@@ -21,7 +21,8 @@ const initialState = {
   { field: 'contactId', isTouched: false, isValid: false },
   { field: 'scheduledAt', isTouched: false, isValid: false },
   { field: 'businessId', isTouched: false, isValid: false }
-  ]
+  ],
+  deleteOptions:{initiated:false,id:0,status:requestStatusDTO.idle},
 }
 export const getMeetingListByUser = createAsyncThunk(
   'meeting/getlistByUser',
@@ -51,6 +52,16 @@ export const addUpdateMeeting = createAsyncThunk(
     return response.data
   }
 )
+export const deleteMeeting = createAsyncThunk(
+  'meeting/deleteMeeting',
+  async (meeting) => {
+    const formData = new FormData();
+    const currenDateTime=getCurrentDateTime();
+    formData.append('deleted_at', currenDateTime);
+    const response = await updateMeeting(meeting.token, formData, meeting.id)
+    return response.data
+  }
+)
 export const meetingSlice = createSlice({
   name: 'meeting',
   initialState,
@@ -74,6 +85,12 @@ export const meetingSlice = createSlice({
     resetSaveRequestStatus: (state) => {
       state.saveRequestStatus = requestStatusDTO.idle;
 
+    },
+    setMeetingDeleteOptions:(state,action)=>{
+      state.deleteOptions=action.payload;
+    },
+    resetMeetingDeleteOptions: (state, action) => {
+      state.deleteOptions = { initiated: false, id: 0,status:requestStatusDTO.idle };
     },
   },
   extraReducers(builder) {
@@ -146,17 +163,39 @@ export const meetingSlice = createSlice({
 
       })
       .addCase(addUpdateMeeting.rejected, (state, action) => {
-        console.log('addNewMeeting-rejected', action)
         state.saveRequestStatus = requestStatusDTO.rejected;
         if (action.error && action.error.message === 'Request failed with status code 401') {
           state.isAuthInvalid = true;
         }
 
       })
+      .addCase(deleteMeeting.pending, (state, action) => {
+        state.deleteOptions.status = requestStatusDTO.pending;
+      })
+      .addCase(deleteMeeting.fulfilled, (state, action) => {
+        const resp = action.payload;
+        if (resp.status) {
+          state.deleteOptions.status = requestStatusDTO.fulfilled;
+          const deletedMeeting=resp.meeting;
+          const index = state.listItems.findIndex(meeting => meeting.id === deletedMeeting.id)
+          state.listItems.splice(index,1);
+        }
+        else 
+        {
+          state.deleteOptions.status = requestStatusDTO.rejected;
+        }
+
+      })
+      .addCase(deleteMeeting.rejected, (state, action) => {
+        state.deleteOptions.status = requestStatusDTO.rejected;
+        if (action.error && action.error.message === 'Request failed with status code 401') {
+          state.isAuthInvalid = true;
+        }
+      })
     //
   },
 
 })
 
-export const { reset, resetSaveRequestStatus, getMeetingByIdFromList } = meetingSlice.actions
+export const { reset, resetSaveRequestStatus, getMeetingByIdFromList,setMeetingDeleteOptions,resetMeetingDeleteOptions } = meetingSlice.actions
 export default meetingSlice.reducer;

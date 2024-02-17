@@ -31,14 +31,12 @@ function BusinessSelectList() {
 
     function createList() {
         return (
-            <VStack width="100%" mx="3" style={styles.tabPageContent} >
-                <VStack width="100%" mx="3" style={styles.pageHeader} >
-                    <HStack space="4xl" height="$20" alignItems='center'>
-                        <Icon as={MoveLeft} size="xl" onPress={() => navigation.goBack()} />
-                        <Text style={[styles.pageTitle, { textAlign: "center" }]} >BUSINESSES</Text>
-                    </HStack>
-                </VStack>
-                <FlatList showsVerticalScrollIndicator={false}
+            <VStack width="100%" mx="3" style={styles.pageHeader} >
+                
+                <PageHeader goBack="goBack" heading="Create Business" showNotifi={false}></PageHeader>
+            
+
+                <FlatList style={{ height: Dimensions.get('window').height - 170 }}
                     data={businessListItems}
                     renderItem={({ item }) => <Box style={[styles.listContentItem,styles.boxShadow]}  m="$1" p="$2" pl="$5">
                         <View  > 

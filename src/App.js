@@ -21,6 +21,7 @@ import { config } from "@gluestack-ui/config" // Optional if you w
 import Alert from "./common/alert";
 import Loading from './common/loading';
 import SessionExpire from './common/sessionExpire';
+import DeleteAlert from './common/deleteAlert';
 function App() {
 
   return (
@@ -31,6 +32,7 @@ function App() {
         <Alert />
         <Loading />
         <SessionExpire />
+        <DeleteAlert />
         <Navigation />
       </GluestackUIProvider>
     </SafeAreaProvider>
