@@ -3,8 +3,7 @@ import { useToast, Center, VStack, Button, ButtonText, Toast, ToastTitle, ToastD
 import { Text, View } from "lucide-react-native";
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { showAlert,hideAlert} from '../slices/alertSlice'
-import { styles } from "../assets/styles/theme";
+import { hideAlert} from '../slices/alertSlice'
 const Alert = (props) => {
   const toast = useToast()
   const alertState = useSelector((state) => state.alert)

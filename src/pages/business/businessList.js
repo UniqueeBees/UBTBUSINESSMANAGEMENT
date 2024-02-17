@@ -57,9 +57,11 @@ function BusinessList(props) {
         }
         return true // must return true if doesn't break
       });
+
+      return (searchResult && filterResult);
     }
-console.log('filterResult',filterParams,filterOptions,filterResult)
-    return (searchResult && filterResult);
+
+   return searchResult;
   }
 
   const searchItems = (searchValue, fromFilter) => {

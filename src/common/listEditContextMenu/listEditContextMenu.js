@@ -7,8 +7,9 @@ import {
 } from '@gluestack-ui/themed';
 import { useSelector, useDispatch } from 'react-redux';
 import { showContextMenu } from '../../slices/listEditContextMenuSlice';
-import { getTaskByIdFromList } from '../../slices/taskSlice';
-import { getMeetingByIdFromList } from '../../slices/meetingSlice';
+import { getTaskByIdFromList,setTaskDeleteOptions } from '../../slices/taskSlice';
+import { getMeetingByIdFromList,setMeetingDeleteOptions } from '../../slices/meetingSlice';
+import { setBusinessDeleteOptions } from '../../slices/businessSlice';
 import { useNavigation } from '@react-navigation/native';
 const ListEditContextMenu = (props) => {
     const showAlertDialog = useSelector((state) => state.listContextMenu.show)
@@ -18,6 +19,7 @@ const ListEditContextMenu = (props) => {
     const navigation = useNavigation();
     const menuAction = (action) => {
         dispatch(showContextMenu(false));
+       
         if (settings) {
             if (action === 'edit') {
                 if (settings.type === 'meeting') {
@@ -33,6 +35,22 @@ const ListEditContextMenu = (props) => {
                 }
                 else if (settings.type === 'business') {
 
+                }
+            }
+            else {
+                
+                if (settings.type === 'meeting') {
+
+                    dispatch(setMeetingDeleteOptions({initiated:true, id: settings.id}));
+                }
+                else if (settings.type === 'task') {
+                    dispatch(setTaskDeleteOptions({initiated:true, id: settings.id }));
+                }
+                else if (settings.type === 'contact') {
+
+                }
+                else if (settings.type === 'business') {
+                    dispatch(setBusinessDeleteOptions({initiated:true, id: settings.id }));
                 }
             }
         }

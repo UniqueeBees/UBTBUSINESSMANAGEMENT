@@ -242,6 +242,16 @@ export const addTask=async(token,task)=>{
         headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
     })
  }
+ export const updateBusiness=async(token,business,id)=>{
+    console.log('updateBusinessAPI',business)
+    business.append('_method', 'PATCH');
+    return await axios({
+        method: "POST",
+        data: business,
+        url: `${baseUrl}/business/${id}`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
 //Test Call
 const baseUrl1 = "https://jsonplaceholder.typicode.com"
 export const getApi = () => {
