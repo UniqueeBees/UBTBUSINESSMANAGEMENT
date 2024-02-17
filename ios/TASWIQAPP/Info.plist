@@ -73,5 +73,17 @@
 		<string>Poppins-Thin.ttf</string>
 		<string>Poppins-ThinItalic.ttf</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>Location is used to track your movements.</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>Location is used to track your movements.</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Location is used to track your movements.</string>
+<key>UIBackgroundModes</key>
+<array>
+  <string>fetch</string>
+  <string>remote-notification</string>
+  <string>location</string>
+</array>
 </dict>
 </plist>

@@ -19,8 +19,9 @@ import RNFetchBlob from 'rn-fetch-blob'
  
 class AudioRecordercl extends React.Component {
     audioRecorderPlayer= AudioRecorderPlayer;
-  
+    
     constructor(props) {
+      const dirs = RNFetchBlob.fs.dirs;
       super(props);
       this.state = {
         isLoggingIn: false,
@@ -30,6 +31,8 @@ class AudioRecordercl extends React.Component {
         currentDurationSec: 0,
         playTime: '00:00:00',
         duration: '00:00:00',
+        iosFile: 'tsqrecord.m4a',
+        androidFile:  `${dirs.CacheDir}/tsqrecord.mp4`,
       };
   
       this.audioRecorderPlayer = new AudioRecorderPlayer();
@@ -87,10 +90,10 @@ class AudioRecordercl extends React.Component {
             return;
           }
         }
-      const dirs = RNFetchBlob.fs.dirs;
+      
         const path = Platform.select({
-          ios: 'hello.m4a',
-         android:  `${dirs.CacheDir}/hello.mp4`,
+          ios: this.state.iosFile,
+         android:  this.state.androidFile,
           //android:  'hello.mp3',
         });
        /*let audioSet: AudioSet = {
@@ -121,11 +124,10 @@ class AudioRecordercl extends React.Component {
       };
       
       onStartPlay = async () => {
-        const dirs = RNFetchBlob.fs.dirs;
+        
         const path = Platform.select({
-          ios: 'hello.m4a',
-         android:  `${dirs.CacheDir}/hello.mp4`,
-          //android:  'hello.mp3',
+          ios: this.state.iosFile,
+         android:  this.state.androidFile, 
         });
         console.log('onStartPlay');
         const msg = await this.audioRecorderPlayer.startPlayer(path);

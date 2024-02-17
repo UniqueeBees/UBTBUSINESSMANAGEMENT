@@ -70,7 +70,7 @@ function FeedAttacher(props) {
   { name: props.objEnum.contacts, description: "Contacts", icon: PlusSquare },
   { name: props.objEnum.attachments, description: "Attachments", icon: PlusSquare },
   { name: props.objEnum.createTasks, description: "Create Tasks", icon: PlusSquare },
-  { name: "starttravel", description: "Start Travel", icon: PlusSquare },
+  { name: props.objEnum.travel, description: "Start Travel", icon: PlusSquare },
   { name: "cancel", description: "Cancel", icon: PlusSquare },
   ];
   return (
