@@ -61,7 +61,7 @@ export const meetingLanguageDTO = {
     meetingDateAndTime:'Date & Time',
     meetingDateAndTimePlaceholder:'Enter Schedule Meeting Date & Time',
     meetingDateAndTimeValidationMessage:'Date & Time is required',
-    scheuleMeeting:'Schedule Meeting',
+    scheuleMeeting:'Schedule',
     contactListTitle:'CONTACTS',
     contactSearchPlaceholder:'Search Contact',
 }

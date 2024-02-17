@@ -107,7 +107,7 @@ function Login() {
 
               <VStack pl="$10" pr="$10" space="xl">
                 <VStack space='none'>
-                  <Text color='$text500' lineHeight='$xs' style={styles.fieldLabel}>
+                  <Text color='$text500' lineHeight='$xs' style={styles.loginFieldLabel}>
                     {loginLanguageDTO.username}
                   </Text>
                   <Input variant='underlined' mt="$0">
@@ -123,7 +123,7 @@ function Login() {
                   </Input>
                 </VStack>
                 <VStack space='none'>
-                  <Text color='$text500' lineHeight='$xs' style={styles.fieldLabel}>
+                  <Text color='$text500' lineHeight='$xs' style={styles.loginFieldLabel}>
                     {loginLanguageDTO.password}
                   </Text>
                   <Input variant='underlined' textAlign='center' mt="$0">

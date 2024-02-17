@@ -112,7 +112,6 @@ function Language(props) {
         <VStack space="1xl" mt={40.62} pl={48} pr={40} >
           <FlatList
             showsVerticalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
             data={languageData}
             renderItem={({ item }) =>
 
