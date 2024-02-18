@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import {
     FormControl, FormControlLabel, FormControlLabelText, FormControlError, FormControlErrorText,
-    Input, InputField, InputSlot, InputIcon, VStack
+    Input, InputField, InputSlot, InputIcon, Box, VStack
 } from '@gluestack-ui/themed';
 import { resetBusinessName } from '../../slices/businessSlice';
 import { ChevronRight } from 'lucide-react-native';
@@ -42,14 +42,13 @@ function BusinessSelect(props) {
     }, [businessListItems])
 
     return (
-        
-        <FormControl isRequired={controlSettings.isRequired} isInvalid={controlSettings.isInvalid}   >
-            <FormControlLabel style={styles.fieldLabel}  >
-                <FormControlLabelText style={styles.fieldLabel}>{businessSelectLanguageDTO.label}</FormControlLabelText>
+            <FormControl isRequired={controlSettings.isRequired} isInvalid={controlSettings.isInvalid} >
+            <FormControlLabel pb="$0" pt="$0" mb="$0" mt="$0" >
+                <FormControlLabelText pb="$0" pt="$0" mb="$0" mt="$0" style={styles.fieldLabel}>{businessSelectLanguageDTO.label}</FormControlLabelText>
             </FormControlLabel>
-            <Input variant="underlined" style={styles.fieldInput}   >
-                <InputField style={styles.fieldInput} placeholder={businessSelectLanguageDTO.placeholder} value={businessName}
-                    editable={false}>
+            <Input variant="underlined" style={styles.fieldInput}  >
+                <InputField pb="$0" pt="$0" mb="$0" mt="$0" style={styles.fieldInput} placeholderTextColor="#171717" placeholder={businessSelectLanguageDTO.placeholder} value={businessName}
+                    editable={false} >
                 </InputField>
                 <InputSlot pr='$3' onPress={() => navigation.navigate('businessSelectList')}>
                     <InputIcon as={ChevronRight} size="lg" />

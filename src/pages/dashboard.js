@@ -36,7 +36,7 @@ function Dashboard (props){
      <View bgColor="$white">
         <VStack bgColor="$white"> 
         <PageHeader   heading={companyState.company.name} showNotifi={true}></PageHeader>
-            <Center>
+            <Center height={29} mb={37}>
             <HStack pt={37.81} pb="$4">
                 <Button ml='auto'  variant="solid" action="primary" {...meetingBgColor} style={styles.tabItemButton} onPress={onMeetingPress}>
                     <ButtonText color={isMeeting?'$white':'$black'} style={styles.tabTitleText}  >

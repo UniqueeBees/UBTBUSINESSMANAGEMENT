@@ -379,8 +379,8 @@ export const styles = StyleSheet.create({
     shadowColor: 'red',
     shadowOpacity: 0.26,
     shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 5,
-    elevation: 3,
+    shadowRadius: .1,
+    elevation: .1,
     backgroundColor: '#white',
 
   },
@@ -413,14 +413,10 @@ notificationIconContainer:{
  
   width:51.18,
   height:41.03,
-  backgroundColor: '#FFFFF',
-  borderRadius: 50,
-  transform: [{ scaleX: 1 }],
-  borderColor: '#808080',//#EEF0F6',
-  borderWidth: 1,
-  alignItems: 'center',
-    
-    justifyContent: 'center'
+   transform: [{ scaleX: 1 }],
+   alignItems: 'center',
+   justifyContent: 'center',
+   marginRight:36
   
  },
 notificationIcon:{

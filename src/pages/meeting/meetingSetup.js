@@ -224,13 +224,14 @@ function MeetingSetup(props) {
             {showContactList ?
                 <ContactList selectItem={onContactSelect} contactItemList={contactList.list} languageDTO={meetingLanguageDTO} /> :
                 <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false}>
-                    <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />
                     
-                    <FormControl isRequired isInvalid={isFieldStateInValid('purposeId')}>
-                        <FormControlLabel style={styles.fieldLabel}>
-                            <FormControlLabelText style={styles.fieldLabel}>{meetingLanguageDTO.purpose}</FormControlLabelText>
+                    <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />
+                    <Box mt={20}>
+                    <FormControl isRequired isInvalid={isFieldStateInValid('purposeId')} mt="20px">
+                        <FormControlLabel style={styles.fieldLabel}  pb="$0" pt="$0" mb="$0" mt="$0">
+                            <FormControlLabelText  pb="$0" pt="$0" mb="$0" mt="$0" style={styles.fieldLabel}>{meetingLanguageDTO.purpose}</FormControlLabelText>
                         </FormControlLabel>
-                        <Select bgColor='red' onValueChange={value => changeFormData('purposeId', value)} style={styles.fieldInput} >
+                        <Select  onValueChange={value => changeFormData('purposeId', value)} style={styles.fieldInput} >
                             <SelectTrigger variant="underlined">
                                 <SelectInput placeholder={meetingLanguageDTO.purposePlaceholder} value={getPurposeName(formData.purposeId)} />
                                 <SelectIcon mr="$3">
@@ -255,10 +256,10 @@ function MeetingSetup(props) {
                             </FormControlErrorText>
                         </FormControlError>
                     </FormControl>
-                    
-                    <FormControl isRequired isInvalid={isFieldStateInValid('contactId')} height={60} mt={28}>
-                        <FormControlLabel >
-                            <FormControlLabelText style={styles.fieldLabel}>{meetingLanguageDTO.contact}</FormControlLabelText>
+                    </Box>
+                    <FormControl isRequired isInvalid={isFieldStateInValid('contactId')}  mt={20}>
+                        <FormControlLabel  pb="$0" pt="$0" mb="$0" mt="$0">
+                            <FormControlLabelText  pb="$0" pt="$0" mb="$0" mt="$0" style={styles.fieldLabel}>{meetingLanguageDTO.contact}</FormControlLabelText>
                         </FormControlLabel>
                         <Input variant="underlined" size="md" style={styles.fieldInput} >
                             <InputField placeholder={meetingLanguageDTO.contactPlaceholder} value={contactName}
@@ -274,9 +275,9 @@ function MeetingSetup(props) {
                             </FormControlErrorText>
                         </FormControlError>
                     </FormControl>
-                    <FormControl isRequired isInvalid={isFieldStateInValid('title')} height={59} mt={20}>
-                        <FormControlLabel mb="$1">
-                            <FormControlLabelText style={styles.fieldLabel}>{meetingLanguageDTO.title}</FormControlLabelText>
+                    <FormControl isRequired isInvalid={isFieldStateInValid('title')}  mt={20}>
+                        <FormControlLabel  pb="$0" pt="$0" mb="$0" mt="$0">
+                            <FormControlLabelText  pb="$0" pt="$0" mb="$0" mt="$0" style={styles.fieldLabel}>{meetingLanguageDTO.title}</FormControlLabelText>
                         </FormControlLabel>
                         <Input variant="underlined" size="md" style={styles.fieldInput} >
                             <InputField placeholder={meetingLanguageDTO.titlePlaceholder} value={formData.title}
@@ -288,9 +289,9 @@ function MeetingSetup(props) {
                                 {meetingLanguageDTO.titleValidationMessage}
                             </FormControlErrorText>
                         </FormControlError>
-                    </FormControl><FormControl height={173} mt={20}>
-                        <FormControlLabel mb="$1">
-                            <FormControlLabelText style={styles.fieldLabel}>{meetingLanguageDTO.description}</FormControlLabelText>
+                    </FormControl><FormControl  mt={20}>
+                        <FormControlLabel pb="$0" pt="$0" mb="$0" mt="$0">
+                            <FormControlLabelText  pt="$0" mb="$0" mt="$0" style={styles.fieldLabel}>{meetingLanguageDTO.description}</FormControlLabelText>
                         </FormControlLabel>
                         <Textarea variant="underlined" size="md" style={styles.fieldInput}  >
                             <TextareaInput placeholder={meetingLanguageDTO.descriptionPlaceholder} value={formData.description}

@@ -10,11 +10,11 @@ function MeetingList(props) {
   const navigation = useNavigation();
   return (
 <View>
-  <VStack  style={{height:"86.5%"}} >
+  <VStack  style={{height:"86.5%"}} ml={42.25} mr={42.25} >
       <FlatList    showsVerticalScrollIndicator={false}
         data={props.meetingListItems}
         renderItem={({ item }) =>
-          <Box style={[styles.listContentItem, styles.boxShadow]} bgColor="$white" m="$2" p="$2" pl="$5" >
+          <Box style={[styles.listContentItem, styles.boxShadow]} bgColor="$white" m="$2" p="$2" pl="$5" maxHeight={86.5}>
             <VStack>
               <HStack maxHeight={17}>
                 <Text numberOfLines={1} ellipsizeMode="tail" style={styles.listHeading} width={'93%'}>{item.title}</Text>
