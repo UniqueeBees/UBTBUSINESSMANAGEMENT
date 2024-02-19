@@ -6,7 +6,7 @@ import {
 import { FlatList, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import ListEditContextMenuLauncher from "../../common/listEditContextMenu/listEditContextMenuLauncher";
 import { styles } from '../../assets/styles/theme'
- 
+import { Dimensions } from 'react-native';
 import { SmilePlus} from 'lucide-react-native';
 function TaskList(props) {
   const navigation = useNavigation();
@@ -32,7 +32,7 @@ function TaskList(props) {
   }
   return (
 <View>
-    <VStack  style={{height:"86.5%"}} ml={27.25} mr={27.25} >
+    <VStack  style={{height: Dimensions.get('window').height - 220}} ml={27.25} mr={27.25} >
       <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
         data={props.taskListItems}
         renderItem={({ item }) => <Box style={[styles.listContentItem, styles.boxShadow]} m="$2"  p="$2" pl="$5" maxHeight={86.5}>

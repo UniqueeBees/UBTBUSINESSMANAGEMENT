@@ -6,11 +6,12 @@ import {
 import { FlatList, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ListEditContextMenuLauncher from "../../common/listEditContextMenu/listEditContextMenuLauncher";
+import { Dimensions } from 'react-native';
 function MeetingList(props) {
   const navigation = useNavigation();
   return (
 <View>
-  <VStack  style={{height:"86.5%"}} ml={42.25} mr={42.25} >
+  <VStack  style={{height: Dimensions.get('window').height - 220}} ml={42.25} mr={42.25} >
       <FlatList    showsVerticalScrollIndicator={false}
         data={props.meetingListItems}
         renderItem={({ item }) =>

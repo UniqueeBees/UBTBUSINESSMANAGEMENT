@@ -150,14 +150,15 @@ export const styles = StyleSheet.create({
     borderRadius: 0,
   },
   shortButton: {
-    marginRight: 22,
+    marginRight: 8,
     marginLeft: "auto",
     borderRadius:10,
     zIndex:2,
     position:"absolute",
     right:0,
-    bottom:300
-
+    bottom:0,
+    top:"auto",
+  
   },
   subTitle: {
     fontSize: 13,

@@ -14,7 +14,7 @@ import BusinessCreate from "./businessCreate";
 import { useSelector, useDispatch } from 'react-redux';
 import { getBusinessListItems } from '../../slices/businessSlice';
 import PageHeader from "../pageHeader";
-
+import { Dimensions } from 'react-native';
 import { sortObjectArray } from '../../common/utility';
 import BusinessFilterSort from "./businessFilterSort";
 
@@ -131,7 +131,7 @@ function BusinessList(props) {
 
 
 
-        <VStack style={styles.tabPageContent}>
+        <VStack style={styles.tabPageContent} style={{height: Dimensions.get('window').height - 210}}>
           <BusinessFilterSort show={showActionsheet}
             handleFilterOptions={handleFilterOptions}
             businessLanguageDTO={businessLanguageDTO}
@@ -157,7 +157,7 @@ function BusinessList(props) {
            
 
 
-          {1 > 2 && <FlatList showsVerticalScrollIndicator={false}
+          {1 > 2 &&  <FlatList showsVerticalScrollIndicator={false}
             data={listItems}
             renderItem={({ item }) =>
 
@@ -167,8 +167,7 @@ function BusinessList(props) {
           />
           }
           <BusinessListComp listItems={listItems} />
-        </VStack>
-        <Button
+          <Button
           size="md"
           variant="solid"
           action="primary"
@@ -182,6 +181,8 @@ function BusinessList(props) {
         >
           <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>
         </Button>
+        </VStack>
+        
       </VStack >
 
 
