@@ -126,12 +126,12 @@ function BusinessList(props) {
       shadowOpacity: 1
     }
     return (
-      <VStack bgColor="$white">
+      <VStack bgColor="$white" height="100%">
         <PageHeader heading="BUSINESSES" showNotifi={true}></PageHeader>
 
 
 
-        <VStack style={styles.tabPageContent} style={{height: Dimensions.get('window').height - 210}}>
+        <VStack  style={[styles.tabPageContent,{height: Dimensions.get('window').height - 300}]} ml={27.25} mr={27.25}>
           <BusinessFilterSort show={showActionsheet}
             handleFilterOptions={handleFilterOptions}
             businessLanguageDTO={businessLanguageDTO}
@@ -139,7 +139,7 @@ function BusinessList(props) {
             filterAction={filterAction}
             token={token} />
          
-            <Input size="lg" borderRadius="$2xl"  >
+            <Input size="lg" borderRadius="$2xl" ml="$3" mr="$3" mb={42} mt={48}  >
               <InputField
                 placeholder={businessLanguageDTO.businessSearchPlaceholder}
                 value={search}
