@@ -58,7 +58,7 @@ const wizardStageEnum = {
 
 export default function BusinessDetails(props) {
   const [formData, setData] = React.useState(businessDTO)
-  const [wizardStage, setwizStage] = React.useState(wizardStageEnum.basic)
+  const [wizardStage, setwizStage] = React.useState(wizardStageEnum.files)
   const navigation = useNavigation();
   const businessTypeList = useSelector((state) => state.business.businessTypes);
   const countries = useSelector((state) => state.business.countries);
@@ -484,8 +484,8 @@ export default function BusinessDetails(props) {
   }
   const uploadImgRender = (img) => {
     return (
-      <Box style={{ paddingTop: 5, paddingLeft: 40, paddingBottom: 5 }}>
-        <Icon onPress={()=>removeImage(img.item.id)} style={{ alignSelf: "flex-end", position: "relative" }} as={XCircle} size="xl"></Icon>
+      <Box style={{marginLeft:"10%"}}>
+        <Icon fill="#E5E7E9" onPress={()=>removeImage(img.item.id)} style={{ alignSelf: "flex-end", position: "relative",top:12,marginRight:-12,zIndex:3000 }} as={XCircle} size="xl"></Icon>
         <Image borderRadius="$md" size="xl" source={{ uri: img.item.file }}></Image>
       </Box>
     )
@@ -501,16 +501,16 @@ export default function BusinessDetails(props) {
         </VStack>
         <Text style={styles.pageTitleMedium}>Upload Photos</Text>
         <Box style={styles.boxWithRadius}>
-          <HStack >
+           
           <FlatList
                 data={uploadImages}
                 numColumns={2}
                 renderItem={uploadImgRender}
                 keyExtractor={(item) => item.id}
-                scrollEnabled={true}
-                maxHeight={500}
+                scrollEnabled={true} 
+                maxHeight={"$96"}
               /> 
-          </HStack>
+          
           <Center>
             <HStack>
               <Button
@@ -525,7 +525,6 @@ export default function BusinessDetails(props) {
 
               >
                 <ButtonIcon size={20} as={Camera} />
-
               </Button>
               <Button
                 size="md"
@@ -533,12 +532,8 @@ export default function BusinessDetails(props) {
                 action="primary"
                 isDisabled={false}
                 isFocusVisible={false}
-
                 style={[styles.longButtonRounded, { width: 200, marginTop: 20, marginBottom: 20, marginLeft: 30 }]}
-
-                onPress={() => handleChoosePhoto(false)}
-
-              >
+                onPress={() => handleChoosePhoto(false)}              >
                 <ButtonIcon mr={10} size={20} as={FolderUp} />
                 <ButtonText style={styles.buttonText}>Upload Photo</ButtonText>
 
