@@ -131,7 +131,7 @@ function BusinessList(props) {
 
 
 
-        <VStack  style={[styles.tabPageContent,{height: Dimensions.get('window').height - 300}]} ml={27.25} mr={27.25}>
+        <VStack  style={[styles.tabPageContent,{height: Dimensions.get('window').height-150}]} ml={27.25} mr={27.25}>
           <BusinessFilterSort show={showActionsheet}
             handleFilterOptions={handleFilterOptions}
             businessLanguageDTO={businessLanguageDTO}
@@ -157,7 +157,7 @@ function BusinessList(props) {
            
 
 
-          {1 > 2 &&  <FlatList showsVerticalScrollIndicator={false}
+          {1 > 2 &&  <FlatList showsVerticalScrollIndicator={false} 
             data={listItems}
             renderItem={({ item }) =>
 
@@ -204,7 +204,7 @@ const BusinessListComp = memo(function BusinessListComponent(props) {
   const getItemCount = _data => listItems.length;
   return (
     <SafeAreaView>
-      <VirtualizedList
+      <VirtualizedList style={{height: Dimensions.get('window').height - 300}}
         initialNumToRender={10}
         renderItem={({ item }) => <BusinessListItem item={item} />}
         keyExtractor={item => item.id}
