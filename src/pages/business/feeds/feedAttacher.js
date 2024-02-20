@@ -36,7 +36,7 @@ import {
   PopoverContent,
   PopoverBody,
   FlatList,
-
+  View
 
 
 } from "@gluestack-ui/themed"
@@ -47,7 +47,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ArrowBigRightDash, CheckCircle2, SendHorizontal, PlusSquare } from 'lucide-react-native';
 import Modal from "react-native-modal";
 
-import { View, TouchableOpacity,TouchableWithoutFeedback } from "react-native";
+import { TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 
 function FeedAttacher(props) {
 
@@ -61,11 +61,11 @@ function FeedAttacher(props) {
   useEffect(() => {
 
   });
-  function callAction (objectName){
-     props.onSelect(objectName);
-     setOpenPopper(false);
+  function callAction(objectName) {
+    props.onSelect(objectName);
+    setOpenPopper(false);
   }
-  const popItems = [{ name: props.objEnum.createmeeting, description: "Create Meeting", icon: PlusSquare  },
+  const popItems = [{ name: props.objEnum.createmeeting, description: "Create Meeting", icon: PlusSquare },
   { name: props.objEnum.recording, description: "Recording", icon: PlusSquare },
   { name: props.objEnum.contacts, description: "Contacts", icon: PlusSquare },
   { name: props.objEnum.attachments, description: "Attachments", icon: PlusSquare },
@@ -74,11 +74,35 @@ function FeedAttacher(props) {
   { name: "cancel", description: "Cancel", icon: PlusSquare },
   ];
   return (
-    <View style={{ bottom:"3%" } }>
-      <View style={{height:"86%"}}></View>
+    <View  >
+      <View  ></View>
+
       <View width="100%" mx="3" height="1%" style={styles.fieldSetContainer}>
         <VStack >
-          <HStack> 
+          <Modal   isVisible={openPopper} coverScreen={false} hasBackdrop={false} animationIn="fadeIn" animationOut="fadeOut"  >
+<Center>
+            <View style={{
+             marginBottom:450, width: 350,  paddingTop:15, height: 400, backgroundColor: "white", borderRadius: 20
+            }}>
+
+              <FlatList
+                data={popItems}
+                renderItem={({ item }) => (
+                  <Center>
+                    <HStack space="md">
+                      <TouchableOpacity style={styles.touchableButton} onPress={() => callAction(item.name)}>
+                        <Text style={styles.popperButton}>{item.description}</Text>
+                      </TouchableOpacity>
+                    </HStack>
+                  </Center>
+                )}
+              >
+
+              </FlatList>
+
+            </View></Center>
+          </Modal>
+          <HStack>
             <Button
               mt="$1"
               mr="$1"
@@ -89,30 +113,7 @@ function FeedAttacher(props) {
             >
               <ButtonIcon size={20} as={PlusSquare} />
             </Button>
-            <View style={{ flex:1 , width:"100%"}} >
-            <Modal isVisible={openPopper} coverScreen={false} hasBackdrop={false} animationIn="fadeIn" animationOut="fadeOut"  >
-              
-        <View  style={{
-            width: 400,height: 400,bottom:300,right:98,paddingLeft:20,paddingBottom:0,paddingTop:20,backgroundColor:"white",borderRadius:20}}>
-              
-         <FlatList
-         data={popItems}
-         renderItem={({item})=>(
-          <Center>
-            <HStack space="md">
-            <TouchableOpacity style={styles.touchableButton} onPress={()=>callAction(item.name)}>
-            <Text style={styles.popperButton}>{item.description}</Text>
-            </TouchableOpacity>
-            </HStack>
-            </Center>
-         )}
-         >
 
-         </FlatList> 
-          
-        </View>
-      </Modal>
-</View>
             <FormControl mt="$1" style={{ width: "70%" }}>
               <Input     >
                 <InputField placeholder="Enter Business Name1"    ></InputField>

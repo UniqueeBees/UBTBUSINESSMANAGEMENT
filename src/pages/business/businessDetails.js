@@ -31,6 +31,7 @@ import {
   ArrowLeftIcon,
   ScrollView,
   Text, Box, Image,
+  FlatList
 
 } from "@gluestack-ui/themed"
 import { ArrowRight } from 'lucide-react-native';
@@ -46,7 +47,7 @@ import PageHeader from "../pageHeader";
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { requestCameraPermission } from '../../common/utility'
 import { requestStatusDTO } from '../../dto/statusDTO'
-import { showAlert } from '../../slices/alertSlice';
+import alertSlice, { showAlert } from '../../slices/alertSlice';
 
 const wizardStageEnum = {
   basic: 1,
@@ -57,7 +58,7 @@ const wizardStageEnum = {
 
 export default function BusinessDetails(props) {
   const [formData, setData] = React.useState(businessDTO)
-  const [wizardStage, setwizStage] = React.useState(wizardStageEnum.file)
+  const [wizardStage, setwizStage] = React.useState(wizardStageEnum.basic)
   const navigation = useNavigation();
   const businessTypeList = useSelector((state) => state.business.businessTypes);
   const countries = useSelector((state) => state.business.countries);
@@ -80,7 +81,7 @@ export default function BusinessDetails(props) {
   }, [businessTypes, countries])
 
   useEffect(() => {
-    debugger;
+   
     if (businessState.status !== requestStatusDTO.pending) {
       if (actionStatus === requestStatusDTO.failed) {
 
@@ -132,7 +133,16 @@ export default function BusinessDetails(props) {
     return Object.keys(errors).length === 0;
 
   };
-
+ const getMaxIdForImages=()=>{
+  var maxId =0
+  var arrObjIds = uploadImages.map(elements => {
+    return elements.id;
+    });
+    if(arrObjIds.length>0){
+     maxId = Math.max(...arrObjIds)+1;;
+    }
+    return maxId ;
+ }
   const handleChoosePhoto = async (camera) => {
     console.log("handleChoose");
     if (camera) {
@@ -159,9 +169,9 @@ export default function BusinessDetails(props) {
 
             if (uri) {
               //  console.log(uri);
-              debugger;
+          
               let atchDTO = { ...attachmentDTO };
-              atchDTO.id = uploadImages.length;
+              atchDTO.id =getMaxIdForImages()
               atchDTO.business_id = -1;
               atchDTO.identifier = "landmark";
               atchDTO.file = uri;
@@ -203,9 +213,11 @@ export default function BusinessDetails(props) {
             const uri = assets.uri;
 
             if (uri) {
-              debugger;
+       
               let atchDTO = { ...attachmentDTO };
-              atchDTO.id = uploadImages.length;
+              
+              
+              atchDTO.id =getMaxIdForImages();
               atchDTO.business_id = -1;
               atchDTO.identifier = "landmark";
               atchDTO.file = uri;
@@ -465,11 +477,16 @@ export default function BusinessDetails(props) {
       </VStack>
     )
   }
+  const removeImage=(id)=>{
+    
+    var uImages=uploadImages.filter(img=>img.id!==id)
+    setUplodimages(uImages);
+  }
   const uploadImgRender = (img) => {
     return (
-      <Box style={{ paddingTop: 30, paddingLeft: 40, paddingBottom: 10 }}>
-        <Icon style={{ alignSelf: "flex-end", position: "relative" }} as={XCircle} size="xl"></Icon>
-        <Image borderRadius="$md" size="xl" source={{ uri: img.file }}></Image>
+      <Box style={{ paddingTop: 5, paddingLeft: 40, paddingBottom: 5 }}>
+        <Icon onPress={()=>removeImage(img.item.id)} style={{ alignSelf: "flex-end", position: "relative" }} as={XCircle} size="xl"></Icon>
+        <Image borderRadius="$md" size="xl" source={{ uri: img.item.file }}></Image>
       </Box>
     )
   }
@@ -485,13 +502,14 @@ export default function BusinessDetails(props) {
         <Text style={styles.pageTitleMedium}>Upload Photos</Text>
         <Box style={styles.boxWithRadius}>
           <HStack >
-            {uploadImages.map((img) => {
-              console.log(img)
-
-              if (img.file) {
-                return uploadImgRender(img);
-              }
-            })}
+          <FlatList
+                data={uploadImages}
+                numColumns={2}
+                renderItem={uploadImgRender}
+                keyExtractor={(item) => item.id}
+                scrollEnabled={true}
+                maxHeight={500}
+              /> 
           </HStack>
           <Center>
             <HStack>

@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
     Text,
-    View
+    View,Box
 
 } from "@gluestack-ui/themed"
 import FeedAttacher from "./feedAttacher";
 import AudioRecorder from "./audioRecordercl";
 import Travel from "../../travel/travelRecord"
+
 export const objectEnum = {
     createmeeting: "createmeeting",
     recording: "recording",
@@ -30,10 +31,15 @@ function Feeds() {
         }
     }
     return (
-        <View>
+        <View style={{height:"100%"}}> 
+            <Box h="82%" >
             <Text> Feeds </Text>
             {getActionObject()}
+            </Box>
+            <Box h="$50"  >
             <FeedAttacher onSelect={selectAction} objEnum={objectEnum} />
+            </Box>
+           
         </View>
     )
 
