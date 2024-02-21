@@ -222,7 +222,8 @@ class AudioRecordercl extends React.Component {
             disabled={this.state.currentStatus === Status.none}
           ><ButtonIcon size={20} as={StopCircle} /></Button>
         </HStack>
-        <Text>Play Time :{this.state.playTime}</Text>
+        {
+       /* <Text>Play Time :{this.state.playTime}</Text>
         <Text>Duration :{this.state.duration}</Text>
         <Button 
           onPress={this.onStartPlay}
@@ -231,8 +232,8 @@ class AudioRecordercl extends React.Component {
         <Button 
           onPress={this.onStopPlay}
           title='stop Play'
-        ></Button>
-
+        ></Button>*/
+        }
       </View>
 
     );
