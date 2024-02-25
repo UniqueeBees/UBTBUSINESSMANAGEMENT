@@ -12,6 +12,7 @@ function TaskList(props) {
   const navigation = useNavigation();
   const statusList = props.statusList;
   const taskLanguageDTO = props.taskLanguageDTO;
+  const scrollHeight=props.showAdd?270:220
   const getTaskStatus = (task) => {
     const status = statusList.find(statusItem => statusItem.id == task.status);
     const statusName = status ? status.name : '';
@@ -32,7 +33,7 @@ function TaskList(props) {
   }
   return (
 <View>
-    <VStack  style={{height: Dimensions.get('window').height - 220}} ml={27.25} mr={27.25} >
+    <VStack  style={{height: Dimensions.get('window').height - scrollHeight}} ml={props.showAdd?10:27.25} mr={props.showAdd?10:27.25} >
       <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
         data={props.taskListItems}
         renderItem={({ item }) => <Box style={[styles.listContentItem, styles.boxShadow]} m="$2"  p="$2" pl="$5" maxHeight={86.5}>

@@ -377,13 +377,13 @@ export const styles = StyleSheet.create({
   },
 
   boxShadow: {
-    shadowColor: 'red',
+    shadowColor: '#EFF5FF',
     shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: .1,
-    elevation: .1,
+    shadowOffset: { width: 0, height:.1 },
+    shadowRadius: 5,
+    elevation: 5,
     backgroundColor: '#white',
-
+   
   },
   attachmentPopper:{
     width:"100%",height:"100%",backgroundColor:"red",bottom:45,position:"absolute", zIndex:2000,

@@ -116,7 +116,7 @@ function Language(props) {
             renderItem={({ item }) =>
 
               <TouchableOpacity onPress={() => { SetLanguage(item.code) }} underlayColor="white">
-                <Box ml="$3" mr="$3" mb="$1" mt="$2" pl="$4" pt="$4"  style={[styles.boxShadow, styles.listBadge,{ height: 55,width:300 }]}  bgColor="$white" >
+                <Box ml="$3" mr="$3"  mb={16} pl="$4" pt="$4"  style={[styles.boxShadow, styles.listBadge,{ height: 55,width:300 }]}  bgColor="$white" >
                   <HStack>
                     <Text style={[styles.textMedium13, { fontFamily:"Neue-Haas-Grotesk-Display-Pro-75-Bold",width: "85%", textAlign: "left" }]} >{item.name}</Text><Icon id={item.code} size="xl"
                       on as={MoveRight} style={{ cursor: 'pointer',fontWeight: "bold" }} />
