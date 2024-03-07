@@ -10,6 +10,9 @@ import InitialPage from "../pages/initialPage";
 import Tabs from '../navigation/tabs';
 import CreateContact from "../pages/contacts/createContact";
 import ChangePassword  from "../pages/changePassword";
+import StartTravel from "../pages/travel/startTravel";
+import Feeds from "../pages/business/feeds/feeds";
+import AudioRecorder from "../pages/business/feeds/audioRecordercl";
 const Stack = createNativeStackNavigator();
 export const navigationRoutes = {
   company: "company",
@@ -22,6 +25,9 @@ export const navigationRoutes = {
   contact: 'contact',
   none:'none',
   changePassword:'changePassword',
+  feeds:'feeds',
+  startTravel:'startTravel',
+  startRecording:'startRecording'
 } 
 
  function Navigation(props){
@@ -35,6 +41,9 @@ export const navigationRoutes = {
         <Stack.Screen name={navigationRoutes.login} component={Login} /> 
         <Stack.Screen name={navigationRoutes.contact} component={CreateContact} /> 
         <Stack.Screen name={navigationRoutes.changePassword} component={ChangePassword} /> 
+        <Stack.Screen name={navigationRoutes.startTravel} component={StartTravel} /> 
+        <Stack.Screen name={navigationRoutes.feeds} component={Feeds} /> 
+        <Stack.Screen name={navigationRoutes.startRecording} component={AudioRecorder} /> 
       </Stack.Navigator>
     </NavigationContainer>)}
     export default Navigation;

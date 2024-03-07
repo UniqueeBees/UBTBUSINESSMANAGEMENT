@@ -17,6 +17,14 @@ export const taskSetupDTO={
     duedate:'',
     createdDate:'',
 }
+export const taskMessageDTO={
+    type:"",
+    file:Object,
+    message:"",
+    datetime:"",
+    assigned_to:-1,
+    status:""
+}
 export const buildTaskSetupDTOFromTaskListItem=(taskListItem)=>{
     return {
         id:taskListItem.id,
