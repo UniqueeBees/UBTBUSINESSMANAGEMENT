@@ -1,4 +1,5 @@
 import {React,useEffect}from 'react';
+
 import PushNotification from "react-native-push-notification";
 import { PermissionsAndroid } from 'react-native';
 
@@ -47,8 +48,8 @@ const createChannels=()=>{
   export const sentNotification=(message,title,channelId)=>{   
     PushNotification.localNotification({
       channelId: channelId?channelId:_channelId,
-      title: title?title : "App Title",
-      message:"Welcome to " +message + "page",
+      title: title?title : "Taswiq",
+      message:message,
       picture: require('../assets/images/home.jpg'), // (optional) Display an picture with the notification, alias of `bigPictureUrl` for Android. default: undefine      
       playSound: true, // (optional) default: true
       soundName: "default", // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)

@@ -9,22 +9,32 @@ import AudioRecorderPlayer, {
 import {
   PermissionsAndroid,
   Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+
 } from 'react-native';
+
+import {
+  VStack,
+  Center,
+  Button,
+  ButtonIcon,
+  HStack,
+  Text, View,
+  ButtonText
+} from "@gluestack-ui/themed"
 
 import React, { Component } from 'react';
 import RNFetchBlob from 'rn-fetch-blob'
-import { Mic, Pause, StopCircle,MicOff ,PlayCircle} from 'lucide-react-native';
+import { Mic, Pause, StopCircle, MicOff, PlayCircle, CheckCircle2 } from 'lucide-react-native';
+import { styles } from '../../../assets/styles/theme'
+import PageHeader from "../../pageHeader";
+import CallDetectorManager from 'react-native-call-detection';
 
-import { HStack, Button, ButtonIcon } from '@gluestack-ui/themed';
 const Status = {
   none: "none",
   record: "record",
   pause: "pause",
-  stop: "stop"
+  stop: "stop",
+  play: "play",
 }
 
 class AudioRecordercl extends React.Component {
@@ -44,19 +54,22 @@ class AudioRecordercl extends React.Component {
       iosFile: 'tsqrecord.m4a',
       androidFile: `${dirs.CacheDir}/tsqrecord.mp4`,
       currentStatus: Status.none,
+      isCallListen: false,
+      consoleText: "Feeds",
+      currentPlayStatus: Status.none
     };
 
     this.audioRecorderPlayer = new AudioRecorderPlayer();
     this.audioRecorderPlayer.setSubscriptionDuration(0.09); // optional. Default is 0.1
   }
-  onStartOrResume=()=>{
-    if(this.state.currentStatus===Status.pause){
+  onStartOrResume = () => {
+    if (this.state.currentStatus === Status.pause) {
       this.onResumeRecord();
-    }else{
+    } else {
       this.onStartRecord();
     }
   }
-  onStartRecord = async () => {
+  checkPermission = async () => {
 
     if (Platform.OS === 'android') {
       const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
@@ -109,6 +122,54 @@ class AudioRecordercl extends React.Component {
       }
     }
 
+  }
+  listenToCall = async () => {
+    debugger;
+    if (Platform.OS === 'android') {
+      debugger;
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE,
+          {
+            title: 'Permissions for READ_PHONE_STATE',
+            message: 'Give permission READ_PHONE_STATE',
+            buttonPositive: 'ok',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('READ_PHONE_STATE');
+        } else {
+          console.log('permission denied');
+          return;
+        }
+      } catch (err) {
+        console.warn(err);
+        return;
+      }
+    }
+    if (this.state.isCallListen) {
+      this.callDetector && this.callDetector.dispose();
+    } else {
+      this.callDetector = new CallDetectorManager((event, phoneNumber) => {
+        this.setState({ consoleText: event });
+        if (event === 'Incoming') {
+          this.onPauseRecord();
+          // this.setState({isCallListen:true});eve
+        }
+      },
+        false, // if you want to read the phone number of the incoming call [ANDROID], otherwise false
+        () => { }, // callback if your permission got denied [ANDROID] [only if you want to read incoming number] default: console.error
+        {
+          title: 'Phone State Permission',
+          message: 'This app needs access to your phone state in order to react and/or to adapt to incoming calls.'
+        } // a custom permission request message to explain to your user, why you need the permission [recommended] - this is the default one
+      )
+    }
+    this.setState({ isCallListen: !this.state.isCallListen });
+  }
+  onStartRecord = async () => {
+    this.checkPermission();
+    this.listenToCall();
     const path = Platform.select({
       ios: this.state.iosFile,
       android: this.state.androidFile,
@@ -124,10 +185,11 @@ class AudioRecordercl extends React.Component {
      console.log('audioSet', audioSet);*/
     const uri = await this.audioRecorderPlayer.startRecorder(path);
     this.audioRecorderPlayer.addRecordBackListener((e) => {
+
       this.setState({
         recordSecs: e.currentPosition,
         recordTime: this.audioRecorderPlayer.mmssss(Math.floor(e.currentPosition),),
-        currentStatus:Status.record,
+        currentStatus: Status.record,
       });
     });
     console.log(`uri: ${uri}`);
@@ -138,10 +200,22 @@ class AudioRecordercl extends React.Component {
     this.audioRecorderPlayer.removeRecordBackListener();
     this.setState({
       recordSecs: 0,
-      currentStatus:Status.none
+      currentStatus: Status.none
     });
     console.log(result);
   };
+
+  onPauseRecord = async () => {
+    console.log('on Pause Record');
+    await this.audioRecorderPlayer.pauseRecorder();
+    this.setState({ currentStatus: Status.pause });
+  };
+  onResumeRecord = async () => {
+    console.log('onResume Record');
+    await this.audioRecorderPlayer.resumeRecorder();
+    this.setState({ currentStatus: Status.record });
+  }
+
 
   onStartPlay = async () => {
     const path = Platform.select({
@@ -157,88 +231,112 @@ class AudioRecordercl extends React.Component {
         currentDurationSec: e.duration,
         playTime: this.audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
         duration: this.audioRecorderPlayer.mmssss(Math.floor(e.duration)),
-       // currentStatus:Status.record
+        currentPlayStatus: Status.play,
+        // currentStatus:Status.record
       });
       return;
     });
   };
-
   onPausePlay = async () => {
     await this.audioRecorderPlayer.pausePlayer();
-    //this.setState({ currentStatus:Status.pause});
-  };
-
+    this.setState({ currentPlayStatus: Status.pause });
+  }
   onStopPlay = async () => {
     console.log('onStopPlay');
     this.audioRecorderPlayer.stopPlayer();
     this.audioRecorderPlayer.removePlayBackListener();
-   // this.setState({ currentStatus:Status.none});
+    this.setState({ currentPlayStatus: Status.none });
   };
-  onPauseRecord = async () => {
-    console.log('on Pause Record');
-    await this.audioRecorderPlayer.pauseRecorder();
-    this.setState({ currentStatus:Status.pause});
-  };
-  onResumeRecord = async () => {
-    console.log('onResume Record');
-    await this.audioRecorderPlayer.resumeRecorder();
-    this.setState({ currentStatus:Status.record});
-  }
+
 
 
 
   render() {
-  console.log(this.state.currentStatus);
+    console.log(this.state.currentStatus);
     return (
 
       <View  >
-        <Text>Record Time : {this.state.recordTime}</Text>
-        <HStack>
-          {(this.state.currentStatus !== Status.record) && <Button
-            mt="$1"
-            mr="$1"
-            size="md"
-            variant="solid"
-            action="primary"
-            disabled={this.state.currentStatus === Status.record}
-            onPress={this.onStartOrResume}
-          ><ButtonIcon size={20} as={this.state.currentStatus === Status.none? Mic:PlayCircle } /></Button>}
-          {this.state.currentStatus === Status.record && <Button
-            mt="$1"
-            mr="$1"
-            size="md"
-            variant="solid"
-            action="primary"
-            onPress={this.onPauseRecord}
-          ><ButtonIcon size={20} as={Pause}/></Button>}
-           
-          <Button
-            mt="$1"
-            mr="$1"
-            size="md"
-            variant="solid"
-            action="primary"
-            onPress={this.onStopRecord}
-            disabled={this.state.currentStatus === Status.none}
-          ><ButtonIcon size={20} as={StopCircle} /></Button>
-        </HStack>
-        {
-       /* <Text>Play Time :{this.state.playTime}</Text>
-        <Text>Duration :{this.state.duration}</Text>
-        <Button 
-          onPress={this.onStartPlay}
-          title='play'
-        ></Button>
-        <Button 
-          onPress={this.onStopPlay}
-          title='stop Play'
-        ></Button>*/
-        }
-      </View>
 
+        <Center>
+          <VStack width="100%" mx="3" style={styles.fieldSetContainer}>
+            <PageHeader goBack="feeds" heading="Start Recording" showNotifi={false}></PageHeader>
+            <Text style={styles.pageTitleMedium}>Upload a Recording</Text>
+            <Center>
+              <HStack style={{ marginTop: 50 }}>
+                {(this.state.currentStatus !== Status.record) && <Button
+                  mt="$1"
+                  mr="$1"
+                  size="md"
+                  variant="solid"
+                  action="primary"
+                  disabled={this.state.currentStatus === Status.record}
+                  onPress={this.onStartOrResume}
+                  style={styles.shortButtonCircle}
+                ><ButtonIcon size={20} as={this.state.currentStatus === Status.none ? Mic : PlayCircle} /></Button>}
+                {this.state.currentStatus === Status.record && <Button
+                  mt="$1"
+                  mr="$1"
+                  size="md"
+                  variant="solid"
+                  action="primary"
+                  onPress={this.onPauseRecord}
+                  style={styles.shortButtonCircle}
+                ><ButtonIcon size={20} as={Pause} /></Button>}
+
+                <Button
+                  mt="$1"
+                  mr="$1"
+                  size="md"
+                  variant="solid"
+                  action="primary"
+                  onPress={this.onStopRecord}
+                  disabled={this.state.currentStatus === Status.none}
+                  style={styles.shortButtonCircle}
+                ><ButtonIcon size={20} as={StopCircle} /></Button>
+              </HStack>
+              <Text mt="$10" style={[styles.timerCaptions, { paddingTop: 12 }]}>{this.state.recordTime}</Text>
+              <Button
+                size="md"
+                mt="$7"
+                variant="solid"
+                action="primary"
+                isDisabled={false}
+                isFocusVisible={false}
+                style={styles.buttonLong}
+              // onPress={() => validateForm() ? setwizStage(wizardStageEnum.advance) : ""}
+              >
+                <ButtonText style={styles.buttonText}>Sumbit</ButtonText>
+                <ButtonIcon ml={"80%"} size={20} as={CheckCircle2} />
+              </Button>
+              <HStack style={{ marginTop: 100 }}>
+                <Button
+                  mt="$1"
+                  mr="$1"
+                  size="md"
+                  variant="solid"
+                  action="primary"
+                  disabled={this.state.recordTime === "00:00:00" ? true : false}
+                  onPress={this.onStartPlay}
+                  style={styles.shortButtonCircle}
+                ><ButtonIcon size={20} as={PlayCircle} /></Button>
+                <Button
+                  mt="$1"
+                  mr="$1"
+                  size="md"
+                  variant="solid"
+                  action="primary"
+                  disabled={this.state.currentPlayStatus != Status.play}
+                  onPress={this.onStopPlay}
+                  style={styles.shortButtonCircle}
+                ><ButtonIcon size={20} as={StopCircle} /></Button>
+
+              </HStack>
+              <Text mt="$10" style={[styles.timerCaptions, { paddingTop: 12 }]}>{this.state.playTime}</Text>
+            </Center>
+          </VStack>
+        </Center>
+      </View>
     );
   }
-
 }
-
 export default AudioRecordercl;

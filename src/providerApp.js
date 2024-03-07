@@ -11,11 +11,11 @@ import { getUserProfile } from './slices/userSlice';
 import { setPage} from './slices/initialPageSlice'
 import {useEffect} from 'react'
 import {navigationRoutes} from './common/navigation';
-export default function  providerApp(){
 
-    
-    
+export default function  providerApp(){
+     
     useEffect(()=>{
+         
        initialStorageStatus()
         .then( (resp) => { 
             store.dispatch(setInitial(resp.loginDTO))
@@ -28,6 +28,7 @@ export default function  providerApp(){
         }  )
         
     },[])
+     
 
 return (<Provider store={store}><App  /></Provider>)
 }

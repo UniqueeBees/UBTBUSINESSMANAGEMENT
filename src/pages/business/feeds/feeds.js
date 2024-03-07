@@ -4,9 +4,8 @@ import {
     View,Box
 
 } from "@gluestack-ui/themed"
-import FeedAttacher from "./feedAttacher";
-import AudioRecorder from "./audioRecordercl";
-import Travel from "../../travel/travelRecord"
+import FeedAttacher from "./feedAttacher"; 
+import { useNavigation } from "@react-navigation/native";
 
 export const objectEnum = {
     createmeeting: "createmeeting",
@@ -18,6 +17,7 @@ export const objectEnum = {
 }
 function Feeds() {
     const [actionObject, setActionObject] = useState()
+    const navigation = useNavigation();
     function selectAction(objectName) {
         alert(objectName);
         setActionObject(objectName);
@@ -25,9 +25,11 @@ function Feeds() {
 
     function getActionObject() {
         if (actionObject === objectEnum.recording) {
-            return <AudioRecorder></AudioRecorder>
+            navigation.navigate("startRecording");
+           // return <AudioRecorder></AudioRecorder>
         } else  if (actionObject === objectEnum.travel) {
-            return <Travel></Travel>
+            navigation.navigate("startTravel");
+           // return <StartTravel></StartTravel>
         }
     }
     return (

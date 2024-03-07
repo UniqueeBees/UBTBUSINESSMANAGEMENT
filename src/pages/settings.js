@@ -19,6 +19,7 @@ import {
 } from "@gluestack-ui/themed"
 import { baseUrl, getProfile } from '../common/apiCalls';
 import { styles } from '../assets/styles/theme';
+import { Linking } from "react-native";
 
 function Settings() {
 
@@ -73,6 +74,12 @@ function Settings() {
     }
     else if (item.key === "company") {
       dispatch(setPageWithParameters({ page: navigationRoutes.company, routeParameters: { skipEffectNav: true } }))
+    }
+    else if (item.key === "password") {
+      dispatch(setPage(navigationRoutes.changePassword))
+    }
+    else if (item.key === "helpLine") {
+      Linking.openURL('tel:9745140025').catch(err=>{console.log(err)});
     }
   }
   const getItems = () => {

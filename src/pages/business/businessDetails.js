@@ -44,10 +44,10 @@ import { businessTypes, getCountries, createNewBusiness } from '../../slices/bus
 import { ArrowBigRightDash, CheckCircle2, Camera, XCircle, FolderUp } from 'lucide-react-native';
 import { MoveLeft } from 'lucide-react-native';
 import PageHeader from "../pageHeader";
-import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
-import { requestCameraPermission } from '../../common/utility'
+
 import { requestStatusDTO } from '../../dto/statusDTO'
 import alertSlice, { showAlert } from '../../slices/alertSlice';
+import ImageUploader from "../../common/imageUploader";
 
 const wizardStageEnum = {
   basic: 1,
@@ -133,109 +133,24 @@ export default function BusinessDetails(props) {
     return Object.keys(errors).length === 0;
 
   };
- const getMaxIdForImages=()=>{
-  var maxId =0
-  var arrObjIds = uploadImages.map(elements => {
-    return elements.id;
-    });
-    if(arrObjIds.length>0){
-     maxId = Math.max(...arrObjIds)+1;;
-    }
-    return maxId ;
+ 
+ const handleUploadPhoto =(imageCollection)=>{
+  setUplodimages(imageCollection);
  }
-  const handleChoosePhoto = async (camera) => {
-    console.log("handleChoose");
-    if (camera) {
-      await requestCameraPermission();
-      await launchCamera(
-        {
-          includeBase64: false,
-          saveToPhotos: true,
-          mediaType: 'mixed',
-          quality: 0.5,
-        },
-        (resp) => {
-          try {
-            if (resp.didCancel) {
-              return;
-            }
-
-            if (!resp.assets) {
-              return;
-            }
-
-            const assets = resp.assets[0];
-            const uri = assets.uri;
-
-            if (uri) {
-              //  console.log(uri);
-          
-              let atchDTO = { ...attachmentDTO };
-              atchDTO.id =getMaxIdForImages()
-              atchDTO.business_id = -1;
-              atchDTO.identifier = "landmark";
-              atchDTO.file = uri;
-              //console.log(JSON.stringify(atchDTO))
-              // setData({ ...formData, type: value })}
-              //setUplodimages([...uploadImages, atchDTO])
-              //uploadImages.push(atchDTO);  
-              var upImgs = [...uploadImages, atchDTO];
-              setUplodimages(upImgs)
-            } else {
-              console.log('No hay una imagen valida');
-            }
-
-
-          } catch (error) {
-            console.log(error)
-          }
-        },
-      );
+ /*const handleUploadPhoto =async (uri)=>{ 
+    if (uri) { 
+      let atchDTO = { ...attachmentDTO };
+      atchDTO.id =getMaxIdForImages()
+      atchDTO.business_id = -1;
+      atchDTO.identifier = "landmark";
+      atchDTO.file = uri; 
+      var upImgs = [...uploadImages, atchDTO];
+      setUplodimages(upImgs)
     } else {
-      await launchImageLibrary(
-        {
-          includeBase64: false,
-          saveToPhotos: true,
-          mediaType: 'mixed',
-          quality: 0.5,
-        },
-        (resp) => {
-          try {
-            if (resp.didCancel) {
-              return;
-            }
-
-            if (!resp.assets) {
-              return;
-            }
-
-            const assets = resp.assets[0];
-            const uri = assets.uri;
-
-            if (uri) {
-       
-              let atchDTO = { ...attachmentDTO };
-              
-              
-              atchDTO.id =getMaxIdForImages();
-              atchDTO.business_id = -1;
-              atchDTO.identifier = "landmark";
-              atchDTO.file = uri;
-              var upImgs = [...uploadImages, atchDTO];
-              setUplodimages(upImgs)
-              //setUplodimages([...uploadImages, { key: "img1", value: uri }])
-            } else {
-              console.log('No hay una imagen valida');
-            }
-            console.log(uri);
-
-          } catch (error) {
-            console.log(error)
-          }
-        },
-      );
+      console.log('no Uri invalid');
     }
-  };
+
+ }*/
 
   function BusinessDetails_W1() {
 
@@ -477,19 +392,19 @@ export default function BusinessDetails(props) {
       </VStack>
     )
   }
-  const removeImage=(id)=>{
+  /*const removeImage=(id)=>{
     
     var uImages=uploadImages.filter(img=>img.id!==id)
     setUplodimages(uImages);
   }
-  const uploadImgRender = (img) => {
+   const uploadImgRender = (img) => {
     return (
-      <Box style={{marginLeft:"10%"}}>
+      <Box style={{marginLeft:"5%"}}>
         <Icon fill="#E5E7E9" onPress={()=>removeImage(img.item.id)} style={{ alignSelf: "flex-end", position: "relative",top:12,marginRight:-12,zIndex:3000 }} as={XCircle} size="xl"></Icon>
         <Image borderRadius="$md" size="xl" source={{ uri: img.item.file }}></Image>
       </Box>
     )
-  }
+  }*/
   function BusinessDetails_W4() {
 
     return (
@@ -500,48 +415,7 @@ export default function BusinessDetails(props) {
           </HStack>
         </VStack>
         <Text style={styles.pageTitleMedium}>Upload Photos</Text>
-        <Box style={styles.boxWithRadius}>
-           
-          <FlatList
-                data={uploadImages}
-                numColumns={2}
-                renderItem={uploadImgRender}
-                keyExtractor={(item) => item.id}
-                scrollEnabled={true} 
-                maxHeight={"$96"}
-              /> 
-          
-          <Center>
-            <HStack>
-              <Button
-                size="md"
-                variant="solid"
-                action="primary"
-                isDisabled={false}
-                isFocusVisible={false}
-
-                style={[styles.shortButtonRounded, { width: 60, marginTop: 20, marginBottom: 20 }]}
-                onPress={() => handleChoosePhoto(true)}
-
-              >
-                <ButtonIcon size={20} as={Camera} />
-              </Button>
-              <Button
-                size="md"
-                variant="solid"
-                action="primary"
-                isDisabled={false}
-                isFocusVisible={false}
-                style={[styles.longButtonRounded, { width: 200, marginTop: 20, marginBottom: 20, marginLeft: 30 }]}
-                onPress={() => handleChoosePhoto(false)}              >
-                <ButtonIcon mr={10} size={20} as={FolderUp} />
-                <ButtonText style={styles.buttonText}>Upload Photo</ButtonText>
-
-              </Button>
-            </HStack>
-
-          </Center>
-        </Box>
+        <ImageUploader setBackData={ handleUploadPhoto } multiple={true}></ImageUploader>
         <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
           <Button
             size="md"
