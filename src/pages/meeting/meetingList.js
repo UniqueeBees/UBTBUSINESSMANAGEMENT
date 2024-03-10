@@ -24,8 +24,7 @@ function MeetingList(props) {
               </HStack>
 
               <HStack space="md" justifyContent="flex-start">
-                <Text style={styles.listSubHeading} >User</Text>
-                <Text style={styles.listSubHeading} >Business</Text>
+                <Text style={styles.listSubHeading} >{`${item.contactName} - ${item.businessName}`}</Text>
               </HStack>
 
               {item.description && <Text style={styles.listSubDescription} >{item.description}</Text>}

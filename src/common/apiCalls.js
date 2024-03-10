@@ -1,5 +1,5 @@
 import axios from "axios";
-export const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
+export const baseUrl = 'https://api.taswiq.app/v2';//'localapi.taswiqapp.com';
 
 export const apiCallStatus={
     pending:'pending',
@@ -98,10 +98,10 @@ export const getLanguageLabel = (code) => {
         })
 
 }
-export  const  getMeetingsByUser = async (token) => {
+export  const  getUpcomingMeeting = async (token) => {
    return await axios({
         method: "GET",
-        url: `${baseUrl}/user/meeting`,
+        url: `${baseUrl}/meeting/upcoming`,
         headers: { "APITOKEN":token },
     })
 

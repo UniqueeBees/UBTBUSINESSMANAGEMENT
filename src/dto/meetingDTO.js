@@ -30,6 +30,8 @@ export const buildMeetingListItem = (meetingItem) => {
         purposeId: meetingItem.purpose_id,
         contactId: meetingItem.contact_id,
         businessId:meetingItem.business_id,
+        businessName:meetingItem.business_name,
+        contactName:meetingItem.contact_name,
     };
 }
 export const buildMeetingSetUpDTO = (meeting) => {
