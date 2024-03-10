@@ -2,6 +2,7 @@ import { storageKeyTypes, getObjectData } from './localStorage';
 import { navigationRoutes } from './navigation';
 import { PermissionsAndroid,} from 'react-native';
 import moment from 'moment';
+import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 export const initialStorageStatus = async () => {
   const initialAppState = { startPage: navigationRoutes.language, loginDTO: false, languageDTO: false, companyDTO: false }
   const login = await getObjectData(storageKeyTypes.login)
@@ -123,3 +124,81 @@ export const  getCurrentDateTime=()=>{
   const formattedDate = moment(currentDate).format('YYYY-MM-DD HH:mm:ss');
   return formattedDate;
 }
+
+
+export async   function  handleChoosePhoto (camera)   {
+  await requestCameraPermission();
+  console.log("handleChoose");
+  let uriData="";
+  if (camera) {
+   
+    await launchCamera(
+      {
+        includeBase64: false,
+        saveToPhotos: true,
+        mediaType: 'mixed',
+        quality: 0.5,
+      },
+      (resp) => {
+        try {
+          if (resp.didCancel) {
+            return;
+          }
+
+          if (!resp.assets) {
+            return;
+          }
+
+          const assets = resp.assets[0];
+          const uri = assets.uri;
+
+          if (uri) {
+            console.log(uri)
+            uriData= uri;
+          } else {
+           return  ""
+          }
+
+
+        } catch (error) {
+          console.log(error)
+        }
+      },
+    );
+  } else {
+    await launchImageLibrary(
+      {
+        includeBase64: false,
+        saveToPhotos: true,
+        mediaType: 'mixed',
+        quality: 0.5,
+      },
+      (resp) => {
+        try {
+          if (resp.didCancel) {
+            return;
+          }
+
+          if (!resp.assets) {
+            return;
+          }
+
+          const assets = resp.assets[0];
+          const uri = assets.uri;
+
+          if (uri) {
+     
+            uriData= uri;
+          } else {
+            return "";
+          }
+          console.log(uri);
+
+        } catch (error) {
+          console.log(error)
+        }
+      },
+    );
+  }
+  return uriData;
+};

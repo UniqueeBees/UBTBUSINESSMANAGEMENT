@@ -4,6 +4,8 @@ import { Center,VStack,Heading,Button,ButtonText,HStack,Icon } from '@gluestack-
 import { styles } from '../../assets/styles/theme';
 import { useNavigation } from '@react-navigation/native';
 import { SmilePlus} from 'lucide-react-native';
+import Header from '../../common/header';
+import PageHeader from '../pageHeader';
 function CreateBusiness(){
   const navigation = useNavigation();
 return(
@@ -12,8 +14,7 @@ return(
     <Center>
     <VStack width="100%" mx="3" style={styles.pageHeader} >
         <HStack space="xs">
-        <Text style={[styles.pageTitle,{ textAlign:"center"}]} >Create Business</Text>
-          
+        <PageHeader heading="Create Business"></PageHeader>
         </HStack>
         </VStack>
 

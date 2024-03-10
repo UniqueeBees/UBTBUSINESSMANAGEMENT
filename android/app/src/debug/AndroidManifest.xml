@@ -3,11 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+        <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/> 
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:usesCleartextTraffic="true"
         tools:targetApi="28"
-        tools:ignore="GoogleAppIndexingWarning">
+        android:allowBackup="false"
+        
+    android:fullBackupContent="false"
+    android:hardwareAccelerated="true"
+    android:supportsRtl="false"
+        tools:replace="allowBackup,supportsRtl"
+       tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false" />
     </application>
 </manifest>

@@ -11,8 +11,8 @@ function BusinessListItem(props) {
                 <VStack>
                     <HStack justifyContent="space-between">
                         <HStack justifyContent="right" space="lg" width="80%" >
-                            <VStack>
-                                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.listHeadingMedium} >{item.name}</Text>
+                            <VStack maxHeight="$9">
+                                <Text  numberOfLines={1} ellipsizeMode="tail" style={[styles.listHeadingMedium,{maxHeight:20}]} >{item.name}</Text>
                                 <Text style={styles.listSubDescription} >{item.city}</Text>
                             </VStack>
 
@@ -21,14 +21,16 @@ function BusinessListItem(props) {
                             <ListEditContextMenuLauncher source={'businessList'} type="business" id={item.id} />
                         </HStack>
                     </HStack>
-                    <HStack>
+                    <VStack  maxHeight="$4">
                         <HStack justifyContent="flex-start">
                             {item.email ? <Icon as={MailIcon} m="$1" w="$3" h="$3" ml="$0" /> : ""}<BadgeText style={[{ textTransform: 'capitalize', paddingTop: 0 }, styles.listSubHeading]}>{item.email}</BadgeText>
                         </HStack>
+                        </VStack>
+                        <VStack maxHeight="$4">
                         <HStack justifyContent="left">
-                            {item.phone ? <Icon as={PhoneIcon} m="$1" w="$3" h="$3" ml={item.email ? "$3" : "$0"} /> : ""}<BadgeText style={[{ textTransform: 'capitalize', paddingTop: 0 }, styles.listSubHeading]}>{item.phone}</BadgeText>
+                            {item.phone ? <Icon as={PhoneIcon} m="$1" w="$3" h="$3" ml="$0"/> : ""}<BadgeText style={[{ textTransform: 'capitalize', paddingTop: 0 }, styles.listSubHeading]}>{item.phone}</BadgeText>
                         </HStack>
-                    </HStack>
+                    </VStack>
                 </VStack>
             </View>
         </Box>

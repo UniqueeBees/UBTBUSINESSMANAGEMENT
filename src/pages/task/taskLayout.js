@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
-import { Box } from '@gluestack-ui/themed';
+import { Box,VStack } from '@gluestack-ui/themed';
 import TaskList from './taskList';
 import CreateTask from './createTask';
 import { selectNotCompletedTasks } from '../../slices/taskSlice';
@@ -24,11 +24,11 @@ function TaskLayout() {
     }, [token])
     return (
 
-        <View  >
+        <VStack>
             {(isTaskListRequestLoading && taskListItems.length === 0) ? <Box /> : taskListItems.length === 0 ?
                 <CreateTask taskLanguageDTO={taskLanguageDTO} /> :
                 <TaskList showAdd={false} source={"dashboard"} taskLanguageDTO={taskLanguageDTO} taskListItems={taskListItems} statusList={taskStatusList} />}
-        </View>
+        </VStack>
     )
 }
 export default TaskLayout;

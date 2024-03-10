@@ -11,6 +11,8 @@ import { selectMyTasks, getTaskStatusList, getTaskListByUser, resetTaskSetUp } f
 import { SlidersHorizontal } from 'lucide-react-native';
 import TaskFilterSort from './taskFilterSort';
 import { sortObjectArray } from '../../common/utility';
+import PageHeader from "../pageHeader"
+import { Dimensions } from 'react-native';
 function TaskListLayout(props) {
     const [isMyTask, setIsMyTask] = useState(true);
     const hasUser = useSelector((state) => state.user.hasUser)
@@ -175,8 +177,10 @@ function TaskListLayout(props) {
                 commonLanguageDTO={commonLanguageDTO}
                 filterAction={filterAction}
                 token={token} />
+                 <PageHeader   heading="Tasks" showNotifi={true}></PageHeader>
             <VStack style={styles.tabPageContent} >
-                <Text style={styles.pageTitle} >Tasks</Text>
+                
+                <VStack   ml={27.25} mr={27.25} pt={10} pb={10}>
                 <Input size="lg" borderRadius="$2xl" >
                     <InputField
                         placeholder={taskLanguageDTO.taskSearchPlaceholder}
@@ -189,6 +193,7 @@ function TaskListLayout(props) {
                         <InputIcon as={SlidersHorizontal} size="lg" />
                     </InputSlot>
                 </Input>
+                </VStack>
                 <Center>
                     <HStack pt="$4" pb="$4">
                         <Button ml='auto' size="md" variant="solid" action="primary" {...meetingBgColor} style={styles.tabItemButton} onPress={onMeetingPress}>
@@ -203,7 +208,7 @@ function TaskListLayout(props) {
                         </Button>
                     </HStack>
                 </Center>
-                <View>
+                <View >
                     <TaskList showAdd={true} source={"taskListLayout"} resetTaskSetUp={resetTaskSetUpDTO} taskLanguageDTO={taskLanguageDTO} taskListItems={taskList} statusList={taskStatusList} />
 
                 </View>

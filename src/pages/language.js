@@ -104,27 +104,28 @@ function Language(props) {
 
 
   return (
-    <VStack height="100%"  >
-      <Text size="lg" style={styles.langugeHeading}>Choose Language</Text>
-      <VStack space="md" width="100%" pl={40} pr={40} pt="$0" >
-        <VStack space="4xl" >
+    <VStack height="100%" bgColor="$white">
+      <VStack style={styles.langugeHeadingContainer} alignItems="center" >
+        <Text style={styles.langugeHeading}>Choose Language</Text>
+      </VStack>
+      <VStack space="md" width="100%" pb={15} alignItems="center" mt="40px"  >
+        <VStack space="1xl" mt={40.62} pl={48} pr={40} >
           <FlatList
             showsVerticalScrollIndicator={false}
             data={languageData}
             renderItem={({ item }) =>
-              <TouchableHighlight onPress={() => { SetLanguage(item.code) }} underlayColor="white">
 
-                <HStack space="md" mt="$4" style={[styles.boxShadow, styles.listBadge, { height: 50, alignContent: "center" }]}>
-                  <Badge size="md" height={30} m="$2" variant="solid" borderRadius="$xl" action="muted" bgColor="$white" >
-
-                    <Text style={[styles.textMedium13, { width: "90%", textAlign: "left" }]} >{item.name}</Text><Icon id={item.code} size="md"
-                      on as={MoveRight} m="$2" w="$4" h="$4" style={{ cursor: 'pointer' }} />
-
-                  </Badge>
-                </HStack>
+              <TouchableOpacity onPress={() => { SetLanguage(item.code) }} underlayColor="white">
+                <Box ml="$3" mr="$3"  mb={16} pl="$4" pt="$4"  style={[styles.boxShadow, styles.listBadge,{ height: 55,width:300 }]}  bgColor="$white" >
+                  <HStack>
+                    <Text style={[styles.textMedium13, { fontFamily:"Neue-Haas-Grotesk-Display-Pro-75-Bold",width: "85%", textAlign: "left" }]} >{item.name}</Text><Icon id={item.code} size="xl"
+                      on as={MoveRight} style={{ cursor: 'pointer',fontWeight: "bold" }} />
+                  </HStack>
+                </Box>
 
 
-              </TouchableHighlight>
+
+              </TouchableOpacity >
             }
           />
         </VStack>

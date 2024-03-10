@@ -6,12 +6,13 @@ import {
 import { FlatList, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import ListEditContextMenuLauncher from "../../common/listEditContextMenu/listEditContextMenuLauncher";
 import { styles } from '../../assets/styles/theme'
- 
+import { Dimensions } from 'react-native';
 import { SmilePlus} from 'lucide-react-native';
 function TaskList(props) {
   const navigation = useNavigation();
   const statusList = props.statusList;
   const taskLanguageDTO = props.taskLanguageDTO;
+  const scrollHeight=props.showAdd?270:220
   const getTaskStatus = (task) => {
     const status = statusList.find(statusItem => statusItem.id == task.status);
     const statusName = status ? status.name : '';
@@ -31,11 +32,11 @@ function TaskList(props) {
     )
   }
   return (
-
-    <View style={{ marginBottom: 210 }} bgColor="$white" >
+<View>
+    <VStack  style={{height: Dimensions.get('window').height - scrollHeight}} ml={props.showAdd?10:27.25} mr={props.showAdd?10:27.25} >
       <FlatList style={styles.tabPageContent} showsVerticalScrollIndicator={false}
         data={props.taskListItems}
-        renderItem={({ item }) => <Box style={[styles.listContentItem, styles.boxShadow]} bgColor="$white" m="$2" p="$2" pl="$5">
+        renderItem={({ item }) => <Box style={[styles.listContentItem, styles.boxShadow]} m="$2"  p="$2" pl="$5" maxHeight={86.5}>
           <VStack >
             <HStack>
               <Text numberOfLines={1} ellipsizeMode="tail" style={styles.listHeading} width={'93%'}>{item.title}</Text>
@@ -64,8 +65,8 @@ function TaskList(props) {
         <ButtonText  ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>
       </Button>
       }
+    </VStack>
     </View>
-
   )
 }
 export default TaskList;

@@ -14,7 +14,7 @@ import BusinessCreate from "./businessCreate";
 import { useSelector, useDispatch } from 'react-redux';
 import { getBusinessListItems } from '../../slices/businessSlice';
 import PageHeader from "../pageHeader";
-
+import { Dimensions } from 'react-native';
 import { sortObjectArray } from '../../common/utility';
 import BusinessFilterSort from "./businessFilterSort";
 
@@ -126,12 +126,12 @@ function BusinessList(props) {
       shadowOpacity: 1
     }
     return (
-      <VStack bgColor="$white">
+      <VStack bgColor="$white" height="100%">
         <PageHeader heading="BUSINESSES" showNotifi={true}></PageHeader>
 
 
 
-        <VStack style={styles.tabPageContent}>
+        <VStack  style={[styles.tabPageContent,{height: Dimensions.get('window').height-150}]} ml={27.25} mr={27.25}>
           <BusinessFilterSort show={showActionsheet}
             handleFilterOptions={handleFilterOptions}
             businessLanguageDTO={businessLanguageDTO}
@@ -139,7 +139,7 @@ function BusinessList(props) {
             filterAction={filterAction}
             token={token} />
          
-            <Input size="lg" borderRadius="$2xl"  >
+            <Input size="lg" borderRadius="$2xl" ml="$3" mr="$3" mb={42} mt={48}  >
               <InputField
                 placeholder={businessLanguageDTO.businessSearchPlaceholder}
                 value={search}
@@ -157,7 +157,7 @@ function BusinessList(props) {
            
 
 
-          {1 > 2 && <FlatList showsVerticalScrollIndicator={false}
+          {1 > 2 &&  <FlatList showsVerticalScrollIndicator={false} 
             data={listItems}
             renderItem={({ item }) =>
 
@@ -167,8 +167,7 @@ function BusinessList(props) {
           />
           }
           <BusinessListComp listItems={listItems} />
-        </VStack>
-        <Button
+          <Button
           size="md"
           variant="solid"
           action="primary"
@@ -182,6 +181,8 @@ function BusinessList(props) {
         >
           <ButtonText ><Icon color="$white" as={AddIcon} m="$2" w="$4" h="$4" /></ButtonText>
         </Button>
+        </VStack>
+        
       </VStack >
 
 
@@ -203,7 +204,7 @@ const BusinessListComp = memo(function BusinessListComponent(props) {
   const getItemCount = _data => listItems.length;
   return (
     <SafeAreaView>
-      <VirtualizedList
+      <VirtualizedList style={{height: Dimensions.get('window').height - 300}}
         initialNumToRender={10}
         renderItem={({ item }) => <BusinessListItem item={item} />}
         keyExtractor={item => item.id}

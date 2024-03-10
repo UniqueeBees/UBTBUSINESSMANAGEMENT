@@ -213,9 +213,9 @@ function MeetingSetup(props) {
 
     return (
         <VStack style={styles.fieldSetContainer}>
-            <VStack   >
-                <HStack space="4xl" height="$20" alignItems='center'><Icon as={MoveLeft} size="xl" onPress={() => { showContactList ? setContactList(false) : navigation.goBack() }} />
-                    <Text style={styles.listHeadingMedium}>
+            <VStack mt={50.26} mb={45.81}>
+                <HStack alignItems='center'><Icon as={MoveLeft} size="xl" onPress={() => { showContactList ? setContactList(false) : navigation.goBack() }} />
+                    <Text style={[styles.listHeadingMedium, { width: "100%", textAlign: "center", paddingRight: "5%" }]} >
                         {showContactList ? meetingLanguageDTO.contactListTitle : meetingLanguageDTO.createMeeting}
                     </Text>
                 </HStack>
@@ -224,12 +224,14 @@ function MeetingSetup(props) {
             {showContactList ?
                 <ContactList selectItem={onContactSelect} contactItemList={contactList.list} languageDTO={meetingLanguageDTO} /> :
                 <ScrollView style={styles.scrollView_withToolBar} showsVerticalScrollIndicator={false}>
+                    
                     <BusinessSelect businessName={businessName} controlSettings={setBusinessControlSettings('businessId')} setDatasource={changeBusiness} />
-                    <FormControl isRequired isInvalid={isFieldStateInValid('purposeId')}>
-                        <FormControlLabel mb="$1">
-                            <FormControlLabelText style={styles.fieldLabel}>{meetingLanguageDTO.purpose}</FormControlLabelText>
+                    <Box mt={20}>
+                    <FormControl isRequired isInvalid={isFieldStateInValid('purposeId')} mt="20px">
+                        <FormControlLabel style={styles.fieldLabel}  pb="$0" pt="$0" mb="$0" mt="$0">
+                            <FormControlLabelText  pb="$0" pt="$0" mb="$0" mt="$0" style={styles.fieldLabel}>{meetingLanguageDTO.purpose}</FormControlLabelText>
                         </FormControlLabel>
-                        <Select onValueChange={value => changeFormData('purposeId', value)} >
+                        <Select  onValueChange={value => changeFormData('purposeId', value)} style={styles.fieldInput} >
                             <SelectTrigger variant="underlined">
                                 <SelectInput placeholder={meetingLanguageDTO.purposePlaceholder} value={getPurposeName(formData.purposeId)} />
                                 <SelectIcon mr="$3">
@@ -254,11 +256,12 @@ function MeetingSetup(props) {
                             </FormControlErrorText>
                         </FormControlError>
                     </FormControl>
-                    <FormControl isRequired isInvalid={isFieldStateInValid('contactId')}>
-                        <FormControlLabel mb="$1">
-                            <FormControlLabelText style={styles.fieldLabel}>{meetingLanguageDTO.contact}</FormControlLabelText>
+                    </Box>
+                    <FormControl isRequired isInvalid={isFieldStateInValid('contactId')}  mt={20}>
+                        <FormControlLabel  pb="$0" pt="$0" mb="$0" mt="$0">
+                            <FormControlLabelText  pb="$0" pt="$0" mb="$0" mt="$0" style={styles.fieldLabel}>{meetingLanguageDTO.contact}</FormControlLabelText>
                         </FormControlLabel>
-                        <Input variant="underlined" size="md"    >
+                        <Input variant="underlined" size="md" style={styles.fieldInput} >
                             <InputField placeholder={meetingLanguageDTO.contactPlaceholder} value={contactName}
                                 editable={false}>
                             </InputField>
@@ -272,11 +275,11 @@ function MeetingSetup(props) {
                             </FormControlErrorText>
                         </FormControlError>
                     </FormControl>
-                    <FormControl isRequired isInvalid={isFieldStateInValid('title')}>
-                        <FormControlLabel mb="$1">
-                            <FormControlLabelText style={styles.fieldLabel}>{meetingLanguageDTO.title}</FormControlLabelText>
+                    <FormControl isRequired isInvalid={isFieldStateInValid('title')}  mt={20}>
+                        <FormControlLabel  pb="$0" pt="$0" mb="$0" mt="$0">
+                            <FormControlLabelText  pb="$0" pt="$0" mb="$0" mt="$0" style={styles.fieldLabel}>{meetingLanguageDTO.title}</FormControlLabelText>
                         </FormControlLabel>
-                        <Input variant="underlined" size="md"   >
+                        <Input variant="underlined" size="md" style={styles.fieldInput} >
                             <InputField placeholder={meetingLanguageDTO.titlePlaceholder} value={formData.title}
                                 onChangeText={value => changeFormData('title', value)}>
                             </InputField>
@@ -286,11 +289,11 @@ function MeetingSetup(props) {
                                 {meetingLanguageDTO.titleValidationMessage}
                             </FormControlErrorText>
                         </FormControlError>
-                    </FormControl><FormControl >
-                        <FormControlLabel mb="$1">
-                            <FormControlLabelText style={styles.fieldLabel}>{meetingLanguageDTO.description}</FormControlLabelText>
+                    </FormControl><FormControl  mt={20}>
+                        <FormControlLabel pb="$0" pt="$0" mb="$0" mt="$0">
+                            <FormControlLabelText  pt="$0" mb="$0" mt="$0" style={styles.fieldLabel}>{meetingLanguageDTO.description}</FormControlLabelText>
                         </FormControlLabel>
-                        <Textarea variant="underlined" size="md"   >
+                        <Textarea variant="underlined" size="md" style={styles.fieldInput}  >
                             <TextareaInput placeholder={meetingLanguageDTO.descriptionPlaceholder} value={formData.description}
                                 onChangeText={value => changeFormData('description', value)}>
                             </TextareaInput>
