@@ -46,6 +46,10 @@ export const styles = StyleSheet.create({
     width: 100,
     borderRadius: 20,
   },
+  shortButtonCircle:{
+    width: 40,
+    borderRadius: 100,
+  },
   subheading: {
     fontFamily: 'Poppins-Italic',
     fontSize: 12
@@ -433,6 +437,10 @@ boxWithRadius:{
 },
 imageUploadContainer:{
  paddingTop:300
+},
+timerCaptions:{
+   fontSize:31,
+   fontFamily:"Poppins-Light",  
 },
 safeAreaContainer:{
   flex:1,

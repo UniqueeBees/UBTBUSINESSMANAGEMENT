@@ -1,5 +1,5 @@
 import axios from "axios";
-export const baseUrl = 'https://api.taswiq.app';//'localapi.taswiqapp.com';
+export const baseUrl = 'http://localapi.taswiqapp.com/v2/';//https://api.taswiq.app';//'localapi.taswiqapp.com';
 
 export const apiCallStatus={
     pending:'pending',
@@ -98,10 +98,10 @@ export const getLanguageLabel = (code) => {
         })
 
 }
-export  const  getMeetingsByUser = async (token) => {
+export  const  getUpcomingMeeting = async (token) => {
    return await axios({
         method: "GET",
-        url: `${baseUrl}/user/meeting`,
+        url: `${baseUrl}/meeting/upcoming`,
         headers: { "APITOKEN":token },
     })
 
@@ -197,6 +197,7 @@ export const getBusinessList=async (token)=>{
     })
 
 }
+
 export const getCountryList=async(token)=>{
     return await axios({
         method:"GET",
@@ -310,6 +311,20 @@ export const addAttachments=(attachmentData,token)=>{
         url: `${baseUrl}/user/password`,
         headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
     })
+}
+
+export const getTravelVehicleList=async (token)=>{
+    return await axios({
+        method: "GET",
+        url: `${baseUrl}/vehicles`,
+        headers: { "APITOKEN":token },
+    })
+
+}
+
+export const createTaskMessage=(taskMessage,token)=>{
+const formData=new formData();
+//formData.append('',taskMessage.)
 }
 
 
