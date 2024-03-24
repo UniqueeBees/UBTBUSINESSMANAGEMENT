@@ -1,6 +1,7 @@
 import  react from 'react';
 import { StyleSheet,Dimensions } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { red100 } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 
 export const styles = StyleSheet.create({
@@ -377,7 +378,7 @@ export const styles = StyleSheet.create({
   },
 
   boxShadow: {
-    shadowColor: '#EFF5FF',
+    shadowColor: '#6E6E6E',
     shadowOpacity: 0.26,
     shadowOffset: { width: 0, height:.1 },
     shadowRadius: 5,
@@ -433,6 +434,10 @@ boxWithRadius:{
 imageUploadContainer:{
  paddingTop:300
 },
+safeAreaContainer:{
+  flex:1,
+  width:"100%"
+}
 
 })
 

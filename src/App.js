@@ -22,10 +22,11 @@ import Alert from "./common/alert";
 import Loading from './common/loading';
 import SessionExpire from './common/sessionExpire';
 import DeleteAlert from './common/deleteAlert';
+import { styles } from './assets/styles/theme';
 function App() {
 
   return (
-    <SafeAreaProvider   >
+    <SafeAreaProvider style={styles.safeAreaContainer}   >
 
       <AppNotification></AppNotification>
       <GluestackUIProvider config={config}>
