@@ -61,7 +61,7 @@ export const createNewBusiness = createAsyncThunk(
     formData.append('landmark', businessObject.formData.landmark);
     formData.append('country', businessObject.formData.country);
     formData.append('geo_location', `${businessObject.formData.locationLat},${businessObject.formData.locationLon}`);
-debugger;
+ 
     console.log('create business',formData)
     const response = await createBusiness(businessObject.token, formData)
     console.log('create business response',response)

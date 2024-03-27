@@ -124,9 +124,9 @@ class AudioRecordercl extends React.Component {
 
   }
   listenToCall = async () => {
-    debugger;
+   
     if (Platform.OS === 'android') {
-      debugger;
+      
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE,

@@ -180,7 +180,7 @@ export const getBusinessList=async (token)=>{
 
 }
  export const createBusiness=async(_token,_business)=>{
-    debugger;
+ 
     return await axios({
     
         method: "POST",
@@ -309,7 +309,7 @@ export const changePassword = (passwordData,token) => {
     })
 }
 export const addAttachments=async (attachmentData,token)=>{
-    debugger;
+ 
     const formData = new FormData(); 
     formData.append('business_id', attachmentData.business_id); 
     formData.append('identifier', attachmentData.identifier);
