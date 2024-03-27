@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getMeetingsByUser, getMeetingPurposeList, addMeeting, updateMeeting } from '../common/apiCalls';
+import { getUpcomingMeeting, getMeetingPurposeList, addMeeting, updateMeeting } from '../common/apiCalls';
 import { buildMeetingListItems, buildMeetingListItem, buildPurposeListItems, meetingSetupDTO, buildMeetingSetUpDTO } from '../dto/meetingDTO';
 import { requestStatusDTO } from "../dto/statusDTO";
 import { resetValidationObject,getCurrentDateTime } from "../common/utility";
@@ -27,7 +27,7 @@ const initialState = {
 export const getMeetingListByUser = createAsyncThunk(
   'meeting/getlistByUser',
   async (token) => {
-    const response = await getMeetingsByUser(token)
+    const response = await getUpcomingMeeting(token)
     return response.data
   }
 )

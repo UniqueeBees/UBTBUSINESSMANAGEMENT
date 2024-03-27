@@ -98,10 +98,10 @@ export const getLanguageLabel = (code) => {
         })
 
 }
-export  const  getMeetingsByUser = async (token) => {
+export  const  getUpcomingMeeting = async (token) => {
    return await axios({
         method: "GET",
-        url: `${baseUrl}/user/meeting`,
+        url: `${baseUrl}/meeting/upcoming`,
         headers: { "APITOKEN":token },
     })
 

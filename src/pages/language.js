@@ -5,7 +5,7 @@ import {
   Input,
   Center, Icon, ArrowRightIcon, Button, Heading, Box, Badge, BadgeText
 } from "@gluestack-ui/themed"
-import { FlatList, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { FlatList, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Alert } from 'react-native';
 import { getLanguage, getLanguageLabel } from "../common/apiCalls";
 import { storeObjectData, storageKeyTypes, getObjectData } from '../common/localStorage'
 import { showLoading } from '../slices/loadingSlice';
@@ -15,13 +15,15 @@ import { setLanguage } from '../slices/languageSlice'
 import { setPage } from '../slices/initialPageSlice'
 import { styles } from '../assets/styles/theme'
 import { MoveRight } from 'lucide-react-native';
-
+import { Dimensions } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 function Language(props) {
   const dispatch = useDispatch()
   const languageState = useSelector((state) => state.language)
   const companyId = useSelector((state) => state.company.company.id)
   const hasLogin = useSelector((state) => state.login.loginState)
   const isInitialMount = useRef(true);
+  const {width} = useWindowDimensions();
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -47,6 +49,7 @@ function Language(props) {
 
 
   const [languageData, setData] = React.useState()
+  const [layoutWidth, setLayoutWidth] = React.useState(width)
   function objectsAreSame(x, y) {
     var objectsAreSame = true;
     for (var propertyName in x) {
@@ -98,25 +101,35 @@ function Language(props) {
     dispatch(setLanguage(data));
 
   }
+const getwidth=()=>{
+  setLayoutWidth(Dimensions.get('window').width);
+  
+}
+
   React.useEffect(() => {
     fetchInfo();
+    const subscription = Dimensions.addEventListener('change', ({window, screen}) => {
+      getwidth();
+    },
+  );
+  return () => subscription?.remove();
   }, []);
-
+  
 
   return (
-    <VStack height="100%" bgColor="$white">
+    <VStack height="100%" bgColor="$white" borderColor="red">
       <VStack style={styles.langugeHeadingContainer} alignItems="center" >
         <Text style={styles.langugeHeading}>Choose Language</Text>
       </VStack>
       <VStack space="md" width="100%" pb={15} alignItems="center" mt="40px"  >
-        <VStack space="1xl" mt={40.62} pl={48} pr={40} >
+        <VStack space="1xl" mt={40.62} pl={48}  style={{width:layoutWidth}}  >
           <FlatList
             showsVerticalScrollIndicator={false}
             data={languageData}
             renderItem={({ item }) =>
 
               <TouchableOpacity onPress={() => { SetLanguage(item.code) }} underlayColor="white">
-                <Box ml="$3" mr="$3"  mb={16} pl="$4" pt="$4"  style={[styles.boxShadow, styles.listBadge,{ height: 55,width:300 }]}  bgColor="$white" >
+                <Box ml="$3" mr="$3"  mb={16} pl="$4" pt="$4"  style={[styles.boxShadow, styles.listBadge,{ height: 55,width:width-118 }]}  bgColor="$white" >
                   <HStack>
                     <Text style={[styles.textMedium13, { fontFamily:"Neue-Haas-Grotesk-Display-Pro-75-Bold",width: "85%", textAlign: "left" }]} >{item.name}</Text><Icon id={item.code} size="xl"
                       on as={MoveRight} style={{ cursor: 'pointer',fontWeight: "bold" }} />
