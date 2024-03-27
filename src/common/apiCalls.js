@@ -1,5 +1,5 @@
 import axios from "axios";
-export const baseUrl = 'http://localapi.taswiqapp.com/v2/';//https://api.taswiq.app';//'localapi.taswiqapp.com';
+export const baseUrl = 'https://api.taswiq.app/v2';//https://api.taswiq.app';//'localapi.taswiqapp.com';
 
 export const apiCallStatus={
     pending:'pending',
@@ -188,7 +188,8 @@ export const getBusinessList=async (token)=>{
         url: `${baseUrl}/business`,
         headers: { "APITOKEN":_token },
     })
- }
+}
+  
  export const getBusinessTypes=async (token)=>{
     return await axios({
         method: "GET",
@@ -205,7 +206,7 @@ export const getCountryList=async(token)=>{
         headers:{"APITOKEN":token},
     })
 }
-//
+ 
 
 export const addTask=async(token,task)=>{
     return await axios({
@@ -243,13 +244,21 @@ export const addTask=async(token,task)=>{
         headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
     })
  }
- export const updateBusiness=async(token,business,id)=>{
+ export const updateBusiness=async(token,business)=>{
     console.log('updateBusinessAPI',business)
-    business.append('_method', 'PATCH');
+    //business.append('_method', 'PATCH');
     return await axios({
-        method: "POST",
+        method: "PATCH",
         data: business,
-        url: `${baseUrl}/business/${id}`,
+        url: `${baseUrl}/business/${business.id}`,
+        headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
+    })
+ }
+ export const deleteAttachments=async(token,attachmentId)=>{
+    return await axios({
+        method: "DEL",
+       // data: business,
+        url: `${baseUrl}/attachments/${attachmentId}`,
         headers: {"Content-Type": "multipart/form-data", "APITOKEN":token },
     })
  }
@@ -299,19 +308,30 @@ export const changePassword = (passwordData,token) => {
         headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
     })
 }
-export const addAttachments=(attachmentData,token)=>{
+export const addAttachments=async (attachmentData,token)=>{
+    debugger;
     const formData = new FormData(); 
-    formData.append('businessId', attachmentData.business_id); 
+    formData.append('business_id', attachmentData.business_id); 
     formData.append('identifier', attachmentData.identifier);
-    formData.append('name', attachmentData.name); 
-    formData.append('file', attachmentData.file); 
-   return  axios({
-        method: "PATCH",
+    formData.append('name', attachmentData.name);  
+    formData.append('file',{ uri:attachmentData.uri,type:attachmentData.fileType,name:attachmentData.name}); 
+    console.log("form Data",formData)
+   return  await axios({
+        method: "POST",
         data: formData,
-        url: `${baseUrl}/user/password`,
+        url: `${baseUrl}/attachments/`,
         headers: { "Content-Type": "multipart/form-data","APITOKEN":token },
     })
+    /*let responseJson = await res.json();
+      if (responseJson.status == 1) {
+        alert('Upload Successful');
+      }
+      else {
+      //if no file selected the show alert
+      alert('Please Select File first');
+    }*/
 }
+ 
 
 export const getTravelVehicleList=async (token)=>{
     return await axios({

@@ -122,6 +122,7 @@ function BusinessList(props) {
 
   function createList() {
     //const flatListRef = useRef()
+    console.log("token" ,token)
     const shadowStyle = {
       shadowOpacity: 1
     }

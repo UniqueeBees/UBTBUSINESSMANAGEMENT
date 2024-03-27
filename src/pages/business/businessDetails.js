@@ -49,6 +49,13 @@ import { requestStatusDTO } from '../../dto/statusDTO'
 import alertSlice, { showAlert } from '../../slices/alertSlice';
 import ImageUploader from "../../common/imageUploader";
 
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { GOOGLE_MAPS_API_KEY } from 'react-native-dotenv';
+import Geolocation from 'react-native-geolocation-service';
+import { request, PERMISSIONS } from 'react-native-permissions';
+
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
 const wizardStageEnum = {
   basic: 1,
   advance: 2,
@@ -58,7 +65,7 @@ const wizardStageEnum = {
 
 export default function BusinessDetails(props) {
   const [formData, setData] = React.useState(businessDTO)
-  const [wizardStage, setwizStage] = React.useState(wizardStageEnum.files)
+  const [wizardStage, setwizStage] = React.useState(wizardStageEnum.basic)
   const navigation = useNavigation();
   const businessTypeList = useSelector((state) => state.business.businessTypes);
   const countries = useSelector((state) => state.business.countries);
@@ -69,6 +76,7 @@ export default function BusinessDetails(props) {
   const businessState = useSelector((state) => state.business)
   const actionStatus = useSelector((state) => state.business.actionStatus)
 
+  const mapRef = React.createRef();
   //React.useState([{ key: "img1", value: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" }]);
   useEffect(() => {
     if (businessTypeList.length === 0) {
@@ -81,7 +89,7 @@ export default function BusinessDetails(props) {
   }, [businessTypes, countries])
 
   useEffect(() => {
-   
+
     if (businessState.status !== requestStatusDTO.pending) {
       if (actionStatus === requestStatusDTO.failed) {
 
@@ -90,6 +98,7 @@ export default function BusinessDetails(props) {
       } else if (actionStatus === requestStatusDTO.success) {
         const alert = { action: 'success', title: "Success", description: businessState.error }
         dispatch(showAlert(alert))
+        navigation.navigate('businessList');
       }
     }
   }, [actionStatus])
@@ -127,30 +136,38 @@ export default function BusinessDetails(props) {
     if (!formData.country && wizardStage === wizardStageEnum.advance) {
       errors.country = 'Country is required.';
     }
+    if (!formData.phone && wizardStage === wizardStageEnum.basic) {
+      errors.phone = 'Phone is required.';
+    }
+    if (!formData.city && wizardStage === wizardStageEnum.advance) {
+      errors.city = 'City is required.';
+    }
     // Set the errors and update form validity 
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
 
   };
- 
- const handleUploadPhoto =(imageCollection)=>{
-  setUplodimages(imageCollection);
- }
- /*const handleUploadPhoto =async (uri)=>{ 
-    if (uri) { 
+
+  /*const handleUploadPhoto =(imageCollection)=>{
+   setUplodimages(imageCollection);
+  }*/
+  const handleUploadPhoto = async (upImgs) => {
+    setUplodimages(upImgs)
+    /*if (uri) { 
       let atchDTO = { ...attachmentDTO };
       atchDTO.id =getMaxIdForImages()
       atchDTO.business_id = -1;
       atchDTO.identifier = "landmark";
       atchDTO.file = uri; 
+      atchDTO.active=true;
       var upImgs = [...uploadImages, atchDTO];
       setUplodimages(upImgs)
     } else {
       console.log('no Uri invalid');
-    }
+    }*/
 
- }*/
+  }
 
   function BusinessDetails_W1() {
 
@@ -211,14 +228,18 @@ export default function BusinessDetails(props) {
             </Input>
 
           </FormControl>
-          <FormControl >
+          <FormControl isRequired isInvalid={!isValid("phone")}>
             <FormControlLabel>
               <FormControlLabelText style={styles.fieldLabel}>Phone Number </FormControlLabelText>
             </FormControlLabel>
             <Input variant="underlined" size="md"   >
               <InputField placeholder="Enter Phone Number" value={formData.phone} onChangeText={value => setData({ ...formData, phone: value })} ></InputField>
             </Input>
-
+            <FormControlError>
+              <FormControlErrorText>
+                {errors.phone}
+              </FormControlErrorText>
+            </FormControlError>
           </FormControl>
           <FormControl >
             <FormControlLabel>
@@ -295,14 +316,18 @@ export default function BusinessDetails(props) {
               <InputField placeholder="Enter Area" value={formData.area} onChangeText={value => setData({ ...formData, area: value })}   ></InputField>
             </Input>
           </FormControl>
-          <FormControl >
+          <FormControl isRequired isInvalid={!isValid("city")}>
             <FormControlLabel mb="$1">
               <FormControlLabelText style={styles.fieldLabel}>City</FormControlLabelText>
             </FormControlLabel>
             <Input variant="underlined" size="md"   >
               <InputField placeholder="Enter City" value={formData.city} onChangeText={value => setData({ ...formData, city: value })} ></InputField>
             </Input>
-
+            <FormControlError>
+              <FormControlErrorText>
+                {errors.city}
+              </FormControlErrorText>
+            </FormControlError>
           </FormControl>
           <FormControl isRequired isInvalid={!isValid("country")}>
             <FormControlLabel mb="$1">
@@ -354,6 +379,36 @@ export default function BusinessDetails(props) {
     )
   }
   function BusinessDetails_W3() {
+    /* if (Platform.OS === 'android') {
+       request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then((result) => {
+         if (result === 'granted') {
+           Geolocation.getCurrentPosition(
+             (position) => {
+               console.log(position.coords);
+             },
+             (error) => {
+               console.log(error);
+             },
+             { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+           );
+         }
+       });
+     }
+     if (Platform.OS === 'ios') {
+       request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE).then((result) => {
+         if (result === 'granted') {
+           Geolocation.getCurrentPosition(
+             (position) => {
+               console.log(position.coords);
+             },
+             (error) => {
+               console.log(error);
+             },
+             { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+           );
+         }
+       });
+     }*/
     return (
       <VStack width="100%" mx="3" style={styles.fieldSetContainer}>
         <VStack width="100%" mx="3" style={styles.pageHeader} >
@@ -365,13 +420,90 @@ export default function BusinessDetails(props) {
         <FormControl >
           <FormControlLabel mb="$1">
             <FormControlLabelText style={styles.fieldLabel}>Landmark</FormControlLabelText>
-          </FormControlLabel>
-          <Input variant="underlined" size="md"   >
-            <InputField placeholder="Search Location" value={formData.landmark} onChangeText={value => setData({ ...formData, location: value })}  ></InputField>
-          </Input>
+          </FormControlLabel> 
+        </FormControl> 
+        <VStack style={{zIndex:5000}}>
+        <GooglePlacesAutocomplete
+            
+            placeholder="Search Location"
+            minLength={2} // minimum length of text to search 
+            fetchDetails={true}
+            onFail={(error)=>{
+              console.log("map error",error)
+            }}
+            onPress={(data, details = null) => {
+              // 'details' is provided when fetchDetails = true
+              console.log(data);
+              console.log("details", details);
+              var geometryLoc=details.geometry.location
+              setData({ ...formData, locationLat: geometryLoc.lat,locationLon:geometryLoc.lng })
+              console.log("mapRef", this.map);
+              this.map.animateToRegion({
+                latitude:geometryLoc.lat,
+                longitude:geometryLoc.lng,
+                latitudeDelta:0.1,
+                longitudeDelta:0.1,
+              }) 
+              
+            }}
+            query={{
+              // available options: https://developers.google.com/places/web-service/autocomplete
+              key: "AIzaSyAx-luMR1spyBewx5ljKqLrgrmrQ7cbzlE",
+              language: 'en', // language of the results
+            }}
+            styles={{
+              description: {
+                fontWeight: 'bold',
+              },
+              predefinedPlacesDescription: {
+                color: '#1faadb',
+              },
+              listView: {
+                color: 'black', //To see where exactly the list is
+                zIndex: 1000, //To popover the component outwards
+                position: 'absolute',
+                top: 45
+              },
+            }}
+            currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+            currentLocationLabel="Current location"
+            nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+            GoogleReverseGeocodingQuery={
+              {
+                // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+              }
+            }
+            GooglePlacesDetailsQuery={{
+              // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
+              fields: 'geometry',
+            }}
+            filterReverseGeocodingByTypes={[
+              'locality',
+              'administrative_area_level_3',
+            ]} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+          />
+        </VStack>
+        <VStack mt={50}> 
+          <MapView  ref={ref => { this.map = ref; }}
+            style={{ flex:0, width: "100%", height: 300 }}
+            //specify our coordinates.
+            initialRegion={{
+              latitude: formData.locationLat,
+              longitude: formData.locationLon,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01,
+            }}>
+            <Marker coordinate={{
+              latitude: formData.locationLat,
+              longitude: formData.locationLon,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01,
+            }}></Marker>
+          </MapView>
+        </VStack>
+        
 
-        </FormControl>
-        <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
+        <VStack mt={100} mb={30} alignItems="center" style={{ width: "100%" }}>
           <Button
             size="md"
             variant="solid"
@@ -387,8 +519,8 @@ export default function BusinessDetails(props) {
             <ButtonText style={styles.buttonText}>Next</ButtonText>
             <ButtonIcon ml={"80%"} size={20} as={ArrowBigRightDash} />
           </Button>
-        </VStack>
 
+        </VStack>
       </VStack>
     )
   }
@@ -414,8 +546,8 @@ export default function BusinessDetails(props) {
             <Icon as={MoveLeft} size="lg" onPress={() => setwizStage(wizardStageEnum.location)} /><Text style={styles.listHeadingMedium}>Create Business</Text>
           </HStack>
         </VStack>
-        <Text style={styles.pageTitleMedium}>Upload Photos</Text>
-        <ImageUploader setBackData={ handleUploadPhoto } multiple={true}></ImageUploader>
+        <Text style={styles.pageTitleMedium}>Gallery</Text>
+        <ImageUploader setBackData={handleUploadPhoto} multiple={true}></ImageUploader>
         <VStack mt={20} mb={50} alignItems="center" style={{ width: "100%" }}>
           <Button
             size="md"
@@ -440,13 +572,13 @@ export default function BusinessDetails(props) {
 
   function createBusiness() {
     let businessData = { token: token, formData: formData, uploadImages: uploadImages }
-    dispatch(createNewBusiness(businessData))
-
-    console.log("Business Created", formData)
-    //navigation.navigate('businessList');
+    let response=dispatch(createNewBusiness(businessData))
+    console.log("Business Created", response)
+    
   }
 
   function loadComponent() {
+    
     switch (wizardStage) {
       case wizardStageEnum.basic: {
         return BusinessDetails_W1();
@@ -465,8 +597,7 @@ export default function BusinessDetails(props) {
       }
     }
   }
-  return (
-
+  return ( 
 
     <VStack width="100%" mx="3" height="100%">
       {loadComponent()}

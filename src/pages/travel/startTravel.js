@@ -45,8 +45,7 @@ import travelDTO from '../../dto/travelDTO'
 import { ArrowBigRightDash, CheckCircle2, Camera, XCircle, FolderUp } from 'lucide-react-native';
 import { sentNotification } from '../../notification/appNotification'
 import { getPurposeList } from '../../slices/travelSlice'
-
-
+ 
 export default function StartTravel() {
     const navigation = useNavigation();
     const [formData, setFormdata] = React.useState({ ...travelDTO })

@@ -12,6 +12,11 @@ export const businessDTO = {
     city: "",
     country: "",
     location: "",
+    locationLat: 10.1004,
+    locationLon: 76.3570,
+    locationLatDelta: 0.01,
+    locationLonDelta: 0.01, 
+
 }
 
 export function buildDTO(business) {
@@ -24,7 +29,13 @@ export function buildDTO(business) {
     cDTO.street = business.street;
     cDTO.area = business.area;
     cDTO.city = business.city;
-    cDTO.country = business.country
+    cDTO.country = business.country;
+    cDTO.location=business.location;
+    var locationItems=business.location?.split(",");
+    if(locationItems?.length>0){
+    cDTO.locationLat=locationItems[0],
+    cDTO.locationLon=locationItems[1]
+    } 
     return cDTO;
 }
 export const buildBusinessListItems = (businessList) => {

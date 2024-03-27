@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { businessDTO, buildDTO, buildBusinessListItems, buildBusinessTypes, buildCityList } from '../dto/businessDTO'
 import { attachmentDTO } from '../dto/attachmentDTO'
-import { getBusinessTypes, getBusinessList, createBusiness,updateBusiness, apiCallStatus, getCityListAPI, getCountryList } from '../common/apiCalls'
+import { getBusinessTypes, getBusinessList, createBusiness,updateBusiness, apiCallStatus, getCityListAPI, getCountryList,deleteAttachments,addAttachments } from '../common/apiCalls'
 import { requestStatusDTO } from '../dto/statusDTO'
 import { getCurrentDateTime } from '../common/utility'
 const initialState = {
@@ -17,6 +17,8 @@ const initialState = {
   actionStatus: requestStatusDTO.idle,
   error: "",
   deleteOptions: { initiated: false, id: 0, status: requestStatusDTO.idle },
+  addAttachmentOptions:{loading:false,hasError:false,status:requestStatusDTO.idle} ,
+  businessAttachment:[attachmentDTO],
 }
 export const businessTypes = createAsyncThunk(
   'business/businessTypes',
@@ -44,8 +46,7 @@ export const getCityList = createAsyncThunk(
 )
 export const createNewBusiness = createAsyncThunk(
   'business/createNewBusiness',
-  async (businessObject) => {
-    debugger;
+  async (businessObject) => { 
     const formData = new FormData();
     formData.append('type', businessObject.formData.type);
     formData.append('name', businessObject.formData.name);
@@ -59,16 +60,24 @@ export const createNewBusiness = createAsyncThunk(
     formData.append('city', businessObject.formData.city);
     formData.append('landmark', businessObject.formData.landmark);
     formData.append('country', businessObject.formData.country);
-    formData.append('geo_location', businessObject.formData.location);
-
-    console.log('create business')
+    formData.append('geo_location', `${businessObject.formData.locationLat},${businessObject.formData.locationLon}`);
+debugger;
+    console.log('create business',formData)
     const response = await createBusiness(businessObject.token, formData)
+    console.log('create business response',response)
     let crData = response.data
+    console.log('create business response data',crData)
     if (crData.status) {
       console.log('upload business attch')
-      attachmentDTO.map(async (attachObj) => {
-        attachObj.business_id = crData.business.id;
-        //const attachRespo=await uploadBusinessImages(businessObject.formData.token,businessObject.formDatauploadImages)
+      let token=businessObject.token;
+      var res=businessObject.uploadImages.map(async (attachObj) => {
+        var attachmentObj={...attachObj}
+        attachmentObj.business_id = crData.business.id;
+        //const attachRespo=await uploadBusinessImages(token,attachObj)
+        const response =  addAttachments( attachmentObj,token)
+       //return response.data
+        console.log('upload business attch 1',response)
+        return true;
       })
     }
     return response.data;
@@ -82,11 +91,12 @@ export const getCountries = createAsyncThunk(
     return response.data
   }
 )
-export const uploadBusinessImages = createAsyncThunk(
-  'attachments',
-  async (token, attachmentDTO) => {
+export const uploadBusinessImages = createAsyncThunk( 
+  'business/attachments',
+  async (token, attachmentDTO) => { 
     console.log('uploadBusinessImages')
-    const response = await uploadBusinessImages(token, attachmentDTO)
+    
+    const response = await addAttachments( attachmentDTO,token)
     return response.data
   }
 )
@@ -96,10 +106,65 @@ export const deleteBusiness = createAsyncThunk(
     const formData = new FormData();
     const currenDateTime=getCurrentDateTime();
     formData.append('deleted_at', currenDateTime);
-    const response = await updateBusiness(business.token, formData, business.id)
-    return response.data
+    formData.append('id',  business.id);
+    const response = await updateBusiness(business.token, formData)
+    let crData = response.data
+    if (crData.status) {
+      console.log('delete business attch') 
+      business.uploadImages.map(async (attachObj) => {
+        const response=await deleteAttachments(business.token,attachObj.id)
+        return true 
+      }) 
+    }
+    return response.data;
   }
 )
+export const deleteBusinessAttachments=createAsyncThunk(
+  'business/deleteBusinessAttachments',
+  async(token,attachmentId)=>{
+     const response=await deleteAttachments(token,attachmentId)
+     return response.data
+  }
+)
+export const updateBusinessDetails=createAsyncThunk(
+  'business/updateBusinessDetails',
+  async (businessObject)=>{
+    const formData=new FormData();
+    formData.append('id', businessObject.formData.id);
+    formData.append('type', businessObject.formData.type);
+    formData.append('name', businessObject.formData.name);
+    formData.append('tags', businessObject.formData.tags);
+    formData.append('email', businessObject.formData.email);
+    formData.append('phone', businessObject.formData.phone);
+    formData.append('mobile', businessObject.formData.phone);
+    formData.append('website', businessObject.formData.website);
+    formData.append('street', businessObject.formData.street);
+    formData.append('area', businessObject.formData.area);
+    formData.append('city', businessObject.formData.city);
+    formData.append('landmark', businessObject.formData.landmark);
+    formData.append('country', businessObject.formData.country);
+    formData.append('geo_location', `${businessObject.formData.locationLat},${businessObject.formData.locationLon}`);
+
+    console.log('update business')
+    const response = await updateBusiness(businessObject.token, formData) 
+    let crData = response.data
+    if (crData.status) {
+      console.log('upload business attch') 
+      businessObject.uploadImages.map(async (attachObj) => {
+        if(attachObj.newAttachment && attachObj.active){
+        attachObj.business_id = crData.business.id;
+        const attachRespo=await uploadBusinessImages(businessObject.token,attachObj)
+        console.log('upload business attch 1',attachRespo)
+        return true;
+        } 
+        if(! attachObj.active){
+          const response=await deleteAttachments(businessObject.token,attachObj.id)
+         return true
+        }
+      }) 
+    }
+    return response.data; 
+})
 
 export const businessSlice = createSlice({
   name: 'business',
@@ -262,6 +327,28 @@ export const businessSlice = createSlice({
           state.isAuthInvalid = true;
         }
       })
+      .addCase(uploadBusinessImages.pending,(state,action)=>{
+         state.addAttachmentOptions.loading=true;
+         state.addAttachmentOptions.status=requestStatusDTO.pending;
+      })
+      .addCase(uploadBusinessImages.fulfilled,(state,action)=>{
+        state.addAttachmentOptions.loading=false; 
+        const resp=action.payload;
+        if(resp.status){
+          state.addAttachmentOptions.status=requestStatusDTO.fulfilled;
+          state.addAttachmentOptions.hasError=false;
+          //const addAttachment=resp.
+        }else{
+          state.addAttachmentOptions.status=requestStatusDTO.rejected;
+        }
+     })
+     .addCase(uploadBusinessImages.rejected,(state,action)=>{
+      state.addAttachmentOptions.loading=false;
+      state.addAttachmentOptions.status=requestStatusDTO.rejected;
+      if (action.error && action.error.message === 'Request failed with status code 401') {
+        state.isAuthInvalid = true;
+      }
+   })
   },
 })
 

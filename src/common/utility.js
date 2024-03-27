@@ -3,6 +3,7 @@ import { navigationRoutes } from './navigation';
 import { PermissionsAndroid,} from 'react-native';
 import moment from 'moment';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
+import RNFS from 'react-native-fs';
 export const initialStorageStatus = async () => {
   const initialAppState = { startPage: navigationRoutes.language, loginDTO: false, languageDTO: false, companyDTO: false }
   const login = await getObjectData(storageKeyTypes.login)
@@ -129,7 +130,7 @@ export const  getCurrentDateTime=()=>{
 export async   function  handleChoosePhoto (camera)   {
   await requestCameraPermission();
   console.log("handleChoose");
-  let uriData="";
+  let uriData={uri:null,type:"",fileObject:""};
   if (camera) {
    
     await launchCamera(
@@ -150,13 +151,22 @@ export async   function  handleChoosePhoto (camera)   {
           }
 
           const assets = resp.assets[0];
-          const uri = assets.uri;
-
-          if (uri) {
-            console.log(uri)
-            uriData= uri;
+          const uriObject = assets.uri;
+          const uriType=assets.type;
+          const uriName=assets.fileName;
+          if (uriObject) {
+           
+            const downloadDir=RNFS.DownloadDirectoryPath+"/"+uriName;
+          
+            RNFS.moveFile(uriObject,downloadDir).then((success)=>{
+              uriData.fileObject=assets;
+              uriData.uri=downloadDir;
+              uriData.type=uriType;
+              uriData.name=uriName;
+            })
+            
           } else {
-           return  ""
+           return  uriData
           }
 
 
@@ -184,13 +194,16 @@ export async   function  handleChoosePhoto (camera)   {
           }
 
           const assets = resp.assets[0];
-          const uri = assets.uri;
-
-          if (uri) {
-     
-            uriData= uri;
+          const uriObject = assets.uri;
+          const uriType=assets.type;
+          const uriName=assets.fileName;
+          if (uriObject) {
+            uriData.fileObject=assets;
+            uriData.uri=uriObject;
+            uriData.type=uriType;
+            uriData.name=uriName;
           } else {
-            return "";
+            return uriData;
           }
           console.log(uri);
 
